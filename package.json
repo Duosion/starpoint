@@ -1,0 +1,22 @@
+{
+  "name": "starpoint",
+  "version": "1.0.0",
+  "description": "A server reimplementation for the global version of World Flipper",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "npx tsc & node out/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/msgpack": "^0.0.34",
+    "@types/node": "^20.14.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "fastify": "^4.27.0",
+    "msgpackr": "^1.10.2"
+  }
+}
