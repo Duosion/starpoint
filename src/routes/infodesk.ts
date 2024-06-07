@@ -1,8 +1,8 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { FastifyInstance, FastifyReply } from "fastify";
 
 const routes = async (fastify: FastifyInstance) => {
 
-    fastify.get("/v2/appGroup", async (_, reply: FastifyReply) => {
+    fastify.get("/v2/appGroup", (_, reply: FastifyReply) => {
         reply.header("sig", "0;F8rysQxii/VL6Rca6Gnw/lq1AXA0N1RfAkKHosaiYWM=")
         reply.header("Server", "/")
         reply.header("X-Cache", "Miss from cloudfront")
@@ -69,7 +69,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
     })
 
-    fastify.get("/v2/app", async (_, reply: FastifyReply) => {
+    fastify.get("/v2/app", (_, reply: FastifyReply) => {
         reply.header("sig", "8;iLZ2uLOtB7Z7YTOST9lriFpe4+lylJgGM34jiXb9CvU=")
         reply.header("Server", "/")
         reply.header("X-Cache", "Miss from cloudfront")

@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { randomBytes } from "crypto";
 import { deletePlayerSessions, deleteSession, getAccount, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { SessionType } from "../data/types";
 import { generateIdpAlias } from "../utils";
@@ -118,14 +117,14 @@ interface AndroidAuthLoginDeviceBody extends AuthLoginDeviceBody {
 
 const routes = async (fastify: FastifyInstance) => {
 
-    fastify.post("/v3/util/country/get", async (_, reply: FastifyReply) => {
+    fastify.post("/v3/util/country/get", (_, reply: FastifyReply) => {
         reply.status(200).send({ 
             "country": "en"
         })
     })
 
-    fastify.post("/v4/device/accessToken/create", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as CreateDeviceAccessTokenBody
+    fastify.post("/v4/device/accessToken/create", (_, reply: FastifyReply) => {
+        //const body = request.body as CreateDeviceAccessTokenBody
         
         reply.status(200).send({
             "accessToken": "fwPla7fQ8ty9+DZT/lD//uWZD4uD6C4lD6gGIIZTLKRTQ52/SLCRmk/370jcWGs+e+1iSoZtL7lj8ov9B0/jHmijH4nsHPQT6pchaQM1M9mtwYNQq0BWhVr9hF0jjCK/a5LIVd1kBac/Gemv29WKEDKSrUS9HxxUigoPRwtOy8m+oDj9FmDJZ+rzqWCc0QjES4Ky0fTpXZ7ESoguDzNmRtW3FYr+OFexw8wBPlwiC4w=",
@@ -204,7 +203,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
     })
 
-    fastify.post("/v3/push/token/register", async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.post("/v3/push/token/register", (_, reply: FastifyReply) => {
         //const body = request.body as PushTokenRegisterBody
         reply.status(200).send({})
     })
@@ -212,7 +211,7 @@ const routes = async (fastify: FastifyInstance) => {
     /**
      * Tells the client the status of the user's policy agreements.
      */
-    fastify.post("/v3/agreement/getForLogin", async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.post("/v3/agreement/getForLogin", (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as LoginAgreementBody
         
         // We want to skip any policy screens, so we just send data to the client indicating prior completion.
@@ -246,7 +245,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
     })
 
-    fastify.post("/v3/player/heartbeat", async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.post("/v3/player/heartbeat", (_, reply: FastifyReply) => {
         //const body = request.body as PlayerHeartbeatBody
         reply.status(200).send({})
     })

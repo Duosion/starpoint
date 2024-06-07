@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getServerTime } from "../../utils";
-import { deleteSession, getSession } from "../../data/wdfpData";
+import { getSession } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 
 interface GetHeaderResponseBody {
@@ -18,8 +18,7 @@ interface SignupBody {
 }
 
 const routes = async (fastify: FastifyInstance) => {
-    fastify.post("/get_header_response", async (request: FastifyRequest, reply: FastifyReply) => {
-
+    fastify.post("/get_header_response", (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as GetHeaderResponseBody
 
         reply.header("content-type", "application/x-msgpack")
