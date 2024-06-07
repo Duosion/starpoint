@@ -1,9 +1,8 @@
-import Fastify, { FastifyRequest } from "fastify";
-import plugin from "./routes/tool";
-import servicePlugin from "./routes/service"
+import Fastify from "fastify";
+import toolApiPlugin from "./routes/api/tool";
+import openapiPlugin from "./routes/openapi"
 import infodeskPlugin from "./routes/infodesk"
 import { pack, unpack } from "msgpackr";
-import { ContentTypeParserDoneFunction } from "fastify/types/content-type-parser";
 
 // gc-openapi-zinny3.kakaogames.com
 // gc-infodesk-zinny3.kakaogames.com
@@ -50,9 +49,9 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function
   })
 
 // register plugins
-fastify.register(plugin, { prefix: "/latest/api/index.php/tool" })
-fastify.register(servicePlugin, { prefix: "/service" })
-fastify.register(infodeskPlugin)
+fastify.register(toolApiPlugin, { prefix: "/latest/api/index.php/tool" })
+fastify.register(openapiPlugin, { prefix: "/openapi/service" })
+fastify.register(infodeskPlugin, { prefix: "/infodesk"})
 
 // listen
 fastify.listen({ port: 8000 }, (err, address) => {

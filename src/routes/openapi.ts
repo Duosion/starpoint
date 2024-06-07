@@ -1,7 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { randomBytes } from "crypto";
-import { deleteSession, getAccount, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
+import { deletePlayerSessions, deleteSession, getAccount, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { SessionType } from "../data/types";
+import { generateIdpAlias } from "../utils";
 
 interface CreateDeviceAccessTokenBody {
     adid: string
@@ -125,8 +126,6 @@ const routes = async (fastify: FastifyInstance) => {
 
     fastify.post("/v4/device/accessToken/create", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as CreateDeviceAccessTokenBody
-
-        console.log(body)
         
         reply.status(200).send({
             "accessToken": "fwPla7fQ8ty9+DZT/lD//uWZD4uD6C4lD6gGIIZTLKRTQ52/SLCRmk/370jcWGs+e+1iSoZtL7lj8ov9B0/jHmijH4nsHPQT6pchaQM1M9mtwYNQq0BWhVr9hF0jjCK/a5LIVd1kBac/Gemv29WKEDKSrUS9HxxUigoPRwtOy8m+oDj9FmDJZ+rzqWCc0QjES4Ky0fTpXZ7ESoguDzNmRtW3FYr+OFexw8wBPlwiC4w=",
@@ -206,16 +205,17 @@ const routes = async (fastify: FastifyInstance) => {
     })
 
     fastify.post("/v3/push/token/register", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as PushTokenRegisterBody
-        console.log(body)
+        //const body = request.body as PushTokenRegisterBody
         reply.status(200).send({})
     })
 
+    /**
+     * Tells the client the status of the user's policy agreements.
+     */
     fastify.post("/v3/agreement/getForLogin", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as LoginAgreementBody
-
-        console.log(body)
         
+        // We want to skip any policy screens, so we just send data to the client indicating prior completion.
         reply.status(200).send({
             "adAgreementStatus": "n",
             "agreement": {
@@ -247,50 +247,74 @@ const routes = async (fastify: FastifyInstance) => {
     })
 
     fastify.post("/v3/player/heartbeat", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as PlayerHeartbeatBody
-        console.log(body)
+        //const body = request.body as PlayerHeartbeatBody
         reply.status(200).send({})
     })
 
     fastify.post("/v4/auth/loginDevice", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as AuthLoginDeviceBody
 
-        // create player
-        const player = await insertAccount({
+        // validate body
+        const appId = body.appId
+        const deviceId = body.deviceId
+        const serialNo = body.serialNo
+        if (!appId || !deviceId || !serialNo) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        // get player id from the headers if it exists
+        const rawAccountId = request.headers['playerid'] as string | undefined
+        const accountId = rawAccountId ? Number.parseInt(rawAccountId) : undefined
+
+        const idpAlias = generateIdpAlias(appId, deviceId, serialNo)
+
+        // create account
+        const account = accountId !== undefined ? await getAccount(accountId) : await insertAccount({
             appId: body.appId,
-            idpAlias: `${body.appId}:${body.idpId}:${body.serialNo}`,
+            idpAlias: idpAlias,
             idpCode: "zd3",
             idpId: "6076018502",
             status: "normal",
         })
 
+        if (account === null || account.idpAlias !== idpAlias) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid playerId provided."
+        })
+
+        if (accountId) {
+            // delete all previous sessions
+            await deletePlayerSessions(accountId)
+        }
+
         const zatToken = await insertSession({
             expires: new Date(new Date().getTime() + 43200000),
-            playerId: player.id,
+            playerId: account.id,
             type: SessionType.ZAT
         })
         const zrtToken = await insertSession({
             expires: new Date(new Date().getTime() + 2592000000),
-            playerId: player.id,
+            playerId: account.id,
             type: SessionType.ZRT
         })
 
         reply.status(200).send({
-            "externalToken": "", //randomBytes(52).toString('base64'),
+            "externalToken": "",
             "firstLogin": true,
             "player": {
-                "appId": player.appId,
-                "firstLoginTime": player.firstLoginTime.getTime(),
-                "idpAlias": player.idpAlias,
-                "idpCode": player.idpCode,
-                "idpId": player.idpId,
-                "playerId": player.id.toString(),
+                "appId": account.appId,
+                "firstLoginTime": account.firstLoginTime.getTime(),
+                "idpAlias": account.idpAlias,
+                "idpCode": account.idpCode,
+                "idpId": account.idpId,
+                "playerId": account.id.toString(),
                 "pushOption": {
                     "night": "n",
                     "player": "n"
                 },
-                "regTime": player.regTime.getTime(),
-                "status": player.status
+                "regTime": account.regTime.getTime(),
+                "status": account.status
             },
             "zat": zatToken.token,
             "zatExpiryTime": zatToken.expires.getTime(),

@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getServerTime } from "../utils";
-import { deleteSession, getSession } from "../data/wdfpData";
-import { SessionType } from "../data/types";
+import { getServerTime } from "../../utils";
+import { deleteSession, getSession } from "../../data/wdfpData";
+import { SessionType } from "../../data/types";
 
 interface GetHeaderResponseBody {
     viewer_id: number

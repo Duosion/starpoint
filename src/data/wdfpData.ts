@@ -260,7 +260,7 @@ export function getSession(
 function insertSessionSync(
     session: Omit<Session, "token">
 ): Session {
-    const token = randomBytes(36).toString('base64')
+    const token = randomBytes(54).toString('base64')
 
     db.prepare(`
     INSERT INTO sessions (token, player_id, expires, type)
@@ -318,6 +318,35 @@ export function deleteSession(
     return new Promise<void>((resolve, reject) => {
         try {
             resolve(deleteSessionSync(token))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+/**
+ * Synchronously deletes all of the sessions assigned to a particular player.
+ * 
+ * @param playerId The id of the player to delete all the sessions of.
+ */
+function deletePlayerSessionsSync(
+    playerId: number
+) {
+    db.prepare(`DELETE FROM sessions WHERE player_id = ?`).run(playerId)
+}
+
+/**
+ * Deletes all of the sessions assigned to a particular player.
+ * 
+ * @param playerId The id of the player to delete all the sessions of.
+ * @returns A promise that resolves when the sessions have been deleted.
+ */
+export function deletePlayerSessions(
+    playerId: number
+): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        try {
+            resolve(deletePlayerSessionsSync(playerId))
         } catch (error) {
             reject(error)
         }
