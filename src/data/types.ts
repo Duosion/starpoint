@@ -47,6 +47,7 @@ export interface Session {
 export interface RawDailyChallengePointListCampaign {
     campaign_id: number
     additional_point: number
+    list_entry_id: number
 }
 
 export interface DailyChallengePointListCampaign {
@@ -65,9 +66,24 @@ export interface DailyChallengePointListEntry {
     campaignList: DailyChallengePointListCampaign[]
 }
 
+export interface RawPlayerTriggeredTutorial {
+    id: number
+}
+
+export interface RawPlayerClearedRegularMission {
+    id: number
+    value: number
+}
+
+export interface RawPlayerItem {
+    id: number
+    amount: number
+}
+
 export interface RawPlayerCharacterBondToken {
     mana_board_index: number
     status: number
+    character_id: number
 }
 
 export interface PlayerCharacterBondToken {
@@ -76,6 +92,7 @@ export interface PlayerCharacterBondToken {
 }
 
 export interface RawPlayerCharacter {
+    id: number
     entry_count: number
     evolution_level: number
     over_limit_step: number
@@ -100,6 +117,11 @@ export interface PlayerCharacter {
     bondTokenList: PlayerCharacterBondToken[]
 }
 
+export interface RawPlayerCharacterManaNode {
+    value: number,
+    character_id: number
+}
+
 export interface RawPlayerPartyOptions {
     allow_other_players_to_heal_me: number
 }
@@ -109,8 +131,22 @@ export interface PlayerPartyOptions {
 }
 
 export interface RawPlayerParty {
+    slot: number
     name: string
+    character_id_1: number
+    character_id_2: number
+    character_id_3: number
+    unison_character_1: number
+    unison_character_2: number
+    unison_character_3: number
+    equipment_1: number
+    equipment_2: number
+    equipment_3: number
+    ability_soul_1: number
+    ability_soul_2: number
+    ability_soul_3: number
     edited: number
+    group_id: number
 }
 
 export interface PlayerParty {
@@ -124,15 +160,17 @@ export interface PlayerParty {
 }
 
 export interface RawPlayerPartyGroup {
+    id: number
     color_id: number
 }
 
 export interface PlayerPartyGroup {
-    list: PlayerParty[]
+    list: Record<string, PlayerParty>
     colorId: number
 }
 
 export interface RawPlayerEquipment {
+    id: number
     level: number
     enhancement_level: number
     protection: number
@@ -147,6 +185,7 @@ export interface PlayerEquipment {
 }
 
 export interface RawPlayerQuestProgress {
+    section: number
     quest_id: number
     finished: number
     high_score?: number
@@ -193,12 +232,24 @@ export interface PlayerPeriodicRewardPoint {
     point: number
 }
 
+export interface RawPlayerActiveMissionStage {
+    id: number,
+    status: number,
+    mission_id: number
+}
+
+export interface RawPlayerActiveMission {
+    id: number,
+    progress: number
+}
+
 export interface PlayerActiveMission {
     progress: number
     stages?: Record<string, boolean>
 }
 
 export interface RawPlayerBoxGacha {
+    id: number
     box_id: number
     reset_times: number
     remaining_number: number
@@ -242,7 +293,7 @@ export interface PlayerMultiSpecialExchangeCampaign {
 
 export interface RawPlayer {
     stamina: number
-    stamina_heal_time: number
+    stamina_heal_time: string
     boost_point: number
     boss_boost_point: number
     transition_state: number
@@ -256,7 +307,7 @@ export interface RawPlayer {
     star_crumb: number
     bond_token: number
     exp_pool: number
-    exp_pooled_time: number
+    exp_pooled_time: string
     leader_character_id: number
     party_slot: number
     degree_id: number
@@ -303,6 +354,7 @@ export interface Player {
     gachaInfoList: PlayerGachaInfo[]
     drawnQuestList: PlayerDrawnQuest[]
     periodicRewardPointList: PlayerPeriodicRewardPoint[]
+    allActiveMissionList: Record<string, PlayerActiveMission>
     boxGachaList: Record<string, PlayerBoxGacha[]>
     purchasedTimesList: Record<string, number>
     startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[]

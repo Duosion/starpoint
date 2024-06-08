@@ -54,7 +54,32 @@ export default function init(
         birth INTEGER NOT NULL,
         free_mana INTEGER NOT NULL,
         paid_mana INTEGER NOT NULL,
-        enable_auto_3x INTEGER NOT NULL
+        enable_auto_3x INTEGER NOT NULL,
+        account_id INTEGER NOT NULL,
+        FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
+    )`).run();
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_triggered_tutorials (
+        id INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        PRIMARY KEY (id, player_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run();
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_cleared_regular_missions (
+        id INTEGER NOT NULL,
+        value INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        PRIMARY KEY (id, player_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run();
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_items (
+        id INTEGER NOT NULL,
+        amount INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        PRIMARY KEY (id, player_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
     database.prepare(`CREATE TABLE IF NOT EXISTS daily_challenge_point_list_entries (
@@ -75,7 +100,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_character_bond_tokens (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_characters_bond_tokens (
         mana_board_index INTEGER NOT NULL,
         status INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
@@ -85,7 +110,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_characters (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_characters (
         id INTEGER NOT NULL,
         entry_count INTEGER NOT NULL,
         evolution_level INTEGER NOT NULL,
@@ -100,8 +125,17 @@ export default function init(
         PRIMARY KEY (id, player_id),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_characters_mana_nodes (
+        value INTEGER NOT NULL,
+        character_id INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        PRIMARY KEY (value, character_id, player_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE,
+        FOREIGN KEY (character_id) REFERENCES players_characters (id) ON DELETE CASCADE
+    )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_party_groups (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_party_groups (
         id INTEGER NOT NULL,
         color_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
@@ -109,17 +143,30 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_parties (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_parties (
+        slot INTEGER NOT NULL,
         name TEXT NOT NULL,
+        character_id_1 INTEGER,
+        character_id_2 INTEGER,
+        character_id_3 INTEGER,
+        unison_character_1 INTEGER,
+        unison_character_2 INTEGER,
+        unison_character_3 INTEGER,
+        equipment_1 INTEGER,
+        equipment_2 INTEGER,
+        equipment_3 INTEGER,
+        ability_soul_1 INTEGER,
+        ability_soul_2 INTEGER,
+        ability_soul_3 INTEGER,
         edited INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
         group_id INTEGER NOT NULL,
-        PRIMARY KEY (player_id, group_id),
+        PRIMARY KEY (slot, player_id, group_id),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE,
         FOREIGN KEY (group_id) REFERENCES player_party_groups (id) ON DELETE CASCADE
     )`).run();
 
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_party_options (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_party_options (
         allow_other_players_to_heal_me INTEGER NOT NULL,
         player_party_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
@@ -128,7 +175,7 @@ export default function init(
         FOREIGN KEY (player_party_id) REFERENCES player_parties (id) ON DELETE CASCADE
     )`).run();
 
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_equipments (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_equipment (
         id INTEGER NOT NULL,
         level INTEGER NOT NULL,
         enhancement_level INTEGER NOT NULL,
@@ -139,7 +186,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_quest_progress (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_quest_progress (
         section INTEGER NOT NULL,
         quest_id INTEGER NOT NULL,
         finished INTEGER NOT NULL,
@@ -151,7 +198,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_gacha_info (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_gacha_info (
         gacha_id INTEGER NOT NULL,
         is_daily_first INTEGER NOT NULL,
         is_account_first INTEGER NOT NULL,
@@ -161,7 +208,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_drawn_quests (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_drawn_quests (
         category_id INTEGER NOT NULL,
         quest_id INTEGER NOT NULL,
         odds_id INTEGER NOT NULL,
@@ -170,7 +217,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_periodic_reward_points (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_periodic_reward_points (
         id INTEGER NOT NULL,
         point INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
@@ -178,7 +225,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_active_missions (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_active_missions (
         id INTEGER NOT NULL,
         progress INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
@@ -186,7 +233,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_active_missions_stages (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_active_missions_stages (
         id INTEGER NOT NULL,
         status INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
@@ -196,17 +243,18 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run()
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_box_gacha (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_box_gacha (
+        id INTEGER NOT NULL,
         box_id INTEGER NOT NULL,
         reset_times INTEGER NOT NULL,
         remaining_number INTEGER NOT NULL,
         is_closed INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
-        PRIMARY KEY (box_id, player_id),
+        PRIMARY KEY (id, box_id, player_id),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_start_dash_exchange_campaigns (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_start_dash_exchange_campaigns (
         campaign_id INTEGER NOT NULL,
         gacha_id INTEGER NOT NULL,
         term_index INTEGER NOT NULL,
@@ -218,7 +266,7 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
     
-    database.prepare(`CREATE TABLE IF NOT EXISTS player_multi_special_exchange_campaigns (
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_multi_special_exchange_campaigns (
         campaign_id INTEGER NOT NULL,
         status INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
