@@ -42,3 +42,269 @@ export interface Session {
     type: SessionType
     playerId: number
 }
+
+// game player
+export interface RawDailyChallengePointListCampaign {
+    campaign_id: number
+    additional_point: number
+}
+
+export interface DailyChallengePointListCampaign {
+    campaignId: number
+    additionalPoint: number
+}
+
+export interface RawDailyChallengePointListEntry {
+    id: number
+    point: number
+}
+
+export interface DailyChallengePointListEntry {
+    id: number
+    point: number
+    campaignList: DailyChallengePointListCampaign[]
+}
+
+export interface RawPlayerCharacterBondToken {
+    mana_board_index: number
+    status: number
+}
+
+export interface PlayerCharacterBondToken {
+    manaBoardIndex: number
+    status: number
+}
+
+export interface RawPlayerCharacter {
+    entry_count: number
+    evolution_level: number
+    over_limit_step: number
+    protection: number
+    join_time: string
+    update_time: string
+    exp: number
+    stack: number
+    mana_board_index: number
+}
+
+export interface PlayerCharacter {
+    entryCount: number
+    evolutionLevel: number
+    overLimitStep: number
+    protection: boolean
+    joinTime: Date
+    updateTime: Date
+    exp: number
+    stack: number
+    manaBoardIndex: number
+    bondTokenList: PlayerCharacterBondToken[]
+}
+
+export interface RawPlayerPartyOptions {
+    allow_other_players_to_heal_me: number
+}
+
+export interface PlayerPartyOptions {
+    allowOtherPlayersToHealMe: boolean
+}
+
+export interface RawPlayerParty {
+    name: string
+    edited: number
+}
+
+export interface PlayerParty {
+    name: string
+    characterIds: number[]
+    unisonCharacterIds: number[]
+    equipmentIds: number[]
+    abilitySoulIds: number[]
+    edited: boolean
+    options: PlayerPartyOptions
+}
+
+export interface RawPlayerPartyGroup {
+    color_id: number
+}
+
+export interface PlayerPartyGroup {
+    list: PlayerParty[]
+    colorId: number
+}
+
+export interface RawPlayerEquipment {
+    level: number
+    enhancement_level: number
+    protection: number
+    stack: number
+}
+
+export interface PlayerEquipment {
+    level: number
+    enhancementLevel: number
+    protection: boolean
+    stack: number
+}
+
+export interface RawPlayerQuestProgress {
+    quest_id: number
+    finished: number
+    high_score?: number
+    clear_rank?: number
+    best_elapsed_time_ms?: number
+}
+
+export interface PlayerQuestProgress {
+    questId: number
+    finished: boolean
+    highScore?: number
+    clearRank?: number
+    bestElapsedTimeMs?: number
+}
+
+export interface RawPlayerGachaInfo {
+    gacha_id: number
+    is_daily_first: number
+    is_account_first: number
+    gacha_exchange_point?: number
+}
+
+export interface PlayerGachaInfo {
+    gachaId: number
+    isDailyFirst: boolean
+    isAccountFirst: boolean
+    gachaExchangePoint?: number
+}
+
+export interface RawPlayerDrawnQuest {
+    category_id: number
+    quest_id: number
+    odds_id: number
+}
+
+export interface PlayerDrawnQuest {
+    categoryId: number
+    questId: number
+    oddsId: number
+}
+
+export interface PlayerPeriodicRewardPoint {
+    id: number
+    point: number
+}
+
+export interface PlayerActiveMission {
+    progress: number
+    stages?: Record<string, boolean>
+}
+
+export interface RawPlayerBoxGacha {
+    box_id: number
+    reset_times: number
+    remaining_number: number
+    is_closed: number
+}
+
+export interface PlayerBoxGacha {
+    boxId: number
+    resetTimes: number
+    remainingNumber: number
+    isClosed: boolean
+}
+
+export interface RawPlayerStartDashExchangeCampaign {
+    campaign_id: number
+    gacha_id: number
+    term_index: number
+    status: number
+    period_start_time: string
+    period_end_time: string
+}
+
+export interface PlayerStartDashExchangeCampaign {
+    campaignId: number
+    gachaId: number
+    termIndex: number
+    status: number
+    periodStartTime: Date
+    periodEndTime: Date
+}
+
+export interface RawPlayerMultiSpecialExchangeCampaign {
+    campaign_id: number
+    status: number
+}
+
+export interface PlayerMultiSpecialExchangeCampaign {
+    campaignId: number
+    status: number
+}
+
+export interface RawPlayer {
+    stamina: number
+    stamina_heal_time: number
+    boost_point: number
+    boss_boost_point: number
+    transition_state: number
+    role: number
+    name: string
+    last_login_time: string
+    comment: string
+    vmoney: number
+    free_vmoney: number
+    rank_point: number
+    star_crumb: number
+    bond_token: number
+    exp_pool: number
+    exp_pooled_time: number
+    leader_character_id: number
+    party_slot: number
+    degree_id: number
+    birth: number
+    free_mana: number
+    paid_mana: number
+    enable_auto_3x: number
+}
+
+export interface Player {
+    stamina: number
+    staminaHealTime: Date
+    boostPoint: number
+    bossBoostPoint: number
+    transitionState: number
+    role: number
+    name: string
+    lastLoginTime: string
+    comment: string
+    vmoney: number
+    freeVmoney: number
+    rankPoint: number
+    starCrumb: number
+    bondToken: number
+    expPool: number
+    expPooledTime: Date
+    leaderCharacterId: number
+    partySlot: number
+    degreeId: number
+    birth: number
+    freeMana: number
+    paidMana: number
+    enableAuto3x: boolean
+    // other data
+    dailyChallengePointList: DailyChallengePointListEntry[]
+    triggeredTutorial: number[]
+    clearedRegularMissionList: Record<string, number>
+    characterList: PlayerCharacter[]
+    characterManaNodeList: Record<string, number[]>
+    partyGroupList: Record<string, PlayerPartyGroup>
+    itemList: Record<string, number>
+    equipmentList: Record<string, PlayerEquipment>
+    questProgress: Record<string, PlayerQuestProgress[]>
+    gachaInfoList: PlayerGachaInfo[]
+    drawnQuestList: PlayerDrawnQuest[]
+    periodicRewardPointList: PlayerPeriodicRewardPoint[]
+    boxGachaList: Record<string, PlayerBoxGacha[]>
+    purchasedTimesList: Record<string, number>
+    startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[]
+    multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[]
+}

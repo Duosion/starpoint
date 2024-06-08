@@ -329,7 +329,7 @@ export function deleteSession(
  * 
  * @param playerId The id of the player to delete all the sessions of.
  */
-function deletePlayerSessionsSync(
+function deleteAccountSessionsSync(
     playerId: number
 ) {
     db.prepare(`DELETE FROM sessions WHERE player_id = ?`).run(playerId)
@@ -341,14 +341,16 @@ function deletePlayerSessionsSync(
  * @param playerId The id of the player to delete all the sessions of.
  * @returns A promise that resolves when the sessions have been deleted.
  */
-export function deletePlayerSessions(
+export function deleteAccountSessions(
     playerId: number
 ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         try {
-            resolve(deletePlayerSessionsSync(playerId))
+            resolve(deleteAccountSessionsSync(playerId))
         } catch (error) {
             reject(error)
         }
     })
 }
+
+// player

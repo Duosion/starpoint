@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { deletePlayerSessions, deleteSession, getAccount, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
+import { deleteAccountSessions, deleteSession, getAccount, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { SessionType } from "../data/types";
 import { generateIdpAlias } from "../utils";
 
@@ -284,7 +284,7 @@ const routes = async (fastify: FastifyInstance) => {
 
         if (accountId) {
             // delete all previous sessions
-            await deletePlayerSessions(accountId)
+            await deleteAccountSessions(accountId)
         }
 
         const zatToken = await insertSession({

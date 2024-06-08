@@ -54,6 +54,7 @@ export default function getDatabase(
         try {
             init(db, dbExists)
         } catch (error) {
+            console.log(error)
             console.log(`Initalization failed for module ${metadata.path}. Error: ${error}`)
         }
     }

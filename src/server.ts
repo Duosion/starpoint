@@ -1,4 +1,6 @@
 import Fastify from "fastify";
+import apiPlugin from "./routes/api"
+import assetApiPlugin from "./routes/api/asset"
 import toolApiPlugin from "./routes/api/tool";
 import openapiPlugin from "./routes/openapi"
 import infodeskPlugin from "./routes/infodesk"
@@ -49,8 +51,16 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function
   })
 
 // register plugins
+
+//api
+fastify.register(apiPlugin, { prefix: "/latest/api/index.php"})
+fastify.register(assetApiPlugin, { prefix: "/latest/api/index.php/asset" })
 fastify.register(toolApiPlugin, { prefix: "/latest/api/index.php/tool" })
+
+// openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
+
+// infodesk
 fastify.register(infodeskPlugin, { prefix: "/infodesk"})
 
 // listen
