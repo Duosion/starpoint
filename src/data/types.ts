@@ -33,14 +33,14 @@ export interface RawSession {
     token: string
     expires: string
     type: number
-    player_id: number
+    account_id: number
 }
 
 export interface Session {
     token: string
     expires: Date
     type: SessionType
-    playerId: number
+    accountId: number
 }
 
 // game player
@@ -151,10 +151,10 @@ export interface RawPlayerParty {
 
 export interface PlayerParty {
     name: string
-    characterIds: number[]
-    unisonCharacterIds: number[]
-    equipmentIds: number[]
-    abilitySoulIds: number[]
+    characterIds: (number | null)[]
+    unisonCharacterIds: (number | null)[]
+    equipmentIds: (number | null)[]
+    abilitySoulIds: (number | null)[]
     edited: boolean
     options: PlayerPartyOptions
 }
@@ -292,6 +292,7 @@ export interface PlayerMultiSpecialExchangeCampaign {
 }
 
 export interface RawPlayer {
+    id: number
     stamina: number
     stamina_heal_time: string
     boost_point: number
@@ -318,6 +319,7 @@ export interface RawPlayer {
 }
 
 export interface Player {
+    id: number
     stamina: number
     staminaHealTime: Date
     boostPoint: number
@@ -345,7 +347,7 @@ export interface Player {
     dailyChallengePointList: DailyChallengePointListEntry[]
     triggeredTutorial: number[]
     clearedRegularMissionList: Record<string, number>
-    characterList: PlayerCharacter[]
+    characterList: Record<string, PlayerCharacter>
     characterManaNodeList: Record<string, number[]>
     partyGroupList: Record<string, PlayerPartyGroup>
     itemList: Record<string, number>

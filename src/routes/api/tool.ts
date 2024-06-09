@@ -1,7 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getServerTime } from "../../utils";
-import { getSession } from "../../data/wdfpData";
+import { getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
+import { serializePlayerData } from "../../data/utils";
 
 interface GetHeaderResponseBody {
     viewer_id: number
@@ -58,11 +59,14 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Invalid zat provided."
         })
 
+        // create new player account
+        insertDefaultPlayerSync(session.accountId)
+
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
             "data_headers": {
-                "short_udid": 8888,
-                "viewer_id": 9999,
+                "short_udid": 0,
+                "viewer_id": 0,
                 "udid": udid,
                 "servertime": getServerTime(),
                 "result_code": 1

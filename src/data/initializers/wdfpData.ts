@@ -23,10 +23,10 @@ export default function init(
     // create zat session table
     database.prepare(`CREATE TABLE IF NOT EXISTS sessions (
         token TEXT PRIMARY KEY NOT NULL,
-        player_id INTEGER NOT NULL,
+        account_id INTEGER NOT NULL,
         expires DATE NOT NULL,
         type INTEGER NOT NULL,
-        FOREIGN KEY (player_id) REFERENCES accounts (id) ON DELETE CASCADE
+        FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
     )`).run()
 
     // create players table
@@ -96,18 +96,7 @@ export default function init(
         list_entry_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
         PRIMARY KEY (player_id, campaign_id, list_entry_id),
-        FOREIGN KEY (list_entry_id) REFERENCES daily_challenge_point_list_entries (id) ON DELETE CASCADE,
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
-    )`).run();
-    
-    database.prepare(`CREATE TABLE IF NOT EXISTS players_characters_bond_tokens (
-        mana_board_index INTEGER NOT NULL,
-        status INTEGER NOT NULL,
-        player_id INTEGER NOT NULL,
-        character_id INTEGER NOT NULL,
-        PRIMARY KEY (mana_board_index, player_id, character_id),
-        FOREIGN KEY (character_id) REFERENCES player_characters (id) ON DELETE CASCADE,
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+        FOREIGN KEY (list_entry_id, player_id) REFERENCES daily_challenge_point_list_entries (id, player_id) ON DELETE CASCADE
     )`).run();
     
     database.prepare(`CREATE TABLE IF NOT EXISTS players_characters (
@@ -126,13 +115,21 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_characters_bond_tokens (
+        mana_board_index INTEGER NOT NULL,
+        status INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        character_id INTEGER NOT NULL,
+        PRIMARY KEY (mana_board_index, player_id, character_id),
+        FOREIGN KEY (character_id, player_id) REFERENCES players_characters (id, player_id) ON DELETE CASCADE
+    )`).run();
+
     database.prepare(`CREATE TABLE IF NOT EXISTS players_characters_mana_nodes (
         value INTEGER NOT NULL,
         character_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
         PRIMARY KEY (value, character_id, player_id),
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE,
-        FOREIGN KEY (character_id) REFERENCES players_characters (id) ON DELETE CASCADE
+        FOREIGN KEY (character_id, player_id) REFERENCES players_characters (id, player_id) ON DELETE CASCADE
     )`).run();
     
     database.prepare(`CREATE TABLE IF NOT EXISTS players_party_groups (
@@ -162,17 +159,15 @@ export default function init(
         player_id INTEGER NOT NULL,
         group_id INTEGER NOT NULL,
         PRIMARY KEY (slot, player_id, group_id),
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE,
-        FOREIGN KEY (group_id) REFERENCES player_party_groups (id) ON DELETE CASCADE
+        FOREIGN KEY (group_id, player_id) REFERENCES players_party_groups (id, player_id) ON DELETE CASCADE
     )`).run();
 
     database.prepare(`CREATE TABLE IF NOT EXISTS players_party_options (
         allow_other_players_to_heal_me INTEGER NOT NULL,
         player_party_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
-        PRIMARY KEY (player_party_id, player_id)
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE,
-        FOREIGN KEY (player_party_id) REFERENCES player_parties (id) ON DELETE CASCADE
+        PRIMARY KEY (player_party_id, player_id),
+        FOREIGN KEY (player_party_id, player_id) REFERENCES players_parties (id, player_id) ON DELETE CASCADE
     )`).run();
 
     database.prepare(`CREATE TABLE IF NOT EXISTS players_equipment (
@@ -239,8 +234,7 @@ export default function init(
         player_id INTEGER NOT NULL,
         mission_id INTEGER NOT NULL,
         PRIMARY KEY (id, mission_id, player_id),
-        FOREIGN KEY (mission_id) REFERENCES player_active_missions (id) ON DELETE CASCADE,
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+        FOREIGN KEY (mission_id, player_id) REFERENCES players_active_missions (id, player_id) ON DELETE CASCADE
     )`).run()
     
     database.prepare(`CREATE TABLE IF NOT EXISTS players_box_gacha (

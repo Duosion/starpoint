@@ -148,26 +148,26 @@ const routes = async (fastify: FastifyInstance) => {
         })
         
         // get the Account assigned to the session
-        const player = await updateAccount({
-            id: session.playerId,
+        const account = await updateAccount({
+            id: session.accountId,
             lastLoginTime: new Date()
         })
         .catch(err => {
             console.log(err)
             reply.status(500).send({
                 "error": "Internal Server Error",
-                "message": "No player assigned to session."
+                "message": "No account assigned to session."
             })
             return null
         })
-        if (!player) return
+        if (!account) return
 
         // create new zat session
         await deleteSession(session.token)
 
         const newSession = await insertSession({
             expires: new Date(new Date().getTime() + 43200000),
-            playerId: player.id,
+            accountId: account.id,
             type: SessionType.ZAT
         })
 
@@ -183,20 +183,20 @@ const routes = async (fastify: FastifyInstance) => {
                     "N003": "n",
                     "timestamp": "1717623430484"
                 },
-                "appId": player.appId,
-                "firstLoginTime": player.firstLoginTime.getTime(),
-                "idpAlias": player.idpAlias,
-                "idpCode": player.idpCode,
-                "idpId": player.idpId,
+                "appId": account.appId,
+                "firstLoginTime": account.firstLoginTime.getTime(),
+                "idpAlias": account.idpAlias,
+                "idpCode": account.idpCode,
+                "idpId": account.idpId,
                 "lang": body.lang,
-                "lastLoginTime": player.lastLoginTime.getTime(),
-                "playerId": player.id.toString(),
+                "lastLoginTime": account.lastLoginTime.getTime(),
+                "playerId": account.id.toString(),
                 "pushOption": {
                     "night": "n",
                     "player": "n"
                 },
-                "regTime": player.regTime.getTime(),
-                "status": player.status
+                "regTime": account.regTime.getTime(),
+                "status": account.status
             },
             "zat": newSession.token,
             "zatExpiryTime": newSession.expires.getTime()
@@ -289,12 +289,12 @@ const routes = async (fastify: FastifyInstance) => {
 
         const zatToken = await insertSession({
             expires: new Date(new Date().getTime() + 43200000),
-            playerId: account.id,
+            accountId: account.id,
             type: SessionType.ZAT
         })
         const zrtToken = await insertSession({
             expires: new Date(new Date().getTime() + 2592000000),
-            playerId: account.id,
+            accountId: account.id,
             type: SessionType.ZRT
         })
 
