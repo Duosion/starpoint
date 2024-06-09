@@ -15,8 +15,8 @@ const routes = async (fastify: FastifyInstance) => {
             "data_headers": {
                 "force_update": false,
                 "asset_update": true,
-                "short_udid": 409957194,
-                "viewer_id": 666701219,
+                "short_udid": 0,
+                "viewer_id": 0,
                 "servertime": getServerTime(),
                 "result_code": 1
             },

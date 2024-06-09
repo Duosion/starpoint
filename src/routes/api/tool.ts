@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getServerTime } from "../../utils";
-import { getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
+import { generateViewerId, getServerTime } from "../../utils";
+import { deleteAccountSessionsOfType, generateViewerIdSession, getSession, insertDefaultPlayerSync, insertSession, insertSessionWithToken } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
 
@@ -47,8 +47,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         const udid = request.headers['udid']
-        const accountId = request.headers['kakao_pid']
-        if (!udid || !accountId) return reply.status(400).send({
+        if (!udid) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid headers."
         })
@@ -59,14 +58,19 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Invalid zat provided."
         })
 
+        const accountId = session.accountId
+
         // create new player account
-        insertDefaultPlayerSync(session.accountId)
+        insertDefaultPlayerSync(accountId)
+
+        // generate viewer id
+        const viewerId = await generateViewerIdSession(accountId)
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
             "data_headers": {
                 "short_udid": 0,
-                "viewer_id": 0,
+                "viewer_id": Number.parseInt(viewerId.token),
                 "udid": udid,
                 "servertime": getServerTime(),
                 "result_code": 1

@@ -1,7 +1,8 @@
 import getDatabase, { Database } from ".";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { randomBytes } from "crypto";
-import { deserializeBoolean, serializeBoolean, serializePlayerData } from "./utils";
+import { deserializeBoolean, getDefaultPlayerData, serializeBoolean, serializePlayerData } from "./utils";
+import { generateViewerId } from "../utils";
 
 const db = getDatabase(Database.WDFP_DATA)
 
@@ -62,6 +63,42 @@ export function getAccount(
     return new Promise<Account | null>((resolve, reject) => {
         try {
             resolve(getAccountSync(accountId))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+/**
+ * Synchronously gets all of the players that are bound to an account.
+ * 
+ * @param accountId The account's id.
+ * @returns A list of player ids.
+ */
+function getAccountPlayersSync(
+    accountId: number
+): number[] {
+    const raw = db.prepare(`
+    SELECT id
+    FROM players
+    WHERE account_id = ?
+    `).all(accountId) as { id: number }[]
+
+    return raw.map(player => player.id)
+}
+
+/**
+ * Gets all of the players that are bound to an account.
+ * 
+ * @param accountId The account's id.
+ * @returns A promise that resolves with a list of player ids.
+ */
+export function getAccountPlayers(
+    accountId: number
+): Promise<number[]> {
+    return new Promise<number[]>((resolve, reject) => {
+        try {
+            resolve(getAccountPlayersSync(accountId))
         } catch (error) {
             reject(error)
         }
@@ -253,6 +290,85 @@ export function getSession(
 }
 
 /**
+ * Synchronously returns all of the sessions of a particular type belonging to an account.
+ * 
+ * @param accountId The ID of the account to get the sessions of.
+ * @param type The type of session to get.
+ * @returns An array of sessions.
+ */
+function getAccountSessionsOfTypeSync(
+    accountId: number,
+    type: SessionType
+): Session[] {
+    const rawResult = db.prepare(`
+    SELECT token, account_id, expires, type
+    FROM sessions
+    WHERE account_id = ? AND type = ?    
+    `).all(accountId, type) as RawSession[]
+
+    return rawResult.map(raw => buildSession(raw))
+}
+
+/**
+ * Returns all of the sessions of a particular type belonging to an account.
+ * 
+ * @param accountId The ID of the account to get the sessions of.
+ * @param type The type of session to get.
+ * @returns A promise that resolves with an array of sessions.
+ */
+export function getAccountSessionsOfType(
+    accountId: number,
+    type: SessionType
+): Promise<Session[]> {
+    return new Promise<Session[]>((resolve, reject) => {
+        try {
+            resolve(getAccountSessionsOfTypeSync(accountId, type))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+/**
+ * Synchronously inserts a session into the database that already has a token.
+ * 
+ * @param session The session to insert.
+ */
+function insertSessionWithTokenSync(
+    session: Session
+): Session {
+    db.prepare(`
+    INSERT INTO sessions (token, account_id, expires, type)
+    VALUES (?, ?, ?, ?)    
+    `).run(
+        session.token,
+        session.accountId,
+        session.expires.toISOString(),
+        session.type
+    )
+
+    return session
+}
+
+/**
+ * Synchronously inserts a session into the database that already has a token.
+ * 
+ * @param session The session to insert.
+ * @returns A promise that resolves with the session that was inserted.
+ */
+export function insertSessionWithToken(
+    session: Session
+): Promise<Session> {
+    return new Promise<Session>((resolve, reject) => {
+        try {
+            resolve(insertSessionWithTokenSync(session))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+/**
  * Synchronously inserts a session into the database.
  * 
  * @param session The session to insert into the database without its token.
@@ -263,19 +379,9 @@ function insertSessionSync(
 ): Session {
     const token = randomBytes(54).toString('base64')
 
-    db.prepare(`
-    INSERT INTO sessions (token, account_id, expires, type)
-    VALUES (?, ?, ?, ?)    
-    `).run(
-        token,
-        session.accountId,
-        session.expires.toISOString(),
-        session.type
-    )
-
     const completeSession = session as Session
     completeSession.token = token
-    return completeSession
+    return insertSessionWithTokenSync(completeSession)
 }
 
 /**
@@ -348,6 +454,82 @@ export function deleteAccountSessions(
     return new Promise<void>((resolve, reject) => {
         try {
             resolve(deleteAccountSessionsSync(playerId))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+/**
+ * Synchronously deletes all of an account's sessions of a particular type.
+ * 
+ * @param accountId The ID of the account to delete the sessions of.
+ * @param type The type of session to delete.
+ */
+function deleteAccountSessionsOfTypeSync(
+    accountId: number,
+    type: SessionType
+) {
+    db.prepare(`
+    DELETE FROM sessions
+    WHERE account_id = ? AND type = ?
+    `).run(accountId, type)
+}
+
+/**
+ * Deletes all of an account's sessions of a particular type.
+ * 
+ * @param accountId The ID of the account to delete the sessions of.
+ * @param type The type of session to delete.
+ * @returns A promise that resolves when the sessions are deleted.
+ */
+export function deleteAccountSessionsOfType(
+    accountId: number,
+    type: SessionType
+): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        try {
+            resolve(deleteAccountSessionsOfTypeSync(accountId, type))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export function generateViewerIdSession(
+    accountId: number
+): Promise<Session> {
+    return new Promise<Session>((resolve, reject) => {
+        try {
+            // delete any existing viewer ID sessions
+            deleteAccountSessionsOfTypeSync(accountId, SessionType.VIEWER)
+
+            // insert new session
+            resolve(insertSessionWithTokenSync({
+                token: generateViewerId().toString(),
+                expires: new Date(new Date().getTime() + 43200000),
+                accountId: accountId,
+                type: SessionType.VIEWER
+            }))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export function validateViewerId(
+    accountId: number,
+    viewerId: number
+): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+        try {
+            const session = getSessionSync(viewerId.toString())
+            if (!session) {
+                generateViewerIdSession(accountId)
+                    .then(session => resolve(Number.parseInt(session.token)))
+                    .catch(err => { throw err })
+            }
+            resolve(viewerId)
         } catch (error) {
             reject(error)
         }
@@ -1184,7 +1366,7 @@ function insertPlayerGachaInfoSync(
         gachaInfo.gachaId,
         serializeBoolean(gachaInfo.isDailyFirst),
         serializeBoolean(gachaInfo.isAccountFirst),
-        gachaInfo.gachaExchangePoint || null,
+        gachaInfo.gachaExchangePoint == undefined ? null : gachaInfo.gachaExchangePoint,
         playerId
     )
 }
@@ -1670,7 +1852,7 @@ export function getPlayerSync(
         transition_state, role, name, last_login_time, comment,
         vmoney, free_vmoney, rank_point, star_crumb,
         bond_token, exp_pool, exp_pooled_time, leader_character_id, party_slot,
-        degree_id, birth, free_mana, paid_mana, enable_auto_3x
+        degree_id, birth, free_mana, paid_mana, enable_auto_3x, tutorial_step, tutorial_skip_flag
     FROM players
     WHERE id = ?    
     `).get(playerId) as RawPlayer | undefined
@@ -1750,6 +1932,8 @@ export function getPlayerSync(
         freeMana: raw.free_mana,
         paidMana: raw.paid_mana,
         enableAuto3x: deserializeBoolean(raw.enable_auto_3x),
+        tutorialStep: raw.tutorial_step,
+        tutorialSkipFlag: raw.tutorial_skip_flag === null ? null : deserializeBoolean(raw.tutorial_skip_flag),
         // other data
         dailyChallengePointList: dailyChallengePointList,
         triggeredTutorial: triggeredTutorials,
@@ -1786,8 +1970,9 @@ export function insertPlayerSync(
     INSERT INTO players (stamina, stamina_heal_time, boost_point, boss_boost_point,
         transition_state, role, name, last_login_time, comment, vmoney, free_vmoney,
         rank_point, star_crumb, bond_token, exp_pool, exp_pooled_time, leader_character_id,
-        party_slot, degree_id, birth, free_mana, paid_mana, enable_auto_3x, account_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        party_slot, degree_id, birth, free_mana, paid_mana, enable_auto_3x, account_id, 
+        tutorial_step, tutorial_skip_flag)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
         player.stamina,
         player.staminaHealTime.toISOString(),
@@ -1812,7 +1997,9 @@ export function insertPlayerSync(
         player.freeMana,
         player.paidMana,
         serializeBoolean(player.enableAuto3x),
-        accountId
+        accountId,
+        player.tutorialStep === null ? null : player.tutorialStep,
+        player.tutorialSkipFlag === null ? null : serializeBoolean(player.tutorialSkipFlag)
     )
 
     const playerId = Number(insert.lastInsertRowid)
@@ -1869,568 +2056,16 @@ export function insertPlayerSync(
     return playerId
 }
 
+/**
+ * Inserts a default player data into the database, linked to a provided account id.
+ * 
+ * @param accountId The account ID to link the new player to.
+ * @returns The newly created player.
+ */
 export function insertDefaultPlayerSync(
     accountId: number
 ): Player {
-
-    // generate party groups
-    const partyGroups: Record<string, PlayerPartyGroup> = {}
-    {
-        const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-        const groupCount = 6
-        let currentParty = 1
-
-        for (let i = 0; i < groupCount; i++) {
-            const list: Record<string, PlayerParty> = {}
-            const group: PlayerPartyGroup = {
-                list: list,
-                colorId: 15
-            }
-
-            for (const name of partyNames) {
-                list[currentParty.toString()] = {
-                    name: `Party ${name}`,
-                    characterIds: [1, null, null],
-                    unisonCharacterIds: [null, null, null],
-                    equipmentIds: [null, null, null],
-                    abilitySoulIds: [null, null, null],
-                    edited: false,
-                    options: {
-                        allowOtherPlayersToHealMe: true
-                    }
-                }
-                currentParty += 1
-            }
-
-            partyGroups[(i + 1).toString()] = group
-        }
-    }
-
-    const player: Omit<Player, 'id'> = {
-        stamina: 20,
-        staminaHealTime: new Date(),
-        boostPoint: 3,
-        bossBoostPoint: 3,
-        transitionState: 0,
-        role: 1,
-        name: "플레이어",
-        lastLoginTime: "2024-06-07 13:25:17",
-        comment: "Nice to meet you.",
-        vmoney: 0,
-        freeVmoney: 150,
-        rankPoint: 10,
-        starCrumb: 0,
-        bondToken: 0,
-        expPool: 0,
-        expPooledTime: new Date(),
-        leaderCharacterId: 1,
-        partySlot: 1,
-        degreeId: 1,
-        birth: 19900101,
-        freeMana: 1000,
-        paidMana: 0,
-        enableAuto3x: false,
-        dailyChallengePointList: [
-            {
-                id: 1,
-                point: 2,
-                campaignList: [
-                    {
-                        campaignId: 2023013101,
-                        additionalPoint: 2
-                    }
-                ]
-            },
-            {
-                id: 251,
-                point: 2,
-                campaignList: [
-                    {
-                        campaignId: 2023013102,
-                        additionalPoint: 2
-                    }
-                ]
-            },
-            {
-                id: 5001,
-                point: 10,
-                campaignList: []
-            },
-            {
-                id: 10008,
-                point: 1,
-                campaignList: []
-            }
-        ],
-        triggeredTutorial: [],
-        clearedRegularMissionList: {},
-        characterList: {
-            "1": {
-                entryCount: 1,
-                evolutionLevel: 0,
-                overLimitStep: 0,
-                protection: false,
-                joinTime: new Date(),
-                updateTime: new Date(),
-                exp: 10,
-                stack: 0,
-                bondTokenList: [
-                    {
-                        manaBoardIndex: 1,
-                        status: 0
-                    },
-                    {
-                        manaBoardIndex: 2,
-                        status: 0
-                    }
-                ],
-                manaBoardIndex: 1
-            }
-        },
-        characterManaNodeList: {},
-        partyGroupList: partyGroups,
-        itemList: {},
-        equipmentList: {},
-        questProgress: {},
-        gachaInfoList: [
-            {
-                gachaId: 2,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 4,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 900003,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 157,
-                isDailyFirst: true,
-                isAccountFirst: true,
-                gachaExchangePoint: 0
-            },
-            {
-                gachaId: 57,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 5033,
-                isDailyFirst: true,
-                isAccountFirst: true,
-                gachaExchangePoint: 0
-            },
-            {
-                gachaId: 900000,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 155,
-                isDailyFirst: true,
-                isAccountFirst: true,
-                gachaExchangePoint: 0
-            },
-            {
-                gachaId: 9,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-        ],
-        drawnQuestList: [
-            {
-                categoryId: 6,
-                questId: 5001,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 5002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 5003,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 5004,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 5005,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 13001,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 13002,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 13003,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 13004,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 13005,
-                oddsId: 9
-            },
-            {
-                categoryId: 6,
-                questId: 13006,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 14001,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 14002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 14003,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 14004,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 14005,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 14006,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 15001,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 15002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 15003,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 15004,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 15005,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                oddsId: 5,
-                questId: 15006
-            },
-            {
-                categoryId: 6,
-                questId: 16001,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 16002,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 16003,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 16004,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 16005,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 16006,
-                oddsId: 9
-            },
-            {
-                categoryId: 6,
-                questId: 17001,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 17002,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 17003,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 17004,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 17005,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 17006,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 18001,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 18002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 18003,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 18004,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 18005,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 18006,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 19001,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 19002,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 19003,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 19004,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 19005,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 19006,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 19007,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 19008,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 19009,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 19010,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 19011,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 19012,
-                oddsId: 9
-            },
-            {
-                categoryId: 6,
-                questId: 19013,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 19014,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 19015,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 19016,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 19017,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 19018,
-                oddsId: 4
-            },
-            {
-                categoryId: 14,
-                questId: 1001,
-                oddsId: 21
-            },
-            {
-                categoryId: 14,
-                questId: 1002,
-                oddsId: 30
-            },
-            {
-                categoryId: 14,
-                questId: 1003,
-                oddsId: 20
-            },
-            {
-                categoryId: 14,
-                questId: 1004,
-                oddsId: 27
-            },
-            {
-                categoryId: 14,
-                questId: 1005,
-                oddsId: 9
-            },
-            {
-                categoryId: 14,
-                questId: 1006,
-                oddsId: 35
-            },
-        ],
-        periodicRewardPointList: [
-            {
-                id: 1,
-                point: 22,
-            },
-            {
-                id: 2,
-                point: 2,
-            },
-            {
-                id: 3,
-                point: 2,
-            },
-            {
-                id: 10000000,
-                point: 2,
-            },
-        ],
-        allActiveMissionList: {},
-        boxGachaList: {
-            "1001": [
-                {
-                    boxId: 1,
-                    resetTimes: 0,
-                    remainingNumber: 572,
-                    isClosed: false
-                },
-                {
-                    boxId: 2,
-                    resetTimes: 0,
-                    remainingNumber: 647,
-                    isClosed: false
-                },
-                {
-                    boxId: 3,
-                    resetTimes: 0,
-                    remainingNumber: 732,
-                    isClosed: false
-                },
-                {
-                    boxId: 4,
-                    resetTimes: 0,
-                    remainingNumber: 912,
-                    isClosed: false
-                },
-                {
-                    boxId: 5,
-                    resetTimes: 0,
-                    remainingNumber: 1401,
-                    isClosed: false
-                },
-            ]
-        },
-        purchasedTimesList: {},
-        startDashExchangeCampaignList: [],
-        multiSpecialExchangeCampaignList: [
-            {
-                campaignId: 3,
-                status: 1
-            }
-        ]
-    }
+    const player: Omit<Player, 'id'> = getDefaultPlayerData()
 
     const id = insertPlayerSync(accountId, player)
 
@@ -2438,3 +2073,78 @@ export function insertDefaultPlayerSync(
     finalPlayer.id = id
     return finalPlayer
 }
+
+/**
+ * Updates a player within the database.
+ * 
+ * @param player The properties of the player to change. Id must always be present.
+ */
+export function updatePlayerSync(
+    player: Partial<Player> & Pick<Player, 'id'>
+) {
+    const id = player.id
+
+    const fieldMap: Record<string, string> = {
+        'stamina': 'stamina',
+        'staminaHealTime': 'stamina_heal_time',
+        'boostPoint': 'boost_point',
+        'bossBoostPoint': 'boss_boost_point',
+        'transitionState': 'transition_state',
+        'role': 'role',
+        'name': 'name',
+        'lastLoginTime': 'last_login_time',
+        'comment': 'comment',
+        'vmoney': 'vmoney',
+        'freeVmoney': 'free_vmoney',
+        'rankPoint': 'rank_point',
+        'starCrumb': 'star_crumb',
+        'bondToken': 'bond_token',
+        'expPool': 'exp_pool',
+        'expPooledTime': 'exp_pooled_time',
+        'leaderCharacterId': 'leader_character_id',
+        'partySlot': 'party_slot',
+        'degreeId': 'degree_id',
+        'birth': 'birth',
+        'freeMana': 'free_mana',
+        'paidMana': 'paid_mana',
+        'enableAuto3x': 'enable_auto_3x',
+        'tutorialStep': 'tutorial_step',
+        'tutorialSkipFlag': 'tutorial_skip_flag'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in player) {
+        const value = player[key as keyof typeof player]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (value instanceof Date) {
+                values.push(value.toISOString())
+            } else if (typeof (value) === 'boolean') {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players
+        SET ${sets.join(', ')}
+        WHERE id = ?
+        `).run([...values, id]);
+}
+
+getAccount(1).then(result => {
+    if (!result) {
+        const account = insertAccountSync({
+            appId: "561429",
+            idpAlias: "561429:0fdb35fe-5bf3-4bb4-8cd7-cf0e40ed10c4:android",
+            idpCode: "zd3",
+            idpId: "6076018502",
+            status: "normal"
+        })
+        insertDefaultPlayerSync(account.id)
+    }
+})

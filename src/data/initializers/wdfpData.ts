@@ -56,6 +56,8 @@ export default function init(
         paid_mana INTEGER NOT NULL,
         enable_auto_3x INTEGER NOT NULL,
         account_id INTEGER NOT NULL,
+        tutorial_step INTEGER,
+        tutorial_skip_flag INTEGER,
         FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
     )`).run();
 

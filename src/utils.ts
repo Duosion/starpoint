@@ -1,3 +1,5 @@
+import { randomInt } from "crypto"
+
 /**
  * Returns the current server time as a unix epoch.
  * 
@@ -22,4 +24,13 @@ export function generateIdpAlias(
     serialNo: string
 ): string {
     return `${appId}:${deviceId}:${serialNo}`
+}
+
+/**
+ * Generates a random viewer ID using the crypto library.
+ * 
+ * @returns A number between 100,000,000 and 999,999,999
+ */
+export function generateViewerId(): number {
+    return randomInt(100000000, 999999999)
 }

@@ -15,15 +15,16 @@ interface PostBody {
 }
 
 const routes = async (fastify: FastifyInstance) => {
-    fastify.post("/post", (_, reply: FastifyReply) => {
-        //const body = request.body as PostBody
+    fastify.post("/post", (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as PostBody
+
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
             "data_headers": {
                 "force_update": false,
-                "asset_update": true,
+                "asset_update": false,
                 "short_udid": null,
-                "viewer_id": 0,
+                "viewer_id": body.viewer_id,
                 "servertime": getServerTime(),
                 "result_code": 1
             },

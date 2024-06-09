@@ -3,6 +3,7 @@ import apiPlugin from "./routes/api";
 import assetApiPlugin from "./routes/api/asset";
 import toolApiPlugin from "./routes/api/tool";
 import reproduceApiPlugin from "./routes/api/reproduce"
+import tutorialApiPlugin from "./routes/api/tutorial"
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
@@ -58,6 +59,7 @@ fastify.register(apiPlugin, { prefix: "/latest/api/index.php"})
 fastify.register(assetApiPlugin, { prefix: "/latest/api/index.php/asset" })
 fastify.register(toolApiPlugin, { prefix: "/latest/api/index.php/tool" })
 fastify.register(reproduceApiPlugin, { prefix: "/latest/api/index.php/reproduce" })
+fastify.register(tutorialApiPlugin, { prefix: "/latest/api/index.php/tutorial" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

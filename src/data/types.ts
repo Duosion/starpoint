@@ -26,7 +26,8 @@ export interface Account {
 // zat session
 export enum SessionType {
     ZAT,
-    ZRT
+    ZRT,
+    VIEWER
 }
 
 export interface RawSession {
@@ -316,6 +317,8 @@ export interface RawPlayer {
     free_mana: number
     paid_mana: number
     enable_auto_3x: number
+    tutorial_step: number | null
+    tutorial_skip_flag: number | null
 }
 
 export interface Player {
@@ -343,6 +346,8 @@ export interface Player {
     freeMana: number
     paidMana: number
     enableAuto3x: boolean
+    tutorialStep: number | null
+    tutorialSkipFlag: boolean | null
     // other data
     dailyChallengePointList: DailyChallengePointListEntry[]
     triggeredTutorial: number[]

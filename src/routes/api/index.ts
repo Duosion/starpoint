@@ -1,8 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getPlayerFromAccountId, getSession } from "../../data/wdfpData";
+import { deleteAccountSessionsOfType, getPlayerFromAccountId, getSession, insertSessionWithToken, validateViewerId } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
-import { getServerTime } from "../../utils";
+import { generateViewerId, getServerTime } from "../../utils";
 
 interface LoadBody {
     app_secret: string,
@@ -22,7 +22,8 @@ const routes = async (fastify: FastifyInstance) => {
         const body = request.body as LoadBody
 
         const zat = body.access_token
-        if (!zat) return reply.status(400).send({
+        let viewerId = body.viewer_id
+        if (!zat || !viewerId || isNaN(viewerId)) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid request body."
         })
@@ -33,11 +34,15 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Invalid zat provided."
         })
 
-        const playerData = getPlayerFromAccountId(session.accountId)
+        const accountId = session.accountId
+
+        const playerData = getPlayerFromAccountId(accountId)
         if (playerData === null) return reply.status(500).send({
             "error": "Internal Server Error",
             "message": "No player data exists."
         })
+
+        viewerId = await validateViewerId(accountId, viewerId)
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
@@ -45,11 +50,11 @@ const routes = async (fastify: FastifyInstance) => {
                 "force_update": false,
                 "asset_update": true,
                 "short_udid": 0,
-                "viewer_id": 0,
+                "viewer_id": viewerId,
                 "servertime": getServerTime(),
                 "result_code": 1
             },
-            "data": serializePlayerData(playerData)
+            "data": serializePlayerData(playerData, viewerId)
         })
     })
 }
