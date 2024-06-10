@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { generateViewerId, getServerTime } from "../../utils";
+import { generateDataHeaders, generateViewerId, getServerTime } from "../../utils";
 import { deleteAccountSessionsOfType, generateViewerIdSession, getSession, insertDefaultPlayerSync, insertSession, insertSessionWithToken } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
@@ -25,14 +25,9 @@ const routes = async (fastify: FastifyInstance) => {
         reply.header("content-type", "application/x-msgpack")
 
         reply.status(200).send({
-            "data_headers": {
-                "force_update": false,
-                "asset_update": false,
-                "short_udid": null,
-                "viewer_id": body.viewer_id,
-                "servertime": getServerTime(),
-                "result_code": 1
-            },
+            "data_headers": generateDataHeaders({
+                viewer_id: body.viewer_id
+            }),
             "data": []
         })
     })
@@ -68,13 +63,10 @@ const routes = async (fastify: FastifyInstance) => {
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
-            "data_headers": {
-                "short_udid": 0,
-                "viewer_id": Number.parseInt(viewerId.token),
-                "udid": udid,
-                "servertime": getServerTime(),
-                "result_code": 1
-            },
+            "data_headers": generateDataHeaders({
+                viewer_id: Number.parseInt(viewerId.token),
+                udid: String(udid)
+            }, ['short_udid', 'viewer_id', 'udid', 'servertime', 'result_code']),
             "data": []
         })
     })

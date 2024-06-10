@@ -34,3 +34,42 @@ export function generateIdpAlias(
 export function generateViewerId(): number {
     return randomInt(100000000, 999999999)
 }
+
+export interface DataHeaders {
+    force_update?: boolean
+    asset_update?: boolean
+    short_udid?: number
+    viewer_id?: number
+    servertime?: number
+    result_code?: number
+    udid?: string
+}
+
+/**
+ * Generates a default data headers object, which is used in communication with the client.
+ * 
+ * @param customValues A partial DataHeaders object with custom fields to replace the default ones.
+ * @returns A DataHeaders object.
+ */
+export function generateDataHeaders(
+    customValues: Partial<DataHeaders> = {},
+    fields: (keyof DataHeaders)[] = ['force_update', 'asset_update', 'short_udid', 'viewer_id', 'servertime', 'result_code'],
+): Record<string, any> {
+    const defaultHeaders: DataHeaders = {
+        force_update: false,
+        asset_update: false,
+        short_udid: 0,
+        viewer_id: 0,
+        servertime: getServerTime(),
+        result_code: 1
+    }
+    const headers: Record<string, any> = {}
+
+    for (const field of fields) {
+        const customValue = customValues[field]
+        const defaultValue = defaultHeaders[field]
+        headers[field] = customValue === undefined ? defaultValue : customValue
+    }
+
+    return headers
+}

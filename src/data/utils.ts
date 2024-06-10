@@ -140,8 +140,6 @@ export function serializePlayerData(
         }
     }
 
-    console.log(userTutorial)
-
     return {
         "user_info": {
             "stamina": player.stamina,

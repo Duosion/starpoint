@@ -1,7 +1,7 @@
 
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getServerTime } from "../../utils";
+import { generateDataHeaders, getServerTime } from "../../utils";
 
 interface GetPathBody {
     target_asset_version: string,
@@ -12,14 +12,7 @@ const routes = async (fastify: FastifyInstance) => {
     fastify.post("/version_info", async(request: FastifyRequest, reply: FastifyReply) => {
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
-            "data_headers": {
-                "force_update": false,
-                "asset_update": true,
-                "short_udid": 0,
-                "viewer_id": 0,
-                "servertime": getServerTime(),
-                "result_code": 1
-            },
+            "data_headers": generateDataHeaders(),
             "data": {
                 "base_url": "{$cdnAddress}/en/entities/files/",
                 "files_list": "{$cdnAddress}/en/entities/2.1.121-android_medium.csv",

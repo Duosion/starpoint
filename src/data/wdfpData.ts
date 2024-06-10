@@ -667,14 +667,14 @@ function getPlayerTriggeredTutorialsSync(
  * @param playerId The ID of the player that triggered the tutorial.
  * @param tutorialId The ID of the tutorial that was triggered.
  */
-function insertPlayerTriggeredTutorialSync(
+export function insertPlayerTriggeredTutorialSync(
     playerId: number,
     tutorialId: number
 ) {
     db.prepare(`
     INSERT INTO players_triggered_tutorials (id, player_id)
     VALUES (?, ?)
-    `).run(playerId, tutorialId)
+    `).run(tutorialId, playerId)
 }
 
 /**
@@ -759,6 +759,80 @@ function insertPlayerClearedRegularMissionListSync(
 }
 
 /**
+ * Converts a RawPlayerCharacterBondToken into a PlayerCharacterBondToken
+ * 
+ * @param rawBondToken The raw bond token to build/deserialize
+ * @returns The built/deserialized PlayerCharacterBondToken
+ */
+function buildCharacterBondToken(
+    rawBondToken: RawPlayerCharacterBondToken
+): PlayerCharacterBondToken {
+    return {
+        manaBoardIndex: rawBondToken.mana_board_index,
+        status: rawBondToken.status
+    }
+}
+
+/**
+ * Converts a RawPlayerCharacter into a PlayerCharacter
+ * 
+ * @param rawCharacter The RawPlayerCharacter to convert.
+ * @param bondTokens The character's bond tokens
+ * @returns The converted PlayerCharacter
+ */
+function buildPlayerCharacter(
+    rawCharacter: RawPlayerCharacter,
+    bondTokens: PlayerCharacterBondToken[]
+): PlayerCharacter {
+    return {
+        entryCount: rawCharacter.entry_count,
+        evolutionLevel: rawCharacter.evolution_level,
+        overLimitStep: rawCharacter.over_limit_step,
+        protection: deserializeBoolean(rawCharacter.protection),
+        joinTime: new Date(rawCharacter.join_time),
+        updateTime: new Date(rawCharacter.update_time),
+        exp: rawCharacter.exp,
+        stack: rawCharacter.stack,
+        manaBoardIndex: rawCharacter.mana_board_index,
+        bondTokenList: bondTokens
+    }
+}
+
+/**
+ * Gets a singular character from a player's data.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @returns The PlayerCharacter or null if it doesn't exist.
+ */
+export function getPlayerCharacterSync(
+    playerId: number,
+    characterId: number
+): PlayerCharacter | null {
+
+    const rawCharacter = db.prepare(`
+    SELECT id, entry_count, evolution_level, over_limit_step, protection
+        join_time, update_time, exp, stack, mana_board_index
+    FROM players_characters
+    WHERE player_id = ? AND id = ?
+    `).get(playerId, characterId) as RawPlayerCharacter
+
+    if (rawCharacter === undefined) return null
+
+    // get bond tokens
+    const rawBondTokens = db.prepare(`
+    SELECT mana_board_index, status, character_id
+    FROM players_characters_bond_tokens
+    WHERE player_id = ? AND character_id = ?
+    `).all(playerId, characterId) as RawPlayerCharacterBondToken[]
+    
+    return buildPlayerCharacter(
+        rawCharacter,
+        rawBondTokens.map(raw => buildCharacterBondToken(raw))
+    )
+}
+
+/**
  * Gets a list of all of the characters that a player owns.
  * 
  * @param playerId The ID of the player.
@@ -792,33 +866,29 @@ function getPlayerCharactersSync(
             bondBuckets[characterId] = bucket
         }
 
-        bucket.push({
-            manaBoardIndex: rawBondToken.mana_board_index,
-            status: rawBondToken.status
-        })
+        bucket.push(buildCharacterBondToken(rawBondToken))
     }
 
     const out: Record<string, PlayerCharacter> = {}
 
     for (const rawCharacter of rawCharacters) {
         const id = rawCharacter.id.toString()
-        out[id] = {
-            entryCount: rawCharacter.entry_count,
-            evolutionLevel: rawCharacter.evolution_level,
-            overLimitStep: rawCharacter.over_limit_step,
-            protection: deserializeBoolean(rawCharacter.protection),
-            joinTime: new Date(rawCharacter.join_time),
-            updateTime: new Date(rawCharacter.update_time),
-            exp: rawCharacter.exp,
-            stack: rawCharacter.stack,
-            manaBoardIndex: rawCharacter.mana_board_index,
-            bondTokenList: bondBuckets[id] || []
-        }
+        out[id] = buildPlayerCharacter(
+            rawCharacter,
+            bondBuckets[id] || []
+        )
     }
 
     return out
 }
 
+/**
+ * Inserts a single character's bond token into a player's data.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @param bondToken The bond token to insert.
+ */
 function insertPlayerCharacterBondTokenSync(
     playerId: number,
     characterId: number | string,
@@ -842,7 +912,7 @@ function insertPlayerCharacterBondTokenSync(
  * @param characterId The ID of the character to add.
  * @param character The character data.
  */
-function insertPlayerCharacterSync(
+export function insertPlayerCharacterSync(
     playerId: number,
     characterId: number | string,
     character: PlayerCharacter
@@ -886,6 +956,54 @@ function insertPlayerCharactersSync(
             insertPlayerCharacterSync(playerId, characterId, data)
         }
     })()
+}
+
+/**
+ * Updates a single character within a player's data.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @param character The partial data of the character to update.
+ */
+export function updatePlayerCharacterSync(
+    playerId: number,
+    characterId: number,
+    character: Partial<PlayerCharacter>
+) {
+    const fieldMap: Record<string, string> = {
+        'entryCount': 'entry_count',
+        'evolutionLevel': 'evolution_level',
+        'overLimitStep': 'over_limit_step',
+        'protection': 'protection',
+        'joinTime': 'join_time',
+        'updateTime': 'update_time',
+        'exp': 'exp',
+        'stack': 'stack',
+        'manaBoardIndex': 'mana_board_index'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in character) {
+        const value = character[key as keyof PlayerCharacter]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (value instanceof Date) {
+                values.push(value.toISOString())
+            } else if (typeof(value) === "boolean") {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_characters
+        SET ${sets.join(', ')}
+        WHERE id = ? AND player_id = ?
+        `).run([...values, characterId, playerId]);
 }
 
 /**
@@ -1386,6 +1504,46 @@ function insertPlayerGachaInfoListSync(
             insertPlayerGachaInfoSync(playerId, gachaInfo)
         }
     })()
+}
+
+/**
+ * Updates a player's gacha info.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaInfo The partial PlayerGachaInfo object containing data to update.
+ */
+export function updatePlayerGachaInfoSync(
+    playerId: number,
+    gachaInfo: Partial<PlayerGachaInfo>
+) {
+    const id = gachaInfo.gachaId
+
+    const fieldMap: Record<string, string> = {
+        'isDailyFirst': 'is_daily_first',
+        'isAccountFirst': 'is_account_first',
+        'gachaExchangePoint': 'gacha_exchange_point'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in gachaInfo) {
+        const value = gachaInfo[key as keyof PlayerGachaInfo]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (typeof(value) === "boolean") {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_gacha_info
+        SET ${sets.join(', ')}
+        WHERE gacha_id = ? AND player_id = ?
+        `).run([...values, id, playerId]);
 }
 
 /**

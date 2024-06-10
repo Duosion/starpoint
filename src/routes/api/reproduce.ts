@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getPlayerFromAccountId, getSession } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
-import { getServerTime } from "../../utils";
+import { generateDataHeaders, getServerTime } from "../../utils";
 
 interface PostBody {
     create_time: string,
@@ -20,14 +20,9 @@ const routes = async (fastify: FastifyInstance) => {
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
-            "data_headers": {
-                "force_update": false,
-                "asset_update": false,
-                "short_udid": null,
-                "viewer_id": body.viewer_id,
-                "servertime": getServerTime(),
-                "result_code": 1
-            },
+            "data_headers": generateDataHeaders({
+                viewer_id: body.viewer_id || undefined
+            }),
             "data": []
         })
     })

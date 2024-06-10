@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { deleteAccountSessionsOfType, getPlayerFromAccountId, getSession, insertSessionWithToken, validateViewerId } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
-import { generateViewerId, getServerTime } from "../../utils";
+import { generateDataHeaders, generateViewerId, getServerTime } from "../../utils";
 
 interface LoadBody {
     app_secret: string,
@@ -46,14 +46,10 @@ const routes = async (fastify: FastifyInstance) => {
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
-            "data_headers": {
-                "force_update": false,
-                "asset_update": true,
-                "short_udid": 0,
-                "viewer_id": viewerId,
-                "servertime": getServerTime(),
-                "result_code": 1
-            },
+            "data_headers": generateDataHeaders({
+                asset_update: true,
+                viewer_id: viewerId
+            }),
             "data": serializePlayerData(playerData, viewerId)
         })
     })
