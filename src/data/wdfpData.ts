@@ -2294,15 +2294,15 @@ export function updatePlayerSync(
         `).run([...values, id]);
 }
 
-getAccount(1).then(result => {
-    if (!result) {
-        const account = insertAccountSync({
-            appId: "561429",
-            idpAlias: "561429:0fdb35fe-5bf3-4bb4-8cd7-cf0e40ed10c4:android",
-            idpCode: "zd3",
-            idpId: "6076018502",
-            status: "normal"
-        })
-        insertDefaultPlayerSync(account.id)
-    }
-})
+// getAccount(1).then(result => {
+//     if (!result) {
+//         const account = insertAccountSync({
+//             appId: "561429",
+//             idpAlias: "561429:8c1685d9-b916-4147-9a9a-38bf61bb49b5:android",
+//             idpCode: "zd3",
+//             idpId: "6076018502",
+//             status: "normal"
+//         })
+//         insertDefaultPlayerSync(account.id)
+//     }
+// })

@@ -89,14 +89,17 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         // update player
-        const nextStep = completedStep + 1
+        let nextStep = completedStep + 1
         updatePlayerSync({
             id: playerId,
             tutorialStep: nextStep,
             tutorialSkipFlag: skip,
             name: body.name
         })
-
+        
+        // offset nextStep by 11 if skipped, to keep steps the same.
+        nextStep += (body.skip ? 11 : 0)
+        
         reply.header("content-type", "application/x-msgpack")
         const headers = generateDataHeaders({
             viewer_id: viewerId
