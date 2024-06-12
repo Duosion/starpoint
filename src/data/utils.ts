@@ -354,3 +354,16 @@ export function getDefaultPlayerData(): Omit<Player, 'id'> {
         tutorialSkipFlag: null
     }
 }
+
+/**
+ * Serializes a date in a format expected by the client.
+ * Format: YYYY-MM-DD HH:MM:SS
+ * 
+ * @param date The date to serialize.
+ * @returns A serialized date as a string.
+ */
+export function clientSerializeDate(
+    date: Date
+): string {
+    return `${date.getUTCFullYear()}-${date.getUTCMonth().toString().padStart(2, "0")}-${date.getUTCDate().toString().padStart(2, "0")} ${date.getUTCHours().toString().padStart(2, "0")}:${date.getUTCMinutes().toString().padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`
+}

@@ -1,8 +1,9 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { generateDataHeaders, getServerTime } from "../../utils";
-import { getAccountPlayers, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync, validateViewerId } from "../../data/wdfpData";
+import { getAccountPlayers, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertDefaultPlayerCharacterSync, insertPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync, validateViewerId } from "../../data/wdfpData";
 import { playerSummon } from "../../lib/gacha";
 import { Player } from "../../data/types";
+import { clientSerializeDate } from "../../data/utils";
 
 interface UpdateStepBody {
     viewer_id: number
@@ -129,6 +130,7 @@ const routes = async (fastify: FastifyInstance) => {
                 "message": "Error when summoning."
             })
 
+            const serializedDate = clientSerializeDate(new Date())
             reply.status(200).send({
                 "data_headers": headers,
                 "data": {
@@ -171,9 +173,9 @@ const routes = async (fastify: FastifyInstance) => {
                                 }
                             ],
                             "mana_board_index": 1,
-                            "create_time": "2024-06-06 06:37:12",
-                            "update_time": "2024-06-06 06:49:28",
-                            "join_time": "2024-06-06 06:49:28"
+                            "create_time": serializedDate,
+                            "update_time": serializedDate,
+                            "join_time": serializedDate
                         }
                     ],
                     "encyclopedia_info": {
@@ -194,27 +196,9 @@ const routes = async (fastify: FastifyInstance) => {
             })
 
             // give free character
-            insertPlayerCharacterSync(playerId, freeTutorialCharacterId, {
-                entryCount: 1,
-                evolutionLevel: 0,
-                overLimitStep: 0,
-                protection: false,
-                joinTime: new Date(),
-                updateTime: new Date(),
-                exp: 0,
-                stack: 0,
-                manaBoardIndex: 1,
-                bondTokenList: [
-                    {
-                        manaBoardIndex: 1,
-                        status: 0
-                    },
-                    {
-                        manaBoardIndex: 2,
-                        status: 0
-                    }
-                ]
-            })
+            const serializedDate = clientSerializeDate(new Date())
+
+            insertDefaultPlayerCharacterSync(playerId, freeTutorialCharacterId)
 
             reply.status(200).send({
                 "data_headers": headers,
@@ -241,9 +225,9 @@ const routes = async (fastify: FastifyInstance) => {
                                 }
                             ],
                             "mana_board_index": 1,
-                            "create_time": "2024-06-06 06:37:12",
-                            "update_time": "2024-06-06 06:49:28",
-                            "join_time": "2024-06-06 06:49:28"
+                            "create_time": serializedDate,
+                            "update_time": serializedDate,
+                            "join_time": serializedDate
                         }
                     ],
                     "encyclopedia_info": {

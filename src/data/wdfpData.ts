@@ -2,9 +2,10 @@ import getDatabase, { Database } from ".";
 import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { randomBytes } from "crypto";
 import { deserializeBoolean, getDefaultPlayerData, serializeBoolean, serializePlayerData } from "./utils";
-import { generateViewerId } from "../utils";
+import { generateViewerId, getServerTime } from "../utils";
 
 const db = getDatabase(Database.WDFP_DATA)
+const expPoolMax = 100000 // the maximum amount of exp that can be pooled
 
 // Account
 
@@ -830,7 +831,7 @@ export function getPlayerCharacterSync(
 ): PlayerCharacter | null {
 
     const rawCharacter = db.prepare(`
-    SELECT id, entry_count, evolution_level, over_limit_step, protection
+    SELECT id, entry_count, evolution_level, over_limit_step, protection,
         join_time, update_time, exp, stack, mana_board_index
     FROM players_characters
     WHERE player_id = ? AND id = ?
@@ -862,7 +863,7 @@ export function getPlayerCharactersSync(
 ): Record<string, PlayerCharacter> {
 
     const rawCharacters = db.prepare(`
-    SELECT id, entry_count, evolution_level, over_limit_step, protection
+    SELECT id, entry_count, evolution_level, over_limit_step, protection,
         join_time, update_time, exp, stack, mana_board_index
     FROM players_characters
     WHERE player_id = ?
@@ -961,6 +962,45 @@ export function insertPlayerCharacterSync(
 }
 
 /**
+ * Inserts a default single character into a player's inventory.
+ * 
+ * @param playerId The ID of the player to add the character to.
+ * @param characterId The ID of the character to add.
+ */
+export function insertDefaultPlayerCharacterSync(
+    playerId: number,
+    characterId: number | string
+) {
+    const dateNow = new Date()
+
+    insertPlayerCharacterSync(
+        playerId,
+        characterId,
+        {
+            entryCount: 1,
+            evolutionLevel: 0,
+            overLimitStep: 0,
+            protection: false,
+            joinTime: dateNow,
+            updateTime: dateNow,
+            exp: 0,
+            stack: 0,
+            manaBoardIndex: 1,
+            bondTokenList: [
+                {
+                    manaBoardIndex: 1,
+                    status: 0
+                },
+                {
+                    manaBoardIndex: 2,
+                    status: 0
+                }
+            ]
+        }
+    )
+}
+
+/**
  * Batch inserts a record of characters into a player's inventory.
  * 
  * @param playerId The ID of the player.
@@ -1000,6 +1040,9 @@ export function updatePlayerCharacterSync(
         'stack': 'stack',
         'manaBoardIndex': 'mana_board_index'
     }
+
+    // set the update time to now
+    character.updateTime = new Date()
 
     const sets: string[] = []
     const values: any[] = []
@@ -2826,6 +2869,33 @@ export function updatePlayerSync(
         `).run([...values, id]);
 }
 
+/**
+ * Collects any pooled exp that a player might have.
+ * Exp regenerates at a rate of 1 per minute.
+ * 
+ * @param playerId The ID of the player to collect the pooled EXP of.
+ */
+export function collectPooledExpSync(
+    playerId: number
+) {
+    // exp regenerates at a rate of 1/min
+    const playerData = getPlayerSync(playerId)
+    if (!playerData) return;
+
+    const dateNow = new Date()
+    const serverTimeNow = getServerTime(dateNow)
+    const poolTime = getServerTime(playerData.expPooledTime)
+    const diff = Math.max(0, serverTimeNow - poolTime)
+
+    if (60 > diff) return;
+
+    updatePlayerSync({
+        id: playerId,
+        expPooledTime: dateNow,
+        expPool: playerData.expPool + Math.min(expPoolMax, Math.floor(diff / 60))
+    })
+}
+
 // getAccount(1).then(result => {
 //     if (!result) {
 //         const account = insertAccountSync({
@@ -2841,7 +2911,7 @@ export function updatePlayerSync(
 
 // 151147
 
-// const stelleBallot = getPlayerCharacterSync(1, 151147)
+//const stelleBallot = getPlayerCharacterSync(1, 151147)
 // if (!stelleBallot) {
 //     insertPlayerCharacterSync(1, 151147, {
 //         entryCount: 1,

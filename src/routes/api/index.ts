@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { deleteAccountSessionsOfType, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentSync, getPlayerFromAccountId, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerTriggeredTutorialsSync, getSession, insertSessionWithToken, validateViewerId } from "../../data/wdfpData";
+import { collectPooledExpSync, deleteAccountSessionsOfType, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentSync, getPlayerFromAccountId, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertSessionWithToken, validateViewerId } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
 import { generateDataHeaders, generateViewerId, getServerTime } from "../../utils";
@@ -36,15 +36,24 @@ const routes = async (fastify: FastifyInstance) => {
 
         const accountId = session.accountId
 
-        const playerData = getPlayerFromAccountId(accountId)
+        const playerIds = await getAccountPlayers(accountId)
+        const playerId = playerIds[0]
+
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // collect the player's pooled exp
+        collectPooledExpSync(playerId)
+
+        const playerData = getPlayerSync(playerId)
         if (playerData === null) return reply.status(500).send({
             "error": "Internal Server Error",
-            "message": "No player data exists."
+            "message": "No player data."
         })
 
         viewerId = await validateViewerId(accountId, viewerId)
-
-        const playerId = playerData.id
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({

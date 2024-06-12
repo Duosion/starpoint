@@ -2,7 +2,8 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getAccountPlayers, getPlayerCharacterSync, getPlayerSync, getSession, playerOwnsCharacterSync, playerOwnsEquipmentSync, updatePlayerCharacterSync, updatePlayerPartySync, updatePlayerSync } from "../../data/wdfpData";
-import { generateDataHeaders } from "../../utils";
+import { generateDataHeaders, getServerTime } from "../../utils";
+import { clientSerializeDate } from "../../data/utils";
 
 interface InjectExpBody {
     character_id: number,
@@ -37,8 +38,6 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No players bound to account."
         })
 
-        // TODO: implement exp_pool checking
-
         // increase character exp
         const characterId = body.character_id
         const character = getPlayerCharacterSync(playerId, characterId)
@@ -47,12 +46,27 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Player does not own character."
         })
 
+        // make sure that the player has enough exp
         const addExp = body.exp
+        const playerExpPool = player.expPool
+        if (addExp > playerExpPool) return reply.status(400).send({
+            "error": "Internal Server Error",
+            "message": "Not enough exp."
+        })
+        
         const beforeExp = character.exp
         const afterExp = beforeExp + addExp
+        const playerAfterExpPool = player.expPool - addExp
         
+        // increase character exp
         updatePlayerCharacterSync(playerId, characterId, {
             exp: afterExp
+        })
+
+        // decrease player exp
+        updatePlayerSync({
+            id: playerId,
+            expPool: playerAfterExpPool
         })
 
         reply.header("content-type", "application/x-msgpack")
@@ -73,15 +87,15 @@ const routes = async (fastify: FastifyInstance) => {
                     {
                         "character_id": characterId,
                         "exp": afterExp,
-                        "create_time": "2024-06-08 05:41:19",
-                        "update_time": "2024-06-08 06:05:23",
-                        "join_time": "2024-06-08 06:03:28",
+                        "create_time": clientSerializeDate(character.joinTime),
+                        "update_time": clientSerializeDate(character.updateTime),
+                        "join_time": clientSerializeDate(character.joinTime),
                         "exp_total": afterExp
                     }
                 ],
                 "user_info": {
-                    "exp_pool": 0,
-                    "exp_pooled_time": 1817794078
+                    "exp_pool": playerAfterExpPool,
+                    "exp_pooled_time": getServerTime(player.expPooledTime)
                 },
             }
         })
