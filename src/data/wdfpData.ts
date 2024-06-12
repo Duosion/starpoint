@@ -1490,6 +1490,24 @@ function insertPlayerEquipmentListSync(
 }
 
 /**
+ * Converts a RawPlayerQuestProgress object into a PlayerQuestProgress object.
+ * 
+ * @param raw The raw object to convert.
+ * @returns The converted object.
+ */
+function buildPlayerQuestProgress(
+    raw: RawPlayerQuestProgress
+): PlayerQuestProgress {
+    return {
+        questId: raw.quest_id,
+        finished: deserializeBoolean(raw.finished),
+        highScore: raw.high_score,
+        clearRank: raw.clear_rank,
+        bestElapsedTimeMs: raw.best_elapsed_time_ms
+    }
+}
+
+/**
  * Gets a player's overall quest progressfrom the database.
  * 
  * @param playerId The player's ID.
@@ -1514,16 +1532,35 @@ export function getPlayerQuestProgressSync(
             bucket = []
             mapped[section] = bucket
         }
-        bucket.push({
-            questId: raw.quest_id,
-            finished: deserializeBoolean(raw.finished),
-            highScore: raw.high_score,
-            clearRank: raw.clear_rank,
-            bestElapsedTimeMs: raw.best_elapsed_time_ms
-        })
+        bucket.push(buildPlayerQuestProgress(raw))
     }
 
     return mapped
+}
+
+/**
+ * Gets the progress of a singular quest for a player..
+ * 
+ * @param playerId The ID of the player.
+ * @param section The section of the quest.
+ * @param questId The ID of the quest.
+ * @returns The quest's progress data, or null if it doesn't exist.
+ */
+export function getPlayerSingleQuestProgressSync(
+    playerId: number,
+    section: number | string,
+    questId: number | string
+): PlayerQuestProgress | null {
+
+    const rawProgress = db.prepare(`
+    SELECT section, quest_id, finished, high_score, clear_rank, best_elapsed_time_ms
+    FROM players_quest_progress
+    WHERE player_id = ? AND section = ? AND quest_id = ?
+    `).get(playerId, Number(section), Number(questId)) as RawPlayerQuestProgress
+    
+    if (rawProgress === undefined) return null;
+
+    return buildPlayerQuestProgress(rawProgress)
 }
 
 /**
@@ -1533,7 +1570,7 @@ export function getPlayerQuestProgressSync(
  * @param section The section that this quest progress belongs to.
  * @param data The data of this quest progress.
  */
-function insertPlayerQuestProgressSync(
+export function insertPlayerQuestProgressSync(
     playerId: number,
     section: number | string,
     data: PlayerQuestProgress
@@ -1569,6 +1606,47 @@ function insertPlayerQuestProgressListSync(
             }
         }
     })()
+}
+
+/**
+ * Updates the progress for a single player's quest.
+ * 
+ * @param playerId The ID of the player.
+ * @param section The section that the quest belongs to.
+ * @param data The partial data of the quest progress to update.
+ */
+export function updatePlayerQuestProgressSync(
+    playerId: number,
+    section: number | string,
+    data: Partial<PlayerQuestProgress> & Pick<PlayerQuestProgress, 'questId'>
+) {
+    const fieldMap: Record<string, string> = {
+        'finished': 'finished',
+        'highScore': 'high_score',
+        'clearRank': 'clear_rank',
+        'bestElapsedTimeMs': 'best_elapsed_time_ms'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in data) {
+        const value = data[key as keyof PlayerQuestProgress]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (typeof(value) === "boolean") {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_quest_progress
+        SET ${sets.join(', ')}
+        WHERE section = ? AND quest_id = ? AND player_id = ?
+        `).run([...values, Number(section), data.questId, playerId]);
 }
 
 /**
@@ -2911,9 +2989,9 @@ export function collectPooledExpSync(
 
 // 151147
 
-//const stelleBallot = getPlayerCharacterSync(1, 151147)
-// if (!stelleBallot) {
-//     insertPlayerCharacterSync(1, 151147, {
+// const char = getPlayerCharacterSync(1, 141021)
+// if (!char) {
+//     insertPlayerCharacterSync(1, 141021, {
 //         entryCount: 1,
 //         evolutionLevel: 0,
 //         overLimitStep: 0,
@@ -2927,7 +3005,11 @@ export function collectPooledExpSync(
 //             {
 //                 manaBoardIndex: 1,
 //                 status: 0
-//             }
+//             },
+//             {
+//                 manaBoardIndex: 2,
+//                 status: 0
+//             },
 //         ]
 //     })
 // }

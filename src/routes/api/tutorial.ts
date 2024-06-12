@@ -1,9 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { generateDataHeaders, getServerTime } from "../../utils";
-import { getAccountPlayers, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertDefaultPlayerCharacterSync, insertPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync, validateViewerId } from "../../data/wdfpData";
-import { playerSummon } from "../../lib/gacha";
-import { Player } from "../../data/types";
 import { clientSerializeDate } from "../../data/utils";
+import { getAccountPlayers, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertDefaultPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync } from "../../data/wdfpData";
+import { playerSummon } from "../../lib/gacha";
+import { generateDataHeaders, getServerTime } from "../../utils";
 
 interface UpdateStepBody {
     viewer_id: number

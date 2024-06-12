@@ -1,8 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getPlayerFromAccountId, getSession } from "../../data/wdfpData";
-import { SessionType } from "../../data/types";
-import { serializePlayerData } from "../../data/utils";
-import { generateDataHeaders, getServerTime } from "../../utils";
+import { generateDataHeaders } from "../../utils";
 
 interface PostBody {
     create_time: string,

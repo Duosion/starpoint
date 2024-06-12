@@ -1,8 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { generateDataHeaders, generateViewerId, getServerTime } from "../../utils";
-import { deleteAccountSessionsOfType, generateViewerIdSession, getSession, insertDefaultPlayerSync, insertSession, insertSessionWithToken } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
-import { serializePlayerData } from "../../data/utils";
+import { generateViewerIdSession, getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
+import { generateDataHeaders } from "../../utils";
 
 interface GetHeaderResponseBody {
     viewer_id: number

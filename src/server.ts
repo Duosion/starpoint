@@ -7,6 +7,9 @@ import tutorialApiPlugin from "./routes/api/tutorial"
 import gachaApiPlugin from "./routes/api/gacha"
 import partyApiPlugin from "./routes/api/party"
 import expodApiPlugin from "./routes/api/expod"
+import storyQuestApiPlugin from "./routes/api/storyQuest"
+import optionApiPlugin from "./routes/api/option"
+import singleBattleQuestApiPlugin from "./routes/api/singleBattleQuest"
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
@@ -66,6 +69,9 @@ fastify.register(tutorialApiPlugin, { prefix: "/latest/api/index.php/tutorial" }
 fastify.register(gachaApiPlugin, { prefix: "/latest/api/index.php/gacha" })
 fastify.register(partyApiPlugin, { prefix: "/latest/api/index.php/party" })
 fastify.register(expodApiPlugin, { prefix: "/latest/api/index.php/expod" })
+fastify.register(storyQuestApiPlugin, { prefix: "/latest/api/index.php/story_quest" })
+fastify.register(optionApiPlugin, { prefix: "/latest/api/index.php/option" })
+fastify.register(singleBattleQuestApiPlugin, { prefix: "/latest/api/index.php/single_battle_quest" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
