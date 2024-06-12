@@ -10,7 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.10",
-    "@types/msgpack": "^0.0.34",
     "@types/node": "^20.14.2",
     "typescript": "^5.4.5"
   },

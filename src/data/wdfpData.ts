@@ -264,6 +264,7 @@ function getSessionSync(
     const session = buildSession(raw)
 
     if (new Date() >= session.expires) {
+        console.log(session, "expired")
         deleteSessionSync(session.token)
         return null
     }
@@ -544,7 +545,7 @@ export function validateViewerId(
  * @param playerId The ID of the player to get the daily challenge point list of.
  * @returns The player's daily challenge point list.
  */
-function getPlayerDailyChallengePointListSync(
+export function getPlayerDailyChallengePointListSync(
     playerId: number
 ): DailyChallengePointListEntry[] {
 
@@ -648,7 +649,7 @@ function insertPlayerDailyChallengePointListSync(
  * @param playerId The ID of the player to get the triggered tutorials of.
  * @returns A list of the IDs of each triggered tutorial.
  */
-function getPlayerTriggeredTutorialsSync(
+export function getPlayerTriggeredTutorialsSync(
     playerId: number
 ): number[] {
 
@@ -700,7 +701,7 @@ function insertPlayerTriggeredTutorialsSync(
  * @param playerId The ID of the player.
  * @returns A record, where the index is the id of the mission and the value is ???.
  */
-function getPlayerClearedRegularMissionListSync(
+export function getPlayerClearedRegularMissionListSync(
     playerId: number
 ): Record<string, number> {
 
@@ -799,6 +800,24 @@ function buildPlayerCharacter(
 }
 
 /**
+ * Checks whether a player owns a given character or not.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @returns A boolean, stating whether the player owns the character.
+ */
+export function playerOwnsCharacterSync(
+    playerId: number,
+    characterId: number
+): boolean {
+    return db.prepare(`
+    SELECT id
+    FROM players_characters
+    WHERE player_id = ? AND id = ?
+    `).get(playerId, characterId) !== undefined
+}
+
+/**
  * Gets a singular character from a player's data.
  * 
  * @param playerId The ID of the player.
@@ -838,7 +857,7 @@ export function getPlayerCharacterSync(
  * @param playerId The ID of the player.
  * @returns A list of the characters that the player owns.
  */
-function getPlayerCharactersSync(
+export function getPlayerCharactersSync(
     playerId: number
 ): Record<string, PlayerCharacter> {
 
@@ -1012,7 +1031,7 @@ export function updatePlayerCharacterSync(
  * @param playerId The ID of the player.
  * @returns A record containing the statuses of the player's characters.
  */
-function getPlayerCharactersManaNodesSync(
+export function getPlayerCharactersManaNodesSync(
     playerId: number
 ): Record<string, number[]> {
 
@@ -1085,7 +1104,7 @@ function insertPlayerCharactersManaNodesSync(
  * @param playerId The ID of the player.
  * @returns The data for each of the player's parties.
  */
-function getPlayerPartyGroupListSync(
+export function getPlayerPartyGroupListSync(
     playerId: number
 ): Record<string, PlayerPartyGroup> {
 
@@ -1226,12 +1245,61 @@ function insertPlayerPartyGroupListSync(
 }
 
 /**
+ * Updates a singular party within a player's data.
+ * 
+ * @param playerId The ID of the player.
+ * @param slot The slot of the party to update.
+ * @param party The party data to update.
+ */
+export function updatePlayerPartySync(
+    playerId: number,
+    slot: number,
+    party: PlayerParty
+) {
+    db.prepare(`
+    UPDATE players_parties
+    SET name = ?,
+        character_id_1 = ?,
+        character_id_2 = ?,
+        character_id_3 = ?,
+        unison_character_1 = ?,
+        unison_character_2 = ?,
+        unison_character_3 = ?,
+        equipment_1 = ?,
+        equipment_2 = ?,
+        equipment_3 = ?,
+        ability_soul_1 = ?,
+        ability_soul_2 = ?,
+        ability_soul_3 = ?,
+        edited = ?
+    WHERE slot = ? AND player_id = ?
+    `).run(
+        party.name,
+        party.characterIds[0],
+        party.characterIds[1],
+        party.characterIds[2],
+        party.unisonCharacterIds[0],
+        party.unisonCharacterIds[1],
+        party.unisonCharacterIds[2],
+        party.equipmentIds[0],
+        party.equipmentIds[1],
+        party.equipmentIds[2],
+        party.abilitySoulIds[0],
+        party.abilitySoulIds[1],
+        party.abilitySoulIds[2],
+        serializeBoolean(party.edited),
+        slot,
+        playerId
+    )
+}
+
+/**
  * Gets the items that a player owns.
  * 
  * @param playerId The ID of the player.
  * @returns A record where the index is the item's ID and the value is the item's amount.
  */
-function getPlayerItemsSync(
+export function getPlayerItemsSync(
     playerId: number
 ): Record<string, number> {
 
@@ -1294,7 +1362,7 @@ function insertPlayerItemsSync(
  * @param playerId The ID of the player.
  * @returns A record where the index is the equipment's ID and the value is its data.
  */
-function getPlayerEquipmentSync(
+export function getPlayerEquipmentSync(
     playerId: number
 ): Record<string, PlayerEquipment> {
 
@@ -1316,6 +1384,24 @@ function getPlayerEquipmentSync(
     }
 
     return final
+}
+
+/**
+ * Checks whether a player owns a given equipment or not.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @returns A boolean, stating whether the player owns the character.
+ */
+export function playerOwnsEquipmentSync(
+    playerId: number,
+    equipmentId: number
+): boolean {
+    return db.prepare(`
+    SELECT id
+    FROM players_equipment
+    WHERE id = ? AND player_id = ?
+    `).get(equipmentId, playerId) !== undefined
 }
 
 /**
@@ -1366,7 +1452,7 @@ function insertPlayerEquipmentListSync(
  * @param playerId The player's ID.
  * @returns A record where the index is the section and the value is a list of PlayerQuestProgress.
  */
-function getPlayerQuestProgressSync(
+export function getPlayerQuestProgressSync(
     playerId: number
 ): Record<string, PlayerQuestProgress[]> {
 
@@ -1448,7 +1534,7 @@ function insertPlayerQuestProgressListSync(
  * @param playerId The ID of the player.
  * @returns A list of PlayerGachaInfo.
  */
-function getPlayerGachaInfoSync(
+export function getPlayerGachaInfoSync(
     playerId: number
 ): PlayerGachaInfo[] {
     const rawInfo = db.prepare(`
@@ -1552,7 +1638,7 @@ export function updatePlayerGachaInfoSync(
  * @param playerId The player's ID.
  * @returns A list of the player's drawn quests.
  */
-function getPlayerDrawnQuestsSync(
+export function getPlayerDrawnQuestsSync(
     playerId: number
 ): PlayerDrawnQuest[] {
     const rawQuests = db.prepare(`
@@ -1614,7 +1700,7 @@ function insertPlayerDrawnQuestsSync(
  * @param playerId The ID of the player.
  * @returns A list of the player's periodic reward points
  */
-function getPlayerPeriodicRewardPointsSync(
+export function getPlayerPeriodicRewardPointsSync(
     playerId: number
 ): PlayerPeriodicRewardPoint[] {
     return db.prepare(`
@@ -1667,7 +1753,7 @@ function insertPlayerPeriodicRewardPointsListSync(
  * @param playerId The ID of the player.
  * @returns A record of each mission and its current progress.
  */
-function getPlayerActiveMissionsSync(
+export function getPlayerActiveMissionsSync(
     playerId: number
 ): Record<string, PlayerActiveMission> {
     const rawMissions = db.prepare(`
@@ -1786,7 +1872,7 @@ function insertPlayerActiveMissionsSync(
  * @param playerId The ID of the player
  * @returns A record containing the status of the player's box gachas.
  */
-function getPlayerBoxGachasSync(
+export function getPlayerBoxGachasSync(
     playerId: number
 ): Record<string, PlayerBoxGacha[]> {
 
@@ -1866,7 +1952,7 @@ function insertPlayerBoxGachasSync(
  * @param playerId The player's ID.
  * @returns The status of the player's start dash exchange campaigns.
  */
-function getPlayerStartDashExchangeCampaignsSync(
+export function getPlayerStartDashExchangeCampaignsSync(
     playerId: number
 ): PlayerStartDashExchangeCampaign[] {
     const rawCampaigns = db.prepare(`
@@ -1934,7 +2020,7 @@ function insertPlayerStartDashExchangeCampaignsSync(
  * @param playerId The player's ID.
  * @returns The status of the player's multi special exchange campaigns.
  */
-function getPlayerMultiSpecialExchangeCampaignsSync(
+export function getPlayerMultiSpecialExchangeCampaignsSync(
     playerId: number
 ): PlayerMultiSpecialExchangeCampaign[] {
     const rawCampaigns = db.prepare(`
@@ -2017,54 +2103,6 @@ export function getPlayerSync(
 
     if (raw === undefined) return null
 
-    // get daily challenge points
-    const dailyChallengePointList = getPlayerDailyChallengePointListSync(playerId)
-
-    // get triggered tutorials
-    const triggeredTutorials = getPlayerTriggeredTutorialsSync(playerId)
-
-    // get cleared regular missions
-    const clearedRegularMissionList = getPlayerClearedRegularMissionListSync(playerId)
-
-    // get characterList
-    const characterList = getPlayerCharactersSync(playerId)
-
-    // get characterManaNodeList
-    const characterManaNodeList = getPlayerCharactersManaNodesSync(playerId)
-
-    // get parties
-    const partyGroupList = getPlayerPartyGroupListSync(playerId)
-
-    // get items
-    const itemList = getPlayerItemsSync(playerId)
-
-    // get equipment
-    const equipmentList = getPlayerEquipmentSync(playerId)
-
-    // get quest progress
-    const questProgress = getPlayerQuestProgressSync(playerId)
-
-    // get gacha info
-    const gachaInfoList = getPlayerGachaInfoSync(playerId)
-
-    // get drawnQuestList
-    const drawnQuestList = getPlayerDrawnQuestsSync(playerId)
-
-    // get periodicReward
-    const periodicRewardPointList = getPlayerPeriodicRewardPointsSync(playerId)
-
-    // get active missions
-    const allActiveMissionList = getPlayerActiveMissionsSync(playerId)
-
-    // get box gacha
-    const boxGachaList = getPlayerBoxGachasSync(playerId)
-
-    // get start dash campaign list
-    const startDashExchangeCampaignList = getPlayerStartDashExchangeCampaignsSync(playerId)
-
-    // get the multi special exchange campaign list
-    const multiSpecialExchangeCampaignList = getPlayerMultiSpecialExchangeCampaignsSync(playerId)
-
     return {
         id: raw.id,
         stamina: raw.stamina,
@@ -2092,24 +2130,6 @@ export function getPlayerSync(
         enableAuto3x: deserializeBoolean(raw.enable_auto_3x),
         tutorialStep: raw.tutorial_step,
         tutorialSkipFlag: raw.tutorial_skip_flag === null ? null : deserializeBoolean(raw.tutorial_skip_flag),
-        // other data
-        dailyChallengePointList: dailyChallengePointList,
-        triggeredTutorial: triggeredTutorials,
-        clearedRegularMissionList: clearedRegularMissionList,
-        characterList: characterList,
-        characterManaNodeList: characterManaNodeList,
-        partyGroupList: partyGroupList,
-        itemList: itemList,
-        equipmentList: equipmentList,
-        questProgress: questProgress,
-        gachaInfoList: gachaInfoList,
-        drawnQuestList: drawnQuestList,
-        periodicRewardPointList: periodicRewardPointList,
-        allActiveMissionList: allActiveMissionList,
-        boxGachaList: boxGachaList,
-        purchasedTimesList: {},
-        startDashExchangeCampaignList: startDashExchangeCampaignList,
-        multiSpecialExchangeCampaignList: multiSpecialExchangeCampaignList
     }
 }
 
@@ -2160,58 +2180,8 @@ export function insertPlayerSync(
         player.tutorialSkipFlag === null ? null : serializeBoolean(player.tutorialSkipFlag)
     )
 
-    const playerId = Number(insert.lastInsertRowid)
-
-    // insert daily challenge points
-    insertPlayerDailyChallengePointListSync(playerId, player.dailyChallengePointList)
-
-    // insert triggered tutorials
-    insertPlayerTriggeredTutorialsSync(playerId, player.triggeredTutorial)
-
-    // insert cleared regular missions
-    insertPlayerClearedRegularMissionListSync(playerId, player.clearedRegularMissionList)
-
-    // insert characterList
-    insertPlayerCharactersSync(playerId, player.characterList)
-
-    // insert characterManaNodeList
-    insertPlayerCharactersManaNodesSync(playerId, player.characterManaNodeList)
-
-    // insert parties
-    insertPlayerPartyGroupListSync(playerId, player.partyGroupList)
-
-    // insert items
-    insertPlayerItemsSync(playerId, player.itemList)
-
-    // insert equipment
-    insertPlayerEquipmentListSync(playerId, player.equipmentList)
-
-    // insert quest progress
-    insertPlayerQuestProgressListSync(playerId, player.questProgress)
-
-    // insert gacha info
-    insertPlayerGachaInfoListSync(playerId, player.gachaInfoList)
-
-    // insert drawnQuestList
-    insertPlayerDrawnQuestsSync(playerId, player.drawnQuestList)
-
-    // insert periodicReward
-    insertPlayerPeriodicRewardPointsListSync(playerId, player.periodicRewardPointList)
-
-    // insert active missions
-    insertPlayerActiveMissionsSync(playerId, player.allActiveMissionList)
-
-    // insert box gacha
-    insertPlayerBoxGachasSync(playerId, player.boxGachaList)
-
-    // insert start dash campaign list
-    insertPlayerStartDashExchangeCampaignsSync(playerId, player.startDashExchangeCampaignList)
-
-    // insert the multi special exchange campaign list
-    insertPlayerMultiSpecialExchangeCampaignsSync(playerId, player.multiSpecialExchangeCampaignList)
-
     // return
-    return playerId
+    return Number(insert.lastInsertRowid)
 }
 
 /**
@@ -2225,10 +2195,572 @@ export function insertDefaultPlayerSync(
 ): Player {
     const player: Omit<Player, 'id'> = getDefaultPlayerData()
 
-    const id = insertPlayerSync(accountId, player)
+    const playerId = insertPlayerSync(accountId, player)
+
+    // insert daily challenge points
+    insertPlayerDailyChallengePointListSync(playerId, [
+        {
+            id: 1,
+            point: 2,
+            campaignList: [
+                {
+                    campaignId: 2023013101,
+                    additionalPoint: 2
+                }
+            ]
+        },
+        {
+            id: 251,
+            point: 2,
+            campaignList: [
+                {
+                    campaignId: 2023013102,
+                    additionalPoint: 2
+                }
+            ]
+        },
+        {
+            id: 5001,
+            point: 10,
+            campaignList: []
+        },
+        {
+            id: 10008,
+            point: 1,
+            campaignList: []
+        }
+    ])
+
+    // insert triggered tutorials
+    insertPlayerTriggeredTutorialsSync(playerId, [])
+
+    // insert cleared regular missions
+    insertPlayerClearedRegularMissionListSync(playerId, {})
+
+    // insert characterList
+    insertPlayerCharactersSync(playerId, {
+        "1": {
+            entryCount: 1,
+            evolutionLevel: 0,
+            overLimitStep: 0,
+            protection: false,
+            joinTime: new Date(),
+            updateTime: new Date(),
+            exp: 10,
+            stack: 0,
+            bondTokenList: [
+                {
+                    manaBoardIndex: 1,
+                    status: 0
+                },
+                {
+                    manaBoardIndex: 2,
+                    status: 0
+                }
+            ],
+            manaBoardIndex: 1
+        }
+    })
+
+    // insert characterManaNodeList
+    insertPlayerCharactersManaNodesSync(playerId, {})
+
+    // insert parties
+    const partyGroups: Record<string, PlayerPartyGroup> = {}
+    {
+        const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+        const groupCount = 6
+        let currentParty = 1
+
+        for (let i = 0; i < groupCount; i++) {
+            const list: Record<string, PlayerParty> = {}
+            const group: PlayerPartyGroup = {
+                list: list,
+                colorId: 15
+            }
+
+            for (const name of partyNames) {
+                list[currentParty.toString()] = {
+                    name: `Party ${name}`,
+                    characterIds: [1, null, null],
+                    unisonCharacterIds: [null, null, null],
+                    equipmentIds: [null, null, null],
+                    abilitySoulIds: [null, null, null],
+                    edited: false,
+                    options: {
+                        allowOtherPlayersToHealMe: true
+                    }
+                }
+                currentParty += 1
+            }
+
+            partyGroups[(i + 1).toString()] = group
+        }
+    }
+    insertPlayerPartyGroupListSync(playerId, {})
+
+    // insert items
+    insertPlayerItemsSync(playerId, {})
+
+    // insert equipment
+    insertPlayerEquipmentListSync(playerId, {})
+
+    // insert quest progress
+    insertPlayerQuestProgressListSync(playerId, {})
+
+    // insert gacha info
+    insertPlayerGachaInfoListSync(playerId, [
+        {
+            gachaId: 2,
+            isDailyFirst: true,
+            isAccountFirst: true
+        },
+        {
+            gachaId: 4,
+            isDailyFirst: true,
+            isAccountFirst: true
+        },
+        {
+            gachaId: 900003,
+            isDailyFirst: true,
+            isAccountFirst: true
+        },
+        {
+            gachaId: 157,
+            isDailyFirst: true,
+            isAccountFirst: true,
+            gachaExchangePoint: 0
+        },
+        {
+            gachaId: 57,
+            isDailyFirst: true,
+            isAccountFirst: true
+        },
+        {
+            gachaId: 5033,
+            isDailyFirst: true,
+            isAccountFirst: true,
+            gachaExchangePoint: 0
+        },
+        {
+            gachaId: 900000,
+            isDailyFirst: true,
+            isAccountFirst: true
+        },
+        {
+            gachaId: 155,
+            isDailyFirst: true,
+            isAccountFirst: true,
+            gachaExchangePoint: 0
+        },
+        {
+            gachaId: 9,
+            isDailyFirst: true,
+            isAccountFirst: true
+        },
+    ])
+
+    // insert drawnQuestList
+    insertPlayerDrawnQuestsSync(playerId, [
+        {
+            categoryId: 6,
+            questId: 5001,
+            oddsId: 5
+        },
+        {
+            categoryId: 6,
+            questId: 5002,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 5003,
+            oddsId: 1
+        },
+        {
+            categoryId: 6,
+            questId: 5004,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 5005,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 13001,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 13002,
+            oddsId: 4
+        },
+        {
+            categoryId: 6,
+            questId: 13003,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 13004,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 13005,
+            oddsId: 9
+        },
+        {
+            categoryId: 6,
+            questId: 13006,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 14001,
+            oddsId: 4
+        },
+        {
+            categoryId: 6,
+            questId: 14002,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 14003,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 14004,
+            oddsId: 5
+        },
+        {
+            categoryId: 6,
+            questId: 14005,
+            oddsId: 8
+        },
+        {
+            categoryId: 6,
+            questId: 14006,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 15001,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 15002,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 15003,
+            oddsId: 5
+        },
+        {
+            categoryId: 6,
+            questId: 15004,
+            oddsId: 4
+        },
+        {
+            categoryId: 6,
+            questId: 15005,
+            oddsId: 7
+        },
+        {
+            categoryId: 6,
+            oddsId: 5,
+            questId: 15006
+        },
+        {
+            categoryId: 6,
+            questId: 16001,
+            oddsId: 1
+        },
+        {
+            categoryId: 6,
+            questId: 16002,
+            oddsId: 8
+        },
+        {
+            categoryId: 6,
+            questId: 16003,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 16004,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 16005,
+            oddsId: 1
+        },
+        {
+            categoryId: 6,
+            questId: 16006,
+            oddsId: 9
+        },
+        {
+            categoryId: 6,
+            questId: 17001,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 17002,
+            oddsId: 8
+        },
+        {
+            categoryId: 6,
+            questId: 17003,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 17004,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 17005,
+            oddsId: 7
+        },
+        {
+            categoryId: 6,
+            questId: 17006,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 18001,
+            oddsId: 8
+        },
+        {
+            categoryId: 6,
+            questId: 18002,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 18003,
+            oddsId: 4
+        },
+        {
+            categoryId: 6,
+            questId: 18004,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 18005,
+            oddsId: 4
+        },
+        {
+            categoryId: 6,
+            questId: 18006,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 19001,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 19002,
+            oddsId: 7
+        },
+        {
+            categoryId: 6,
+            questId: 19003,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 19004,
+            oddsId: 3
+        },
+        {
+            categoryId: 6,
+            questId: 19005,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 19006,
+            oddsId: 1
+        },
+        {
+            categoryId: 6,
+            questId: 19007,
+            oddsId: 7
+        },
+        {
+            categoryId: 6,
+            questId: 19008,
+            oddsId: 7
+        },
+        {
+            categoryId: 6,
+            questId: 19009,
+            oddsId: 5
+        },
+        {
+            categoryId: 6,
+            questId: 19010,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 19011,
+            oddsId: 2
+        },
+        {
+            categoryId: 6,
+            questId: 19012,
+            oddsId: 9
+        },
+        {
+            categoryId: 6,
+            questId: 19013,
+            oddsId: 4
+        },
+        {
+            categoryId: 6,
+            questId: 19014,
+            oddsId: 8
+        },
+        {
+            categoryId: 6,
+            questId: 19015,
+            oddsId: 1
+        },
+        {
+            categoryId: 6,
+            questId: 19016,
+            oddsId: 1
+        },
+        {
+            categoryId: 6,
+            questId: 19017,
+            oddsId: 6
+        },
+        {
+            categoryId: 6,
+            questId: 19018,
+            oddsId: 4
+        },
+        {
+            categoryId: 14,
+            questId: 1001,
+            oddsId: 21
+        },
+        {
+            categoryId: 14,
+            questId: 1002,
+            oddsId: 30
+        },
+        {
+            categoryId: 14,
+            questId: 1003,
+            oddsId: 20
+        },
+        {
+            categoryId: 14,
+            questId: 1004,
+            oddsId: 27
+        },
+        {
+            categoryId: 14,
+            questId: 1005,
+            oddsId: 9
+        },
+        {
+            categoryId: 14,
+            questId: 1006,
+            oddsId: 35
+        },
+    ])
+
+    // insert periodicReward
+    insertPlayerPeriodicRewardPointsListSync(playerId, [
+        {
+            id: 1,
+            point: 22,
+        },
+        {
+            id: 2,
+            point: 2,
+        },
+        {
+            id: 3,
+            point: 2,
+        },
+        {
+            id: 10000000,
+            point: 2,
+        },
+    ])
+
+    // insert active missions
+    insertPlayerActiveMissionsSync(playerId, {})
+
+    // insert box gacha
+    insertPlayerBoxGachasSync(playerId, {
+        "1001": [
+            {
+                boxId: 1,
+                resetTimes: 0,
+                remainingNumber: 572,
+                isClosed: false
+            },
+            {
+                boxId: 2,
+                resetTimes: 0,
+                remainingNumber: 647,
+                isClosed: false
+            },
+            {
+                boxId: 3,
+                resetTimes: 0,
+                remainingNumber: 732,
+                isClosed: false
+            },
+            {
+                boxId: 4,
+                resetTimes: 0,
+                remainingNumber: 912,
+                isClosed: false
+            },
+            {
+                boxId: 5,
+                resetTimes: 0,
+                remainingNumber: 1401,
+                isClosed: false
+            },
+        ]
+    })
+
+    // insert start dash campaign list
+    insertPlayerStartDashExchangeCampaignsSync(playerId, [])
+
+    // insert the multi special exchange campaign list
+    insertPlayerMultiSpecialExchangeCampaignsSync(playerId, [
+        {
+            campaignId: 3,
+            status: 1
+        }
+    ])
 
     const finalPlayer = player as Player
-    finalPlayer.id = id
+    finalPlayer.id = playerId
     return finalPlayer
 }
 
@@ -2306,3 +2838,26 @@ export function updatePlayerSync(
 //         insertDefaultPlayerSync(account.id)
 //     }
 // })
+
+// 151147
+
+// const stelleBallot = getPlayerCharacterSync(1, 151147)
+// if (!stelleBallot) {
+//     insertPlayerCharacterSync(1, 151147, {
+//         entryCount: 1,
+//         evolutionLevel: 0,
+//         overLimitStep: 0,
+//         protection: false,
+//         joinTime: new Date(),
+//         updateTime: new Date(),
+//         exp: 0,
+//         stack: 0,
+//         manaBoardIndex: 1,
+//         bondTokenList: [
+//             {
+//                 manaBoardIndex: 1,
+//                 status: 0
+//             }
+//         ]
+//     })
+// }

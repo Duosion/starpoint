@@ -1,5 +1,5 @@
 import { getServerTime } from "../utils"
-import { Player, PlayerParty, PlayerPartyGroup } from "./types"
+import { DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign } from "./types"
 
 /**
  * Serializes a boolean into a number, which is storable by the database.
@@ -33,12 +33,29 @@ export function deserializeBoolean(
  */
 export function serializePlayerData(
     player: Player,
-    viewerId?: number
+    dailyChallengePointList: DailyChallengePointListEntry[],
+    triggeredTutorial: number[],
+    clearedRegularMissionList: Record<string, number>,
+    characterList: Record<string, PlayerCharacter>,
+    characterManaNodeList: Record<string, number[]>,
+    partyGroupList: Record<string, PlayerPartyGroup>,
+    itemList: Record<string, number>,
+    equipmentList: Record<string, PlayerEquipment>,
+    questProgress: Record<string, PlayerQuestProgress[]>,
+    gachaInfoList: PlayerGachaInfo[],
+    drawnQuestList: PlayerDrawnQuest[],
+    periodicRewardPointList: PlayerPeriodicRewardPoint[],
+    allActiveMissionList: Record<string, PlayerActiveMission>,
+    boxGachaList: Record<string, PlayerBoxGacha[]>,
+    purchasedTimesList: Record<string, number>,
+    startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[],
+    multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[],
+    viewerId?: number,
 ): Object {
 
     // convert userCharacterList
     const userCharacterList: Record<string, Object> = {}
-    for (const [characterId, character] of Object.entries(player.characterList)) {
+    for (const [characterId, character] of Object.entries(characterList)) {
         // convert bond tokens
         const bondTokenList: any = []
         for (const bondToken of character.bondTokenList) {
@@ -64,7 +81,7 @@ export function serializePlayerData(
 
     // convert parties
     const userPartyGroupList: Record<string, Object> = {}
-    for (const [groupId, group] of Object.entries(player.partyGroupList)) {
+    for (const [groupId, group] of Object.entries(partyGroupList)) {
         const list: Record<string, Object> = {}
         for (const [partyId, party] of Object.entries(group.list)) {
             list[partyId] = {
@@ -87,7 +104,7 @@ export function serializePlayerData(
 
     // convert equipment list
     const userEquipmentList: Record<string, Object> = {}
-    for (const [equipmentId, equipment] of Object.entries(player.equipmentList)) {
+    for (const [equipmentId, equipment] of Object.entries(equipmentList)) {
         userEquipmentList[equipmentId] = {
             "enhancement_level": equipment.enhancementLevel,
             "level": equipment.level,
@@ -97,8 +114,8 @@ export function serializePlayerData(
     }
 
     // convert player Quest Progress
-    const questProgress: Record<string, Object> = {}
-    for (const [section, progresses] of Object.entries(player.questProgress)) {
+    const userQuestProgress: Record<string, Object> = {}
+    for (const [section, progresses] of Object.entries(questProgress)) {
         const list: Object[] = []
         for (const progress of progresses) {
             list.push({
@@ -109,13 +126,13 @@ export function serializePlayerData(
                 "quest_id": progress.questId
             })
         }
-        questProgress[section] = list
+        userQuestProgress[section] = list
     }
 
     // convert box gacha list
-    const boxGachaList: Record<string, Object> = {}
-    for (const [section, list] of Object.entries(player.boxGachaList)) {
-        boxGachaList[section] = list.map(boxGacha => {
+    const userBoxGachaList: Record<string, Object> = {}
+    for (const [section, list] of Object.entries(boxGachaList)) {
+        userBoxGachaList[section] = list.map(boxGacha => {
             return {
                 "box_id": boxGacha.boxId,
                 "reset_times": boxGacha.resetTimes,
@@ -128,7 +145,7 @@ export function serializePlayerData(
     // handle tutorial
     let userTutorial: Record<string, any> | null = null
     const tutorialStep = player.tutorialStep
-    if (tutorialStep !== null) {
+    if (tutorialStep !== null && triggeredTutorial.find((value: number) => value === 12) === undefined) {
         userTutorial = {
             "viewer_id": viewerId || 0,
             "tutorial_step": tutorialStep,
@@ -168,7 +185,7 @@ export function serializePlayerData(
         },
         "premium_bonus_list": [],
         "expired_premium_bonus_list": null,
-        "user_daily_challenge_point_list": player.dailyChallengePointList.map(dailyChallenge => {
+        "user_daily_challenge_point_list": dailyChallengePointList.map(dailyChallenge => {
             return {
                 "id": dailyChallenge.id,
                 "point": dailyChallenge.point,
@@ -183,19 +200,19 @@ export function serializePlayerData(
         "bonus_index_list": null,
         "login_bonus_received_at": null,
         "user_notice_list": [],
-        "user_triggered_tutorial": player.triggeredTutorial,
+        "user_triggered_tutorial": triggeredTutorial,
         "user_tutorial": userTutorial,
         "tutorial_gacha": null,
-        "cleared_regular_mission_list": player.clearedRegularMissionList,
+        "cleared_regular_mission_list": clearedRegularMissionList,
         "user_character_list": userCharacterList,
-        "user_character_mana_node_list": player.characterManaNodeList,
+        "user_character_mana_node_list": characterManaNodeList,
         "user_party_group_list": userPartyGroupList,
-        "item_list": player.itemList,
+        "item_list": itemList,
         "user_equipment_list": userEquipmentList,
         "user_character_from_town_history": [],
-        "quest_progress": questProgress,
+        "quest_progress": userQuestProgress,
         "last_main_quest_id": null,
-        "gacha_info_list": player.gachaInfoList.map(gachaInfo => {
+        "gacha_info_list": gachaInfoList.map(gachaInfo => {
             return {
                 "gacha_id": gachaInfo.gachaId,
                 "is_daily_first": gachaInfo.isDailyFirst,
@@ -217,7 +234,7 @@ export function serializePlayerData(
             "attention_enable_in_battle": true,
             "simple_ability_description": false
         },
-        "drawn_quest_list": player.drawnQuestList.map(drawnQuest => {
+        "drawn_quest_list": drawnQuestList.map(drawnQuest => {
             return {
                 "category_id": drawnQuest.categoryId,
                 "quest_id": drawnQuest.questId,
@@ -225,10 +242,10 @@ export function serializePlayerData(
             }
         }),
         "mail_arrived": false,
-        "user_periodic_reward_point_list": player.periodicRewardPointList,
-        "all_active_mission_list": player.allActiveMissionList,
+        "user_periodic_reward_point_list": periodicRewardPointList,
+        "all_active_mission_list": allActiveMissionList,
         "cleared_collect_item_event_mission_list": [],
-        "box_gacha_list": boxGachaList,
+        "box_gacha_list": userBoxGachaList,
         "gacha_campaign_list": [
             {
                 "campaign_id": 19,
@@ -258,7 +275,7 @@ export function serializePlayerData(
             "gs.kg.worldflipper.pakage_rank_4": 0,
             "gs.kg.worldflipper.pakage_challenge_boost": 0
         },
-        "start_dash_exchange_campaign_list": player.startDashExchangeCampaignList.map(campaign => {
+        "start_dash_exchange_campaign_list": startDashExchangeCampaignList.map(campaign => {
             return {
                 "campaign_id": campaign.campaignId,
                 "gacha_id": campaign.gachaId,
@@ -268,7 +285,7 @@ export function serializePlayerData(
                 "term_index": campaign.termIndex
             }
         }),
-        "multi_special_exchange_campaign_list": player.multiSpecialExchangeCampaignList.map(campaign => {
+        "multi_special_exchange_campaign_list": multiSpecialExchangeCampaignList.map(campaign => {
             return {
                 "campaign_id": campaign.campaignId,
                 "status": campaign.status
@@ -309,38 +326,6 @@ export function serializePlayerData(
  */
 export function getDefaultPlayerData(): Omit<Player, 'id'> {
     // generate party groups
-    const partyGroups: Record<string, PlayerPartyGroup> = {}
-    {
-        const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-        const groupCount = 6
-        let currentParty = 1
-
-        for (let i = 0; i < groupCount; i++) {
-            const list: Record<string, PlayerParty> = {}
-            const group: PlayerPartyGroup = {
-                list: list,
-                colorId: 15
-            }
-
-            for (const name of partyNames) {
-                list[currentParty.toString()] = {
-                    name: `Party ${name}`,
-                    characterIds: [1, null, null],
-                    unisonCharacterIds: [null, null, null],
-                    equipmentIds: [null, null, null],
-                    abilitySoulIds: [null, null, null],
-                    edited: false,
-                    options: {
-                        allowOtherPlayersToHealMe: true
-                    }
-                }
-                currentParty += 1
-            }
-
-            partyGroups[(i + 1).toString()] = group
-        }
-    }
-
     return {
         stamina: 20,
         staminaHealTime: new Date(),
@@ -366,506 +351,6 @@ export function getDefaultPlayerData(): Omit<Player, 'id'> {
         paidMana: 0,
         enableAuto3x: false,
         tutorialStep: 0,
-        tutorialSkipFlag: null,
-        dailyChallengePointList: [
-            {
-                id: 1,
-                point: 2,
-                campaignList: [
-                    {
-                        campaignId: 2023013101,
-                        additionalPoint: 2
-                    }
-                ]
-            },
-            {
-                id: 251,
-                point: 2,
-                campaignList: [
-                    {
-                        campaignId: 2023013102,
-                        additionalPoint: 2
-                    }
-                ]
-            },
-            {
-                id: 5001,
-                point: 10,
-                campaignList: []
-            },
-            {
-                id: 10008,
-                point: 1,
-                campaignList: []
-            }
-        ],
-        triggeredTutorial: [],
-        clearedRegularMissionList: {},
-        characterList: {
-            "1": {
-                entryCount: 1,
-                evolutionLevel: 0,
-                overLimitStep: 0,
-                protection: false,
-                joinTime: new Date(),
-                updateTime: new Date(),
-                exp: 10,
-                stack: 0,
-                bondTokenList: [
-                    {
-                        manaBoardIndex: 1,
-                        status: 0
-                    },
-                    {
-                        manaBoardIndex: 2,
-                        status: 0
-                    }
-                ],
-                manaBoardIndex: 1
-            }
-        },
-        characterManaNodeList: {},
-        partyGroupList: partyGroups,
-        itemList: {},
-        equipmentList: {},
-        questProgress: {},
-        gachaInfoList: [
-            {
-                gachaId: 2,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 4,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 900003,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 157,
-                isDailyFirst: true,
-                isAccountFirst: true,
-                gachaExchangePoint: 0
-            },
-            {
-                gachaId: 57,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 5033,
-                isDailyFirst: true,
-                isAccountFirst: true,
-                gachaExchangePoint: 0
-            },
-            {
-                gachaId: 900000,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-            {
-                gachaId: 155,
-                isDailyFirst: true,
-                isAccountFirst: true,
-                gachaExchangePoint: 0
-            },
-            {
-                gachaId: 9,
-                isDailyFirst: true,
-                isAccountFirst: true
-            },
-        ],
-        drawnQuestList: [
-            {
-                categoryId: 6,
-                questId: 5001,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 5002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 5003,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 5004,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 5005,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 13001,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 13002,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 13003,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 13004,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 13005,
-                oddsId: 9
-            },
-            {
-                categoryId: 6,
-                questId: 13006,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 14001,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 14002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 14003,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 14004,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 14005,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 14006,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 15001,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 15002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 15003,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 15004,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 15005,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                oddsId: 5,
-                questId: 15006
-            },
-            {
-                categoryId: 6,
-                questId: 16001,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 16002,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 16003,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 16004,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 16005,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 16006,
-                oddsId: 9
-            },
-            {
-                categoryId: 6,
-                questId: 17001,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 17002,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 17003,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 17004,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 17005,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 17006,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 18001,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 18002,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 18003,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 18004,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 18005,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 18006,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 19001,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 19002,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 19003,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 19004,
-                oddsId: 3
-            },
-            {
-                categoryId: 6,
-                questId: 19005,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 19006,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 19007,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 19008,
-                oddsId: 7
-            },
-            {
-                categoryId: 6,
-                questId: 19009,
-                oddsId: 5
-            },
-            {
-                categoryId: 6,
-                questId: 19010,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 19011,
-                oddsId: 2
-            },
-            {
-                categoryId: 6,
-                questId: 19012,
-                oddsId: 9
-            },
-            {
-                categoryId: 6,
-                questId: 19013,
-                oddsId: 4
-            },
-            {
-                categoryId: 6,
-                questId: 19014,
-                oddsId: 8
-            },
-            {
-                categoryId: 6,
-                questId: 19015,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 19016,
-                oddsId: 1
-            },
-            {
-                categoryId: 6,
-                questId: 19017,
-                oddsId: 6
-            },
-            {
-                categoryId: 6,
-                questId: 19018,
-                oddsId: 4
-            },
-            {
-                categoryId: 14,
-                questId: 1001,
-                oddsId: 21
-            },
-            {
-                categoryId: 14,
-                questId: 1002,
-                oddsId: 30
-            },
-            {
-                categoryId: 14,
-                questId: 1003,
-                oddsId: 20
-            },
-            {
-                categoryId: 14,
-                questId: 1004,
-                oddsId: 27
-            },
-            {
-                categoryId: 14,
-                questId: 1005,
-                oddsId: 9
-            },
-            {
-                categoryId: 14,
-                questId: 1006,
-                oddsId: 35
-            },
-        ],
-        periodicRewardPointList: [
-            {
-                id: 1,
-                point: 22,
-            },
-            {
-                id: 2,
-                point: 2,
-            },
-            {
-                id: 3,
-                point: 2,
-            },
-            {
-                id: 10000000,
-                point: 2,
-            },
-        ],
-        allActiveMissionList: {},
-        boxGachaList: {
-            "1001": [
-                {
-                    boxId: 1,
-                    resetTimes: 0,
-                    remainingNumber: 572,
-                    isClosed: false
-                },
-                {
-                    boxId: 2,
-                    resetTimes: 0,
-                    remainingNumber: 647,
-                    isClosed: false
-                },
-                {
-                    boxId: 3,
-                    resetTimes: 0,
-                    remainingNumber: 732,
-                    isClosed: false
-                },
-                {
-                    boxId: 4,
-                    resetTimes: 0,
-                    remainingNumber: 912,
-                    isClosed: false
-                },
-                {
-                    boxId: 5,
-                    resetTimes: 0,
-                    remainingNumber: 1401,
-                    isClosed: false
-                },
-            ]
-        },
-        purchasedTimesList: {},
-        startDashExchangeCampaignList: [],
-        multiSpecialExchangeCampaignList: [
-            {
-                campaignId: 3,
-                status: 1
-            }
-        ]
+        tutorialSkipFlag: null
     }
 }

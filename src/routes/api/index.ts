@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { deleteAccountSessionsOfType, getPlayerFromAccountId, getSession, insertSessionWithToken, validateViewerId } from "../../data/wdfpData";
+import { deleteAccountSessionsOfType, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentSync, getPlayerFromAccountId, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerTriggeredTutorialsSync, getSession, insertSessionWithToken, validateViewerId } from "../../data/wdfpData";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
 import { generateDataHeaders, generateViewerId, getServerTime } from "../../utils";
@@ -44,13 +44,35 @@ const routes = async (fastify: FastifyInstance) => {
 
         viewerId = await validateViewerId(accountId, viewerId)
 
+        const playerId = playerData.id
+
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
             "data_headers": generateDataHeaders({
                 asset_update: true,
                 viewer_id: viewerId
             }),
-            "data": serializePlayerData(playerData, viewerId)
+            "data": serializePlayerData(
+                playerData,
+                getPlayerDailyChallengePointListSync(playerId),
+                getPlayerTriggeredTutorialsSync(playerId),
+                getPlayerClearedRegularMissionListSync(playerId),
+                getPlayerCharactersSync(playerId),
+                getPlayerCharactersManaNodesSync(playerId),
+                getPlayerPartyGroupListSync(playerId),
+                getPlayerItemsSync(playerId),
+                getPlayerEquipmentSync(playerId),
+                getPlayerQuestProgressSync(playerId),
+                getPlayerGachaInfoSync(playerId),
+                getPlayerDrawnQuestsSync(playerId),
+                getPlayerPeriodicRewardPointsSync(playerId),
+                getPlayerActiveMissionsSync(playerId),
+                getPlayerBoxGachasSync(playerId),
+                {},
+                getPlayerStartDashExchangeCampaignsSync(playerId),
+                getPlayerMultiSpecialExchangeCampaignsSync(playerId),
+                viewerId
+            )
         })
     })
 }

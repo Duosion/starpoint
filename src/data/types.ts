@@ -348,22 +348,4 @@ export interface Player {
     enableAuto3x: boolean
     tutorialStep: number | null
     tutorialSkipFlag: boolean | null
-    // other data
-    dailyChallengePointList: DailyChallengePointListEntry[]
-    triggeredTutorial: number[]
-    clearedRegularMissionList: Record<string, number>
-    characterList: Record<string, PlayerCharacter>
-    characterManaNodeList: Record<string, number[]>
-    partyGroupList: Record<string, PlayerPartyGroup>
-    itemList: Record<string, number>
-    equipmentList: Record<string, PlayerEquipment>
-    questProgress: Record<string, PlayerQuestProgress[]>
-    gachaInfoList: PlayerGachaInfo[]
-    drawnQuestList: PlayerDrawnQuest[]
-    periodicRewardPointList: PlayerPeriodicRewardPoint[]
-    allActiveMissionList: Record<string, PlayerActiveMission>
-    boxGachaList: Record<string, PlayerBoxGacha[]>
-    purchasedTimesList: Record<string, number>
-    startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[]
-    multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[]
 }

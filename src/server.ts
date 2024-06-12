@@ -5,6 +5,8 @@ import toolApiPlugin from "./routes/api/tool";
 import reproduceApiPlugin from "./routes/api/reproduce"
 import tutorialApiPlugin from "./routes/api/tutorial"
 import gachaApiPlugin from "./routes/api/gacha"
+import partyApiPlugin from "./routes/api/party"
+import expodApiPlugin from "./routes/api/expod"
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
@@ -62,6 +64,8 @@ fastify.register(toolApiPlugin, { prefix: "/latest/api/index.php/tool" })
 fastify.register(reproduceApiPlugin, { prefix: "/latest/api/index.php/reproduce" })
 fastify.register(tutorialApiPlugin, { prefix: "/latest/api/index.php/tutorial" })
 fastify.register(gachaApiPlugin, { prefix: "/latest/api/index.php/gacha" })
+fastify.register(partyApiPlugin, { prefix: "/latest/api/index.php/party" })
+fastify.register(expodApiPlugin, { prefix: "/latest/api/index.php/expod" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { generateDataHeaders, getServerTime } from "../../utils";
-import { getAccountPlayers, getPlayerSync, getSession, insertPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync, validateViewerId } from "../../data/wdfpData";
+import { getAccountPlayers, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync, validateViewerId } from "../../data/wdfpData";
 import { playerSummon } from "../../lib/gacha";
 import { Player } from "../../data/types";
 
@@ -82,14 +82,29 @@ const routes = async (fastify: FastifyInstance) => {
         // get player
         const playerIds = await getAccountPlayers(viewerIdSession.accountId)
         const playerId = playerIds[0]
+        const player = !isNaN(playerId) ? getPlayerSync(playerId) : null
 
-        if (isNaN(playerId)) return reply.status(500).send({
+        if (player === null) return reply.status(500).send({
             "error": "Internal Server Error",
-            "message": "No players bound to account."
+            "message": "No player bound to account."
+        })
+
+        // check if tutorial is already completed
+        const completedTutorial = getPlayerTriggeredTutorialsSync(playerId)
+        if (completedTutorial.find((value: number) => value === 12)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Tutorial already completed"
         })
 
         // update player
+        const currentStep = player.tutorialStep
         let nextStep = completedStep + 1
+
+        if ((currentStep || 0) > nextStep) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Attempt to redo previous tutorial step."
+        })
+
         updatePlayerSync({
             id: playerId,
             tutorialStep: nextStep,
@@ -171,9 +186,6 @@ const routes = async (fastify: FastifyInstance) => {
                 }
             })
         } else if (nextStep === 16) {
-            // gift
-            const player = getPlayerSync(playerId) as Player
-
             // give 1500 vmoney
             const newVMoney = player.freeVmoney + 1500
             updatePlayerSync({
