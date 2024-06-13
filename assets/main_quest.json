@@ -1,0 +1,3898 @@
+{
+    "1001001": {
+        "name": "Green, Green, World",
+        "clearRewardId": 1
+    },
+    "1001002": {
+        "name": "All Quests Start Here",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40000,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 3,
+        "characterExpReward": 13,
+        "manaReward": 20,
+        "poolExpReward": 13
+    },
+    "1001003": {
+        "name": "The Journey Begins",
+        "clearRewardId": 1
+    },
+    "1002001": {
+        "name": "Toadstool Trailing - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40001,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 3,
+        "characterExpReward": 13,
+        "manaReward": 20,
+        "poolExpReward": 13
+    },
+    "1002002": {
+        "name": "Toadstool Trailing - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40002,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 3,
+        "characterExpReward": 13,
+        "manaReward": 20,
+        "poolExpReward": 13
+    },
+    "1003001": {
+        "name": "Mushroom Meltdown",
+        "clearRewardId": 1
+    },
+    "1003002": {
+        "name": "Sunlit Treetops",
+        "clearRewardId": 18,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40003,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 3,
+        "characterExpReward": 13,
+        "manaReward": 20,
+        "poolExpReward": 13
+    },
+    "1004001": {
+        "name": "Forest Sprites",
+        "clearRewardId": 1
+    },
+    "1004002": {
+        "name": "Attack From Above",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40004,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 5,
+        "characterExpReward": 18,
+        "manaReward": 20,
+        "poolExpReward": 18
+    },
+    "1004003": {
+        "name": "Challua's Friend",
+        "clearRewardId": 1
+    },
+    "1005001": {
+        "name": "To the Spirit Tree - 1",
+        "clearRewardId": 7,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40005,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 3,
+        "characterExpReward": 13,
+        "manaReward": 20,
+        "poolExpReward": 13
+    },
+    "1005002": {
+        "name": "To the Spirit Tree - 2",
+        "clearRewardId": 5,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40006,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 4,
+        "characterExpReward": 16,
+        "manaReward": 20,
+        "poolExpReward": 16
+    },
+    "1006001": {
+        "name": "The Spirit Tree",
+        "clearRewardId": 1
+    },
+    "1006002": {
+        "name": "Spirit Tree Interior - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40007,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 4,
+        "characterExpReward": 16,
+        "manaReward": 20,
+        "poolExpReward": 16
+    },
+    "1006003": {
+        "name": "Spirit Tree Interior - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40008,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 4,
+        "characterExpReward": 19,
+        "manaReward": 30,
+        "poolExpReward": 19
+    },
+    "1007001": {
+        "name": "Anomaly",
+        "clearRewardId": 1
+    },
+    "1007002": {
+        "name": "Rotting Wood",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40009,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 6,
+        "characterExpReward": 31,
+        "manaReward": 30,
+        "poolExpReward": 31
+    },
+    "1008001": {
+        "name": "Emissary From the Dark",
+        "clearRewardId": 1
+    },
+    "1008002": {
+        "name": "Regitare, Undead Lord",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40010,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 7,
+        "characterExpReward": 35,
+        "manaReward": 40,
+        "poolExpReward": 35
+    },
+    "1008003": {
+        "name": "Undead Lord",
+        "clearRewardId": 1
+    },
+    "1008004": {
+        "name": "A World Connected",
+        "clearRewardId": 9
+    },
+    "2001001": {
+        "name": "Lost Among the Dunes",
+        "clearRewardId": 1
+    },
+    "2001002": {
+        "name": "Sea of Sand - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40011,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 5,
+        "characterExpReward": 19,
+        "manaReward": 30,
+        "poolExpReward": 19
+    },
+    "2001003": {
+        "name": "Sea of Sand - 2",
+        "clearRewardId": 8,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40012,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 5,
+        "characterExpReward": 19,
+        "manaReward": 30,
+        "poolExpReward": 19
+    },
+    "2002001": {
+        "name": "The Boy and the Beast",
+        "clearRewardId": 1
+    },
+    "2002002": {
+        "name": "White Roar",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40013,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 8,
+        "characterExpReward": 35,
+        "manaReward": 50,
+        "poolExpReward": 35
+    },
+    "2002003": {
+        "name": "Trust and Betrayal",
+        "clearRewardId": 1
+    },
+    "2003001": {
+        "name": "Trek to the Oasis - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40014,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 5,
+        "characterExpReward": 19,
+        "manaReward": 30,
+        "poolExpReward": 19
+    },
+    "2003002": {
+        "name": "Trek to the Oasis - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40015,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 6,
+        "characterExpReward": 22,
+        "manaReward": 40,
+        "poolExpReward": 22
+    },
+    "2004001": {
+        "name": "Trek to the Oasis - 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40016,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 6,
+        "characterExpReward": 28,
+        "manaReward": 40,
+        "poolExpReward": 28
+    },
+    "2004002": {
+        "name": "Trek to the Oasis - 4",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40017,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 8,
+        "characterExpReward": 35,
+        "manaReward": 50,
+        "poolExpReward": 35
+    },
+    "2004003": {
+        "name": "The Lord of the Oasis",
+        "clearRewardId": 1
+    },
+    "2005001": {
+        "name": "The Hunt - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40018,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 6,
+        "characterExpReward": 24,
+        "manaReward": 40,
+        "poolExpReward": 24
+    },
+    "2005002": {
+        "name": "The Hunt - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40019,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 9,
+        "characterExpReward": 41,
+        "manaReward": 50,
+        "poolExpReward": 41
+    },
+    "2006001": {
+        "name": "Into the Ruins",
+        "clearRewardId": 1
+    },
+    "2006002": {
+        "name": "Trouble at the Ruins",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40020,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 8,
+        "characterExpReward": 36,
+        "manaReward": 50,
+        "poolExpReward": 36
+    },
+    "2006003": {
+        "name": "The Wrath of the Ancients",
+        "clearRewardId": 1
+    },
+    "2006004": {
+        "name": "Guardian of the Ruins",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40021,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 15,
+        "characterExpReward": 80,
+        "manaReward": 80,
+        "poolExpReward": 80
+    },
+    "2006005": {
+        "name": "Friends and Enemies",
+        "clearRewardId": 1
+    },
+    "2007001": {
+        "name": "In the Path of the Tiger - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40022,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 9,
+        "characterExpReward": 41,
+        "manaReward": 50,
+        "poolExpReward": 41
+    },
+    "2007002": {
+        "name": "In the Path of the Tiger - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40023,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 9,
+        "characterExpReward": 41,
+        "manaReward": 50,
+        "poolExpReward": 41
+    },
+    "2008001": {
+        "name": "The Road Back - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40024,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 9,
+        "characterExpReward": 44,
+        "manaReward": 50,
+        "poolExpReward": 44
+    },
+    "2008002": {
+        "name": "The Road Back - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40025,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 11,
+        "characterExpReward": 54,
+        "manaReward": 60,
+        "poolExpReward": 54
+    },
+    "2009001": {
+        "name": "Vengeance",
+        "clearRewardId": 1
+    },
+    "2009002": {
+        "name": "Rebellion - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40026,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 11,
+        "characterExpReward": 58,
+        "manaReward": 60,
+        "poolExpReward": 58
+    },
+    "2009003": {
+        "name": "Rebellion - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40027,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 11,
+        "characterExpReward": 58,
+        "manaReward": 60,
+        "poolExpReward": 58
+    },
+    "2009004": {
+        "name": "The Monster or the Man",
+        "clearRewardId": 1
+    },
+    "2009005": {
+        "name": "Cast-Iron Custodian",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40028,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 20,
+        "characterExpReward": 114,
+        "manaReward": 100,
+        "poolExpReward": 114
+    },
+    "2009006": {
+        "name": "Masked Menace",
+        "clearRewardId": 1
+    },
+    "2009007": {
+        "name": "New Bridges",
+        "clearRewardId": 10
+    },
+    "3001001": {
+        "name": "Great Big Blue",
+        "clearRewardId": 1
+    },
+    "3001002": {
+        "name": "Shiver Me Timbers",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40029,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 12,
+        "characterExpReward": 40,
+        "manaReward": 60,
+        "poolExpReward": 40
+    },
+    "3001003": {
+        "name": "No Free Rides",
+        "clearRewardId": 1
+    },
+    "3001004": {
+        "name": "Know the Ropes",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40030,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 11,
+        "characterExpReward": 35,
+        "manaReward": 50,
+        "poolExpReward": 35
+    },
+    "3002001": {
+        "name": "World of Water",
+        "clearRewardId": 1
+    },
+    "3002002": {
+        "name": "Hired Muscle",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40031,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 16,
+        "characterExpReward": 62,
+        "manaReward": 80,
+        "poolExpReward": 62
+    },
+    "3003001": {
+        "name": "The Floating City",
+        "clearRewardId": 1
+    },
+    "3003002": {
+        "name": "Aye-aye, Cap'n!",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40032,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 15,
+        "characterExpReward": 59,
+        "manaReward": 70,
+        "poolExpReward": 59
+    },
+    "3004001": {
+        "name": "Arr, We're Goin' Pirate Hunting!",
+        "clearRewardId": 1
+    },
+    "3004002": {
+        "name": "Where's the Booty?",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40033,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 14,
+        "characterExpReward": 50,
+        "manaReward": 70,
+        "poolExpReward": 50
+    },
+    "3004003": {
+        "name": "What's My Name?",
+        "clearRewardId": 1
+    },
+    "3004004": {
+        "name": "Say My Name",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40034,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 18,
+        "characterExpReward": 77,
+        "manaReward": 80,
+        "poolExpReward": 77
+    },
+    "3004005": {
+        "name": "Something's Fishy...",
+        "clearRewardId": 1
+    },
+    "3005001": {
+        "name": "Hand Over Fist",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40035,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 11,
+        "characterExpReward": 35,
+        "manaReward": 50,
+        "poolExpReward": 35
+    },
+    "3005002": {
+        "name": "Chef Alk",
+        "clearRewardId": 1
+    },
+    "3005003": {
+        "name": "Avast! Here Be Ruins",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40036,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 16,
+        "characterExpReward": 65,
+        "manaReward": 70,
+        "poolExpReward": 65
+    },
+    "3006001": {
+        "name": "And Down We Go",
+        "clearRewardId": 1
+    },
+    "3006002": {
+        "name": "Destroy the Kraken!",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40037,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 22,
+        "characterExpReward": 101,
+        "manaReward": 100,
+        "poolExpReward": 101
+    },
+    "3007001": {
+        "name": "Ship? Wrecked.",
+        "clearRewardId": 1
+    },
+    "3007002": {
+        "name": "Lost in the Sea - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40038,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 12,
+        "characterExpReward": 37,
+        "manaReward": 60,
+        "poolExpReward": 37
+    },
+    "3007003": {
+        "name": "Lost in the Sea - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40039,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 12,
+        "characterExpReward": 39,
+        "manaReward": 60,
+        "poolExpReward": 39
+    },
+    "3007004": {
+        "name": "Lost in the Sea - 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40040,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 22,
+        "characterExpReward": 101,
+        "manaReward": 100,
+        "poolExpReward": 101
+    },
+    "3008001": {
+        "name": "Jackpot!",
+        "clearRewardId": 1
+    },
+    "3008002": {
+        "name": "Back to the Surface - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40041,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 15,
+        "characterExpReward": 59,
+        "manaReward": 70,
+        "poolExpReward": 59
+    },
+    "3008003": {
+        "name": "Back to the Surface - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40042,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 18,
+        "characterExpReward": 80,
+        "manaReward": 90,
+        "poolExpReward": 80
+    },
+    "3009001": {
+        "name": "Shimmering City Under the Sea",
+        "clearRewardId": 1
+    },
+    "3009002": {
+        "name": "We Didn't Eat Her!",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40043,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 16,
+        "characterExpReward": 68,
+        "manaReward": 80,
+        "poolExpReward": 68
+    },
+    "3009003": {
+        "name": "Amelia's Back, Baby!",
+        "clearRewardId": 1
+    },
+    "3009004": {
+        "name": "Monsters in the Sanctuary",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40044,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 17,
+        "characterExpReward": 71,
+        "manaReward": 80,
+        "poolExpReward": 71
+    },
+    "3009005": {
+        "name": "In the Shadows",
+        "clearRewardId": 1
+    },
+    "3010001": {
+        "name": "Daemon Infestation - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40045,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 14,
+        "characterExpReward": 56,
+        "manaReward": 70,
+        "poolExpReward": 56
+    },
+    "3010002": {
+        "name": "Daemon Infestation - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40046,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 26,
+        "characterExpReward": 93,
+        "manaReward": 90,
+        "poolExpReward": 93
+    },
+    "3011001": {
+        "name": "Is THAT How You Greet a Friend?",
+        "clearRewardId": 1
+    },
+    "3011002": {
+        "name": "Crab Rave",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40047,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 27,
+        "characterExpReward": 138,
+        "manaReward": 130,
+        "poolExpReward": 138
+    },
+    "3012001": {
+        "name": "The Mermaid Sanctuary",
+        "clearRewardId": 1
+    },
+    "3012002": {
+        "name": "Sanctuary Cleanup - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40048,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 17,
+        "characterExpReward": 73,
+        "manaReward": 80,
+        "poolExpReward": 73
+    },
+    "3012003": {
+        "name": "Sanctuary Cleanup - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40049,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 18,
+        "characterExpReward": 76,
+        "manaReward": 80,
+        "poolExpReward": 76
+    },
+    "3013001": {
+        "name": "Underwater Flipper",
+        "clearRewardId": 1
+    },
+    "3013002": {
+        "name": "Daemons, Be Gone!",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40050,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 49,
+        "characterExpReward": 195,
+        "manaReward": 160,
+        "poolExpReward": 195
+    },
+    "3013003": {
+        "name": "Parting Ways",
+        "clearRewardId": 11
+    },
+    "4001001": {
+        "name": "Into the Canyon",
+        "clearRewardId": 1
+    },
+    "4001002": {
+        "name": "A Wild Welcome - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40051,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 109,
+        "manaReward": 110,
+        "poolExpReward": 109
+    },
+    "4001003": {
+        "name": "A Wild Welcome - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40052,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 109,
+        "manaReward": 110,
+        "poolExpReward": 109
+    },
+    "4002001": {
+        "name": "Beastfolk?!",
+        "clearRewardId": 1
+    },
+    "4002002": {
+        "name": "Bark or Bite?",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40053,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 28,
+        "characterExpReward": 94,
+        "manaReward": 100,
+        "poolExpReward": 94
+    },
+    "4002003": {
+        "name": "Got the Wrong Guy",
+        "clearRewardId": 1
+    },
+    "4002004": {
+        "name": "Creepy Crawly Canyon - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40054,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 29,
+        "characterExpReward": 100,
+        "manaReward": 100,
+        "poolExpReward": 100
+    },
+    "4002005": {
+        "name": "Creepy Crawly Canyon - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40055,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 36,
+        "characterExpReward": 132,
+        "manaReward": 130,
+        "poolExpReward": 132
+    },
+    "4003001": {
+        "name": "Calling all Catfolk!",
+        "clearRewardId": 1
+    },
+    "4003002": {
+        "name": "Cats and Dogs - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40056,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 26,
+        "characterExpReward": 83,
+        "manaReward": 90,
+        "poolExpReward": 83
+    },
+    "4003003": {
+        "name": "Cats and Dogs - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40057,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 32,
+        "characterExpReward": 112,
+        "manaReward": 110,
+        "poolExpReward": 112
+    },
+    "4003004": {
+        "name": "Cut the King Crap!",
+        "clearRewardId": 1
+    },
+    "4003005": {
+        "name": "The Name's Nimbus",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40058,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 55,
+        "characterExpReward": 228,
+        "manaReward": 180,
+        "poolExpReward": 228
+    },
+    "4003006": {
+        "name": "Help a Dude Out?",
+        "clearRewardId": 1
+    },
+    "4004001": {
+        "name": "Following Claw - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40059,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 24,
+        "characterExpReward": 76,
+        "manaReward": 90,
+        "poolExpReward": 76
+    },
+    "4004002": {
+        "name": "Following Claw - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40060,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 29,
+        "characterExpReward": 100,
+        "manaReward": 100,
+        "poolExpReward": 100
+    },
+    "4004003": {
+        "name": "Prince of Peace",
+        "clearRewardId": 1
+    },
+    "4004004": {
+        "name": "Following Claw - 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40061,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 30,
+        "characterExpReward": 103,
+        "manaReward": 110,
+        "poolExpReward": 103
+    },
+    "4004005": {
+        "name": "Following Claw - 4",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40062,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 30,
+        "characterExpReward": 103,
+        "manaReward": 110,
+        "poolExpReward": 103
+    },
+    "4005001": {
+        "name": "An Unexpected Ally",
+        "clearRewardId": 1
+    },
+    "4005002": {
+        "name": "To the Castle - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40063,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 36,
+        "characterExpReward": 132,
+        "manaReward": 130,
+        "poolExpReward": 132
+    },
+    "4005003": {
+        "name": "To the Castle - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40064,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 106,
+        "manaReward": 110,
+        "poolExpReward": 106
+    },
+    "4006001": {
+        "name": "Canid Castletown",
+        "clearRewardId": 1
+    },
+    "4006002": {
+        "name": "Guards En Garde - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40065,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 109,
+        "manaReward": 110,
+        "poolExpReward": 109
+    },
+    "4006003": {
+        "name": "Guards En Garde - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40066,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 109,
+        "manaReward": 110,
+        "poolExpReward": 109
+    },
+    "4006004": {
+        "name": "Coup D'état",
+        "clearRewardId": 1
+    },
+    "4006005": {
+        "name": "Storming the Keep - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40067,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 109,
+        "manaReward": 110,
+        "poolExpReward": 109
+    },
+    "4006006": {
+        "name": "Storming the Keep - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40068,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 37,
+        "characterExpReward": 136,
+        "manaReward": 130,
+        "poolExpReward": 136
+    },
+    "4007001": {
+        "name": "Aggressive Negotiations",
+        "clearRewardId": 1
+    },
+    "4007002": {
+        "name": "The King's Last Defense",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40069,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 37,
+        "characterExpReward": 136,
+        "manaReward": 130,
+        "poolExpReward": 136
+    },
+    "4007003": {
+        "name": "At Looong Long Last!",
+        "clearRewardId": 1
+    },
+    "4008001": {
+        "name": "Path to Peace - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40070,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 32,
+        "characterExpReward": 112,
+        "manaReward": 110,
+        "poolExpReward": 112
+    },
+    "4008002": {
+        "name": "Path to Peace - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40071,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 32,
+        "characterExpReward": 112,
+        "manaReward": 110,
+        "poolExpReward": 112
+    },
+    "4008003": {
+        "name": "Darkest before Dawn",
+        "clearRewardId": 1
+    },
+    "4009001": {
+        "name": "The Chief's Plot",
+        "clearRewardId": 1
+    },
+    "4009002": {
+        "name": "To Whitetail's Grave - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40072,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 27,
+        "characterExpReward": 88,
+        "manaReward": 100,
+        "poolExpReward": 88
+    },
+    "4010001": {
+        "name": "To Whitetail's Grave - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40073,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 39,
+        "characterExpReward": 143,
+        "manaReward": 130,
+        "poolExpReward": 143
+    },
+    "4010002": {
+        "name": "Out of the Ashes",
+        "clearRewardId": 1
+    },
+    "4011001": {
+        "name": "Cryptic Sanctum - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40074,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 33,
+        "characterExpReward": 118,
+        "manaReward": 120,
+        "poolExpReward": 118
+    },
+    "4011002": {
+        "name": "Cryptic Sanctum - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40075,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 33,
+        "characterExpReward": 118,
+        "manaReward": 120,
+        "poolExpReward": 118
+    },
+    "4011003": {
+        "name": "Ashes! Ashes! Ashes!",
+        "clearRewardId": 1
+    },
+    "4011004": {
+        "name": "Laying Grudges to Rest",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40076,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 68,
+        "characterExpReward": 292,
+        "manaReward": 220,
+        "poolExpReward": 292
+    },
+    "4011005": {
+        "name": "New Management",
+        "clearRewardId": 12
+    },
+    "5001001": {
+        "name": "Invaders from Outer Space",
+        "clearRewardId": 1
+    },
+    "5001002": {
+        "name": "AI Ambush",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40077,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 29,
+        "characterExpReward": 91,
+        "manaReward": 110,
+        "poolExpReward": 91
+    },
+    "5001003": {
+        "name": "Canary of Steel",
+        "clearRewardId": 1
+    },
+    "5002001": {
+        "name": "The Broken and the Banned",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40078,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 29,
+        "characterExpReward": 91,
+        "manaReward": 110,
+        "poolExpReward": 91
+    },
+    "5002002": {
+        "name": "Virus",
+        "clearRewardId": 1
+    },
+    "5002003": {
+        "name": "Defending Stella",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40079,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 35,
+        "characterExpReward": 119,
+        "manaReward": 130,
+        "poolExpReward": 119
+    },
+    "5003001": {
+        "name": "An Alien Lullaby",
+        "clearRewardId": 1
+    },
+    "5003002": {
+        "name": "Descent Underground - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40080,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 30,
+        "characterExpReward": 93,
+        "manaReward": 110,
+        "poolExpReward": 93
+    },
+    "5003003": {
+        "name": "Descent Underground - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40081,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 36,
+        "characterExpReward": 122,
+        "manaReward": 130,
+        "poolExpReward": 122
+    },
+    "5004001": {
+        "name": "Hollow Husks",
+        "clearRewardId": 1
+    },
+    "5004002": {
+        "name": "Security",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40082,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 57,
+        "characterExpReward": 229,
+        "manaReward": 190,
+        "poolExpReward": 229
+    },
+    "5004003": {
+        "name": "More than Meets the Eye",
+        "clearRewardId": 1
+    },
+    "5005001": {
+        "name": "Fugitives (Prelude) - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40083,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 28,
+        "characterExpReward": 86,
+        "manaReward": 100,
+        "poolExpReward": 86
+    },
+    "5005002": {
+        "name": "Fugitives (Prelude) - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40084,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 34,
+        "characterExpReward": 113,
+        "manaReward": 120,
+        "poolExpReward": 113
+    },
+    "5006001": {
+        "name": "Past the Point of No Return - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40085,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 29,
+        "characterExpReward": 89,
+        "manaReward": 110,
+        "poolExpReward": 89
+    },
+    "5006002": {
+        "name": "Past the Point of No Return - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40086,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 35,
+        "characterExpReward": 116,
+        "manaReward": 120,
+        "poolExpReward": 116
+    },
+    "5007001": {
+        "name": "Battle on Two Fronts",
+        "clearRewardId": 1
+    },
+    "5007002": {
+        "name": "Security Returns",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40087,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 35,
+        "characterExpReward": 119,
+        "manaReward": 130,
+        "poolExpReward": 119
+    },
+    "5008001": {
+        "name": "Metal Hearts",
+        "clearRewardId": 1
+    },
+    "5008002": {
+        "name": "Rec Register",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40088,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 43,
+        "characterExpReward": 165,
+        "manaReward": 150,
+        "poolExpReward": 165
+    },
+    "5008003": {
+        "name": "The Sound of Envy",
+        "clearRewardId": 1
+    },
+    "5009001": {
+        "name": "In Search of a Haven 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40089,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 37,
+        "characterExpReward": 137,
+        "manaReward": 130,
+        "poolExpReward": 137
+    },
+    "5009002": {
+        "name": "In Search of a Haven 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40090,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 44,
+        "characterExpReward": 169,
+        "manaReward": 150,
+        "poolExpReward": 169
+    },
+    "5009003": {
+        "name": "Emissary of the Lost",
+        "clearRewardId": 1
+    },
+    "5010001": {
+        "name": "Wild Bug Chase - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40091,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 106,
+        "manaReward": 110,
+        "poolExpReward": 106
+    },
+    "5010002": {
+        "name": "Wild Bug Chase - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40092,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 38,
+        "characterExpReward": 140,
+        "manaReward": 130,
+        "poolExpReward": 140
+    },
+    "5011001": {
+        "name": "Memories of the Cradle",
+        "clearRewardId": 1
+    },
+    "5011002": {
+        "name": "Jealous Deity",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40093,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 46,
+        "characterExpReward": 177,
+        "manaReward": 160,
+        "poolExpReward": 177
+    },
+    "5011003": {
+        "name": "Vengeful Ghosts",
+        "clearRewardId": 1
+    },
+    "5012001": {
+        "name": "To the Room of Idols - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40094,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 39,
+        "characterExpReward": 143,
+        "manaReward": 140,
+        "poolExpReward": 143
+    },
+    "5012002": {
+        "name": "To the Room of Idols - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40095,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 46,
+        "characterExpReward": 177,
+        "manaReward": 160,
+        "poolExpReward": 177
+    },
+    "5013001": {
+        "name": "Diva Media",
+        "clearRewardId": 1
+    },
+    "5013002": {
+        "name": "Administrator Bye-Bye",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40096,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 70,
+        "characterExpReward": 293,
+        "manaReward": 230,
+        "poolExpReward": 293
+    },
+    "5013003": {
+        "name": "The Meaning of Soul",
+        "clearRewardId": 1
+    },
+    "5013004": {
+        "name": "Beginnings, New and Old",
+        "clearRewardId": 13
+    },
+    "6001001": {
+        "name": "Out of the Frying Pan",
+        "clearRewardId": 1
+    },
+    "6001002": {
+        "name": "Into the Line of Fire - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40097,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 31,
+        "characterExpReward": 92,
+        "manaReward": 120,
+        "poolExpReward": 92
+    },
+    "6001003": {
+        "name": "Into the Line of Fire - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40098,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 37,
+        "characterExpReward": 120,
+        "manaReward": 140,
+        "poolExpReward": 120
+    },
+    "6001004": {
+        "name": "Nothing to Hide",
+        "clearRewardId": 1
+    },
+    "6002001": {
+        "name": "Haunted Streets - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40099,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 45,
+        "characterExpReward": 153,
+        "manaReward": 160,
+        "poolExpReward": 153
+    },
+    "6002002": {
+        "name": "Haunted Streets - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40100,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 32,
+        "characterExpReward": 94,
+        "manaReward": 120,
+        "poolExpReward": 94
+    },
+    "6002003": {
+        "name": "Parallel Worlds",
+        "clearRewardId": 1
+    },
+    "6002004": {
+        "name": "To the World Flipper",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40101,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 39,
+        "characterExpReward": 134,
+        "manaReward": 140,
+        "poolExpReward": 134
+    },
+    "6003001": {
+        "name": "Trust Goes Two Ways",
+        "clearRewardId": 1
+    },
+    "6003002": {
+        "name": "Tracking a Lead - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40102,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 32,
+        "characterExpReward": 102,
+        "manaReward": 120,
+        "poolExpReward": 102
+    },
+    "6003003": {
+        "name": "Tracking a Lead - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40103,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 39,
+        "characterExpReward": 134,
+        "manaReward": 140,
+        "poolExpReward": 134
+    },
+    "6004001": {
+        "name": "Playing with Food",
+        "clearRewardId": 1
+    },
+    "6004002": {
+        "name": "Get Gobbled!",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40104,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 45,
+        "characterExpReward": 166,
+        "manaReward": 160,
+        "poolExpReward": 166
+    },
+    "6004003": {
+        "name": "A Powerful Rival",
+        "clearRewardId": 1
+    },
+    "6004004": {
+        "name": "One-sided Rivalry",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40105,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 45,
+        "characterExpReward": 166,
+        "manaReward": 160,
+        "poolExpReward": 166
+    },
+    "6004005": {
+        "name": "The Charming Samurai",
+        "clearRewardId": 1
+    },
+    "6005001": {
+        "name": "Climb to the Shrine - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40106,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 39,
+        "characterExpReward": 134,
+        "manaReward": 140,
+        "poolExpReward": 134
+    },
+    "6005002": {
+        "name": "Climb to the Shrine - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40107,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 45,
+        "characterExpReward": 166,
+        "manaReward": 160,
+        "poolExpReward": 166
+    },
+    "6006001": {
+        "name": "Finding a Fox",
+        "clearRewardId": 1
+    },
+    "6006002": {
+        "name": "Vulpine Security",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40108,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 65,
+        "characterExpReward": 258,
+        "manaReward": 220,
+        "poolExpReward": 258
+    },
+    "6006003": {
+        "name": "Inaho's \"Secret\"",
+        "clearRewardId": 1
+    },
+    "6006004": {
+        "name": "Confessions",
+        "clearRewardId": 1
+    },
+    "6007001": {
+        "name": "To the Rescue - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40109,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 33,
+        "characterExpReward": 105,
+        "manaReward": 120,
+        "poolExpReward": 105
+    },
+    "6007002": {
+        "name": "To the Rescue - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40110,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 33,
+        "characterExpReward": 105,
+        "manaReward": 120,
+        "poolExpReward": 105
+    },
+    "6008001": {
+        "name": "The Merge and the Divide",
+        "clearRewardId": 1
+    },
+    "6008002": {
+        "name": "Stop Suizen!",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40111,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 47,
+        "characterExpReward": 174,
+        "manaReward": 170,
+        "poolExpReward": 174
+    },
+    "6008003": {
+        "name": "The Grand Diviner",
+        "clearRewardId": 1
+    },
+    "6008004": {
+        "name": "Shadowy Foes - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40112,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 40,
+        "characterExpReward": 141,
+        "manaReward": 140,
+        "poolExpReward": 141
+    },
+    "6008005": {
+        "name": "Calamity Unleashed",
+        "clearRewardId": 1
+    },
+    "6008006": {
+        "name": "Shadowy Foes - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40113,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 40,
+        "characterExpReward": 141,
+        "manaReward": 140,
+        "poolExpReward": 141
+    },
+    "6008007": {
+        "name": "A New Ally",
+        "clearRewardId": 1
+    },
+    "6009001": {
+        "name": "Yokai Unleashed - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40114,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 41,
+        "characterExpReward": 144,
+        "manaReward": 150,
+        "poolExpReward": 144
+    },
+    "6009002": {
+        "name": "Yokai Unleashed - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40115,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 48,
+        "characterExpReward": 178,
+        "manaReward": 170,
+        "poolExpReward": 178
+    },
+    "6009003": {
+        "name": "The Shadows Lurking Behind",
+        "clearRewardId": 1
+    },
+    "6009004": {
+        "name": "Almost There! - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40116,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 34,
+        "characterExpReward": 112,
+        "manaReward": 130,
+        "poolExpReward": 112
+    },
+    "6009005": {
+        "name": "Almost There! - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40117,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 41,
+        "characterExpReward": 147,
+        "manaReward": 150,
+        "poolExpReward": 147
+    },
+    "6010001": {
+        "name": "Circle of Corrosion",
+        "clearRewardId": 1
+    },
+    "6010002": {
+        "name": "Buying Time",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40118,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 65,
+        "characterExpReward": 258,
+        "manaReward": 220,
+        "poolExpReward": 258
+    },
+    "6010003": {
+        "name": "All Will Be One!",
+        "clearRewardId": 1
+    },
+    "6010004": {
+        "name": "Orochi's Wrath",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40119,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 72,
+        "characterExpReward": 294,
+        "manaReward": 240,
+        "poolExpReward": 294
+    },
+    "6010005": {
+        "name": "Growth",
+        "clearRewardId": 1
+    },
+    "6010006": {
+        "name": "Friends Forever",
+        "clearRewardId": 14
+    },
+    "7001001": {
+        "name": "Whiteout",
+        "clearRewardId": 1
+    },
+    "7002001": {
+        "name": "To the Capital",
+        "clearRewardId": 1
+    },
+    "7002002": {
+        "name": "Over the Mountains 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40120,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 34,
+        "characterExpReward": 103,
+        "manaReward": 130,
+        "poolExpReward": 103
+    },
+    "7002003": {
+        "name": "Over the Mountains 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40121,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 35,
+        "characterExpReward": 106,
+        "manaReward": 130,
+        "poolExpReward": 106
+    },
+    "7003001": {
+        "name": "Over the Mountains 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40122,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 41,
+        "characterExpReward": 139,
+        "manaReward": 150,
+        "poolExpReward": 139
+    },
+    "7003002": {
+        "name": "The Witch of Burning Blood",
+        "clearRewardId": 1
+    },
+    "7003003": {
+        "name": "Into the Fire",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40123,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 52,
+        "characterExpReward": 187,
+        "manaReward": 180,
+        "poolExpReward": 187
+    },
+    "7004001": {
+        "name": "Too Little, Too Late",
+        "clearRewardId": 1
+    },
+    "7004002": {
+        "name": "Whiteout 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40124,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 35,
+        "characterExpReward": 106,
+        "manaReward": 130,
+        "poolExpReward": 106
+    },
+    "7004003": {
+        "name": "Whiteout 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40125,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 35,
+        "characterExpReward": 108,
+        "manaReward": 130,
+        "poolExpReward": 108
+    },
+    "7005001": {
+        "name": "Whiteout 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40126,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 42,
+        "characterExpReward": 142,
+        "manaReward": 150,
+        "poolExpReward": 142
+    },
+    "7005002": {
+        "name": "The Refugees",
+        "clearRewardId": 1
+    },
+    "7005003": {
+        "name": "Onslaught of the Fiends",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40127,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 53,
+        "characterExpReward": 195,
+        "manaReward": 190,
+        "poolExpReward": 195
+    },
+    "7006001": {
+        "name": "The End of a World",
+        "clearRewardId": 1
+    },
+    "7006002": {
+        "name": "In Search of a Haven 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40128,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 42,
+        "characterExpReward": 142,
+        "manaReward": 150,
+        "poolExpReward": 142
+    },
+    "7006003": {
+        "name": "In Search of a Haven 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40129,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 43,
+        "characterExpReward": 145,
+        "manaReward": 160,
+        "poolExpReward": 145
+    },
+    "7007001": {
+        "name": "Witch's Feast",
+        "clearRewardId": 1
+    },
+    "7007002": {
+        "name": "Road to the Resistance 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40130,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 36,
+        "characterExpReward": 111,
+        "manaReward": 130,
+        "poolExpReward": 111
+    },
+    "7007003": {
+        "name": "Road to the Resistance 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40131,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 36,
+        "characterExpReward": 113,
+        "manaReward": 140,
+        "poolExpReward": 113
+    },
+    "7008001": {
+        "name": "The Resistance",
+        "clearRewardId": 1
+    },
+    "7008002": {
+        "name": "Defend the Camp 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40132,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 36,
+        "characterExpReward": 113,
+        "manaReward": 140,
+        "poolExpReward": 113
+    },
+    "7008003": {
+        "name": "Defend the Camp 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40133,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 43,
+        "characterExpReward": 148,
+        "manaReward": 160,
+        "poolExpReward": 148
+    },
+    "7009001": {
+        "name": "Last of the Royal Line",
+        "clearRewardId": 1
+    },
+    "7009002": {
+        "name": "To the Silver Woods 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40134,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 44,
+        "characterExpReward": 151,
+        "manaReward": 160,
+        "poolExpReward": 151
+    },
+    "7009003": {
+        "name": "To the Silver Woods 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40135,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 44,
+        "characterExpReward": 151,
+        "manaReward": 160,
+        "poolExpReward": 151
+    },
+    "7010001": {
+        "name": "Beneath the Silver Leaves",
+        "clearRewardId": 1
+    },
+    "7010002": {
+        "name": "Deep in the Woods",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40136,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 37,
+        "characterExpReward": 115,
+        "manaReward": 140,
+        "poolExpReward": 115
+    },
+    "7010003": {
+        "name": "Sepulcher of the Elves",
+        "clearRewardId": 1
+    },
+    "7010004": {
+        "name": "Elfward",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40137,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 71,
+        "characterExpReward": 282,
+        "manaReward": 240,
+        "poolExpReward": 282
+    },
+    "7011001": {
+        "name": "Dragon's Code",
+        "clearRewardId": 1
+    },
+    "7011002": {
+        "name": "Fiend Legionary",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40138,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 54,
+        "characterExpReward": 199,
+        "manaReward": 190,
+        "poolExpReward": 199
+    },
+    "7011003": {
+        "name": "Moonlit Unions",
+        "clearRewardId": 1
+    },
+    "7012001": {
+        "name": "Marching Home 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40139,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 45,
+        "characterExpReward": 155,
+        "manaReward": 160,
+        "poolExpReward": 155
+    },
+    "7012002": {
+        "name": "Marching Home 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40140,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 45,
+        "characterExpReward": 155,
+        "manaReward": 160,
+        "poolExpReward": 155
+    },
+    "7012003": {
+        "name": "Fiery Omens",
+        "clearRewardId": 1
+    },
+    "7013001": {
+        "name": "Rush to Return - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40141,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 38,
+        "characterExpReward": 120,
+        "manaReward": 140,
+        "poolExpReward": 120
+    },
+    "7013002": {
+        "name": "Rush to Return - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40142,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 53,
+        "characterExpReward": 195,
+        "manaReward": 190,
+        "poolExpReward": 195
+    },
+    "7013003": {
+        "name": "Daemon",
+        "clearRewardId": 1
+    },
+    "7013004": {
+        "name": "Corrupted Ilbis",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40143,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 79,
+        "characterExpReward": 321,
+        "manaReward": 270,
+        "poolExpReward": 321
+    },
+    "7014001": {
+        "name": "Savior of the Damned",
+        "clearRewardId": 1
+    },
+    "7014002": {
+        "name": "Darkness Himself",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40144,
+        "bRankTime": 300000,
+        "aRankTime": 300000,
+        "sRankTime": 300000,
+        "sPlusRankTIme": 300000,
+        "rankPointReward": 0,
+        "characterExpReward": 0,
+        "manaReward": 0,
+        "poolExpReward": 0
+    },
+    "7014003": {
+        "name": "Meteor Shower",
+        "clearRewardId": 1
+    },
+    "7014004": {
+        "name": "Sparks of Hope",
+        "clearRewardId": 15
+    },
+    "8001001": {
+        "name": "Divided",
+        "clearRewardId": 1
+    },
+    "8001002": {
+        "name": "Chasing Leads - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40145,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 79,
+        "characterExpReward": 158,
+        "manaReward": 160,
+        "poolExpReward": 158
+    },
+    "8001003": {
+        "name": "Chasing Leads - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40146,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 120,
+        "characterExpReward": 258,
+        "manaReward": 210,
+        "poolExpReward": 258
+    },
+    "8002001": {
+        "name": "The Turncoat",
+        "clearRewardId": 1
+    },
+    "8002002": {
+        "name": "Sparks of Despair - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40147,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 101,
+        "characterExpReward": 212,
+        "manaReward": 180,
+        "poolExpReward": 212
+    },
+    "8002003": {
+        "name": "Sparks of Despair - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40148,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 122,
+        "characterExpReward": 263,
+        "manaReward": 180,
+        "poolExpReward": 263
+    },
+    "8002004": {
+        "name": "Disaster Strikes",
+        "clearRewardId": 1
+    },
+    "8003001": {
+        "name": "Risky Rescue - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40149,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 216,
+        "manaReward": 180,
+        "poolExpReward": 216
+    },
+    "8003002": {
+        "name": "Risky Rescue - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40150,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 216,
+        "manaReward": 180,
+        "poolExpReward": 216
+    },
+    "8003003": {
+        "name": "Risky Rescue - 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40151,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 216,
+        "manaReward": 180,
+        "poolExpReward": 216
+    },
+    "8004001": {
+        "name": "Resolve",
+        "clearRewardId": 1
+    },
+    "8004002": {
+        "name": "To the Keep - 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40152,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 216,
+        "manaReward": 180,
+        "poolExpReward": 216
+    },
+    "8004003": {
+        "name": "To the Keep - 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40153,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 216,
+        "manaReward": 180,
+        "poolExpReward": 216
+    },
+    "8005001": {
+        "name": "Reunion",
+        "clearRewardId": 1
+    },
+    "8005002": {
+        "name": "Uneasy Alliance",
+        "clearRewardId": 1
+    },
+    "8006001": {
+        "name": "To the Spire 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40154,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 216,
+        "manaReward": 180,
+        "poolExpReward": 216
+    },
+    "8006002": {
+        "name": "To the Spire 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40155,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 146,
+        "characterExpReward": 320,
+        "manaReward": 240,
+        "poolExpReward": 320
+    },
+    "8006003": {
+        "name": "A Just Ruler",
+        "clearRewardId": 1
+    },
+    "8007001": {
+        "name": "Steadfast Determination 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40156,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 104,
+        "characterExpReward": 220,
+        "manaReward": 190,
+        "poolExpReward": 220
+    },
+    "8007002": {
+        "name": "Steadfast Determination 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40157,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 104,
+        "characterExpReward": 220,
+        "manaReward": 190,
+        "poolExpReward": 220
+    },
+    "8007003": {
+        "name": "Curse Embryo",
+        "clearRewardId": 1
+    },
+    "8008001": {
+        "name": "Cleansing the Curse 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40158,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 176,
+        "characterExpReward": 393,
+        "manaReward": 270,
+        "poolExpReward": 393
+    },
+    "8008002": {
+        "name": "Cleansing the Curse 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40159,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 104,
+        "characterExpReward": 220,
+        "manaReward": 190,
+        "poolExpReward": 220
+    },
+    "8008003": {
+        "name": "Cleansing the Curse 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40160,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 104,
+        "characterExpReward": 220,
+        "manaReward": 190,
+        "poolExpReward": 220
+    },
+    "8008004": {
+        "name": "Festering Resentment",
+        "clearRewardId": 1
+    },
+    "8009001": {
+        "name": "Spite",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40161,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 199,
+        "characterExpReward": 448,
+        "manaReward": 300,
+        "poolExpReward": 448
+    },
+    "8009002": {
+        "name": "A Look of Pity",
+        "clearRewardId": 1
+    },
+    "8009003": {
+        "name": "Into the Rift",
+        "clearRewardId": 1
+    },
+    "8010001": {
+        "name": "Deeper and Deeper 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40162,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 84,
+        "characterExpReward": 170,
+        "manaReward": 160,
+        "poolExpReward": 170
+    },
+    "8010002": {
+        "name": "Deeper and Deeper 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40163,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 84,
+        "characterExpReward": 170,
+        "manaReward": 160,
+        "poolExpReward": 170
+    },
+    "8010003": {
+        "name": "Deeper and Deeper 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40164,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 84,
+        "characterExpReward": 170,
+        "manaReward": 160,
+        "poolExpReward": 170
+    },
+    "8010004": {
+        "name": "The Final Coordinates",
+        "clearRewardId": 1
+    },
+    "8011001": {
+        "name": "The Other Stella",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40165,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 182,
+        "characterExpReward": 407,
+        "manaReward": 280,
+        "poolExpReward": 407
+    },
+    "8011002": {
+        "name": "Curse Savior",
+        "clearRewardId": 1
+    },
+    "8011003": {
+        "name": "The Flame of Courage",
+        "clearRewardId": 1
+    },
+    "8012001": {
+        "name": "Frail and Powerless",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40166,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 85,
+        "characterExpReward": 173,
+        "manaReward": 160,
+        "poolExpReward": 173
+    },
+    "8012002": {
+        "name": "The Lord of Shadow",
+        "clearRewardId": 1
+    },
+    "8013001": {
+        "name": "Things Fall Apart 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40167,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 86,
+        "characterExpReward": 176,
+        "manaReward": 160,
+        "poolExpReward": 176
+    },
+    "8013002": {
+        "name": "Things Fall Apart 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40168,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 86,
+        "characterExpReward": 176,
+        "manaReward": 160,
+        "poolExpReward": 176
+    },
+    "8013003": {
+        "name": "The Tower of Babel",
+        "clearRewardId": 1
+    },
+    "8014001": {
+        "name": "Oghir, the Odious",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40169,
+        "bRankTime": 1368000,
+        "aRankTime": 1008000,
+        "sRankTime": 648000,
+        "sPlusRankTIme": 360000,
+        "rankPointReward": 216,
+        "characterExpReward": 848,
+        "manaReward": 320,
+        "poolExpReward": 848
+    },
+    "8014002": {
+        "name": "In the Morning Mist",
+        "clearRewardId": 1
+    },
+    "8014003": {
+        "name": "The Champion's Journey",
+        "clearRewardId": 16
+    },
+    "8015001": {
+        "name": "Shifting Worlds",
+        "clearRewardId": 1
+    },
+    "8015002": {
+        "name": "The Purge",
+        "clearRewardId": 1
+    },
+    "8015003": {
+        "name": "The Fault in our Stars",
+        "clearRewardId": 1
+    },
+    "9001001": {
+        "name": "In Search of Truth",
+        "clearRewardId": 1
+    },
+    "9001002": {
+        "name": "To the Land of Nomads 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40170,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 81,
+        "characterExpReward": 159,
+        "manaReward": 170,
+        "poolExpReward": 159
+    },
+    "9001003": {
+        "name": "To the Land of Nomads 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40171,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 81,
+        "characterExpReward": 159,
+        "manaReward": 170,
+        "poolExpReward": 159
+    },
+    "9001004": {
+        "name": "The Sheephirds",
+        "clearRewardId": 1
+    },
+    "9002001": {
+        "name": "Running up that Hill 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40172,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 82,
+        "characterExpReward": 162,
+        "manaReward": 170,
+        "poolExpReward": 162
+    },
+    "9002002": {
+        "name": "Running up that Hill 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40173,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 82,
+        "characterExpReward": 162,
+        "manaReward": 170,
+        "poolExpReward": 162
+    },
+    "9002003": {
+        "name": "To Make a Deal with Dul",
+        "clearRewardId": 1
+    },
+    "9003001": {
+        "name": "The Cliffside Settlement 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40174,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 83,
+        "characterExpReward": 165,
+        "manaReward": 170,
+        "poolExpReward": 165
+    },
+    "9003002": {
+        "name": "The Cliffside Settlement 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40175,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 83,
+        "characterExpReward": 165,
+        "manaReward": 170,
+        "poolExpReward": 165
+    },
+    "9003003": {
+        "name": "Underhanded Tactics",
+        "clearRewardId": 1
+    },
+    "9004001": {
+        "name": "Subterfuge",
+        "clearRewardId": 1
+    },
+    "9004002": {
+        "name": "Shifting Corridors 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40176,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 84,
+        "characterExpReward": 168,
+        "manaReward": 170,
+        "poolExpReward": 168
+    },
+    "9004003": {
+        "name": "Shifting Corridors 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40177,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 84,
+        "characterExpReward": 168,
+        "manaReward": 170,
+        "poolExpReward": 168
+    },
+    "9005001": {
+        "name": "A Gate Thrown Wide",
+        "clearRewardId": 1
+    },
+    "9005002": {
+        "name": "Purger",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40178,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 161,
+        "characterExpReward": 351,
+        "manaReward": 260,
+        "poolExpReward": 351
+    },
+    "9005003": {
+        "name": "Reunion",
+        "clearRewardId": 1
+    },
+    "9006001": {
+        "name": "The Road to Palpebra 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40179,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 86,
+        "characterExpReward": 171,
+        "manaReward": 170,
+        "poolExpReward": 171
+    },
+    "9006002": {
+        "name": "The Road to Palpebra 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40180,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 86,
+        "characterExpReward": 171,
+        "manaReward": 170,
+        "poolExpReward": 171
+    },
+    "9006003": {
+        "name": "Unyielding Strength",
+        "clearRewardId": 1
+    },
+    "9007001": {
+        "name": "Reprised Negotiations",
+        "clearRewardId": 1
+    },
+    "9007002": {
+        "name": "Neutralizing Antibodies 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40181,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 87,
+        "characterExpReward": 174,
+        "manaReward": 170,
+        "poolExpReward": 174
+    },
+    "9007003": {
+        "name": "Neutralizing Antibodies 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40182,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 87,
+        "characterExpReward": 174,
+        "manaReward": 170,
+        "poolExpReward": 174
+    },
+    "9008001": {
+        "name": "Starbreaker",
+        "clearRewardId": 1
+    },
+    "9008002": {
+        "name": "Purger, Once Again",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40183,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 163,
+        "characterExpReward": 357,
+        "manaReward": 260,
+        "poolExpReward": 357
+    },
+    "9009001": {
+        "name": "The Will to Fight",
+        "clearRewardId": 1
+    },
+    "9009002": {
+        "name": "Supreme Purger",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40184,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 218,
+        "characterExpReward": 849,
+        "manaReward": 330,
+        "poolExpReward": 849
+    },
+    "9010001": {
+        "name": "Paths Intertwined",
+        "clearRewardId": 1
+    },
+    "9010002": {
+        "name": "Partners in Crime",
+        "clearRewardId": 17
+    },
+    "10001001": {
+        "name": "From the Darkness",
+        "clearRewardId": 1
+    },
+    "10002001": {
+        "name": "Unfamiliar Reunion",
+        "clearRewardId": 1
+    },
+    "10002002": {
+        "name": "Shadow Dragonlings",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 103,
+        "characterExpReward": 200,
+        "manaReward": 210,
+        "poolExpReward": 200
+    },
+    "10002003": {
+        "name": "Ayumu Nagihara",
+        "clearRewardId": 1
+    },
+    "10003001": {
+        "name": "To the Shelter 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 105,
+        "characterExpReward": 200,
+        "manaReward": 214,
+        "poolExpReward": 200
+    },
+    "10003002": {
+        "name": "To the Shelter 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 105,
+        "characterExpReward": 200,
+        "manaReward": 214,
+        "poolExpReward": 200
+    },
+    "10004001": {
+        "name": "You're Alive!",
+        "clearRewardId": 1
+    },
+    "10004002": {
+        "name": "What Was Lost",
+        "clearRewardId": 1
+    },
+    "10004003": {
+        "name": "Transformed Minions",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 107,
+        "characterExpReward": 200,
+        "manaReward": 218,
+        "poolExpReward": 200
+    },
+    "10005001": {
+        "name": "The Starsayers",
+        "clearRewardId": 1
+    },
+    "10005002": {
+        "name": "In It Together",
+        "clearRewardId": 1
+    },
+    "10005003": {
+        "name": "Ruined City 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 108,
+        "characterExpReward": 210,
+        "manaReward": 222,
+        "poolExpReward": 210
+    },
+    "10005004": {
+        "name": "Ruined City 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 108,
+        "characterExpReward": 210,
+        "manaReward": 222,
+        "poolExpReward": 210
+    },
+    "10006001": {
+        "name": "Aegis",
+        "clearRewardId": 1
+    },
+    "10006002": {
+        "name": "Dragonlings and Bindings",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40186,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 186,
+        "characterExpReward": 300,
+        "manaReward": 409,
+        "poolExpReward": 300
+    },
+    "10006003": {
+        "name": "Tohru Sengaku",
+        "clearRewardId": 1
+    },
+    "10007001": {
+        "name": "Underground Passage 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 110,
+        "characterExpReward": 210,
+        "manaReward": 226,
+        "poolExpReward": 210
+    },
+    "10007002": {
+        "name": "Underground Passage 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 110,
+        "characterExpReward": 210,
+        "manaReward": 226,
+        "poolExpReward": 210
+    },
+    "10007003": {
+        "name": "Searching the River",
+        "clearRewardId": 1
+    },
+    "10008001": {
+        "name": "Warped Goddess",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40187,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 186,
+        "characterExpReward": 300,
+        "manaReward": 409,
+        "poolExpReward": 300
+    },
+    "10008002": {
+        "name": "What Is Missing",
+        "clearRewardId": 1
+    },
+    "10008003": {
+        "name": "Shaking It Off",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40185,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 112,
+        "characterExpReward": 210,
+        "manaReward": 230,
+        "poolExpReward": 210
+    },
+    "10009001": {
+        "name": "Falling Apart",
+        "clearRewardId": 1
+    },
+    "10009002": {
+        "name": "Shota Inori",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40186,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 186,
+        "characterExpReward": 300,
+        "manaReward": 409,
+        "poolExpReward": 300
+    },
+    "10010001": {
+        "name": "Scattered Past",
+        "clearRewardId": 1
+    },
+    "10010002": {
+        "name": "Antibodies",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40188,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 113,
+        "characterExpReward": 210,
+        "manaReward": 234,
+        "poolExpReward": 210
+    },
+    "10010003": {
+        "name": "Dissolving Reality",
+        "clearRewardId": 1
+    },
+    "10010004": {
+        "name": "Reclaimed Memories",
+        "clearRewardId": 1
+    },
+    "10011001": {
+        "name": "To the Surface",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40188,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 115,
+        "characterExpReward": 210,
+        "manaReward": 238,
+        "poolExpReward": 210
+    },
+    "10011002": {
+        "name": "Regroup",
+        "clearRewardId": 1
+    },
+    "10011003": {
+        "name": "To Shibuya SS 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40188,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 117,
+        "characterExpReward": 220,
+        "manaReward": 242,
+        "poolExpReward": 220
+    },
+    "10011004": {
+        "name": "To Shibuya SS 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40188,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 117,
+        "characterExpReward": 220,
+        "manaReward": 242,
+        "poolExpReward": 220
+    },
+    "10012001": {
+        "name": "Scramble",
+        "clearRewardId": 1
+    },
+    "10012002": {
+        "name": "Ayumu and Shota",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40189,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 310,
+        "manaReward": 745,
+        "poolExpReward": 310
+    },
+    "10012003": {
+        "name": "The One Who Has It All",
+        "clearRewardId": 1
+    },
+    "10013001": {
+        "name": "To the Roof 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40188,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 118,
+        "characterExpReward": 220,
+        "manaReward": 246,
+        "poolExpReward": 220
+    },
+    "10013002": {
+        "name": "To the Roof 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40188,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 118,
+        "characterExpReward": 220,
+        "manaReward": 246,
+        "poolExpReward": 220
+    },
+    "10013003": {
+        "name": "Dragon's Iris",
+        "clearRewardId": 1
+    },
+    "10014001": {
+        "name": "Alternate Weapon",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40190,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 310,
+        "manaReward": 745,
+        "poolExpReward": 310
+    },
+    "10014002": {
+        "name": "When It Comes Time to Wake",
+        "clearRewardId": 1
+    },
+    "10014003": {
+        "name": "Flight",
+        "clearRewardId": 1
+    },
+    "10014004": {
+        "name": "Origin's Eye",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40191,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 335,
+        "characterExpReward": 360,
+        "manaReward": 920,
+        "poolExpReward": 360
+    },
+    "10015001": {
+        "name": "Mistakes",
+        "clearRewardId": 1
+    },
+    "10015002": {
+        "name": "Piercing the Darkness",
+        "clearRewardId": 1
+    },
+    "10015003": {
+        "name": "The Journey Continues",
+        "clearRewardId": 2000
+    },
+    "11001001": {
+        "name": "A Letter from the Abyss",
+        "clearRewardId": 1
+    },
+    "11002001": {
+        "name": "Into the Kaleidoscope 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40200,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 124,
+        "characterExpReward": 260,
+        "manaReward": 230,
+        "poolExpReward": 260
+    },
+    "11002002": {
+        "name": "Into the Kaleidoscope 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40200,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 124,
+        "characterExpReward": 260,
+        "manaReward": 230,
+        "poolExpReward": 260
+    },
+    "11002003": {
+        "name": "A Magical Reunion",
+        "clearRewardId": 1
+    },
+    "11003001": {
+        "name": "Dark Mage's Abode 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40201,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 124,
+        "characterExpReward": 260,
+        "manaReward": 230,
+        "poolExpReward": 260
+    },
+    "11003002": {
+        "name": "Dark Mage's Abode 2",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40201,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 124,
+        "characterExpReward": 260,
+        "manaReward": 230,
+        "poolExpReward": 260
+    },
+    "11003003": {
+        "name": "Dungeons and Dragons",
+        "clearRewardId": 1
+    },
+    "11004001": {
+        "name": "Gathering Power",
+        "clearRewardId": 1
+    },
+    "11004002": {
+        "name": "To Catch a Purger",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40202,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 745,
+        "manaReward": 310,
+        "poolExpReward": 745
+    },
+    "11004003": {
+        "name": "Promises to Keep",
+        "clearRewardId": 1
+    },
+    "11005001": {
+        "name": "Revelations",
+        "clearRewardId": 1
+    },
+    "11005002": {
+        "name": "A Bad Omen",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40203,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 112,
+        "characterExpReward": 230,
+        "manaReward": 210,
+        "poolExpReward": 230
+    },
+    "11006001": {
+        "name": "The Fallen One",
+        "clearRewardId": 1
+    },
+    "11006002": {
+        "name": "Devourer of Stars",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40204,
+        "bRankTime": 483000,
+        "aRankTime": 385500,
+        "sRankTime": 288000,
+        "sPlusRankTIme": 210000,
+        "rankPointReward": 359,
+        "characterExpReward": 1410,
+        "manaReward": 380,
+        "poolExpReward": 1410
+    },
+    "11007001": {
+        "name": "The Curse of the Sword",
+        "clearRewardId": 1
+    },
+    "11007002": {
+        "name": "Last Line of Defense 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40202,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 745,
+        "manaReward": 310,
+        "poolExpReward": 745
+    },
+    "11008001": {
+        "name": "The Fall of Palpebra",
+        "clearRewardId": 1
+    },
+    "11008002": {
+        "name": "Last Line of Defense 1",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40202,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 745,
+        "manaReward": 310,
+        "poolExpReward": 745
+    },
+    "11009001": {
+        "name": "From the Darkness, Light",
+        "clearRewardId": 1
+    },
+    "11009002": {
+        "name": "Last Line of Defense 3",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40202,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 745,
+        "manaReward": 310,
+        "poolExpReward": 745
+    },
+    "11010001": {
+        "name": "Code Voluntas",
+        "clearRewardId": 1
+    },
+    "11010002": {
+        "name": "Knights of the Stars",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40205,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 359,
+        "characterExpReward": 1410,
+        "manaReward": 380,
+        "poolExpReward": 1410
+    },
+    "11010003": {
+        "name": "Ascension",
+        "clearRewardId": 2001
+    },
+    "12001001": {
+        "name": "Palace of Stars",
+        "clearRewardId": 1
+    },
+    "12001002": {
+        "name": "Infiltration",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40202,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 745,
+        "manaReward": 310,
+        "poolExpReward": 745
+    },
+    "12002001": {
+        "name": "The Guardian",
+        "clearRewardId": 1
+    },
+    "12002002": {
+        "name": "Broken Goddess",
+        "clearRewardId": 1
+    },
+    "12003001": {
+        "name": "Remna",
+        "clearRewardId": 1
+    },
+    "12003002": {
+        "name": "Children of the Stars",
+        "clearRewardId": 1
+    },
+    "12003003": {
+        "name": "Light Reborn",
+        "clearRewardId": 1
+    },
+    "12004001": {
+        "name": "Cursed Sword",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40204,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 359,
+        "characterExpReward": 1410,
+        "manaReward": 380,
+        "poolExpReward": 1410
+    },
+    "12005001": {
+        "name": "Rain of Tears",
+        "clearRewardId": 1
+    },
+    "12006001": {
+        "name": "The Voice",
+        "clearRewardId": 1
+    },
+    "12007001": {
+        "name": "Walk On",
+        "clearRewardId": 1
+    },
+    "12007002": {
+        "name": "Diastral Blade",
+        "clearRewardId": 1
+    },
+    "12007003": {
+        "name": "Altar of Beginnings",
+        "clearRewardId": 1
+    },
+    "12008001": {
+        "name": "Shooting Stars",
+        "clearRewardId": 1
+    },
+    "12008002": {
+        "name": "Champions of the Stars",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40191,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 310,
+        "manaReward": 745,
+        "poolExpReward": 310
+    },
+    "12008003": {
+        "name": "With All Our Might",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40191,
+        "bRankTime": 474000,
+        "aRankTime": 369000,
+        "sRankTime": 264000,
+        "sPlusRankTIme": 180000,
+        "rankPointReward": 195,
+        "characterExpReward": 310,
+        "manaReward": 745,
+        "poolExpReward": 310
+    },
+    "12009001": {
+        "name": "Remember Me",
+        "clearRewardId": 1
+    },
+    "12009002": {
+        "name": "Heroes",
+        "clearRewardId": 1
+    },
+    "12009003": {
+        "name": "The Origin Dragon",
+        "clearRewardId": 1
+    },
+    "12010001": {
+        "name": "The End Dragon",
+        "clearRewardId": 1,
+        "sPlusRewardId": 1,
+        "score_reward_group": 40205,
+        "bRankTime": 528000,
+        "aRankTime": 468000,
+        "sRankTime": 408000,
+        "sPlusRankTIme": 360000,
+        "rankPointReward": 359,
+        "characterExpReward": 1410,
+        "manaReward": 380,
+        "poolExpReward": 1410
+    },
+    "12010002": {
+        "name": "You, Who Chose Death",
+        "clearRewardId": 1
+    },
+    "12010003": {
+        "name": "One Last Farewell",
+        "clearRewardId": 1
+    },
+    "12011001": {
+        "name": "Life Goes On",
+        "clearRewardId": 1
+    },
+    "12011002": {
+        "name": "Never Let Go",
+        "clearRewardId": 2002
+    }
+}

@@ -24,7 +24,7 @@ const fastify = Fastify({
 })
 
 // serializers
-fastify.addHook('onSend', (request, reply, payload, done) => {
+fastify.addHook('onSend', (_, reply, payload, done) => {
     try {
         switch (reply.getHeader('content-type')) {
             case "application/x-msgpack": {
@@ -41,7 +41,7 @@ fastify.addHook('onSend', (request, reply, payload, done) => {
 })
 
 // content-type parsers
-fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (req, body: string, done) => {
+fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (_, body: string, done) => {
     try {
         const unpacked = unpack(Buffer.from(body, "base64"))
         done(null, unpacked)
@@ -49,19 +49,19 @@ fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'st
         done(err as Error, undefined)
     }
 })
-fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function (req, body: string, done) {
+fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function (_, body: string, done) {
     try {
-      var json = JSON.parse(body)
-      done(null, json)
+        var json = JSON.parse(body)
+        done(null, json)
     } catch (err) {
-      done(null, undefined)
+        done(null, undefined)
     }
-  })
+})
 
 // register plugins
 
 //api
-fastify.register(apiPlugin, { prefix: "/latest/api/index.php"})
+fastify.register(apiPlugin, { prefix: "/latest/api/index.php" })
 fastify.register(assetApiPlugin, { prefix: "/latest/api/index.php/asset" })
 fastify.register(toolApiPlugin, { prefix: "/latest/api/index.php/tool" })
 fastify.register(reproduceApiPlugin, { prefix: "/latest/api/index.php/reproduce" })
@@ -77,7 +77,7 @@ fastify.register(singleBattleQuestApiPlugin, { prefix: "/latest/api/index.php/si
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
 
 // infodesk
-fastify.register(infodeskPlugin, { prefix: "/infodesk"})
+fastify.register(infodeskPlugin, { prefix: "/infodesk" })
 
 // listen
 fastify.listen({ port: 8000 }, (err, address) => {
