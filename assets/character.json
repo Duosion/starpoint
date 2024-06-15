@@ -1,0 +1,2852 @@
+{
+    "1": {
+        "name": "alk",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "10": {
+        "name": "white_tiger",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "111001": {
+        "name": "fire_dragon",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111002": {
+        "name": "pirates_girl",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111003": {
+        "name": "clarisse",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111004": {
+        "name": "battle_maid_xm19",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111005": {
+        "name": "heavenly_one",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111006": {
+        "name": "compliment_oiran",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111007": {
+        "name": "black_wolf_knight",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111009": {
+        "name": "tiger_treasure_hunter_smr20",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111015": {
+        "name": "kunoichi_1anv",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111021": {
+        "name": "lady_summoner_xm20",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111027": {
+        "name": "halberd_princess",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111033": {
+        "name": "doctor_pirate",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111039": {
+        "name": "onmyoji_boy_wt21",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111045": {
+        "name": "magical_bayonetter",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111051": {
+        "name": "zeta",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111057": {
+        "name": "tsundere_bountyhunter",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111063": {
+        "name": "bodysuit_trooper_smr21",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111081": {
+        "name": "shadow_redhood",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111087": {
+        "name": "pirates_girl_2anv",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111093": {
+        "name": "misogi",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111099": {
+        "name": "tsundere_bountyhunter_vt22",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111105": {
+        "name": "anger_investigator",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111111": {
+        "name": "halberd_princess_2halfanv",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111123": {
+        "name": "monster_cook_smr22",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111129": {
+        "name": "lion_swordman_playable",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    },
+    "111135": {
+        "name": "golemclub_captain",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "111141": {
+        "name": "tiger_treasure_hunter_xm22",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    },
+    "111147": {
+        "name": "still_obstinator_ballot23",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    },
+    "111153": {
+        "name": "flame_blessgirl",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    },
+    "111159": {
+        "name": "catbaby_psychicer",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    },
+    "111165": {
+        "name": "resistance_princess_3halfanv",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    },
+    "113001": {
+        "name": "gold_ship",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 6
+    },
+    "121001": {
+        "name": "brown_fighter",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121002": {
+        "name": "onmyoji_boy",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121003": {
+        "name": "lightbullet_wiz_ny20",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121004": {
+        "name": "ice_witch",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121005": {
+        "name": "commander",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121006": {
+        "name": "lakeside_guardian",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121007": {
+        "name": "drawing_witch",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121008": {
+        "name": "prince_zero_smr20",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121009": {
+        "name": "minamoto_sakura",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121015": {
+        "name": "freeze_eye",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121021": {
+        "name": "emilia",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121027": {
+        "name": "rem",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121033": {
+        "name": "waterdragon_kunfu",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121039": {
+        "name": "desert_commander",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121045": {
+        "name": "mermaid_1halfanv",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121051": {
+        "name": "holy_mother",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121069": {
+        "name": "waterdragon_kunfu_proud",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121070": {
+        "name": "psychic_yuki",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121075": {
+        "name": "navy_officer",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121081": {
+        "name": "ice_witch_2anv",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121087": {
+        "name": "freeze_eye_xm21",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121093": {
+        "name": "heavenly_three",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121099": {
+        "name": "kyouka",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121105": {
+        "name": "ice_dragon",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121111": {
+        "name": "justice_lady",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121117": {
+        "name": "sing_android_2halfanv",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121129": {
+        "name": "luca_playable",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "121135": {
+        "name": "pirates_of_fear",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 6
+    },
+    "121141": {
+        "name": "wind_spbro_3anv",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "121147": {
+        "name": "psychic_yuki_ny23",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "121153": {
+        "name": "ruin_lady_meteor23",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "121159": {
+        "name": "vesta_caster",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "121165": {
+        "name": "amulet_bosslady",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "131001": {
+        "name": "fox_oracle",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131002": {
+        "name": "cagliostro",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131003": {
+        "name": "samurai_xm19",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131004": {
+        "name": "thunder_archer",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131005": {
+        "name": "mighty_striker",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131011": {
+        "name": "machine_police_girl",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131012": {
+        "name": "big_gunner",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131013": {
+        "name": "illusionist_smr20",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131014": {
+        "name": "dimension_witch_smr20",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131020": {
+        "name": "rec_android_1anv",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131026": {
+        "name": "heavenly_two",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131032": {
+        "name": "girl_and_mecha",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131038": {
+        "name": "general_toyakiren",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131044": {
+        "name": "samurai_robot",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131050": {
+        "name": "elder_guild_fighter",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131056": {
+        "name": "machine_police_girl_smr21",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131062": {
+        "name": "cyber_battergirl",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131068": {
+        "name": "horn_leader",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131074": {
+        "name": "dog_slasher_proud",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131080": {
+        "name": "psychic_tohru",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131086": {
+        "name": "white_tiger_2anv",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131092": {
+        "name": "super_robot",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131098": {
+        "name": "spider_ninja",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131104": {
+        "name": "combat_soldier_smr22",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "131110": {
+        "name": "nihilist_mechgirl",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131116": {
+        "name": "little_vampire",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131122": {
+        "name": "palpebra_knight_lady_hw22",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "131128": {
+        "name": "general_toyakiren_ny23",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "131134": {
+        "name": "octcyborg_lady",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "131140": {
+        "name": "dark_psygirl_vt23",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "131146": {
+        "name": "blade_dancer_wt23",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "131152": {
+        "name": "pbc_ceo_playable",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "131158": {
+        "name": "psychic_katana",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "141001": {
+        "name": "wind_spgirl",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141002": {
+        "name": "wind_oracle",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141003": {
+        "name": "katana_ghost",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141004": {
+        "name": "mercenary",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141005": {
+        "name": "bigwing_shaman",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141006": {
+        "name": "gentle_barten",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141007": {
+        "name": "kokkoro",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141008": {
+        "name": "wind_dragon",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141009": {
+        "name": "nikaido_saki",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141015": {
+        "name": "elf_princess",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141021": {
+        "name": "wind_spgirl_1anv",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141027": {
+        "name": "timid_kunoichi_ny21",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141033": {
+        "name": "combat_animal",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141039": {
+        "name": "brown_fighter_dst21",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141045": {
+        "name": "beast_shaman",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141051": {
+        "name": "elf_princess_1halfanv",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141057": {
+        "name": "tengu_master",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141063": {
+        "name": "bigwing_shaman_smr21",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141069": {
+        "name": "mercenary_smr21",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141081": {
+        "name": "combat_animal_xm21",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141087": {
+        "name": "mimi",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141093": {
+        "name": "marching_conductor",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141099": {
+        "name": "wind_dragon_wt22",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141105": {
+        "name": "waste_armor",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141111": {
+        "name": "silence_suzuka",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141117": {
+        "name": "psychic_shouta_smr22",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141123": {
+        "name": "ghost_nymph",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141135": {
+        "name": "asymmetry_birdgirl",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 6
+    },
+    "141141": {
+        "name": "heavenly_four",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 3
+    },
+    "141147": {
+        "name": "heavenly_two_vt23",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 3
+    },
+    "141153": {
+        "name": "psychic_gal",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 3
+    },
+    "141159": {
+        "name": "black_wolf_knight_wt23",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 3
+    },
+    "141165": {
+        "name": "wind_oracle_meteor23",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 3
+    },
+    "141171": {
+        "name": "psychic_taichi",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 3
+    },
+    "151001": {
+        "name": "ruin_girl",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151002": {
+        "name": "prince_zero",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151003": {
+        "name": "bodysuit_trooper",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151004": {
+        "name": "fox_oracle_xm19",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151005": {
+        "name": "starbreak_hunter",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151006": {
+        "name": "combat_soldier",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151007": {
+        "name": "blade_dancer",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151009": {
+        "name": "ruin_girl_halfanv",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151011": {
+        "name": "pecorine",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151012": {
+        "name": "neoviolin_musician",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151013": {
+        "name": "high_priestess",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151014": {
+        "name": "lamp_guide",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151015": {
+        "name": "hoshikawa_ririi",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151021": {
+        "name": "wind_oracle_1anv",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151027": {
+        "name": "lightbullet_wiz_vt21",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151033": {
+        "name": "crystal_swordman",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151039": {
+        "name": "yokai_exterminator",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151045": {
+        "name": "resistance_princess_smr21",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151051": {
+        "name": "fox_oracle_smr21",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151063": {
+        "name": "ruin_girl_smr21",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151069": {
+        "name": "guildknight_leader",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151075": {
+        "name": "neoviolin_musician_hw21",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151081": {
+        "name": "high_priestess_ny22",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151087": {
+        "name": "hero_girl_vt22",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151093": {
+        "name": "still_obstinator",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151099": {
+        "name": "airship_captain",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151105": {
+        "name": "special_week",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151117": {
+        "name": "samurai_robot_smr22",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151123": {
+        "name": "holysword_girl",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 6
+    },
+    "151129": {
+        "name": "swallow_knight_3anv",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "151141": {
+        "name": "compliment_oiran_xm22",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "151147": {
+        "name": "stella_ballot23",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "151153": {
+        "name": "light_ballot23",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "151159": {
+        "name": "golden_dragon_jr",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "151165": {
+        "name": "alk_3halfanv",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "151171": {
+        "name": "magatama_spirit",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "153001": {
+        "name": "psychic_nao_3halfanv",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "161001": {
+        "name": "dimension_witch",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161002": {
+        "name": "veteran_hunter",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161004": {
+        "name": "blade_witch",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161005": {
+        "name": "cursed_girl",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161006": {
+        "name": "olivia",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161007": {
+        "name": "kyaru",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161008": {
+        "name": "alice_smr20",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161009": {
+        "name": "konno_junko",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161015": {
+        "name": "sing_android_hw20",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161021": {
+        "name": "dark_psygirl",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161027": {
+        "name": "devil_leader",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161033": {
+        "name": "devil_princess_xm20",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161039": {
+        "name": "summoner_little",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161045": {
+        "name": "noble_sorceress",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161051": {
+        "name": "dark_psygirl_dst21",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161057": {
+        "name": "beatrix",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161063": {
+        "name": "blindness_gunner_1halfanv",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161069": {
+        "name": "blackflower_wiz",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161081": {
+        "name": "touyakiren_ceo_hw21",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161082": {
+        "name": "psychic_shouta",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161087": {
+        "name": "summoner_little_2anv",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161093": {
+        "name": "dimension_witch_ny22",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161099": {
+        "name": "katana_ghost_wt22",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161105": {
+        "name": "estateguild_leader",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161111": {
+        "name": "mirror_witch",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161117": {
+        "name": "warlock_2halfanv",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161123": {
+        "name": "blackflower_wiz_smr22",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161129": {
+        "name": "psychic_yamikawa",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161135": {
+        "name": "wind_spgirl_hw22",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "161147": {
+        "name": "horn_mypace",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161153": {
+        "name": "veteran_hunter_3anv",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "161159": {
+        "name": "rector_sorcerer_playable",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "161165": {
+        "name": "evilloli_master",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "161171": {
+        "name": "impostor_priest",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "161177": {
+        "name": "ruin_girl_3halfanv",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "161183": {
+        "name": "psychic_teleport_playable",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "161189": {
+        "name": "priest_prince_playable",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "163001": {
+        "name": "silent_ninja",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 6
+    },
+    "211001": {
+        "name": "dragon_slayer",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211002": {
+        "name": "lady_summoner",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211003": {
+        "name": "kunoichi",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211004": {
+        "name": "half_oni_boy",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211005": {
+        "name": "master_knight",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211006": {
+        "name": "red_gunner",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211007": {
+        "name": "reporter_ny20",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211008": {
+        "name": "shapely_soldier",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211009": {
+        "name": "crybaby_shooter",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211010": {
+        "name": "pirates_gunner",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211011": {
+        "name": "sanctuary_guard",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211012": {
+        "name": "magic_sword_girl",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211013": {
+        "name": "vigilante_boy",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211014": {
+        "name": "yugiri",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211020": {
+        "name": "sorceress_teacher",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211026": {
+        "name": "cool_woman_soldier_xm20",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211032": {
+        "name": "naginata_girl",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211038": {
+        "name": "dragon_slayer_smr21",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211044": {
+        "name": "psychic_tomboygirl",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211050": {
+        "name": "nurse_pirate",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211056": {
+        "name": "shapely_soldier_ny22",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "211062": {
+        "name": "jiangshi_girl",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "213001": {
+        "name": "alk_1anv",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "213013": {
+        "name": "psychic_nao",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "221001": {
+        "name": "swallow_knight",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221002": {
+        "name": "bishop_girl",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221003": {
+        "name": "mermaid",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221004": {
+        "name": "alice",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221006": {
+        "name": "battle_guild_staff",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221007": {
+        "name": "deepsea_mage",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221008": {
+        "name": "desert_wizard",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221009": {
+        "name": "onmyo_attendant",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221010": {
+        "name": "psycho_reaper",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221011": {
+        "name": "unicorn_lancer_smr20",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221017": {
+        "name": "shy_assassin",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221022": {
+        "name": "urban_soldier_ny21",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221028": {
+        "name": "stylish_witch",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221034": {
+        "name": "dress_gunner",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221040": {
+        "name": "fox_companion_smr21",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221053": {
+        "name": "spry_sailor_hw21",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221054": {
+        "name": "psychic_seiji",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221060": {
+        "name": "innocent_glaiver",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221066": {
+        "name": "nurse_pirate_smr22",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221072": {
+        "name": "sand_bandit",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "221078": {
+        "name": "sleep_puppy_vt23",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 3
+    },
+    "222001": {
+        "name": "spry_sailor",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "223001": {
+        "name": "pirates_girl_smr20",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "223007": {
+        "name": "ruin_lady",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "223013": {
+        "name": "hero_girl",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "223019": {
+        "name": "student_president",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 6
+    },
+    "231001": {
+        "name": "thunder_dragon",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231002": {
+        "name": "fox_scientist",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231003": {
+        "name": "rec_android",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231004": {
+        "name": "elf_soldier",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231005": {
+        "name": "cat_shaman",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231006": {
+        "name": "minotaur_girl",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231007": {
+        "name": "docking_beast_xm19",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231008": {
+        "name": "black_hair_swordman",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231009": {
+        "name": "lady_android",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231012": {
+        "name": "casino_dealer_smr20",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231013": {
+        "name": "hidden_blader",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231014": {
+        "name": "mizuno_ai",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231020": {
+        "name": "fox_scientist_hw20",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231032": {
+        "name": "black_hair_swordman_xm20",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231038": {
+        "name": "little_wizard",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231044": {
+        "name": "punk_warrior",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231050": {
+        "name": "electro_girl",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231056": {
+        "name": "secret_observer",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231063": {
+        "name": "warashi",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231069": {
+        "name": "outlaw_panther_ny22",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231075": {
+        "name": "spanner_girl",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231081": {
+        "name": "scissor_ratgirl",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231087": {
+        "name": "long_hair_swordsman",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231093": {
+        "name": "marching_rival",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "231099": {
+        "name": "hero_mechanic",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 3
+    },
+    "233001": {
+        "name": "fake_princess",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "233007": {
+        "name": "lion_boy",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "233013": {
+        "name": "rural_ladyship",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 6
+    },
+    "241001": {
+        "name": "tiger_treasure_hunter",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241002": {
+        "name": "birdman",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241003": {
+        "name": "samurai",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241004": {
+        "name": "elf_archer",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241005": {
+        "name": "dog_slasher",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241006": {
+        "name": "bearish_darkwitch_ny20",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241007": {
+        "name": "beast_adventurer",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241008": {
+        "name": "timid_kunoichi",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241009": {
+        "name": "tengu_girl",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241015": {
+        "name": "wild_boy",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241021": {
+        "name": "ram",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241027": {
+        "name": "wind_striker",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241033": {
+        "name": "steel_lacrosse",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241039": {
+        "name": "cool_witch_girl",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241045": {
+        "name": "bird_master",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241051": {
+        "name": "pilgrim_monk",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241057": {
+        "name": "sanctuary_guard_hw21",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241063": {
+        "name": "ekaki_girl_playable",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "241069": {
+        "name": "kung_fu_girl",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "243001": {
+        "name": "arisa",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "243007": {
+        "name": "ekaki_onmyoji",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "243013": {
+        "name": "white_tiger_xm20",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "243019": {
+        "name": "sheep_girl",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 6
+    },
+    "251001": {
+        "name": "sing_android",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251002": {
+        "name": "unicorn_lancer",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251003": {
+        "name": "lightbullet_wiz",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251004": {
+        "name": "palpebra_knight",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251005": {
+        "name": "palpebra_knight_lady",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251006": {
+        "name": "unyielding_adventurer",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251007": {
+        "name": "unleash_hunter",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251008": {
+        "name": "illusionist",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251009": {
+        "name": "whitedog_beast",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251010": {
+        "name": "bishop_girl_smr20",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251011": {
+        "name": "keylock_girl",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251017": {
+        "name": "resistance_princess",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251023": {
+        "name": "doctor_machine",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251029": {
+        "name": "woman_knight_1anv",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251035": {
+        "name": "sea_violent",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251041": {
+        "name": "whitedog_beast_vt21",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251047": {
+        "name": "sleep_puppy",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251053": {
+        "name": "desert_priest",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251059": {
+        "name": "devil_clown_xm21",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251065": {
+        "name": "advanced_soldier",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251071": {
+        "name": "pbc_operator",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "251077": {
+        "name": "twin_blader_smr22",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "253001": {
+        "name": "monster_cook",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "253007": {
+        "name": "psycho_reaper_smr21",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "253013": {
+        "name": "stella_2anv",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 6
+    },
+    "253019": {
+        "name": "reformist_prince",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 3
+    },
+    "261001": {
+        "name": "devil_princess",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261003": {
+        "name": "battle_maid",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261004": {
+        "name": "undead_boy",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261005": {
+        "name": "warlock",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261006": {
+        "name": "swallow_knight_ny20",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261007": {
+        "name": "blindness_gunner",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261008": {
+        "name": "luna",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261009": {
+        "name": "lady_gunner_smr20",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261010": {
+        "name": "dinosaur_hunter",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261011": {
+        "name": "crazy_doctor",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261017": {
+        "name": "reaper_girl_hw20",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261023": {
+        "name": "illegal_herbalist",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261029": {
+        "name": "devil_woman_soldier_1anv",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261035": {
+        "name": "mystery_agent",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261041": {
+        "name": "walking_armor",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261047": {
+        "name": "desert_caravans",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261059": {
+        "name": "formercorrupt_detective",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261065": {
+        "name": "psychic_projection",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261071": {
+        "name": "informant_2anv",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261077": {
+        "name": "psychic_tomboygirl_hw22",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "261083": {
+        "name": "herbalist_xm22",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 3
+    },
+    "261089": {
+        "name": "darkness_dragon",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 3
+    },
+    "263001": {
+        "name": "sword_beauty",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "263002": {
+        "name": "touyakiren_ceo",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "263003": {
+        "name": "yamada_tae",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "263009": {
+        "name": "subaru",
+        "rarity": 4,
+        "element": 5,
+        "skill_count": 6
+    },
+    "311001": {
+        "name": "alchemist",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311002": {
+        "name": "pretty_witch",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311003": {
+        "name": "gunslinger",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311004": {
+        "name": "monster_hunter",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311005": {
+        "name": "black_doctor",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311006": {
+        "name": "cool_woman_soldier",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311008": {
+        "name": "berserker",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311009": {
+        "name": "fire_shaman",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311010": {
+        "name": "disciplined_swordman",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311011": {
+        "name": "birdwoman",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311012": {
+        "name": "tradition_healer",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311013": {
+        "name": "brave_mouse",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311019": {
+        "name": "sewing_girl",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "311025": {
+        "name": "wolf_assassin_wt21",
+        "rarity": 3,
+        "element": 0,
+        "skill_count": 6
+    },
+    "321001": {
+        "name": "sniper",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321002": {
+        "name": "urban_soldier",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321003": {
+        "name": "hard_face_soldier",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321004": {
+        "name": "nurse",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321005": {
+        "name": "wolf_assassin",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321006": {
+        "name": "fox_companion",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321007": {
+        "name": "depraved_monk",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321008": {
+        "name": "sailor_girl",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321009": {
+        "name": "cute_fafnir",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321010": {
+        "name": "mens_attire_girl",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321011": {
+        "name": "junior_yearngirl",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321012": {
+        "name": "little_shaman",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "321013": {
+        "name": "scout_girl",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "323001": {
+        "name": "dryad_xm19",
+        "rarity": 3,
+        "element": 1,
+        "skill_count": 6
+    },
+    "331001": {
+        "name": "twin_blader",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331002": {
+        "name": "bee_girl",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331003": {
+        "name": "lightning_fighter",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331004": {
+        "name": "outlaw_panther",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331005": {
+        "name": "wolf_swordsman",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331006": {
+        "name": "oni_girl",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331007": {
+        "name": "sociable_mestizo",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331010": {
+        "name": "magic_boy",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331011": {
+        "name": "student_gunsmith",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331012": {
+        "name": "fortuneteller",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331013": {
+        "name": "old_mercenary",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331014": {
+        "name": "floating_girl",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "331020": {
+        "name": "conjurer_girl",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "333001": {
+        "name": "cat_fighter_ny20",
+        "rarity": 3,
+        "element": 2,
+        "skill_count": 6
+    },
+    "341001": {
+        "name": "highlander",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341002": {
+        "name": "dryad",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341003": {
+        "name": "lich",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341004": {
+        "name": "casino_dealer",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341005": {
+        "name": "cat_fighter",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341006": {
+        "name": "devil_clown",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341007": {
+        "name": "herbalist",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341008": {
+        "name": "spearman",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341009": {
+        "name": "trap_errand",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341010": {
+        "name": "gang_girl",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341011": {
+        "name": "lazy_genious",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "341017": {
+        "name": "rookie_adventurer",
+        "rarity": 3,
+        "element": 3,
+        "skill_count": 6
+    },
+    "351001": {
+        "name": "priest",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351002": {
+        "name": "lady_gunner",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351003": {
+        "name": "woman_knight",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351004": {
+        "name": "docking_beast",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351005": {
+        "name": "exorcist_oldman",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351006": {
+        "name": "half_knight",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351007": {
+        "name": "reporter",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351008": {
+        "name": "wild_wolfgirl",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351009": {
+        "name": "moth_girl",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351015": {
+        "name": "priest_hw20",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351021": {
+        "name": "junior_soldier",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351027": {
+        "name": "skateboard_boy",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "351033": {
+        "name": "kids_gunner",
+        "rarity": 3,
+        "element": 4,
+        "skill_count": 6
+    },
+    "361001": {
+        "name": "reaper_girl",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361002": {
+        "name": "chakram_shooter",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361003": {
+        "name": "devil_woman_soldier",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361004": {
+        "name": "informant",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361005": {
+        "name": "arabic_swordman",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361006": {
+        "name": "dark_nursemaid",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361007": {
+        "name": "bearish_darkwitch",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361008": {
+        "name": "monster_attract",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361009": {
+        "name": "delusion_girl",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361015": {
+        "name": "delusion_girl_xm20",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361021": {
+        "name": "mummy_boy",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361027": {
+        "name": "revenge_rabbit",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "361033": {
+        "name": "assistant_boy",
+        "rarity": 3,
+        "element": 5,
+        "skill_count": 6
+    },
+    "412004": {
+        "name": "guardian_golem",
+        "rarity": 2,
+        "element": 0,
+        "skill_count": 2
+    },
+    "442004": {
+        "name": "owl",
+        "rarity": 2,
+        "element": 3,
+        "skill_count": 2
+    },
+    "442006": {
+        "name": "fox",
+        "rarity": 2,
+        "element": 3,
+        "skill_count": 2
+    },
+    "443001": {
+        "name": "towa_namakubi",
+        "rarity": 2,
+        "element": 3,
+        "skill_count": 2
+    },
+    "443002": {
+        "name": "towa_vtuber",
+        "rarity": 2,
+        "element": 3,
+        "skill_count": 2
+    },
+    "512001": {
+        "name": "kinoko",
+        "rarity": 1,
+        "element": 0,
+        "skill_count": 2
+    },
+    "512002": {
+        "name": "slango_red",
+        "rarity": 1,
+        "element": 0,
+        "skill_count": 2
+    },
+    "512004": {
+        "name": "spirit_fire",
+        "rarity": 1,
+        "element": 0,
+        "skill_count": 2
+    },
+    "522001": {
+        "name": "slango_blue",
+        "rarity": 1,
+        "element": 1,
+        "skill_count": 2
+    },
+    "532001": {
+        "name": "slango_yellow",
+        "rarity": 1,
+        "element": 2,
+        "skill_count": 2
+    },
+    "532004": {
+        "name": "paralysis_hedgehog",
+        "rarity": 1,
+        "element": 2,
+        "skill_count": 2
+    },
+    "542001": {
+        "name": "slango_green",
+        "rarity": 1,
+        "element": 3,
+        "skill_count": 2
+    },
+    "700000": {
+        "name": "ekaki_onmyoji_noskill",
+        "rarity": 4,
+        "element": 3,
+        "skill_count": 3
+    },
+    "700001": {
+        "name": "devil_leader_assist",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 0
+    },
+    "700002": {
+        "name": "elf_princess_assist",
+        "rarity": 5,
+        "element": 3,
+        "skill_count": 0
+    },
+    "700003": {
+        "name": "resistance_princess_assist",
+        "rarity": 4,
+        "element": 4,
+        "skill_count": 0
+    },
+    "700004": {
+        "name": "horn_leader_assist",
+        "rarity": 4,
+        "element": 2,
+        "skill_count": 0
+    },
+    "700005": {
+        "name": "guildknight_leader_assist",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 0
+    },
+    "700006": {
+        "name": "desert_commander_no_piercing",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 0
+    },
+    "700007": {
+        "name": "ruin_lady_no_piercing",
+        "rarity": 4,
+        "element": 1,
+        "skill_count": 0
+    },
+    "700008": {
+        "name": "justice_lady_assist",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 0
+    },
+    "700009": {
+        "name": "alk_serious",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "700010": {
+        "name": "alk_shoutabattle",
+        "rarity": 4,
+        "element": 0,
+        "skill_count": 6
+    },
+    "700011": {
+        "name": "psychic_yuki_assist",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 0
+    },
+    "700012": {
+        "name": "psychic_shouta_assist",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 0
+    },
+    "700013": {
+        "name": "white_tiger_2anv_assist",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 3
+    },
+    "700014": {
+        "name": "ice_witch_2anv_assist",
+        "rarity": 5,
+        "element": 1,
+        "skill_count": 3
+    },
+    "700015": {
+        "name": "white_tiger_chapter12",
+        "rarity": 5,
+        "element": 2,
+        "skill_count": 6
+    },
+    "700016": {
+        "name": "light_chapter12",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "700017": {
+        "name": "alk_devil_chapter12",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "700018": {
+        "name": "stella_chapter12_assist",
+        "rarity": 5,
+        "element": 4,
+        "skill_count": 3
+    },
+    "700019": {
+        "name": "stella_copy_assist",
+        "rarity": 5,
+        "element": 5,
+        "skill_count": 3
+    },
+    "999999": {
+        "name": "flame_witch",
+        "rarity": 5,
+        "element": 0,
+        "skill_count": 3
+    }
+}

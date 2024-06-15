@@ -3,6 +3,7 @@ import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry,
 import { randomBytes } from "crypto";
 import { deserializeBoolean, getDefaultPlayerData, serializeBoolean, serializePlayerData } from "./utils";
 import { generateViewerId, getServerTime } from "../utils";
+import { rewardPlayerCharacterSync } from "../lib/character";
 
 const db = getDatabase(Database.WDFP_DATA)
 const expPoolMax = 100000 // the maximum amount of exp that can be pooled
@@ -1337,6 +1338,26 @@ export function updatePlayerPartySync(
 }
 
 /**
+ * Gets the amount of a singular item that a player owns.
+ * 
+ * @param playerId The ID of the player.
+ * @param itemId The ID of the item.
+ * @returns The amount of the item that the player owns, or null, indicating no ownership.
+ */
+export function getPlayerItemSync(
+    playerId: number,
+    itemId: number | string
+): number | null {
+    const rawItem = db.prepare(`
+    SELECT amount
+    FROM players_items
+    WHERE player_id = ? AND id = ?
+    `).get(playerId, Number(itemId)) as number | undefined
+
+    return rawItem === undefined ? null : rawItem
+}
+
+/**
  * Gets the items that a player owns.
  * 
  * @param playerId The ID of the player.
@@ -1397,6 +1418,54 @@ function insertPlayerItemsSync(
             insertPlayerItemSync(playerId, itemId, amount)
         }
     })()
+}
+
+/**
+ * Updates a player's item's amount.
+ * 
+ * @param playerId The ID of the player.
+ * @param itemId The item's ID.
+ * @param amount The new amount the item should have.
+ */
+export function updatePlayerItemSync(
+    playerId: number,
+    itemId: string | number,
+    amount: number
+) {
+    db.prepare(`
+    UPDATE players_items
+    SET amount = ?
+    WHERE player_id = ? AND id = ?
+    `).run(amount, playerId, Number(itemId))
+}
+
+/**
+ * Gives a player giveAmount of an item.
+ * 
+ * @param playerId The ID of the player.
+ * @param itemId The ID of the item.
+ * @param giveAmount The amount of the item to give.
+ * @returns The new total amount of the item that the player owns.
+ */
+export function givePlayerItemSync(
+    playerId: number,
+    itemId: string | number,
+    giveAmount: number
+): number {
+    // check if the player owns the item
+    const ownedAmount = getPlayerItemSync(playerId, itemId)
+    if (ownedAmount === null) {
+        insertPlayerItemSync(playerId, itemId, giveAmount)
+        return giveAmount
+    } else {
+        const newAmount = ownedAmount + giveAmount
+        updatePlayerItemSync(
+            playerId,
+            itemId,
+            newAmount
+        )
+        return newAmount
+    }
 }
 
 /**
@@ -2989,27 +3058,5 @@ export function collectPooledExpSync(
 
 // 151147
 
-// const char = getPlayerCharacterSync(1, 141021)
-// if (!char) {
-//     insertPlayerCharacterSync(1, 141021, {
-//         entryCount: 1,
-//         evolutionLevel: 0,
-//         overLimitStep: 0,
-//         protection: false,
-//         joinTime: new Date(),
-//         updateTime: new Date(),
-//         exp: 0,
-//         stack: 0,
-//         manaBoardIndex: 1,
-//         bondTokenList: [
-//             {
-//                 manaBoardIndex: 1,
-//                 status: 0
-//             },
-//             {
-//                 manaBoardIndex: 2,
-//                 status: 0
-//             },
-//         ]
-//     })
-// }
+// const charId = 121141
+// console.log(rewardPlayerCharacterSync(1, charId))

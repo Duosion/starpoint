@@ -40,11 +40,11 @@ def convert_main_ex_quests(obj):
                         "name": chapter[1],
                         "clearRewardId": int(chapter[3]),
                         "sPlusRewardId": 1,
-                        "score_reward_group": int(chapter[70]),
+                        "scoreRewardGroup": int(chapter[70]),
                         "bRankTime": floor(float(chapter[84]) * 1000),
                         "aRankTime": floor(float(chapter[85]) * 1000),
                         "sRankTime": floor(float(chapter[86]) * 1000),
-                        "sPlusRankTIme":  floor(float(chapter[87]) * 1000),
+                        "sPlusRankTime":  floor(float(chapter[87]) * 1000),
                         "rankPointReward": int(chapter[93]),
                         "characterExpReward": int(chapter[94]),
                         "manaReward": int(chapter[95]),
@@ -69,11 +69,11 @@ def convert_boss_quests(obj):
                         "name": chapter[2],
                         "clearRewardId": int(chapter[4]),
                         "sPlusRewardId": 1,
-                        "score_reward_group": int(chapter[70]),
+                        "scoreRewardGroup": int(chapter[70]),
                         "bRankTime": floor(float(chapter[84]) * 1000),
                         "aRankTime": floor(float(chapter[85]) * 1000),
                         "sRankTime": floor(float(chapter[86]) * 1000),
-                        "sPlusRankTIme":  floor(float(chapter[87]) * 1000),
+                        "sPlusRankTime":  floor(float(chapter[87]) * 1000),
                         "rankPointReward": int(chapter[93]),
                         "characterExpReward": int(chapter[94]),
                         "manaReward": int(chapter[95]),
@@ -145,6 +145,17 @@ def convert_score_reward(obj):
         converted[group_id] = converted_group
     return converted
 
+def convert_characters(obj):
+    converted = {}
+    for characterId, data in obj.items():
+        converted[characterId] = {
+            "name": data[0],
+            "rarity": int(data[2]),
+            "element": int(data[3]),
+            "skill_count": data[36].split(",").count("6")
+        }
+    return converted
+
 def save_json(obj, file_path):
     with open(file_path, 'w', encoding='utf8') as file:
         json.dump(obj, file, indent=4, ensure_ascii=False)
@@ -157,6 +168,7 @@ to_convert_files = {
     "character_quest": convert_character_quests,
     "clear_reward": convert_clear_rewards,
     "score_reward": convert_score_reward,
+    "character": convert_characters
     #"rare_score_reward": convert_score_reward
 }
 

@@ -57,25 +57,22 @@ export function serializePlayerData(
     const userCharacterList: Record<string, Object> = {}
     for (const [characterId, character] of Object.entries(characterList)) {
         // convert bond tokens
-        const bondTokenList: any = []
-        for (const bondToken of character.bondTokenList) {
-            userCharacterList[characterId] = {
-                "entry_count": character.entryCount,
-                "evolution_level": character.evolutionLevel,
-                "over_limit_step": character.overLimitStep,
-                "protection": character.protection,
-                "join_time": getServerTime(character.joinTime),
-                "update_time": getServerTime(character.updateTime),
-                "exp": character.exp,
-                "stack": character.stack,
-                "bond_token_list": character.bondTokenList.map(bondToken => {
-                    return {
-                        "mana_board_index": bondToken.manaBoardIndex,
-                        "status": bondToken.status
-                    }
-                }),
-                "mana_board_index": 1
-            }
+        userCharacterList[characterId] = {
+            "entry_count": character.entryCount,
+            "evolution_level": character.evolutionLevel,
+            "over_limit_step": character.overLimitStep,
+            "protection": character.protection,
+            "join_time": getServerTime(character.joinTime),
+            "update_time": getServerTime(character.updateTime),
+            "exp": character.exp,
+            "stack": character.stack,
+            "bond_token_list": character.bondTokenList.map(bondToken => {
+                return {
+                    "mana_board_index": bondToken.manaBoardIndex,
+                    "status": bondToken.status
+                }
+            }),
+            "mana_board_index": 1
         }
     }
 
