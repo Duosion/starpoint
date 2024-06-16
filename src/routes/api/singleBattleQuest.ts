@@ -6,7 +6,7 @@ import { clientSerializeDate } from "../../data/utils";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, CharacterClearReward, ClearReward, ClearRewardType, CurrencyClearReward } from "../../lib/types";
 import { rewardPlayerCharacterSync, rewardPlayerCharactersExpSync } from "../../lib/character";
-import { rewardPlayerClearRewardSync } from "../../lib/quest";
+import { rewardPlayerClearRewardSync, rewardPlayerScoreRewardsSync } from "../../lib/quest";
 
 interface StartBody {
     quest_id: number
@@ -134,6 +134,9 @@ const routes = async (fastify: FastifyInstance) => {
             rankPoint: newRankPoint
         })
 
+        // reward score rewards
+        const scoreRewardsResult = rewardPlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup)
+
         // reward character exp
         const partyCharacterIds = body.statistics.party.characters
         const partyCharacterIdsArray: number[] = []
@@ -179,7 +182,7 @@ const routes = async (fastify: FastifyInstance) => {
                 "joined_character_id_list": [...(clearReward?.joined_character_id_list || []), ...(sPlusClearReward?.joined_character_id_list || [])],
                 "before_rank_point": beforeRankPoint,
                 "clear_rank": clearRank,
-                "drop_score_reward_ids": [],
+                "drop_score_reward_ids": scoreRewardsResult.drop_score_reward_ids,
                 "drop_rare_reward_ids": [],
                 "drop_additional_reward_ids": [],
                 "drop_periodic_reward_ids": [],
@@ -187,7 +190,7 @@ const routes = async (fastify: FastifyInstance) => {
                 "start_time": dataHeaders['servertime'],
                 "is_multi": "single",
                 "quest_name": "",
-                "item_list": itemList,
+                "item_list": scoreRewardsResult.items,
             }
         })
     })

@@ -1,3 +1,4 @@
+// enums
 export enum ClearRewardType {
     PLACEHOLDER,
     EQUIPMENT,
@@ -46,6 +47,12 @@ export enum Element {
     DARK
 }
 
+export enum ScoreRewardType {
+    ITEM,
+    EQUIPMENT
+}
+
+// clear rewards
 export interface ClearReward {
     name: string,
     type: ClearRewardType,
@@ -65,6 +72,25 @@ export interface CurrencyClearReward extends ClearReward {
 }
 
 export type ClearRewards = Record<string, ClearReward>
+
+// score rewards
+export interface ScoreReward {
+    name: string,
+    type: ScoreRewardType
+}
+
+export interface ItemScoreReward extends ScoreReward {
+    id: number,
+    count: number,
+    field5: number
+}
+
+export interface EquipmentScoreReward extends ScoreReward {
+    id: number,
+    field7: number
+}
+
+export type ScoreRewardGroups = Record<string, ScoreReward[]>
 
 export interface RawQuest {
     name: string,
@@ -90,7 +116,8 @@ export interface BattleQuest {
     name: string,
     clearReward: ClearReward,
     sPlusReward: ClearReward,
-    scoreRewardGroup: number,
+    scoreRewardGroupId: number,
+    scoreRewardGroup: ScoreReward[],
     bRankTime: number,
     aRankTime: number,
     sRankTime: number,
@@ -152,9 +179,20 @@ export interface RewardPlayerCharacterExpResult {
 // quest types
 export interface RewardPlayerClearRewardResult {
     user_info: {
-        free_mana: number,
+        free_mana: number
         free_vmoney: number
     },
-    character_list: Object[],
+    character_list: Object[]
     joined_character_id_list: number[]
+}
+
+export interface DropScoreRewardId {
+    group_id: number,
+    index: number,
+    number: number
+}
+
+export interface RewardPlayerScoreRewardsResult {
+    items: Record<string, number>
+    drop_score_reward_ids: DropScoreRewardId[]
 }

@@ -111,7 +111,7 @@ def convert_clear_rewards(obj):
 def convert_score_reward(obj):
     converted = {}
     # type map
-    # 0 = item, 1 = equipment
+    # 0 = item, 1 = rare score group + id
     for group_id, score_group in obj.items():
         converted_group = []
         for _, reward in score_group.items():

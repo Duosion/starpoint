@@ -1349,12 +1349,12 @@ export function getPlayerItemSync(
     itemId: number | string
 ): number | null {
     const rawItem = db.prepare(`
-    SELECT amount
+    SELECT id, amount
     FROM players_items
     WHERE player_id = ? AND id = ?
-    `).get(playerId, Number(itemId)) as number | undefined
+    `).get(playerId, Number(itemId)) as RawPlayerItem | undefined
 
-    return rawItem === undefined ? null : rawItem
+    return rawItem === undefined ? null : rawItem.amount
 }
 
 /**

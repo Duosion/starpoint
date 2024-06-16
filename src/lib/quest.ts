@@ -1,8 +1,50 @@
 import { Player } from "../data/types";
 import { clientSerializeDate } from "../data/utils";
-import { getPlayerCharacterSync, getPlayerSync, updatePlayerSync } from "../data/wdfpData";
+import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, updatePlayerSync } from "../data/wdfpData";
 import { rewardPlayerCharacterSync } from "./character";
-import { CharacterClearReward, ClearReward, ClearRewardType, CurrencyClearReward, RewardPlayerClearRewardResult } from "./types";
+import { CharacterClearReward, ClearReward, ClearRewardType, CurrencyClearReward, DropScoreRewardId, ItemScoreReward, RewardPlayerClearRewardResult, RewardPlayerScoreRewardsResult, ScoreReward, ScoreRewardType } from "./types";
+
+/**
+ * Grants a player score rewards.
+ * 
+ * @param playerId The ID of the player.
+ * @param groupId The ID of the score reward group.
+ * @param scoreRewards The score rewards inside of the group.
+ * @returns A result detailing what was added/changed.
+ */
+export function rewardPlayerScoreRewardsSync(
+    playerId: number,
+    groupId: number,
+    scoreRewards: ScoreReward[]
+): RewardPlayerScoreRewardsResult {
+
+    const items: Record<string, number> = {}
+    const dropScoreRewardIds: DropScoreRewardId[] = []
+
+    let rewardIndex = 0
+    for (const scoreReward of scoreRewards) {
+        rewardIndex += 1;
+        switch (scoreReward.type) {
+            case ScoreRewardType.ITEM:
+                const reward = scoreReward as ItemScoreReward
+                const itemId = reward.id
+                const rewardAmount = reward.count * 10
+                items[String(itemId)] = givePlayerItemSync(playerId, itemId, rewardAmount);
+                
+                dropScoreRewardIds.push({
+                    group_id: groupId,
+                    index: rewardIndex,
+                    number: rewardAmount
+                })
+                break;
+        }    
+    } 
+
+    return {
+        items: items,
+        drop_score_reward_ids: dropScoreRewardIds
+    }
+}
 
 export function rewardPlayerClearRewardSync(
     playerId: number,

@@ -4,13 +4,33 @@ import exQuests from "../../assets/ex_quest.json";
 import bossBattleQuests from "../../assets/boss_battle_quest.json";
 import characterQuests from "../../assets/character_quest.json";
 import characters from "../../assets/character.json";
-import { AssetCharacter, BattleQuest, ClearReward, ClearRewards, QuestCategory, RawAssetCharacters, RawQuests, StoryQuest } from "./types";
+import scoreRewards from "../../assets/score_reward.json";
+import { AssetCharacter, BattleQuest, ClearReward, ClearRewards, QuestCategory, RawAssetCharacters, RawQuests, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
+/**
+ * Gets a clear reward from its ID.
+ * 
+ * @param clearRewardId The ID of the clear reward.
+ * @returns The clear reward that was found, or null.
+ */
 export function getClearRewardSync(
     clearRewardId: string | number
 ): ClearReward | null {
     const clearReward = (clearRewards as ClearRewards)[String(clearRewardId)]
     return clearReward ? clearReward as ClearReward : null
+}
+
+/**
+ * Gets a score reward group from its ID.
+ * 
+ * @param groupId The ID of the group.
+ * @returns The score reward group that was found, or null.
+ */
+export function getScoreRewardGroup(
+    groupId: string | number
+): ScoreReward[] | null {
+    const group = (scoreRewards as ScoreRewardGroups)[String(groupId)]
+    return group ? group as ScoreReward[] : null
 }
 
 /**
@@ -34,7 +54,8 @@ function getQuestSync(
         name: quest.name,
         clearReward: getClearRewardSync(quest.clearRewardId),
         sPlusReward: getClearRewardSync(quest.sPlusRewardId as number),
-        scoreRewardGroup: quest.scoreRewardGroup,
+        scoreRewardGroupId: quest.scoreRewardGroup,
+        scoreRewardGroup: getScoreRewardGroup(quest.scoreRewardGroup as number),
         bRankTime: quest.bRankTime,
         aRankTime: quest.aRankTime,
         sRankTime: quest.sRankTime,
