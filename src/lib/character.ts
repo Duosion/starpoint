@@ -1,20 +1,67 @@
 // 4* base max level: 70, 75, 80, 85, 90; exp: 76272, 102829, 139190, 189995, 240800
 // 5* max level: 80, 85, 90, 95, 100; exp: 153988, 210488, 266988, 323488, 379988
 
-import { getPlayerCharacterSync, givePlayerItemSync, insertPlayerCharacterSync, updatePlayerCharacterSync } from "../data/wdfpData";
+import { PlayerCharacter } from "../data/types";
+import { clientSerializeDate } from "../data/utils";
+import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, insertPlayerCharacterSync, updatePlayerCharacterSync, updatePlayerSync } from "../data/wdfpData";
 import { getCharacterDataSync } from "./assets";
-import { Element } from "./types"
+import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, RewardPlayerCharacterExpResult } from "./types"
 
-
-
-
-//                           3*     4*     5*
-// fire dupe reward      : 14001, 14002, 14003
-// water dupe reward     : 14004, 14005, 14006
-// lightning dupe reward : 14007, 14008, 14009
-// wind dupe reward      : 14010, 14011, 14012
-// light dupe reward     : 14016, 14017, 14018
-// dark dupe reward      : 14013, 14014, 14015
+const characterExpCaps: Record<number, number[]> = {
+    [1]: [ // 1* max exp amounts for each uncap level 
+        11416, // level 40
+        // level 55
+        // level 60
+        // level 65
+        // level 70
+        // level 75
+        // level 80
+        // level 85
+        // level 90
+        // level 95
+        // level 100
+    ],
+    [2]: [ // 2* max exp amounts for each uncap level 
+        21477, // level 50
+        // level 55
+        // level 60
+        // level 65
+        // level 70
+        // level 75
+        // level 80
+        // level 85
+        // level 90
+        // level 95
+        // level 100
+    ],
+    [3]: [ // 3* max exp amounts for each uncap level 
+        37241,  // level 60
+        49481,  // level 65
+        66600,  // level 70
+        91180,  // level 75
+        125223, // level 80
+        // level 85
+        // level 90
+        // level 95
+        // level 100
+    ], 
+    [4]: [ // 4* max exp amounts for each uncap level 
+        76272,  // level 70
+        102829, // level 75
+        139190, // level 80
+        189995, // level 85
+        240800, // level 90
+        // level 95
+        // level 100
+    ],
+    [5]: [ // 5* max exp amounts for each uncap level 
+        153988, // level 80
+        210488, // level 85
+        266988, // level 90
+        323488, // level 95
+        379988, // level 100
+    ], 
+}
 
 const dupeItemRewards: Record<number, Record<Element, number>> = {
     [3]: { // 3* dupe item rewards for each element
@@ -43,6 +90,13 @@ const dupeItemRewards: Record<number, Record<Element, number>> = {
     }
 };
 
+/**
+ * Rewards a player a character.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character to give.
+ * @returns An items list, indicating what, if any, items were given to the player.
+ */
 export function rewardPlayerCharacterSync(
     playerId: number,
     characterId: number
@@ -105,4 +159,93 @@ export function rewardPlayerCharacterSync(
     }
 
     return toReturn
+}
+
+/**
+ * Adds a given amount of exp to a list of characters.
+ * 
+ * @param playerId The ID of the player who owns the characters.
+ * @param characterIds A list of character IDs to add exp to.
+ * @param expAmount The amount of exp to add.
+ * @returns A RewardPlayerCharacterExpResult, detailing how much exp was added.
+ */
+export function rewardPlayerCharactersExpSync(
+    playerId: number,
+    characterIds: number[],
+    expAmount: number
+): RewardPlayerCharacterExpResult {
+
+    const addExpList: AddExpList = []
+    const characterList: ClientReturnCharacter[] = []
+    const bondTokenStatusList: ClientReturnBondTokenStatusList = {}
+
+    let addToExpPool = 0
+
+    for (const characterId of characterIds) {
+        const characterData = getPlayerCharacterSync(playerId, characterId)
+        const assetData = getCharacterDataSync(characterId)
+        
+        if ((characterData !== null) && (assetData !== null)) {
+            const expCap = characterExpCaps[assetData.rarity][characterData.overLimitStep] || Number.MAX_SAFE_INTEGER
+            const currentExp = characterData.exp
+
+            let afterExp = currentExp + expAmount
+            const overflowExp = afterExp > expCap ? afterExp - expCap : 0
+            addToExpPool += overflowExp
+
+            afterExp = Math.min(expCap, afterExp)
+
+            updatePlayerCharacterSync(playerId, characterId, {
+                exp: afterExp
+            })
+
+            addExpList.push({
+                character_id: characterId,
+                add_exp: overflowExp > 0 ? overflowExp - expAmount : expAmount,
+                after_exp: afterExp,
+                add_exp_pool: overflowExp
+            })
+
+            characterList.push({
+                "character_id": characterId,
+                "exp": afterExp,
+                "create_time": clientSerializeDate(characterData.joinTime),
+                "update_time": clientSerializeDate(characterData.updateTime),
+                "join_time": clientSerializeDate(characterData.joinTime),
+                "exp_total": afterExp
+            })
+
+            // insert bondTokenStatusList entry
+            const bondTokenStatus: ClientReturnBondTokenStatus[] = characterData.bondTokenList.map(entry => {
+                return {
+                    mana_board_index: entry.manaBoardIndex,
+                    status: entry.status
+                }
+            })
+
+            bondTokenStatusList[characterId] = {
+                before: bondTokenStatus,
+                after: bondTokenStatus
+            }
+        }
+    }
+
+    // get player data
+    const playerData = getPlayerSync(playerId)
+    const currentExpPool = playerData ? playerData.expPool : null
+    const afterExpPool = currentExpPool === null ? null : currentExpPool + addToExpPool
+    
+    if (afterExpPool !== null && addToExpPool > 0) {
+        updatePlayerSync({
+            id: playerId,
+            expPool: afterExpPool
+        })
+    }
+
+    return {
+        add_exp_list: addExpList,
+        character_list: characterList,
+        bond_token_status_list: bondTokenStatusList,
+        exp_pool: afterExpPool === null ? 0 : afterExpPool
+    }
 }

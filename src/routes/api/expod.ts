@@ -4,6 +4,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { clientSerializeDate } from "../../data/utils";
 import { getAccountPlayers, getPlayerCharacterSync, getPlayerSync, getSession, updatePlayerCharacterSync, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders, getServerTime } from "../../utils";
+import { rewardPlayerCharactersExpSync } from "../../lib/character";
 
 interface InjectExpBody {
     character_id: number,
@@ -54,14 +55,7 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Not enough exp."
         })
         
-        const beforeExp = character.exp
-        const afterExp = beforeExp + addExp
         const playerAfterExpPool = player.expPool - addExp
-        
-        // increase character exp
-        updatePlayerCharacterSync(playerId, characterId, {
-            exp: afterExp
-        })
 
         // decrease player exp
         updatePlayerSync({
@@ -69,32 +63,19 @@ const routes = async (fastify: FastifyInstance) => {
             expPool: playerAfterExpPool
         })
 
+        // add exp to the character
+        const rewardResult = rewardPlayerCharactersExpSync(playerId, [characterId], addExp)
+
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
                 viewer_id: viewerId
             }),
             "data": {
-                "add_exp_list": [
-                    {
-                        "character_id": characterId,
-                        "add_exp": addExp,
-                        "after_exp": afterExp,
-                        "add_exp_pool": 0
-                    }
-                ],
-                "character_list": [
-                    {
-                        "character_id": characterId,
-                        "exp": afterExp,
-                        "create_time": clientSerializeDate(character.joinTime),
-                        "update_time": clientSerializeDate(character.updateTime),
-                        "join_time": clientSerializeDate(character.joinTime),
-                        "exp_total": afterExp
-                    }
-                ],
+                "add_exp_list": rewardResult.add_exp_list,
+                "character_list": rewardResult.character_list,
                 "user_info": {
-                    "exp_pool": playerAfterExpPool,
+                    "exp_pool": rewardResult.exp_pool,
                     "exp_pooled_time": getServerTime(player.expPooledTime)
                 },
             }

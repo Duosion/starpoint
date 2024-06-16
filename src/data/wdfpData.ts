@@ -3058,5 +3058,5 @@ export function collectPooledExpSync(
 
 // 151147
 
-// const charId = 121141
+// const charId = 512002
 // console.log(rewardPlayerCharacterSync(1, charId))
