@@ -4,9 +4,9 @@ import { generateDataHeaders, getServerTime } from "../../utils";
 import { PlayerCharacter } from "../../data/types";
 import { clientSerializeDate } from "../../data/utils";
 import { getQuestFromCategorySync } from "../../lib/assets";
-import { BattleQuest, CharacterClearReward, ClearReward, ClearRewardType, CurrencyClearReward } from "../../lib/types";
-import { rewardPlayerCharacterSync, rewardPlayerCharactersExpSync } from "../../lib/character";
-import { rewardPlayerClearRewardSync, rewardPlayerScoreRewardsSync } from "../../lib/quest";
+import { BattleQuest, CharacterReward, Reward, RewardType, CurrencyReward } from "../../lib/types";
+import { givePlayerCharacterSync, givePlayerCharactersExpSync } from "../../lib/character";
+import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
 
 interface StartBody {
     quest_id: number
@@ -91,17 +91,14 @@ const routes = async (fastify: FastifyInstance) => {
         const newRankPoint = beforeRankPoint + questData.rankPointReward
         let newMana = playerData.freeMana + questData.manaReward + body.add_mana
 
-        // prepare return tables
-        let itemList: Record<string, Object> = {}
-
         // check current quest progress
         const questProgress = getPlayerSingleQuestProgressSync(playerId, questCategory, questId);
         const questPreviouslyCompleted = questProgress !== null
         const finished = questProgress !== null ? questProgress.finished : false
         const questAccomplished = !finished && body.is_accomplished
 
-        const clearReward = !questPreviouslyCompleted ? rewardPlayerClearRewardSync(playerId, questData.clearReward, playerData) : null
-        const sPlusClearReward = clearRank === 5 && questProgress?.clearRank !== 5 ? rewardPlayerClearRewardSync(playerId, questData.sPlusReward, playerData) : null
+        const clearReward = !questPreviouslyCompleted ? givePlayerRewardSync(playerId, questData.clearReward) : null
+        const sPlusClearReward = clearRank === 5 && questProgress?.clearRank !== 5 ? givePlayerRewardSync(playerId, questData.sPlusReward) : null
 
         if (questAccomplished) {
             // update quest progress
@@ -135,7 +132,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         // reward score rewards
-        const scoreRewardsResult = rewardPlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup)
+        const scoreRewardsResult = givePlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup)
 
         // reward character exp
         const partyCharacterIds = body.statistics.party.characters
@@ -145,7 +142,7 @@ const routes = async (fastify: FastifyInstance) => {
         }
         const addExpAmount = questData.characterExpReward
 
-        const rewardCharacterExpResult = rewardPlayerCharactersExpSync(
+        const rewardCharacterExpResult = givePlayerCharactersExpSync(
             playerId,
             partyCharacterIdsArray,
             addExpAmount
@@ -160,16 +157,21 @@ const routes = async (fastify: FastifyInstance) => {
             "data_headers": dataHeaders,
             "data": {
                 "user_info": {
-                    "free_mana": newMana + (clearReward?.user_info.free_mana || 0) + (sPlusClearReward?.user_info.free_mana || 0),
+                    "free_mana": newMana + (clearReward?.user_info.free_mana || 0) + (sPlusClearReward?.user_info.free_mana || 0) + scoreRewardsResult.user_info.free_mana,
                     "exp_pool": rewardCharacterExpResult.exp_pool,
                     "exp_pooled_time": getServerTime(playerData.expPooledTime),
-                    "free_vmoney": playerData.freeVmoney + (clearReward?.user_info.free_vmoney || 0) + (sPlusClearReward?.user_info.free_vmoney || 0),
+                    "free_vmoney": playerData.freeVmoney + (clearReward?.user_info.free_vmoney || 0) + (sPlusClearReward?.user_info.free_vmoney || 0) + scoreRewardsResult.user_info.free_vmoney,
                     "rank_point": newRankPoint,
                     "stamina": playerData.stamina,
                     "stamina_heal_time": getServerTime(playerData.staminaHealTime)
                 },
                 "add_exp_list": rewardCharacterExpResult.add_exp_list,
-                "character_list": [...rewardCharacterExpResult.character_list, ...(clearReward?.character_list || []), ...(sPlusClearReward?.character_list || [])],
+                "character_list": [
+                    ...rewardCharacterExpResult.character_list,
+                    ...(clearReward?.character_list || []),
+                    ...(sPlusClearReward?.character_list || []),
+                    ...scoreRewardsResult.character_list
+                ],
                 "bond_token_status_list": rewardCharacterExpResult.bond_token_status_list,
                 "rewards": {
                     "overflow_pool_exp": 0,
@@ -179,13 +181,18 @@ const routes = async (fastify: FastifyInstance) => {
                     "field_mana": body.add_mana
                 },
                 "old_high_score": questProgress === null ? 0 : questProgress.highScore || 0,
-                "joined_character_id_list": [...(clearReward?.joined_character_id_list || []), ...(sPlusClearReward?.joined_character_id_list || [])],
+                "joined_character_id_list": [
+                    ...(clearReward?.joined_character_id_list || []),
+                    ...(sPlusClearReward?.joined_character_id_list || []),
+                    ...scoreRewardsResult.joined_character_id_list
+                ],
                 "before_rank_point": beforeRankPoint,
                 "clear_rank": clearRank,
                 "drop_score_reward_ids": scoreRewardsResult.drop_score_reward_ids,
-                "drop_rare_reward_ids": [],
+                "drop_rare_reward_ids": scoreRewardsResult.drop_rare_reward_ids,
                 "drop_additional_reward_ids": [],
                 "drop_periodic_reward_ids": [],
+                "equipment_list": scoreRewardsResult.equipment_list,
                 "category_id": questCategory,
                 "start_time": dataHeaders['servertime'],
                 "is_multi": "single",

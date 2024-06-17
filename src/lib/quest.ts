@@ -1,8 +1,11 @@
+import { randomInt } from "crypto";
 import { Player } from "../data/types";
 import { clientSerializeDate } from "../data/utils";
 import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, updatePlayerSync } from "../data/wdfpData";
-import { rewardPlayerCharacterSync } from "./character";
-import { CharacterClearReward, ClearReward, ClearRewardType, CurrencyClearReward, DropScoreRewardId, ItemScoreReward, RewardPlayerClearRewardResult, RewardPlayerScoreRewardsResult, ScoreReward, ScoreRewardType } from "./types";
+import { givePlayerCharacterSync } from "./character";
+import { CharacterReward, Reward, RewardType, CurrencyReward, DropScoreRewardId, ItemScoreReward, RareScoreReward, RareScoreRewardGroup, PlayerRewardResult, GivePlayerScoreRewardsResult, ScoreReward, ScoreRewardType, EquipmentItemReward } from "./types";
+import { givePlayerEquipmentSync } from "./equipment";
+import { getRareScoreRewardGroup } from "./assets";
 
 /**
  * Grants a player score rewards.
@@ -12,20 +15,27 @@ import { CharacterClearReward, ClearReward, ClearRewardType, CurrencyClearReward
  * @param scoreRewards The score rewards inside of the group.
  * @returns A result detailing what was added/changed.
  */
-export function rewardPlayerScoreRewardsSync(
+export function givePlayerScoreRewardsSync(
     playerId: number,
     groupId: number,
     scoreRewards: ScoreReward[]
-): RewardPlayerScoreRewardsResult {
+): GivePlayerScoreRewardsResult {
 
-    const items: Record<string, number> = {}
     const dropScoreRewardIds: DropScoreRewardId[] = []
+    const dropRareRewardIds: DropScoreRewardId[] = []
+
+    let mana = 0
+    let vmoney = 0
+    let joinedCharacterIdList: number[] = []
+    let characterList: Object[] = []
+    let equipmentList: Object[] = []
+    let items: Record<string, number> = {}
 
     let rewardIndex = 0
     for (const scoreReward of scoreRewards) {
         rewardIndex += 1;
         switch (scoreReward.type) {
-            case ScoreRewardType.ITEM:
+            case ScoreRewardType.ITEM: {
                 const reward = scoreReward as ItemScoreReward
                 const itemId = reward.id
                 const rewardAmount = reward.count * 10
@@ -37,71 +47,164 @@ export function rewardPlayerScoreRewardsSync(
                     number: rewardAmount
                 })
                 break;
+            }
+            case ScoreRewardType.RARE_POOL: {
+                const reward = scoreReward as RareScoreRewardGroup
+                const roll = randomInt(0, 100) / 100
+
+                if (reward.rarity >= roll) {
+                    // give reward from group
+                    // TODO: implement RareScoreReward rarity using .rarity field instead of having an even chance between all items in pool
+                    const rareGroupId = reward.id
+                    const group = getRareScoreRewardGroup(rareGroupId)
+                    if (group !== null) {
+                        const random_index = 1 >= group.length ? 0 : randomInt(group.length - 1)
+                        const reward = group[random_index]
+                        const result = givePlayerRewardSync(playerId, reward)
+
+                        // merge arrays
+                        mana += result.user_info.free_mana
+                        vmoney += result.user_info.free_vmoney
+                        joinedCharacterIdList = [...joinedCharacterIdList, ...result.joined_character_id_list]
+                        characterList = [...characterList, ...result.character_list]
+                        equipmentList = [...equipmentList, ...result.equipment_list]
+
+                        // merge items
+                        for (const [itemId, count] of Object.entries(result.items)) {
+                            const existingCount = items[itemId]
+                            if (existingCount === undefined) {
+                                items[itemId] = count
+                            } else {
+                                items[itemId] = existingCount + count
+                            }
+                        }
+
+                        // calculate number
+                        let number = 0
+                        switch (reward.type) {
+                            case RewardType.ITEM:
+                            case RewardType.EQUIPMENT:
+                                number = (reward as Reward as EquipmentItemReward).count
+                                break;
+                            case RewardType.CHARACTER:
+                                number = 1;
+                                break;
+                            case RewardType.BEADS:
+                            case RewardType.MANA:
+                                number = (reward as Reward as CurrencyReward).count
+                                break;
+                        }
+
+                        // add reward id to table
+                        dropRareRewardIds.push({
+                            group_id: rareGroupId,
+                            index: random_index + 1,
+                            number: number
+                        })
+                    }
+                }
+                break;
+            }
         }    
     } 
 
     return {
-        items: items,
-        drop_score_reward_ids: dropScoreRewardIds
+        drop_score_reward_ids: dropScoreRewardIds,
+        drop_rare_reward_ids: dropRareRewardIds,
+        user_info: {
+            free_mana: mana,
+            free_vmoney: vmoney
+        },
+        character_list: characterList,
+        joined_character_id_list: joinedCharacterIdList,
+        equipment_list: equipmentList,
+        items: items
     }
 }
 
-export function rewardPlayerClearRewardSync(
+export function givePlayerRewardSync(
     playerId: number,
-    clearReward: ClearReward,
-    playerData?: Player
-): RewardPlayerClearRewardResult {
+    reward: Reward
+): PlayerRewardResult {
 
     // get player data
-    const player = playerData === undefined ? getPlayerSync(playerId) : playerData
+    const player = getPlayerSync(playerId)
 
     let mana = 0
     let vmoney = 0
     const joinedCharacterIdList: number[] = []
     const characterList: Object[] = []
+    const equipmentList: Object[] = []
+    let items: Record<string, number> = {}
 
     if (player) {
-        switch (clearReward.type) {
-            case ClearRewardType.EQUIPMENT:
+        switch (reward.type) {
+            case RewardType.ITEM: {
+                const convertedReward = (reward as EquipmentItemReward)
+                const itemId = convertedReward.id
+                items[String(itemId)] = givePlayerItemSync(playerId, itemId, convertedReward.count);
                 break;
-            case ClearRewardType.CHARACTER:
-                const characterId = (clearReward as CharacterClearReward).id
-                rewardPlayerCharacterSync(playerId, characterId)
-                joinedCharacterIdList.push(characterId)
+            }
+            case RewardType.EQUIPMENT: {
+                const convertedReward = (reward as EquipmentItemReward)
+                equipmentList.push(givePlayerEquipmentSync(playerId, convertedReward.id, convertedReward.count))
+                break;
+            }
+            case RewardType.CHARACTER: {
+                const characterId = (reward as CharacterReward).id
+                const giveResult = givePlayerCharacterSync(playerId, characterId)
+                const giveItemList = giveResult["item_list"]
+                items = giveItemList === undefined ? {} : giveItemList as Record<string, number>
+
                 const character = getPlayerCharacterSync(playerId, characterId)
                 if (character) {
-                    characterList.push({
-                        "viewer_id": 0,
-                        "character_id": characterId,
-                        "entry_count": 1,
-                        "exp": 0,
-                        "exp_total": 0,
-                        "bond_token_list": character.bondTokenList.map(bondToken => {
-                            return {
-                                "mana_board_index": bondToken.manaBoardIndex,
-                                "status": bondToken.status
-                            }
-                        }),
-                        "create_time": clientSerializeDate(character.joinTime),
-                        "update_time": clientSerializeDate(character.updateTime),
-                        "join_time": clientSerializeDate(character.joinTime),
-                    })
+                    if (0 >= character.stack) {
+                        joinedCharacterIdList.push(characterId)
+                        characterList.push({
+                            "viewer_id": 0,
+                            "character_id": characterId,
+                            "entry_count": 1,
+                            "exp": 0,
+                            "exp_total": 0,
+                            "bond_token_list": character.bondTokenList.map(bondToken => {
+                                return {
+                                    "mana_board_index": bondToken.manaBoardIndex,
+                                    "status": bondToken.status
+                                }
+                            }),
+                            "create_time": clientSerializeDate(character.joinTime),
+                            "update_time": clientSerializeDate(character.updateTime),
+                            "join_time": clientSerializeDate(character.joinTime),
+                        })
+                    } else {
+                        characterList.push({
+                            "character_id": characterId,
+                            "stack": character.stack,
+                            "create_time": clientSerializeDate(character.joinTime),
+                            "update_time": clientSerializeDate(character.updateTime),
+                            "join_time": clientSerializeDate(character.joinTime),
+                        })
+                    }
+                    
                 }
                 break;
-            case ClearRewardType.BEADS:
-                vmoney = (clearReward as CurrencyClearReward).count
+            }
+            case RewardType.BEADS: {
+                vmoney = (reward as CurrencyReward).count
                 updatePlayerSync({
                     id: playerId,
                     freeVmoney: player.freeVmoney + vmoney
                 })
                 break;
-            case ClearRewardType.MANA:
-                mana = (clearReward as CurrencyClearReward).count
+            }
+            case RewardType.MANA: {
+                mana = (reward as CurrencyReward).count
                 updatePlayerSync({
                     id: playerId,
                     freeMana: player.freeMana + mana
                 })
                 break;
+            }
         }
     }
 
@@ -111,6 +214,8 @@ export function rewardPlayerClearRewardSync(
             free_vmoney: vmoney
         },
         character_list: characterList,
-        joined_character_id_list: joinedCharacterIdList
+        joined_character_id_list: joinedCharacterIdList,
+        equipment_list: equipmentList,
+        items: items
     }
 }

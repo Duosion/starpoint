@@ -1,7 +1,3 @@
-// 4* base max level: 70, 75, 80, 85, 90; exp: 76272, 102829, 139190, 189995, 240800
-// 5* max level: 80, 85, 90, 95, 100; exp: 153988, 210488, 266988, 323488, 379988
-
-import { PlayerCharacter } from "../data/types";
 import { clientSerializeDate } from "../data/utils";
 import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, insertPlayerCharacterSync, updatePlayerCharacterSync, updatePlayerSync } from "../data/wdfpData";
 import { getCharacterDataSync } from "./assets";
@@ -97,7 +93,7 @@ const dupeItemRewards: Record<number, Record<Element, number>> = {
  * @param characterId The ID of the character to give.
  * @returns An items list, indicating what, if any, items were given to the player.
  */
-export function rewardPlayerCharacterSync(
+export function givePlayerCharacterSync(
     playerId: number,
     characterId: number
 ): Record<string, Object> {
@@ -169,7 +165,7 @@ export function rewardPlayerCharacterSync(
  * @param expAmount The amount of exp to add.
  * @returns A RewardPlayerCharacterExpResult, detailing how much exp was added.
  */
-export function rewardPlayerCharactersExpSync(
+export function givePlayerCharactersExpSync(
     playerId: number,
     characterIds: number[],
     expAmount: number

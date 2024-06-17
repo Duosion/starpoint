@@ -129,7 +129,7 @@ def convert_score_reward(obj):
                     "name": reward[0],
                     "type": type,
                     "id": int(reward[6]),
-                    "field7": float(reward[7])
+                    "rarity": float(reward[7])
                 })
             else:
                 converted_group.append({
@@ -142,6 +142,32 @@ def convert_score_reward(obj):
                     "field6": reward[6],
                     "field7": reward[7],
                 })
+        converted[group_id] = converted_group
+    return converted
+
+def convert_rare_score_reward(obj):
+    converted = {}
+    for group_id, rare_group in obj.items():
+        converted_group = []
+        for _, reward in rare_group.items():
+            name = reward[0]
+            type = int(reward[1])
+            id = int(reward[2]) if reward[2] != "" else None
+            amount = int(reward[3]) if reward[3] != "" else None
+            rarity = float(reward[4])
+
+            new_obj = {
+                "name": name,
+                "type": type,
+                "rarity": rarity
+            }
+
+            if id != None:
+                new_obj['id'] = id
+            if amount != None:
+                new_obj['count'] = amount
+            converted_group.append(new_obj)
+
         converted[group_id] = converted_group
     return converted
 
@@ -168,8 +194,8 @@ to_convert_files = {
     "character_quest": convert_character_quests,
     "clear_reward": convert_clear_rewards,
     "score_reward": convert_score_reward,
-    "character": convert_characters
-    #"rare_score_reward": convert_score_reward
+    "character": convert_characters,
+    "rare_score_reward": convert_rare_score_reward
 }
 
 for file_name, converter in to_convert_files.items():

@@ -3,7 +3,8 @@ import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry,
 import { randomBytes } from "crypto";
 import { deserializeBoolean, getDefaultPlayerData, serializeBoolean, serializePlayerData } from "./utils";
 import { generateViewerId, getServerTime } from "../utils";
-import { rewardPlayerCharacterSync } from "../lib/character";
+import { givePlayerCharacterSync } from "../lib/character";
+import { givePlayerEquipmentSync } from "../lib/equipment";
 
 const db = getDatabase(Database.WDFP_DATA)
 const expPoolMax = 100000 // the maximum amount of exp that can be pooled
@@ -1469,12 +1470,29 @@ export function givePlayerItemSync(
 }
 
 /**
- * Retrieves the equipment that a player owns.
+ * Converts a RawPlayerEquipment object into a PlayerEquipment object.
+ * 
+ * @param rawEquipment The raw equipment to deserialize.
+ * @returns A deserialized PlayerEquipment object.
+ */
+function buildPlayerEquipment(
+    rawEquipment: RawPlayerEquipment
+): PlayerEquipment {
+    return {
+        level: rawEquipment.level,
+        enhancementLevel: rawEquipment.enhancement_level,
+        protection: deserializeBoolean(rawEquipment.protection),
+        stack: rawEquipment.stack,
+    }
+}
+
+/**
+ * Retrieves all of the equipment that a player owns.
  * 
  * @param playerId The ID of the player.
  * @returns A record where the index is the equipment's ID and the value is its data.
  */
-export function getPlayerEquipmentSync(
+export function getPlayerEquipmentListSync(
     playerId: number
 ): Record<string, PlayerEquipment> {
 
@@ -1487,15 +1505,31 @@ export function getPlayerEquipmentSync(
     const final: Record<string, PlayerEquipment> = {}
 
     for (const raw of rawEquipment) {
-        final[raw.id.toString()] = {
-            level: raw.level,
-            enhancementLevel: raw.enhancement_level,
-            protection: deserializeBoolean(raw.protection),
-            stack: raw.stack
-        }
+        final[raw.id.toString()] = buildPlayerEquipment(raw)
     }
 
     return final
+}
+
+/**
+ * Gets the data for a single piece of equipment from a player's inventory.
+ * 
+ * @param playerId The player's ID.
+ * @param equipmentId The ID of the equipment to get the data of.
+ * @returns If the equipment was found, returns a PlayerEquipment object. Otherwise, returns null.
+ */
+export function getPlayerEquipmentSync(
+    playerId: number,
+    equipmentId: number | string
+): PlayerEquipment | null {
+
+    const rawEquipment = db.prepare(`
+    SELECT id, level, enhancement_level, protection, stack
+    FROM players_equipment
+    WHERE player_id = ? AND id = ?
+    `).get(playerId, Number(equipmentId)) as RawPlayerEquipment | undefined
+
+    return rawEquipment === undefined ? null : buildPlayerEquipment(rawEquipment)
 }
 
 /**
@@ -1523,7 +1557,7 @@ export function playerOwnsEquipmentSync(
  * @param equipmentId The ID of the equipment to insert.
  * @param equipment The equipment's data.
  */
-function insertPlayerEquipmentSync(
+export function insertPlayerEquipmentSync(
     playerId: number,
     equipmentId: string | number,
     equipment: PlayerEquipment
@@ -1556,6 +1590,47 @@ function insertPlayerEquipmentListSync(
             insertPlayerEquipmentSync(playerId, equipmentId, data)
         }
     })()
+}
+
+/**
+ * Updates a piece of a player's equipment.
+ * 
+ * @param playerId The ID of the player.
+ * @param equipmentId The ID of the equipment to update.
+ * @param equipment A partial with the values to change inside of it.
+ */
+export function updatePlayerEquipmentSync(
+    playerId: number,
+    equipmentId: string | number,
+    equipment: Partial<PlayerEquipment>
+) {
+    const fieldMap: Record<string, string> = {
+        'level': 'entry_count',
+        'enhancementLevel': 'enhancement_level',
+        'protection': 'protection',
+        'stack': 'stack'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in equipment) {
+        const value = equipment[key as keyof PlayerEquipment]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (typeof(value) === "boolean") {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_equipment
+        SET ${sets.join(', ')}
+        WHERE id = ? AND player_id = ?
+        `).run([...values, Number(equipmentId), playerId]);
 }
 
 /**
@@ -3060,3 +3135,5 @@ export function collectPooledExpSync(
 
 // const charId = 512002
 // console.log(rewardPlayerCharacterSync(1, charId))
+
+//console.log(givePlayerEquipmentSync(1, 1010001, 2))

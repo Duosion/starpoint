@@ -1,6 +1,6 @@
 // enums
-export enum ClearRewardType {
-    PLACEHOLDER,
+export enum RewardType {
+    ITEM,
     EQUIPMENT,
     CHARACTER,
     BEADS,
@@ -49,29 +49,33 @@ export enum Element {
 
 export enum ScoreRewardType {
     ITEM,
-    EQUIPMENT
+    RARE_POOL
 }
 
 // clear rewards
-export interface ClearReward {
+export interface Reward {
     name: string,
-    type: ClearRewardType,
+    type: RewardType,
 }
 
-export interface EquipmentClearReward extends ClearReward {
+export interface EquipmentItemReward extends Reward {
     id: number,
     count: number
 }
 
-export interface CharacterClearReward extends ClearReward {
+export interface CharacterReward extends Reward {
     id: number
 }
 
-export interface CurrencyClearReward extends ClearReward {
+export interface CurrencyReward extends Reward {
     count: number
 }
 
-export type ClearRewards = Record<string, ClearReward>
+export interface RareScoreReward extends Reward {
+    rarity: number
+}
+
+export type ClearRewards = Record<string, Reward>
 
 // score rewards
 export interface ScoreReward {
@@ -85,12 +89,14 @@ export interface ItemScoreReward extends ScoreReward {
     field5: number
 }
 
-export interface EquipmentScoreReward extends ScoreReward {
+export interface RareScoreRewardGroup extends ScoreReward {
     id: number,
-    field7: number
+    rarity: number
 }
 
 export type ScoreRewardGroups = Record<string, ScoreReward[]>
+
+export type RareScoreRewardGroups = Record<string, Reward[]>
 
 export interface RawQuest {
     name: string,
@@ -109,13 +115,13 @@ export interface RawQuest {
 
 export interface StoryQuest {
     name: string,
-    clearReward: ClearReward
+    clearReward: Reward
 }
 
 export interface BattleQuest {
     name: string,
-    clearReward: ClearReward,
-    sPlusReward: ClearReward,
+    clearReward: Reward,
+    sPlusReward: Reward,
     scoreRewardGroupId: number,
     scoreRewardGroup: ScoreReward[],
     bRankTime: number,
@@ -177,13 +183,15 @@ export interface RewardPlayerCharacterExpResult {
 }
 
 // quest types
-export interface RewardPlayerClearRewardResult {
+export interface PlayerRewardResult {
     user_info: {
         free_mana: number
         free_vmoney: number
     },
     character_list: Object[]
     joined_character_id_list: number[]
+    equipment_list: Object[]
+    items: Record<string, number>
 }
 
 export interface DropScoreRewardId {
@@ -192,7 +200,7 @@ export interface DropScoreRewardId {
     number: number
 }
 
-export interface RewardPlayerScoreRewardsResult {
-    items: Record<string, number>
+export interface GivePlayerScoreRewardsResult extends PlayerRewardResult {
     drop_score_reward_ids: DropScoreRewardId[]
+    drop_rare_reward_ids: DropScoreRewardId[]
 }

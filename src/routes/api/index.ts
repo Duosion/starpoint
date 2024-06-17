@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SessionType } from "../../data/types";
 import { serializePlayerData } from "../../data/utils";
-import { collectPooledExpSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, validateViewerId } from "../../data/wdfpData";
+import { collectPooledExpSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, validateViewerId } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
 interface LoadBody {
@@ -70,7 +70,7 @@ const routes = async (fastify: FastifyInstance) => {
                 getPlayerCharactersManaNodesSync(playerId),
                 getPlayerPartyGroupListSync(playerId),
                 getPlayerItemsSync(playerId),
-                getPlayerEquipmentSync(playerId),
+                getPlayerEquipmentListSync(playerId),
                 getPlayerQuestProgressSync(playerId),
                 getPlayerGachaInfoSync(playerId),
                 getPlayerDrawnQuestsSync(playerId),

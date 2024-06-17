@@ -4,7 +4,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { clientSerializeDate } from "../../data/utils";
 import { getAccountPlayers, getPlayerCharacterSync, getPlayerSync, getSession, updatePlayerCharacterSync, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders, getServerTime } from "../../utils";
-import { rewardPlayerCharactersExpSync } from "../../lib/character";
+import { givePlayerCharactersExpSync } from "../../lib/character";
 
 interface InjectExpBody {
     character_id: number,
@@ -48,7 +48,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         // make sure that the player has enough exp
-        const addExp = body.exp
+        const addExp = Math.abs(body.exp)
         const playerExpPool = player.expPool
         if (addExp > playerExpPool) return reply.status(400).send({
             "error": "Internal Server Error",
@@ -64,7 +64,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         // add exp to the character
-        const rewardResult = rewardPlayerCharactersExpSync(playerId, [characterId], addExp)
+        const rewardResult = givePlayerCharactersExpSync(playerId, [characterId], addExp)
 
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({

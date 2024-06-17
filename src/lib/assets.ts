@@ -5,7 +5,8 @@ import bossBattleQuests from "../../assets/boss_battle_quest.json";
 import characterQuests from "../../assets/character_quest.json";
 import characters from "../../assets/character.json";
 import scoreRewards from "../../assets/score_reward.json";
-import { AssetCharacter, BattleQuest, ClearReward, ClearRewards, QuestCategory, RawAssetCharacters, RawQuests, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import rareScoreRewards from "../../assets/rare_score_reward.json";
+import { AssetCharacter, BattleQuest, Reward, ClearRewards, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -15,9 +16,22 @@ import { AssetCharacter, BattleQuest, ClearReward, ClearRewards, QuestCategory, 
  */
 export function getClearRewardSync(
     clearRewardId: string | number
-): ClearReward | null {
+): Reward | null {
     const clearReward = (clearRewards as ClearRewards)[String(clearRewardId)]
-    return clearReward ? clearReward as ClearReward : null
+    return clearReward ? clearReward as Reward : null
+}
+
+/**
+ * Gets a rare score reward group from its ID.
+ * 
+ * @param groupId The ID of the rare score reward group.
+ * @returns The score reward group that was found, or null.
+ */
+export function getRareScoreRewardGroup(
+    groupId: string | number
+): RareScoreReward[] | null {
+    const group = (rareScoreRewards as RareScoreRewardGroups)[String(groupId)]
+    return group ? group as RareScoreReward[] : null
 }
 
 /**
