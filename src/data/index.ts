@@ -1,6 +1,6 @@
 import sqlite3, { Database as BetterSqlite3Database } from 'better-sqlite3';
 import { existsSync, mkdirSync } from 'fs';
-import initWdfpData from "./initializers/wdfpData"
+import initWdfpData from "./initializers/wdfpData";
 
 const rootDir = process.cwd();
 const dataDir = rootDir + "/.database"

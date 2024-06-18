@@ -1,10 +1,9 @@
 // Handles the insertion of mana into characters.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { clientSerializeDate } from "../../data/utils";
-import { getAccountPlayers, getPlayerCharacterSync, getPlayerSync, getSession, updatePlayerCharacterSync, updatePlayerSync } from "../../data/wdfpData";
-import { generateDataHeaders, getServerTime } from "../../utils";
+import { getAccountPlayers, getPlayerCharacterSync, getPlayerSync, getSession, updatePlayerSync } from "../../data/wdfpData";
 import { givePlayerCharactersExpSync } from "../../lib/character";
+import { generateDataHeaders, getServerTime } from "../../utils";
 
 interface InjectExpBody {
     character_id: number,

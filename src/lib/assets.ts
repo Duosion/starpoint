@@ -1,12 +1,12 @@
-import clearRewards from "../../assets/clear_reward.json";
-import mainQuests from "../../assets/main_quest.json";
-import exQuests from "../../assets/ex_quest.json";
 import bossBattleQuests from "../../assets/boss_battle_quest.json";
-import characterQuests from "../../assets/character_quest.json";
 import characters from "../../assets/character.json";
-import scoreRewards from "../../assets/score_reward.json";
+import characterQuests from "../../assets/character_quest.json";
+import clearRewards from "../../assets/clear_reward.json";
+import exQuests from "../../assets/ex_quest.json";
+import mainQuests from "../../assets/main_quest.json";
 import rareScoreRewards from "../../assets/rare_score_reward.json";
-import { AssetCharacter, BattleQuest, Reward, ClearRewards, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import scoreRewards from "../../assets/score_reward.json";
+import { AssetCharacter, BattleQuest, ClearRewards, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.

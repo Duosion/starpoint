@@ -1,12 +1,10 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerCharacterSync, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerCharacterSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
-import { generateDataHeaders, getServerTime } from "../../utils";
-import { PlayerCharacter } from "../../data/types";
-import { clientSerializeDate } from "../../data/utils";
+import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
-import { BattleQuest, CharacterReward, Reward, RewardType, CurrencyReward } from "../../lib/types";
-import { givePlayerCharacterSync, givePlayerCharactersExpSync } from "../../lib/character";
+import { givePlayerCharactersExpSync } from "../../lib/character";
 import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
+import { BattleQuest } from "../../lib/types";
+import { generateDataHeaders, getServerTime } from "../../utils";
 
 interface StartBody {
     quest_id: number

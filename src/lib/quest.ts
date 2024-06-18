@@ -1,11 +1,10 @@
 import { randomInt } from "crypto";
-import { Player } from "../data/types";
 import { clientSerializeDate } from "../data/utils";
 import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, updatePlayerSync } from "../data/wdfpData";
-import { givePlayerCharacterSync } from "./character";
-import { CharacterReward, Reward, RewardType, CurrencyReward, DropScoreRewardId, ItemScoreReward, RareScoreReward, RareScoreRewardGroup, PlayerRewardResult, GivePlayerScoreRewardsResult, ScoreReward, ScoreRewardType, EquipmentItemReward } from "./types";
-import { givePlayerEquipmentSync } from "./equipment";
 import { getRareScoreRewardGroup } from "./assets";
+import { givePlayerCharacterSync } from "./character";
+import { givePlayerEquipmentSync } from "./equipment";
+import { CharacterReward, CurrencyReward, DropScoreRewardId, EquipmentItemReward, GivePlayerScoreRewardsResult, ItemScoreReward, PlayerRewardResult, RareScoreRewardGroup, Reward, RewardType, ScoreReward, ScoreRewardType } from "./types";
 
 /**
  * Grants a player score rewards.

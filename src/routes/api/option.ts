@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
+import { getAccountPlayers, getSession } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
 interface UpdateBody {

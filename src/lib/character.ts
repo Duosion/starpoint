@@ -1,7 +1,7 @@
 import { clientSerializeDate } from "../data/utils";
 import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, insertPlayerCharacterSync, updatePlayerCharacterSync, updatePlayerSync } from "../data/wdfpData";
 import { getCharacterDataSync } from "./assets";
-import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, RewardPlayerCharacterExpResult } from "./types"
+import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, RewardPlayerCharacterExpResult } from "./types";
 
 const characterExpCaps: Record<number, number[]> = {
     [1]: [ // 1* max exp amounts for each uncap level 

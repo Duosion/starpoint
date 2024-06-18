@@ -10,6 +10,7 @@ import expodApiPlugin from "./routes/api/expod"
 import storyQuestApiPlugin from "./routes/api/storyQuest"
 import optionApiPlugin from "./routes/api/option"
 import singleBattleQuestApiPlugin from "./routes/api/singleBattleQuest"
+import attentionApiPlugin from "./routes/api/attention"
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
@@ -72,6 +73,7 @@ fastify.register(expodApiPlugin, { prefix: "/latest/api/index.php/expod" })
 fastify.register(storyQuestApiPlugin, { prefix: "/latest/api/index.php/story_quest" })
 fastify.register(optionApiPlugin, { prefix: "/latest/api/index.php/option" })
 fastify.register(singleBattleQuestApiPlugin, { prefix: "/latest/api/index.php/single_battle_quest" })
+fastify.register(attentionApiPlugin, { prefix: "/latest/api/index.php/attention" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

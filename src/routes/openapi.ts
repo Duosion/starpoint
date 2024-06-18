@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { deleteAccountSessions, deleteAccountSessionsOfType, deleteSession, getAccount, getAccountFromPlayerIdSync, getPlayerSync, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { SessionType } from "../data/types";
+import { deleteAccountSessionsOfType, deleteSession, getAccount, getAccountFromPlayerIdSync, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { generateIdpAlias } from "../utils";
 
 interface CreateDeviceAccessTokenBody {

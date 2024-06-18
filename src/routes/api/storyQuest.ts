@@ -1,8 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
-import { generateDataHeaders } from "../../utils";
+import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { givePlayerRewardSync } from "../../lib/quest";
+import { generateDataHeaders } from "../../utils";
 
 interface FinishBody {
     party_id: number,

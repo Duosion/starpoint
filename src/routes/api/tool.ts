@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SessionType } from "../../data/types";
-import { generateViewerIdSession, getAccountSessionsOfType, getPlayerFromAccountIdSync, getPlayerSync, getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
+import { generateViewerIdSession, getAccountSessionsOfType, getPlayerFromAccountIdSync, getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
 interface GetHeaderResponseBody {
