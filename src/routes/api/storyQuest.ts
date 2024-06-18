@@ -1,6 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
+import { getQuestFromCategorySync } from "../../lib/assets";
+import { givePlayerRewardSync } from "../../lib/quest";
 
 interface FinishBody {
     party_id: number,
@@ -9,9 +11,6 @@ interface FinishBody {
     category: number,
     api_count: number
 }
-
-// how many beads the player receives for reading a story.
-const storyReadBeadsReward = 15
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/finish", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -39,13 +38,20 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
-        // check current quest progress
         const questSection = body.category
         const questId = body.quest_id
 
+        // get quest data & check if it is the right type
+        const questData = getQuestFromCategorySync(questSection, questId)
+        if (questData === null || ("sPlusReward" in questData)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid quest ID provided."
+        })
+
+        // get quest progress
         const questProgress = getPlayerSingleQuestProgressSync(playerId, questSection, questId);
-        const newVmoney = playerData.freeVmoney + storyReadBeadsReward
         const finished = questProgress !== null ? questProgress.finished : false
+        const rewardResult = !finished ? givePlayerRewardSync(playerId, questData.clearReward) : null
 
         if (!finished) {
             // update quest progress
@@ -62,14 +68,8 @@ const routes = async (fastify: FastifyInstance) => {
                     finished: true
                 })
             }
-
-            // increase player beads
-            updatePlayerSync({
-                id: playerId,
-                freeVmoney: newVmoney
-            })
         }
-        
+
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
@@ -77,9 +77,14 @@ const routes = async (fastify: FastifyInstance) => {
             }),
             "data": !finished ? {
                 "user_info": {
-                    "free_vmoney": newVmoney
+                    "free_vmoney": playerData.freeVmoney + (rewardResult?.user_info.free_vmoney || 0),
+                    "free_mana": playerData.freeMana + (rewardResult?.user_info.free_mana || 0)
                 }
-            } : []
+            } : [],
+            "character_list": rewardResult?.character_list || [],
+            "joined_character_id_list": rewardResult?.joined_character_id_list || [],
+            "equipment_list": rewardResult?.equipment_list || [],
+            "items": rewardResult?.items || {}
         })
     })
 }
