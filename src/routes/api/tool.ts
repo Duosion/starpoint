@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SessionType } from "../../data/types";
-import { generateViewerIdSession, getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
+import { generateViewerIdSession, getAccountSessionsOfType, getPlayerFromAccountIdSync, getPlayerSync, getSession, insertDefaultPlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
 interface GetHeaderResponseBody {
@@ -12,7 +12,7 @@ interface SignupBody {
     access_token: string
     storage_directory_path: string
     app_admin: string
-    kakao_pkd: string,
+    kakao_pid: string,
     device_id: number,
     idp_code: string
 }
@@ -54,11 +54,16 @@ const routes = async (fastify: FastifyInstance) => {
 
         const accountId = session.accountId
 
-        // create new player account
-        insertDefaultPlayerSync(accountId)
+        // Create the player data if it doesn't exist.
+        const accountPlayer = getPlayerFromAccountIdSync(accountId)
+        if (accountPlayer === null) {    
+            // create new player account
+            insertDefaultPlayerSync(accountId)
+        }
 
         // generate viewer id
-        const viewerId = await generateViewerIdSession(accountId)
+        const viewerIds = await getAccountSessionsOfType(accountId, SessionType.VIEWER)
+        const viewerId = !viewerIds[0] ? await generateViewerIdSession(accountId) : viewerIds[0]
 
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({

@@ -266,7 +266,8 @@ function getSessionSync(
 
     const session = buildSession(raw)
 
-    if (new Date() >= session.expires) {
+    // viewer tokens don't expire.
+    if (session.type !== SessionType.VIEWER && new Date() >= session.expires) {
         console.log(session, "expired")
         deleteSessionSync(session.token)
         return null
@@ -511,29 +512,10 @@ export function generateViewerIdSession(
             // insert new session
             resolve(insertSessionWithTokenSync({
                 token: generateViewerId().toString(),
-                expires: new Date(new Date().getTime() + 43200000),
+                expires: new Date(new Date().getTime()),
                 accountId: accountId,
                 type: SessionType.VIEWER
             }))
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-
-export function validateViewerId(
-    accountId: number,
-    viewerId: number
-): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-        try {
-            const session = getSessionSync(viewerId.toString())
-            if (!session) {
-                generateViewerIdSession(accountId)
-                    .then(session => resolve(Number.parseInt(session.token)))
-                    .catch(err => { throw err })
-            }
-            resolve(viewerId)
         } catch (error) {
             reject(error)
         }
@@ -2339,7 +2321,7 @@ function insertPlayerMultiSpecialExchangeCampaignsSync(
     })()
 }
 
-export function getPlayerFromAccountId(
+export function getPlayerFromAccountIdSync(
     accountId: number
 ): Player | null {
     const response = db.prepare(`
@@ -2351,6 +2333,24 @@ export function getPlayerFromAccountId(
     if (response === undefined) return null
 
     return getPlayerSync(response.id)
+}
+
+/**
+ * Gets the account that is tied to an individual player.
+ * 
+ * @param playerId The ID of the player.
+ * @returns The account that is tied to the player.
+ */
+export function getAccountFromPlayerIdSync(
+    playerId: number
+): Account | null {
+    const raw = db.prepare(`
+    SELECT account_id
+    FROM players
+    WHERE id = ?
+    `).get(playerId) as {account_id: number} | undefined
+
+    return raw === undefined ? null : getAccountSync(raw.account_id)
 }
 
 export function getPlayerSync(

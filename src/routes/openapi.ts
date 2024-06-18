@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { deleteAccountSessions, deleteSession, getAccount, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
+import { deleteAccountSessions, deleteAccountSessionsOfType, deleteSession, getAccount, getAccountFromPlayerIdSync, getPlayerSync, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { SessionType } from "../data/types";
 import { generateIdpAlias } from "../utils";
 
@@ -141,7 +141,23 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Invalid request body."
         })
 
-        const session = await getSession(clientZat)
+        let session = await getSession(clientZat)
+        if (session === null) {
+            // attempt to generate a new session
+            const idpAlias = generateIdpAlias(body.appId, body.deviceId, body.os)
+            const playerId = Number.parseInt(body.playerId)
+            const account = isNaN(playerId) ? null : getAccountFromPlayerIdSync(playerId)
+            if (account && account.idpAlias === idpAlias) {
+                // delete old session
+                await deleteAccountSessionsOfType(account.id, SessionType.ZAT)
+                // generate new zat session
+                session = await insertSession({
+                    expires: new Date(new Date().getTime() + 43200000),
+                    accountId: account.id,
+                    type: SessionType.ZAT
+                })
+            }
+        }
         if (session === null || session.type !== SessionType.ZAT) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid zat provided."
@@ -284,7 +300,8 @@ const routes = async (fastify: FastifyInstance) => {
 
         if (accountId) {
             // delete all previous sessions
-            await deleteAccountSessions(accountId)
+            await deleteAccountSessionsOfType(accountId, SessionType.ZAT)
+            await deleteAccountSessionsOfType(accountId, SessionType.ZRT)
         }
 
         const zatToken = await insertSession({
