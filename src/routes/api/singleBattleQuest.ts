@@ -39,6 +39,23 @@ interface FinishBody {
     api_count: number
 }
 
+interface AbortBody {
+    api_count: number,
+    finish_kind: number,
+    statistics: {
+        party: {
+            unison_characters: (number | null)[],
+            characters: { id: (number | null) }[],
+            equipments: (number | null)[],
+            ability_soul_ids: (number | null)[]
+        }
+    },
+    viewer_id: number,
+    quest_id: number,
+    play_id: string,
+    category: number
+}
+
 const routes = async (fastify: FastifyInstance) => {
 
     fastify.post("/finish", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -196,6 +213,23 @@ const routes = async (fastify: FastifyInstance) => {
                 "is_multi": "single",
                 "quest_name": "",
                 "item_list": scoreRewardsResult.items,
+            }
+        })
+    })
+
+    fastify.post("/abort", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as AbortBody
+
+        const headers = generateDataHeaders({ viewer_id: body.viewer_id })
+
+        return reply.status(200).send({
+            "data_headers": headers,
+            "data": {
+                "user_info": {},
+                "category_id": body.category,
+                "is_multi": "single",
+                "start_time": headers['servertime'],
+                "quest_name": ""
             }
         })
     })
