@@ -12,7 +12,12 @@ A work-in-progress server reimplementation for a mobile pinball game.
 * Guest login flow
 
 ## Installation
-- Install [Node.js](https://nodejs.org/en/download/package-manager).
+- Install [Node.js](https://nodejs.org/en/download/package-manager)
+- Clone the repository.
+  ```
+  git clone https://github.com/Duosion/starpoint.git
+  ```
+- Navigate to the directory where the repository was cloned.
 - Install packages.
   ```
   npm install
