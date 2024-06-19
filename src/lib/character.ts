@@ -6,6 +6,8 @@ import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusLis
 const characterExpCaps: Record<number, number[]> = {
     [1]: [ // 1* max exp amounts for each uncap level 
         11416, // level 40
+        // level 45
+        // level 50
         // level 55
         // level 60
         // level 65
