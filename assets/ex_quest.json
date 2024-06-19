@@ -1,6 +1,6 @@
 {
     "1001001": {
-        "name": "All Quests Start Here",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50000,
@@ -14,7 +14,7 @@
         "poolExpReward": 46
     },
     "1002001": {
-        "name": "Toadstool Trailing - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50001,
@@ -28,7 +28,7 @@
         "poolExpReward": 63
     },
     "1002002": {
-        "name": "Toadstool Trailing - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50002,
@@ -42,7 +42,7 @@
         "poolExpReward": 50
     },
     "1003001": {
-        "name": "Sunlit Treetops",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50003,
@@ -56,7 +56,7 @@
         "poolExpReward": 69
     },
     "1004001": {
-        "name": "Attack From Above",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50004,
@@ -70,7 +70,7 @@
         "poolExpReward": 119
     },
     "1005001": {
-        "name": "To the Spirit Tree - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50005,
@@ -84,7 +84,7 @@
         "poolExpReward": 71
     },
     "1005002": {
-        "name": "To the Spirit Tree - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50006,
@@ -98,7 +98,7 @@
         "poolExpReward": 89
     },
     "1006001": {
-        "name": "Spirit Tree Interior - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50007,
@@ -112,7 +112,7 @@
         "poolExpReward": 74
     },
     "1006002": {
-        "name": "Spirit Tree Interior - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50008,
@@ -126,7 +126,7 @@
         "poolExpReward": 92
     },
     "1007001": {
-        "name": "Rotting Wood",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50009,
@@ -140,7 +140,7 @@
         "poolExpReward": 134
     },
     "1008001": {
-        "name": "Regitare, Undead Lord",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50010,
@@ -154,7 +154,7 @@
         "poolExpReward": 153
     },
     "2001001": {
-        "name": "Sea of Sand - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50011,
@@ -168,7 +168,7 @@
         "poolExpReward": 78
     },
     "2001002": {
-        "name": "Sea of Sand - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50012,
@@ -182,7 +182,7 @@
         "poolExpReward": 78
     },
     "2002001": {
-        "name": "White Roar",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50013,
@@ -196,7 +196,7 @@
         "poolExpReward": 115
     },
     "2003001": {
-        "name": "Trek to the Oasis - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50014,
@@ -210,7 +210,7 @@
         "poolExpReward": 78
     },
     "2003002": {
-        "name": "Trek to the Oasis - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50015,
@@ -224,7 +224,7 @@
         "poolExpReward": 81
     },
     "2004001": {
-        "name": "Trek to the Oasis - 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50016,
@@ -238,7 +238,7 @@
         "poolExpReward": 92
     },
     "2004002": {
-        "name": "Trek to the Oasis - 4",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50017,
@@ -252,7 +252,7 @@
         "poolExpReward": 115
     },
     "2005001": {
-        "name": "The Hunt - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50018,
@@ -266,7 +266,7 @@
         "poolExpReward": 72
     },
     "2005002": {
-        "name": "The Hunt - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50019,
@@ -280,7 +280,7 @@
         "poolExpReward": 122
     },
     "2006001": {
-        "name": "Trouble at the Ruins",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50020,
@@ -294,7 +294,7 @@
         "poolExpReward": 101
     },
     "2006002": {
-        "name": "Guardian of the Ruins",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50021,
@@ -308,7 +308,7 @@
         "poolExpReward": 197
     },
     "2007001": {
-        "name": "Escape from the Ruins - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50022,
@@ -322,7 +322,7 @@
         "poolExpReward": 107
     },
     "2007002": {
-        "name": "Escape from the Ruins - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50023,
@@ -336,7 +336,7 @@
         "poolExpReward": 107
     },
     "2008001": {
-        "name": "The Road Back - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50024,
@@ -350,7 +350,7 @@
         "poolExpReward": 110
     },
     "2008002": {
-        "name": "The Road Back - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50025,
@@ -364,7 +364,7 @@
         "poolExpReward": 137
     },
     "2009001": {
-        "name": "Rebellion - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50026,
@@ -378,7 +378,7 @@
         "poolExpReward": 130
     },
     "2009002": {
-        "name": "Rebellion - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50027,
@@ -392,7 +392,7 @@
         "poolExpReward": 130
     },
     "2009003": {
-        "name": "Cast-Iron Custodian",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50028,
@@ -406,7 +406,7 @@
         "poolExpReward": 258
     },
     "3001001": {
-        "name": "Shiver Me Timbers",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50029,
@@ -420,7 +420,7 @@
         "poolExpReward": 105
     },
     "3001002": {
-        "name": "Know the Ropes",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50030,
@@ -434,7 +434,7 @@
         "poolExpReward": 84
     },
     "3002001": {
-        "name": "Hired Muscle",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50031,
@@ -448,7 +448,7 @@
         "poolExpReward": 146
     },
     "3003001": {
-        "name": "Aye-aye, Cap'n!",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50032,
@@ -462,7 +462,7 @@
         "poolExpReward": 131
     },
     "3004001": {
-        "name": "Where's the Booty?",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50033,
@@ -476,7 +476,7 @@
         "poolExpReward": 117
     },
     "3004002": {
-        "name": "Say My Name",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50034,
@@ -490,7 +490,7 @@
         "poolExpReward": 167
     },
     "3005001": {
-        "name": "Hand Over Fist",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50035,
@@ -504,7 +504,7 @@
         "poolExpReward": 84
     },
     "3005002": {
-        "name": "Avast! Here Be Ruins",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50036,
@@ -518,7 +518,7 @@
         "poolExpReward": 138
     },
     "3006001": {
-        "name": "Destroy the Kraken!",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50037,
@@ -532,7 +532,7 @@
         "poolExpReward": 227
     },
     "3007001": {
-        "name": "Lost in the Sea - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50038,
@@ -546,7 +546,7 @@
         "poolExpReward": 87
     },
     "3007002": {
-        "name": "Lost in the Sea - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50039,
@@ -560,7 +560,7 @@
         "poolExpReward": 89
     },
     "3007003": {
-        "name": "Lost in the Sea - 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50040,
@@ -574,7 +574,7 @@
         "poolExpReward": 171
     },
     "3008001": {
-        "name": "Back to the Surface - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50041,
@@ -588,7 +588,7 @@
         "poolExpReward": 131
     },
     "3008002": {
-        "name": "Back to the Surface - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50042,
@@ -602,7 +602,7 @@
         "poolExpReward": 171
     },
     "3009001": {
-        "name": "We Didn't Eat Her!",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50043,
@@ -616,7 +616,7 @@
         "poolExpReward": 141
     },
     "3009002": {
-        "name": "Monsters in the Sanctuary",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50044,
@@ -630,7 +630,7 @@
         "poolExpReward": 144
     },
     "3010001": {
-        "name": "Daemon Infestation - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50045,
@@ -644,7 +644,7 @@
         "poolExpReward": 111
     },
     "3010002": {
-        "name": "Daemon Infestation - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50046,
@@ -658,7 +658,7 @@
         "poolExpReward": 160
     },
     "3011001": {
-        "name": "Crab Rave",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50047,
@@ -672,7 +672,7 @@
         "poolExpReward": 285
     },
     "3012001": {
-        "name": "Sanctuary Cleanup - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50048,
@@ -686,7 +686,7 @@
         "poolExpReward": 147
     },
     "3012002": {
-        "name": "Sanctuary Cleanup - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50049,
@@ -700,7 +700,7 @@
         "poolExpReward": 151
     },
     "3013001": {
-        "name": "Daemons, Be Gone!",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50050,
@@ -714,7 +714,7 @@
         "poolExpReward": 403
     },
     "4001001": {
-        "name": "A Wild Welcome - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50051,
@@ -728,7 +728,7 @@
         "poolExpReward": 148
     },
     "4001002": {
-        "name": "A Wild Welcome - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50052,
@@ -742,7 +742,7 @@
         "poolExpReward": 148
     },
     "4002001": {
-        "name": "Bark or Bite?",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50053,
@@ -756,7 +756,7 @@
         "poolExpReward": 148
     },
     "4002002": {
-        "name": "Creepy Crawly Canyon - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50054,
@@ -770,7 +770,7 @@
         "poolExpReward": 155
     },
     "4002003": {
-        "name": "Creepy Crawly Canyon - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50055,
@@ -784,7 +784,7 @@
         "poolExpReward": 196
     },
     "4003001": {
-        "name": "Cats and Dogs - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50056,
@@ -798,7 +798,7 @@
         "poolExpReward": 154
     },
     "4003002": {
-        "name": "Cats and Dogs - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50057,
@@ -812,7 +812,7 @@
         "poolExpReward": 208
     },
     "4003003": {
-        "name": "The Name's Nimbus",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50058,
@@ -826,7 +826,7 @@
         "poolExpReward": 389
     },
     "4004001": {
-        "name": "Following Claw - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50059,
@@ -840,7 +840,7 @@
         "poolExpReward": 117
     },
     "4004002": {
-        "name": "Following Claw - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50060,
@@ -854,7 +854,7 @@
         "poolExpReward": 155
     },
     "4004003": {
-        "name": "Following Claw - 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50061,
@@ -868,7 +868,7 @@
         "poolExpReward": 158
     },
     "4004004": {
-        "name": "Following Claw - 4",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50062,
@@ -882,7 +882,7 @@
         "poolExpReward": 158
     },
     "4005001": {
-        "name": "To the Castle - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50063,
@@ -896,7 +896,7 @@
         "poolExpReward": 200
     },
     "4005002": {
-        "name": "To the Castle - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50064,
@@ -910,7 +910,7 @@
         "poolExpReward": 161
     },
     "4006001": {
-        "name": "Guards En Garde - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50065,
@@ -924,7 +924,7 @@
         "poolExpReward": 204
     },
     "4006002": {
-        "name": "Guards En Garde - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50066,
@@ -938,7 +938,7 @@
         "poolExpReward": 204
     },
     "4006003": {
-        "name": "Storming the Keep - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50067,
@@ -952,7 +952,7 @@
         "poolExpReward": 204
     },
     "4006004": {
-        "name": "Storming the Keep - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50068,
@@ -966,7 +966,7 @@
         "poolExpReward": 254
     },
     "4007001": {
-        "name": "The King's Last Defense",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50069,
@@ -980,7 +980,7 @@
         "poolExpReward": 254
     },
     "4008001": {
-        "name": "Path to Peace - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50070,
@@ -994,7 +994,7 @@
         "poolExpReward": 208
     },
     "4008002": {
-        "name": "Path to Peace - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50071,
@@ -1008,7 +1008,7 @@
         "poolExpReward": 208
     },
     "4009001": {
-        "name": "To Whitetail's Grave - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50072,
@@ -1022,7 +1022,7 @@
         "poolExpReward": 160
     },
     "4010001": {
-        "name": "To Whitetail's Grave - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50073,
@@ -1036,7 +1036,7 @@
         "poolExpReward": 264
     },
     "4011001": {
-        "name": "Cryptic Sanctum - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50074,
@@ -1050,7 +1050,7 @@
         "poolExpReward": 216
     },
     "4011002": {
-        "name": "Cryptic Sanctum - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50075,
@@ -1064,7 +1064,7 @@
         "poolExpReward": 216
     },
     "4011003": {
-        "name": "Laying Grudges to Rest",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50076,
@@ -1078,7 +1078,7 @@
         "poolExpReward": 844
     },
     "5001001": {
-        "name": "AI Ambush",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50077,
@@ -1092,7 +1092,7 @@
         "poolExpReward": 164
     },
     "5002001": {
-        "name": "The Broken and the Banned",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50078,
@@ -1106,7 +1106,7 @@
         "poolExpReward": 164
     },
     "5002002": {
-        "name": "Defending Stella",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50079,
@@ -1120,7 +1120,7 @@
         "poolExpReward": 217
     },
     "5003001": {
-        "name": "Descent Underground - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50080,
@@ -1134,7 +1134,7 @@
         "poolExpReward": 167
     },
     "5003002": {
-        "name": "Descent Underground - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50081,
@@ -1148,7 +1148,7 @@
         "poolExpReward": 221
     },
     "5004001": {
-        "name": "Security",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50082,
@@ -1162,7 +1162,7 @@
         "poolExpReward": 390
     },
     "5005001": {
-        "name": "Freedom Fighters - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50083,
@@ -1176,7 +1176,7 @@
         "poolExpReward": 158
     },
     "5005002": {
-        "name": "Freedom Fighters - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50084,
@@ -1190,7 +1190,7 @@
         "poolExpReward": 209
     },
     "5006001": {
-        "name": "Past the Point of No Return - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50085,
@@ -1204,7 +1204,7 @@
         "poolExpReward": 161
     },
     "5006002": {
-        "name": "Past the Point of No Return - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50086,
@@ -1218,7 +1218,7 @@
         "poolExpReward": 213
     },
     "5007001": {
-        "name": "Security Returns",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50087,
@@ -1232,7 +1232,7 @@
         "poolExpReward": 217
     },
     "5008001": {
-        "name": "Rec Register",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50088,
@@ -1246,7 +1246,7 @@
         "poolExpReward": 280
     },
     "5009001": {
-        "name": "In Search of a Haven 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50089,
@@ -1260,7 +1260,7 @@
         "poolExpReward": 229
     },
     "5009002": {
-        "name": "In Search of a Haven 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50090,
@@ -1274,7 +1274,7 @@
         "poolExpReward": 285
     },
     "5010001": {
-        "name": "Wild Bug Chase - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50091,
@@ -1288,7 +1288,7 @@
         "poolExpReward": 176
     },
     "5010002": {
-        "name": "Wild Bug Chase - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50092,
@@ -1302,7 +1302,7 @@
         "poolExpReward": 233
     },
     "5011001": {
-        "name": "Jealous Deity",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50093,
@@ -1316,7 +1316,7 @@
         "poolExpReward": 295
     },
     "5012001": {
-        "name": "To the Room of Idols - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50094,
@@ -1330,7 +1330,7 @@
         "poolExpReward": 237
     },
     "5012002": {
-        "name": "To the Room of Idols - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50095,
@@ -1344,7 +1344,7 @@
         "poolExpReward": 295
     },
     "5013001": {
-        "name": "Administrator Bye-Bye",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50096,
@@ -1358,7 +1358,7 @@
         "poolExpReward": 845
     },
     "6001001": {
-        "name": "Into the Line of Fire - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50097,
@@ -1372,7 +1372,7 @@
         "poolExpReward": 174
     },
     "6001002": {
-        "name": "Into the Line of Fire - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50098,
@@ -1386,7 +1386,7 @@
         "poolExpReward": 230
     },
     "6002001": {
-        "name": "Haunted Streets - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50099,
@@ -1400,7 +1400,7 @@
         "poolExpReward": 286
     },
     "6002002": {
-        "name": "Haunted Streets - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50100,
@@ -1414,7 +1414,7 @@
         "poolExpReward": 174
     },
     "6002003": {
-        "name": "To the World Flipper",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50101,
@@ -1428,7 +1428,7 @@
         "poolExpReward": 234
     },
     "6003001": {
-        "name": "Tracking a Lead - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50102,
@@ -1442,7 +1442,7 @@
         "poolExpReward": 177
     },
     "6003002": {
-        "name": "Tracking a Lead - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50103,
@@ -1456,7 +1456,7 @@
         "poolExpReward": 234
     },
     "6004001": {
-        "name": "Get Gobbled!",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50104,
@@ -1470,7 +1470,7 @@
         "poolExpReward": 291
     },
     "6004002": {
-        "name": "One-sided Rivalry",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50105,
@@ -1484,7 +1484,7 @@
         "poolExpReward": 291
     },
     "6005001": {
-        "name": "Climb to the Shrine - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50106,
@@ -1498,7 +1498,7 @@
         "poolExpReward": 234
     },
     "6005002": {
-        "name": "Climb to the Shrine - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50107,
@@ -1512,7 +1512,7 @@
         "poolExpReward": 291
     },
     "6006001": {
-        "name": "Vulpine Security",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50108,
@@ -1526,7 +1526,7 @@
         "poolExpReward": 531
     },
     "6007001": {
-        "name": "To the Rescue - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50109,
@@ -1540,7 +1540,7 @@
         "poolExpReward": 180
     },
     "6007002": {
-        "name": "To the Rescue - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50110,
@@ -1554,7 +1554,7 @@
         "poolExpReward": 180
     },
     "6008001": {
-        "name": "Stop Suizen!",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50111,
@@ -1568,7 +1568,7 @@
         "poolExpReward": 296
     },
     "6008002": {
-        "name": "Shadowy Foes - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50112,
@@ -1582,7 +1582,7 @@
         "poolExpReward": 238
     },
     "6008003": {
-        "name": "Shadowy Foes - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50113,
@@ -1596,7 +1596,7 @@
         "poolExpReward": 242
     },
     "6009001": {
-        "name": "Yokai Unleashed - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50114,
@@ -1610,7 +1610,7 @@
         "poolExpReward": 242
     },
     "6009002": {
-        "name": "Yokai Unleashed - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50115,
@@ -1624,7 +1624,7 @@
         "poolExpReward": 301
     },
     "6009003": {
-        "name": "Almost There! - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50116,
@@ -1638,7 +1638,7 @@
         "poolExpReward": 183
     },
     "6009004": {
-        "name": "Almost There! - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50117,
@@ -1652,7 +1652,7 @@
         "poolExpReward": 242
     },
     "6010001": {
-        "name": "Buying Time",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50118,
@@ -1666,7 +1666,7 @@
         "poolExpReward": 741
     },
     "6010002": {
-        "name": "Orochi's Wrath",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50119,
@@ -1680,7 +1680,7 @@
         "poolExpReward": 846
     },
     "7001001": {
-        "name": "Over the Mountains 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50120,
@@ -1694,7 +1694,7 @@
         "poolExpReward": 184
     },
     "7001002": {
-        "name": "Over the Mountains 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50121,
@@ -1708,7 +1708,7 @@
         "poolExpReward": 184
     },
     "7002001": {
-        "name": "Over the Mountains 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50122,
@@ -1722,7 +1722,7 @@
         "poolExpReward": 243
     },
     "7002002": {
-        "name": "Into the Fire",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50123,
@@ -1736,7 +1736,7 @@
         "poolExpReward": 550
     },
     "7003001": {
-        "name": "Whiteout 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50124,
@@ -1750,7 +1750,7 @@
         "poolExpReward": 184
     },
     "7003002": {
-        "name": "Whiteout 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50125,
@@ -1764,7 +1764,7 @@
         "poolExpReward": 184
     },
     "7004001": {
-        "name": "Whiteout 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50126,
@@ -1778,7 +1778,7 @@
         "poolExpReward": 243
     },
     "7004002": {
-        "name": "Onslaught of the Fiends",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50127,
@@ -1792,7 +1792,7 @@
         "poolExpReward": 559
     },
     "7005001": {
-        "name": "In Search of a Haven 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50128,
@@ -1806,7 +1806,7 @@
         "poolExpReward": 243
     },
     "7005002": {
-        "name": "In Search of a Haven 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50129,
@@ -1820,7 +1820,7 @@
         "poolExpReward": 243
     },
     "7006001": {
-        "name": "Road to the Resistance 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50130,
@@ -1834,7 +1834,7 @@
         "poolExpReward": 184
     },
     "7006002": {
-        "name": "Road to the Resistance 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50131,
@@ -1848,7 +1848,7 @@
         "poolExpReward": 322
     },
     "7007001": {
-        "name": "Defend the Camp 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50132,
@@ -1862,7 +1862,7 @@
         "poolExpReward": 322
     },
     "7007002": {
-        "name": "Defend the Camp 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50133,
@@ -1876,7 +1876,7 @@
         "poolExpReward": 427
     },
     "7008001": {
-        "name": "To the Silver Woods 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50134,
@@ -1890,7 +1890,7 @@
         "poolExpReward": 427
     },
     "7008002": {
-        "name": "To the Silver Woods 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50135,
@@ -1904,7 +1904,7 @@
         "poolExpReward": 427
     },
     "7009001": {
-        "name": "Deep in the Woods",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50136,
@@ -1918,7 +1918,7 @@
         "poolExpReward": 322
     },
     "7009002": {
-        "name": "Elfward",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50137,
@@ -1932,7 +1932,7 @@
         "poolExpReward": 791
     },
     "7010001": {
-        "name": "Fiend Legionary",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50138,
@@ -1946,7 +1946,7 @@
         "poolExpReward": 559
     },
     "7011001": {
-        "name": "Marching Home 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50139,
@@ -1960,7 +1960,7 @@
         "poolExpReward": 434
     },
     "7011002": {
-        "name": "Marching Home 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50140,
@@ -1974,7 +1974,7 @@
         "poolExpReward": 434
     },
     "7012001": {
-        "name": "Rush to Return - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50141,
@@ -1988,7 +1988,7 @@
         "poolExpReward": 333
     },
     "7012002": {
-        "name": "Rush to Return - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50142,
@@ -2002,7 +2002,7 @@
         "poolExpReward": 550
     },
     "7012003": {
-        "name": "Corrupted Ilbis",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50143,
@@ -2016,7 +2016,7 @@
         "poolExpReward": 903
     },
     "8001001": {
-        "name": "Chasing Leads - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50144,
@@ -2030,7 +2030,7 @@
         "poolExpReward": 334
     },
     "8001002": {
-        "name": "Chasing Leads - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50145,
@@ -2044,7 +2044,7 @@
         "poolExpReward": 551
     },
     "8002001": {
-        "name": "Sparks of Despair - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50146,
@@ -2058,7 +2058,7 @@
         "poolExpReward": 442
     },
     "8002002": {
-        "name": "Sparks of Despair - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50147,
@@ -2072,7 +2072,7 @@
         "poolExpReward": 551
     },
     "8003001": {
-        "name": "Risky Rescue - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50148,
@@ -2086,7 +2086,7 @@
         "poolExpReward": 449
     },
     "8003002": {
-        "name": "Risky Rescue - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50149,
@@ -2100,7 +2100,7 @@
         "poolExpReward": 449
     },
     "8003003": {
-        "name": "Risky Rescue - 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50150,
@@ -2114,7 +2114,7 @@
         "poolExpReward": 449
     },
     "8004001": {
-        "name": "To the Keep - 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50151,
@@ -2128,7 +2128,7 @@
         "poolExpReward": 449
     },
     "8004002": {
-        "name": "To the Keep - 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50152,
@@ -2142,7 +2142,7 @@
         "poolExpReward": 449
     },
     "8005001": {
-        "name": "To the Spire 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50153,
@@ -2156,7 +2156,7 @@
         "poolExpReward": 449
     },
     "8005002": {
-        "name": "To the Spire 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50154,
@@ -2170,7 +2170,7 @@
         "poolExpReward": 670
     },
     "8006001": {
-        "name": "Steadfast Determination 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50155,
@@ -2184,7 +2184,7 @@
         "poolExpReward": 456
     },
     "8006002": {
-        "name": "Steadfast Determination 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50156,
@@ -2198,7 +2198,7 @@
         "poolExpReward": 456
     },
     "8007001": {
-        "name": "Cleansing the Curse 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50157,
@@ -2212,7 +2212,7 @@
         "poolExpReward": 817
     },
     "8007002": {
-        "name": "Cleansing the Curse 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50158,
@@ -2226,7 +2226,7 @@
         "poolExpReward": 456
     },
     "8007003": {
-        "name": "Cleansing the Curse 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50159,
@@ -2240,7 +2240,7 @@
         "poolExpReward": 456
     },
     "8008001": {
-        "name": "Spite",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50160,
@@ -2254,7 +2254,7 @@
         "poolExpReward": 817
     },
     "8009001": {
-        "name": "Deeper and Deeper 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50161,
@@ -2268,7 +2268,7 @@
         "poolExpReward": 350
     },
     "8009002": {
-        "name": "Deeper and Deeper 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50162,
@@ -2282,7 +2282,7 @@
         "poolExpReward": 350
     },
     "8009003": {
-        "name": "Deeper and Deeper 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50163,
@@ -2296,7 +2296,7 @@
         "poolExpReward": 350
     },
     "8010001": {
-        "name": "The Other Stella",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50164,
@@ -2310,7 +2310,7 @@
         "poolExpReward": 841
     },
     "8011001": {
-        "name": "Frail and Powerless",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50165,
@@ -2324,7 +2324,7 @@
         "poolExpReward": 355
     },
     "8012001": {
-        "name": "Things Fall Apart 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50166,
@@ -2338,7 +2338,7 @@
         "poolExpReward": 360
     },
     "8012002": {
-        "name": "Things Fall Apart 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50167,
@@ -2352,7 +2352,7 @@
         "poolExpReward": 360
     },
     "8013001": {
-        "name": "Oghir, the Odious",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50168,
@@ -2366,7 +2366,7 @@
         "poolExpReward": 1408
     },
     "9001001": {
-        "name": "To the Land of Nomads 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50169,
@@ -2380,7 +2380,7 @@
         "poolExpReward": 324
     },
     "9001002": {
-        "name": "To the Land of Nomads 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50170,
@@ -2394,7 +2394,7 @@
         "poolExpReward": 324
     },
     "9002001": {
-        "name": "Running up that Hill 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50171,
@@ -2408,7 +2408,7 @@
         "poolExpReward": 330
     },
     "9002002": {
-        "name": "Running up that Hill 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50172,
@@ -2422,7 +2422,7 @@
         "poolExpReward": 330
     },
     "9003001": {
-        "name": "The Cliffside Settlement 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50173,
@@ -2436,7 +2436,7 @@
         "poolExpReward": 335
     },
     "9003002": {
-        "name": "The Cliffside Settlement 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50174,
@@ -2450,7 +2450,7 @@
         "poolExpReward": 335
     },
     "9004001": {
-        "name": "Shifting Corridors 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50175,
@@ -2464,7 +2464,7 @@
         "poolExpReward": 340
     },
     "9004002": {
-        "name": "Shifting Corridors 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50176,
@@ -2478,7 +2478,7 @@
         "poolExpReward": 340
     },
     "9005001": {
-        "name": "Purger",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50177,
@@ -2492,7 +2492,7 @@
         "poolExpReward": 713
     },
     "9006001": {
-        "name": "The Road to Palpebra 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50178,
@@ -2506,7 +2506,7 @@
         "poolExpReward": 345
     },
     "9006002": {
-        "name": "The Road to Palpebra 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50179,
@@ -2520,7 +2520,7 @@
         "poolExpReward": 345
     },
     "9007001": {
-        "name": "Neutralizing Antibodies 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50180,
@@ -2534,7 +2534,7 @@
         "poolExpReward": 351
     },
     "9007002": {
-        "name": "Neutralizing Antibodies 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50181,
@@ -2548,7 +2548,7 @@
         "poolExpReward": 351
     },
     "9008001": {
-        "name": "Purger, Once Again",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50182,
@@ -2562,7 +2562,7 @@
         "poolExpReward": 723
     },
     "9009001": {
-        "name": "Supreme Purger",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50183,
@@ -2576,7 +2576,7 @@
         "poolExpReward": 1409
     },
     "10001001": {
-        "name": "Shadow Dragonlings",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2590,7 +2590,7 @@
         "poolExpReward": 430
     },
     "10002001": {
-        "name": "To the Shelter 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2604,7 +2604,7 @@
         "poolExpReward": 437
     },
     "10002002": {
-        "name": "To the Shelter 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2618,7 +2618,7 @@
         "poolExpReward": 437
     },
     "10003003": {
-        "name": "Transformed Minions",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2632,7 +2632,7 @@
         "poolExpReward": 444
     },
     "10004001": {
-        "name": "Ruined City 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2646,7 +2646,7 @@
         "poolExpReward": 451
     },
     "10004002": {
-        "name": "Ruined City 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2660,7 +2660,7 @@
         "poolExpReward": 451
     },
     "10005001": {
-        "name": "Dragonlings and Bindings",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50185,
@@ -2674,7 +2674,7 @@
         "poolExpReward": 831
     },
     "10006001": {
-        "name": "Underground Passage 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2688,7 +2688,7 @@
         "poolExpReward": 458
     },
     "10006002": {
-        "name": "Underground Passage 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2702,7 +2702,7 @@
         "poolExpReward": 458
     },
     "10007001": {
-        "name": "Warped Goddess",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50186,
@@ -2716,7 +2716,7 @@
         "poolExpReward": 831
     },
     "10007002": {
-        "name": "Shaking It Off",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50184,
@@ -2730,7 +2730,7 @@
         "poolExpReward": 465
     },
     "10008001": {
-        "name": "Shota Inori",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50185,
@@ -2744,7 +2744,7 @@
         "poolExpReward": 831
     },
     "10009001": {
-        "name": "Antibodies",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50187,
@@ -2758,7 +2758,7 @@
         "poolExpReward": 472
     },
     "10010001": {
-        "name": "To the Surface",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50187,
@@ -2772,7 +2772,7 @@
         "poolExpReward": 479
     },
     "10010002": {
-        "name": "To Shibuya SS 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50187,
@@ -2786,7 +2786,7 @@
         "poolExpReward": 486
     },
     "10010003": {
-        "name": "To Shibuya SS 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50187,
@@ -2800,7 +2800,7 @@
         "poolExpReward": 486
     },
     "10011001": {
-        "name": "Ayumu and Shota",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50188,
@@ -2814,7 +2814,7 @@
         "poolExpReward": 1235
     },
     "10012002": {
-        "name": "To the Roof 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50187,
@@ -2828,7 +2828,7 @@
         "poolExpReward": 493
     },
     "10012003": {
-        "name": "To the Roof 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50187,
@@ -2842,7 +2842,7 @@
         "poolExpReward": 493
     },
     "10013001": {
-        "name": "Alternate Weapon",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50189,
@@ -2856,7 +2856,7 @@
         "poolExpReward": 1235
     },
     "10013002": {
-        "name": "Origin's Eye",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 50190,
@@ -2870,7 +2870,7 @@
         "poolExpReward": 1510
     },
     "11001001": {
-        "name": "Into the Kaleidoscope 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40200,
@@ -2884,7 +2884,7 @@
         "poolExpReward": 535
     },
     "11001002": {
-        "name": "Into the Kaleidoscope 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40200,
@@ -2898,7 +2898,7 @@
         "poolExpReward": 535
     },
     "11002001": {
-        "name": "Dark Mage's Abode 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40201,
@@ -2912,7 +2912,7 @@
         "poolExpReward": 535
     },
     "11002002": {
-        "name": "Dark Mage's Abode 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40201,
@@ -2926,7 +2926,7 @@
         "poolExpReward": 535
     },
     "11003001": {
-        "name": "To Catch a Purger",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40202,
@@ -2940,7 +2940,7 @@
         "poolExpReward": 1235
     },
     "11004001": {
-        "name": "A Bad Omen",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40203,
@@ -2954,7 +2954,7 @@
         "poolExpReward": 465
     },
     "11005001": {
-        "name": "Devourer of Stars",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40204,
@@ -2968,7 +2968,7 @@
         "poolExpReward": 1610
     },
     "11006001": {
-        "name": "Last Line of Defense 1",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40202,
@@ -2982,7 +2982,7 @@
         "poolExpReward": 1235
     },
     "11007001": {
-        "name": "Last Line of Defense 2",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40202,
@@ -2996,7 +2996,7 @@
         "poolExpReward": 1235
     },
     "11008001": {
-        "name": "Last Line of Defense 3",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40202,
@@ -3010,7 +3010,7 @@
         "poolExpReward": 1235
     },
     "11009001": {
-        "name": "Knights of the Stars",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40205,
@@ -3024,7 +3024,7 @@
         "poolExpReward": 1610
     },
     "12001001": {
-        "name": "Infiltration",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40202,
@@ -3038,7 +3038,7 @@
         "poolExpReward": 1235
     },
     "12002001": {
-        "name": "Cursed Sword",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40204,
@@ -3052,7 +3052,7 @@
         "poolExpReward": 1610
     },
     "12003001": {
-        "name": "Champions of the Stars",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40191,
@@ -3066,7 +3066,7 @@
         "poolExpReward": 1235
     },
     "12003002": {
-        "name": "With All Our Might",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40191,
@@ -3080,7 +3080,7 @@
         "poolExpReward": 1235
     },
     "12004001": {
-        "name": "The End Dragon",
+        "name": "",
         "clearRewardId": 25,
         "sPlusRewardId": 1,
         "scoreRewardGroup": 40205,

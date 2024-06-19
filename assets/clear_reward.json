@@ -1,1316 +1,1316 @@
 {
     "1": {
-        "name": "stone_first",
+        "name": "",
         "type": 3,
         "count": 15
     },
     "2": {
-        "name": "stone_first_challenge_dungeon",
+        "name": "",
         "type": 3,
         "count": 100
     },
     "3": {
-        "name": "stone_ss",
+        "name": "",
         "type": 3,
         "count": 15
     },
     "4": {
-        "name": "emblem_first",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 1
     },
     "5": {
-        "name": "slango_yellow_first",
+        "name": "",
         "type": 2,
         "id": 532001
     },
     "6": {
-        "name": "spirit_fire_first",
+        "name": "",
         "type": 2,
         "id": 512004
     },
     "7": {
-        "name": "fox_first",
+        "name": "",
         "type": 2,
         "id": 442006
     },
     "8": {
-        "name": "2_1_3_first",
+        "name": "",
         "type": 2,
         "id": 532004
     },
     "9": {
-        "name": "chapter1_orb",
+        "name": "",
         "type": 1,
         "id": 100001,
         "count": 1
     },
     "10": {
-        "name": "chapter2_orb",
+        "name": "",
         "type": 1,
         "id": 100002,
         "count": 1
     },
     "11": {
-        "name": "chapter3_orb",
+        "name": "",
         "type": 1,
         "id": 100003,
         "count": 1
     },
     "12": {
-        "name": "chapter4_orb",
+        "name": "",
         "type": 1,
         "id": 100004,
         "count": 1
     },
     "13": {
-        "name": "chapter5_orb",
+        "name": "",
         "type": 1,
         "id": 100005,
         "count": 1
     },
     "14": {
-        "name": "chapter6_orb",
+        "name": "",
         "type": 1,
         "id": 100006,
         "count": 1
     },
     "15": {
-        "name": "chapter7_orb",
+        "name": "",
         "type": 1,
         "id": 100007,
         "count": 1
     },
     "16": {
-        "name": "chapter8_orb",
+        "name": "",
         "type": 1,
         "id": 100008,
         "count": 1
     },
     "17": {
-        "name": "chapter9_orb",
+        "name": "",
         "type": 1,
         "id": 100009,
         "count": 1
     },
     "18": {
-        "name": "1_3_2_first",
+        "name": "",
         "type": 1,
         "id": 2010002,
         "count": 3
     },
     "19": {
-        "name": "challenge_dungeon_01_equipment_red",
+        "name": "",
         "type": 1,
         "id": 5010012,
         "count": 1
     },
     "20": {
-        "name": "challenge_dungeon_01_equipment_blue",
+        "name": "",
         "type": 1,
         "id": 5030011,
         "count": 1
     },
     "21": {
-        "name": "challenge_dungeon_01_equipment_yellow",
+        "name": "",
         "type": 1,
         "id": 5020009,
         "count": 1
     },
     "22": {
-        "name": "challenge_dungeon_01_equipment_green",
+        "name": "",
         "type": 1,
         "id": 5040009,
         "count": 1
     },
     "23": {
-        "name": "challenge_dungeon_01_equipment_white",
+        "name": "",
         "type": 1,
         "id": 5010011,
         "count": 1
     },
     "24": {
-        "name": "challenge_dungeon_01_equipment_black",
+        "name": "",
         "type": 1,
         "id": 5070009,
         "count": 1
     },
     "25": {
-        "name": "stone_first_ex",
+        "name": "",
         "type": 3,
         "count": 25
     },
     "26": {
-        "name": "stone_ss_ex",
+        "name": "",
         "type": 3,
         "count": 25
     },
     "27": {
-        "name": "challenge_dungeon_50_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 2
     },
     "28": {
-        "name": "challenge_dungeon_60_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "29": {
-        "name": "challenge_dungeon_70_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 5
     },
     "30": {
-        "name": "challenge_dungeon_80_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 10
     },
     "31": {
-        "name": "advent_rank_4_first",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "32": {
-        "name": "advent_rank_4_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "33": {
-        "name": "dryad_xm19_first",
+        "name": "",
         "type": 2,
         "id": 323001
     },
     "34": {
-        "name": "stone_ss_30",
+        "name": "",
         "type": 3,
         "count": 30
     },
     "35": {
-        "name": "stone_ny_20_last",
+        "name": "",
         "type": 3,
         "count": 1500
     },
     "36": {
-        "name": "monster_cook_first",
+        "name": "",
         "type": 2,
         "id": 253001
     },
     "37": {
-        "name": "maou_hunt_ss",
+        "name": "",
         "type": 0,
         "id": 45,
         "count": 1
     },
     "38": {
-        "name": "ss_once_gacha_ticket",
+        "name": "",
         "type": 0,
         "id": 999003,
         "count": 1
     },
     "39": {
-        "name": "stone_50",
+        "name": "",
         "type": 3,
         "count": 50
     },
     "40": {
-        "name": "chaos_matter",
+        "name": "",
         "type": 0,
         "id": 30003,
         "count": 1
     },
     "41": {
-        "name": "dark_matter",
+        "name": "",
         "type": 0,
         "id": 30004,
         "count": 1
     },
     "42": {
-        "name": "abyss_matter",
+        "name": "",
         "type": 0,
         "id": 30005,
         "count": 1
     },
     "43": {
-        "name": "chaos_matter_re02",
+        "name": "",
         "type": 0,
         "id": 30007,
         "count": 1
     },
     "44": {
-        "name": "dark_matter_re02",
+        "name": "",
         "type": 0,
         "id": 30008,
         "count": 1
     },
     "45": {
-        "name": "abyss_matter_re02",
+        "name": "",
         "type": 0,
         "id": 30009,
         "count": 1
     },
     "46": {
-        "name": "chaos_matter_re03",
+        "name": "",
         "type": 0,
         "id": 30011,
         "count": 1
     },
     "47": {
-        "name": "dark_matter_re03",
+        "name": "",
         "type": 0,
         "id": 30012,
         "count": 1
     },
     "48": {
-        "name": "abyss_matter_re03",
+        "name": "",
         "type": 0,
         "id": 30013,
         "count": 1
     },
     "49": {
-        "name": "chaos_matter_re04",
+        "name": "",
         "type": 0,
         "id": 30015,
         "count": 1
     },
     "50": {
-        "name": "dark_matter_re04",
+        "name": "",
         "type": 0,
         "id": 30016,
         "count": 1
     },
     "51": {
-        "name": "abyss_matter_re04",
+        "name": "",
         "type": 0,
         "id": 30017,
         "count": 1
     },
     "52": {
-        "name": "chaos_matter_re05",
+        "name": "",
         "type": 0,
         "id": 30019,
         "count": 1
     },
     "53": {
-        "name": "dark_matter_re05",
+        "name": "",
         "type": 0,
         "id": 30020,
         "count": 1
     },
     "54": {
-        "name": "abyss_matter_re05",
+        "name": "",
         "type": 0,
         "id": 30021,
         "count": 1
     },
     "55": {
-        "name": "stone_ss_side_story_event_challenge",
+        "name": "",
         "type": 3,
         "count": 75
     },
     "56": {
-        "name": "chaos_matter_re06",
+        "name": "",
         "type": 0,
         "id": 30023,
         "count": 1
     },
     "57": {
-        "name": "dark_matter_re06",
+        "name": "",
         "type": 0,
         "id": 30024,
         "count": 1
     },
     "58": {
-        "name": "abyss_matter_re06",
+        "name": "",
         "type": 0,
         "id": 30025,
         "count": 1
     },
     "59": {
-        "name": "stone_100",
+        "name": "",
         "type": 3,
         "count": 100
     },
     "60": {
-        "name": "stone_150",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "61": {
-        "name": "stone_50_valen20_side_story_event",
+        "name": "",
         "type": 3,
         "count": 50
     },
     "62": {
-        "name": "stone_120_valen20_side_story_event",
+        "name": "",
         "type": 3,
         "count": 120
     },
     "63": {
-        "name": "stone_first_2",
+        "name": "",
         "type": 3,
         "count": 30
     },
     "64": {
-        "name": "expert_single_side_story_red",
+        "name": "",
         "type": 0,
         "id": 14033,
         "count": 10
     },
     "65": {
-        "name": "expert_single_side_story_blue",
+        "name": "",
         "type": 0,
         "id": 14034,
         "count": 10
     },
     "66": {
-        "name": "expert_single_side_story_yellow",
+        "name": "",
         "type": 0,
         "id": 14035,
         "count": 10
     },
     "67": {
-        "name": "expert_single_side_story_green",
+        "name": "",
         "type": 0,
         "id": 14036,
         "count": 10
     },
     "68": {
-        "name": "expert_single_side_story_white",
+        "name": "",
         "type": 0,
         "id": 14037,
         "count": 10
     },
     "69": {
-        "name": "expert_single_side_story_black",
+        "name": "",
         "type": 0,
         "id": 14038,
         "count": 10
     },
     "70": {
-        "name": "ss_expert_single_side_story",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 3
     },
     "71": {
-        "name": "ss_boss_epuration_event_80",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "72": {
-        "name": "ss_boss_epuration_event_90",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "101": {
-        "name": "reset_marathon_event_001",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "102": {
-        "name": "release200day_event_clear",
+        "name": "",
         "type": 3,
         "count": 100
     },
     "103": {
-        "name": "release200day_event_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "104": {
-        "name": "character_training_campaign_1_clear_mana",
+        "name": "",
         "type": 4,
         "count": 15000
     },
     "105": {
-        "name": "character_training_campaign_1_clear_exp",
+        "name": "",
         "type": 5,
         "count": 30000
     },
     "106": {
-        "name": "character_training_campaign_1_ss",
+        "name": "",
         "type": 3,
         "count": 100
     },
     "2000": {
-        "name": "chapter10_orb",
+        "name": "",
         "type": 1,
         "id": 100010,
         "count": 1
     },
     "2001": {
-        "name": "chapter11_orb",
+        "name": "",
         "type": 1,
         "id": 100011,
         "count": 1
     },
     "2002": {
-        "name": "chapter12_orb",
+        "name": "",
         "type": 1,
         "id": 100012,
         "count": 1
     },
     "3001": {
-        "name": "treasure_cave_quest_black_ss",
+        "name": "",
         "type": 0,
         "id": 62,
         "count": 10
     },
     "3002": {
-        "name": "treasure_cave_quest_white_ss",
+        "name": "",
         "type": 0,
         "id": 65,
         "count": 10
     },
     "3003": {
-        "name": "treasure_cave_quest_green_ss",
+        "name": "",
         "type": 0,
         "id": 59,
         "count": 10
     },
     "3004": {
-        "name": "treasure_cave_quest_yellow_ss",
+        "name": "",
         "type": 0,
         "id": 56,
         "count": 10
     },
     "3005": {
-        "name": "treasure_cave_quest_blue_ss",
+        "name": "",
         "type": 0,
         "id": 53,
         "count": 10
     },
     "3006": {
-        "name": "treasure_cave_quest_red_ss",
+        "name": "",
         "type": 0,
         "id": 50,
         "count": 10
     },
     "3020": {
-        "name": "towa_vtuber_first",
+        "name": "",
         "type": 2,
         "id": 443002
     },
     "100001": {
-        "name": "character_Zcollab_op_clear",
+        "name": "",
         "type": 2,
         "id": 263003
     },
     "100011": {
-        "name": "anv1_countdown_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100012": {
-        "name": "anv1_countdown_event_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "100013": {
-        "name": "anv1_release_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100014": {
-        "name": "anv1_release_event_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "100015": {
-        "name": "anv2_release_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100016": {
-        "name": "anv3_release_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100020": {
-        "name": "anv1half_countdown_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100021": {
-        "name": "anv1half_countdown_event_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "100022": {
-        "name": "anv1half_release_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100031": {
-        "name": "anv2_countdown_event_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "100032": {
-        "name": "anv2_countdown_event_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "100101": {
-        "name": "character_Rcollab_op_clear",
+        "name": "",
         "type": 2,
         "id": 263009
     },
     "100301": {
-        "name": "character_u_collabo_op_clear",
+        "name": "",
         "type": 2,
         "id": 113001
     },
     "101011": {
-        "name": "xm20_white_tiger_clear_first",
+        "name": "",
         "type": 2,
         "id": 243013
     },
     "101012": {
-        "name": "xm20_white_tiger_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 10
     },
     "101013": {
-        "name": "xm20_dryad_clear_first",
+        "name": "",
         "type": 2,
         "id": 323001
     },
     "101014": {
-        "name": "xm20_dryad_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 10
     },
     "102001": {
-        "name": "ny21_cat_fighter_clear_first",
+        "name": "",
         "type": 2,
         "id": 333001
     },
     "102002": {
-        "name": "ny21_cat_fighter_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 10
     },
     "102003": {
-        "name": "newyear21_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "102004": {
-        "name": "newyear21_clear_ss",
+        "name": "",
         "type": 0,
         "id": 204,
         "count": 5
     },
     "102005": {
-        "name": "newyear22_clear_ss",
+        "name": "",
         "type": 0,
         "id": 221,
         "count": 5
     },
     "103001": {
-        "name": "valentine21_clear_first",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "103002": {
-        "name": "valentine21_clear_ss",
+        "name": "",
         "type": 4,
         "count": 10000
     },
     "104001": {
-        "name": "campaign_battle_01_clear_first",
+        "name": "",
         "type": 3,
         "count": 100
     },
     "104002": {
-        "name": "campaign_battle_01_clear_ss_01",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 15
     },
     "104003": {
-        "name": "campaign_battle_01_clear_ss_02",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "105001": {
-        "name": "release_day_event_clear",
+        "name": "",
         "type": 3,
         "count": 150
     },
     "105002": {
-        "name": "release_day_event_clear_ss",
+        "name": "",
         "type": 0,
         "id": 99,
         "count": 3
     },
     "400001": {
-        "name": "story_vt21_clear_first_1",
+        "name": "",
         "type": 0,
         "id": 50104,
         "count": 15
     },
     "400002": {
-        "name": "story_vt21_clear_first_2",
+        "name": "",
         "type": 0,
         "id": 50103,
         "count": 15
     },
     "400003": {
-        "name": "story_vt21_clear_boss_fitst_equipment",
+        "name": "",
         "type": 1,
         "id": 5050015,
         "count": 1
     },
     "400004": {
-        "name": "story_vt21_clear_ss",
+        "name": "",
         "type": 3,
         "count": 30
     },
     "10010001": {
-        "name": "cyberpunk01_equipment_conductor",
+        "name": "",
         "type": 1,
         "id": 4010021,
         "count": 1
     },
     "10010002": {
-        "name": "cyberpunk01_equipment_touyakiren_ceo",
+        "name": "",
         "type": 1,
         "id": 5060018,
         "count": 1
     },
     "10010003": {
-        "name": "cyberpunk01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10020001": {
-        "name": "fakeprincess01_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4090006,
         "count": 1
     },
     "10020002": {
-        "name": "fakeprincess01_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5070021,
         "count": 1
     },
     "10020003": {
-        "name": "fakeprincess01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10030001": {
-        "name": "summer_2020_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4020021,
         "count": 1
     },
     "10030002": {
-        "name": "summer_2020_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10030003": {
-        "name": "summer_2020_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5090011,
         "count": 1
     },
     "10030004": {
-        "name": "summer_2020_scenario_end",
+        "name": "",
         "type": 2,
         "id": 223001
     },
     "10040001": {
-        "name": "yokai_emaki_01_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4050021,
         "count": 1
     },
     "10040002": {
-        "name": "yokai_emaki_01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040003": {
-        "name": "yokai_emaki_01_expert_boss1_weak_ss",
+        "name": "",
         "type": 0,
         "id": 30104,
         "count": 500
     },
     "10040004": {
-        "name": "yokai_emaki_01_expert_boss1_strong_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10040005": {
-        "name": "yokai_emaki_01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 243007
     },
     "10040006": {
-        "name": "yokai_emaki_01_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5020022,
         "count": 1
     },
     "10040007": {
-        "name": "yokai_emaki_01_expert_boss2_weak_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040008": {
-        "name": "yokai_emaki_01_expert_boss2_strong_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040009": {
-        "name": "anv1_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4090012,
         "count": 1
     },
     "10040010": {
-        "name": "anv1_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040011": {
-        "name": "anv1_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10040012": {
-        "name": "anv1_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040013": {
-        "name": "anv1_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5080022,
         "count": 1
     },
     "10040101": {
-        "name": "cyberpunk01_re01_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040102": {
-        "name": "cyberpunk01_re01_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 999003,
         "count": 1
     },
     "10040103": {
-        "name": "cyberpunk01_re01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040104": {
-        "name": "cyberpunk01_re01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 263002
     },
     "10040301": {
-        "name": "fakeprincess01_re01_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040302": {
-        "name": "fakeprincess01_re01_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 999003,
         "count": 1
     },
     "10040303": {
-        "name": "fakeprincess01_re01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040304": {
-        "name": "fakeprincess01_re01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 233001
     },
     "10040305": {
-        "name": "desert_bonds_01_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4030032,
         "count": 1
     },
     "10040306": {
-        "name": "desert_bonds_01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040307": {
-        "name": "desert_bonds_01_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10040308": {
-        "name": "desert_bonds_01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 223007
     },
     "10040309": {
-        "name": "desert_bonds_01_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5100010,
         "count": 1
     },
     "10040310": {
-        "name": "desert_bonds_01_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040311": {
-        "name": "summer_2020_re01_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040312": {
-        "name": "summer_2020_re01_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 999003,
         "count": 1
     },
     "10040313": {
-        "name": "summer_2020_re01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040314": {
-        "name": "summer_2020_re01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 223001
     },
     "10040315": {
-        "name": "yokai_emaki_01_re01_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4050021,
         "count": 1
     },
     "10040316": {
-        "name": "yokai_emaki_01_re01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040317": {
-        "name": "yokai_emaki_01_re01_expert_boss1_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040318": {
-        "name": "yokai_emaki_01_re01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 243007
     },
     "10040319": {
-        "name": "yokai_emaki_01_re01_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5020022,
         "count": 1
     },
     "10040320": {
-        "name": "yokai_emaki_01_re01_expert_boss2_strong_ss",
+        "name": "",
         "type": 0,
         "id": 999003,
         "count": 1
     },
     "10040321": {
-        "name": "desert_bonds_01_re01_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 5100010,
         "count": 1
     },
     "10040322": {
-        "name": "desert_bonds_01_re01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040323": {
-        "name": "desert_bonds_01_re01_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10040324": {
-        "name": "desert_bonds_01_re01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 223007
     },
     "10040325": {
-        "name": "desert_bonds_01_re01_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5100010,
         "count": 1
     },
     "10040326": {
-        "name": "desert_bonds_01_re01_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040601": {
-        "name": "cyberpunk02_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10040602": {
-        "name": "cyberpunk02_hero_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040603": {
-        "name": "cyberpunk02_hero_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4080023,
         "count": 1
     },
     "10040604": {
-        "name": "cyberpunk02_hero_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040605": {
-        "name": "cyberpunk02_hero_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5070028,
         "count": 1
     },
     "10040606": {
-        "name": "cyberpunk02_hero_scenario_end",
+        "name": "",
         "type": 2,
         "id": 223013
     },
     "10040801": {
-        "name": "summer_2021_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10040802": {
-        "name": "summer_2021_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040803": {
-        "name": "summer_2021_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4070031,
         "count": 1
     },
     "10040804": {
-        "name": "summer_2021_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040805": {
-        "name": "summer_2021_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5050028,
         "count": 1
     },
     "10040806": {
-        "name": "summer_2021_scenario_end",
+        "name": "",
         "type": 2,
         "id": 253007
     },
     "10040901": {
-        "name": "crown_beasts_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10040902": {
-        "name": "crown_beasts_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10040903": {
-        "name": "crown_beasts_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 5010051,
         "count": 1
     },
     "10040904": {
-        "name": "crown_beasts_scenario_end",
+        "name": "",
         "type": 2,
         "id": 233007
     },
     "10041001": {
-        "name": "anv1_re01_alk",
+        "name": "",
         "type": 2,
         "id": 213001
     },
     "10041002": {
-        "name": "anv1_re01_ss_awaking_crystal_piece_5",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10041003": {
-        "name": "anv1_re01_ss_gacha_ticket",
+        "name": "",
         "type": 0,
         "id": 999003,
         "count": 1
     },
     "10041101": {
-        "name": "anv2_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10041102": {
-        "name": "anv2_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10041103": {
-        "name": "anv2_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 5010055,
         "count": 1
     },
     "10041104": {
-        "name": "anv2_scenario_end",
+        "name": "",
         "type": 2,
         "id": 253013
     },
     "10041105": {
-        "name": "anv2_re01_expert_boss1_first",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 2
     },
     "10042001": {
-        "name": "vt22_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10042002": {
-        "name": "vt22_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10042003": {
-        "name": "vt22_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 5010059,
         "count": 1
     },
     "10042004": {
-        "name": "vt22_scenario_end",
+        "name": "",
         "type": 2,
         "id": 243019
     },
     "10042201": {
-        "name": "summer_2021_re01_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 10002,
         "count": 1
     },
     "10042202": {
-        "name": "summer_2021_re01_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10042203": {
-        "name": "summer_2021_re01_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 4070031,
         "count": 1
     },
     "10042204": {
-        "name": "summer_2021_re01_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10042205": {
-        "name": "summer_2021_re01_equipment_boss2",
+        "name": "",
         "type": 1,
         "id": 5050028,
         "count": 1
     },
     "10042206": {
-        "name": "summer_2021_re01_scenario_end",
+        "name": "",
         "type": 2,
         "id": 253007
     },
     "10042301": {
-        "name": "2halfanv_expert_boss_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10042302": {
-        "name": "2halfanv_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10042303": {
-        "name": "2halfanv_equipment_boss",
+        "name": "",
         "type": 1,
         "id": 5050036,
         "count": 1
     },
     "10042304": {
-        "name": "2halfanv_scenario_end",
+        "name": "",
         "type": 2,
         "id": 223019
     },
     "10042401": {
-        "name": "summer_2022_expert_boss1_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10042402": {
-        "name": "summer_2022_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10042403": {
-        "name": "summer_2022_equipment_boss1",
+        "name": "",
         "type": 1,
         "id": 5100017,
         "count": 1
     },
     "10042404": {
-        "name": "summer_2022_expert_boss2_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10042405": {
-        "name": "summer_2022_scenario_end",
+        "name": "",
         "type": 2,
         "id": 233013
     },
     "10042500": {
-        "name": "hw22_expert_boss_first",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 1
     },
     "10042501": {
-        "name": "hw22_expert_boss_ss",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 2
     },
     "10042601": {
-        "name": "world_story_event_expert_boss_first",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 2
     },
     "10042602": {
-        "name": "world_story_event_expert_boss_ss",
+        "name": "",
         "type": 0,
         "id": 13001,
         "count": 1
     },
     "10042603": {
-        "name": "world_story_event_multi_strong_ss",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "10042604": {
-        "name": "anv3_equipment_boss",
+        "name": "",
         "type": 1,
         "id": 5050038,
         "count": 1
     },
     "10042605": {
-        "name": "anv3_scenario_end",
+        "name": "",
         "type": 2,
         "id": 253019
     },
     "10042701": {
-        "name": "anv3half_equipment_boss",
+        "name": "",
         "type": 1,
         "id": 5090049,
         "count": 1
     },
     "10042702": {
-        "name": "anv3half_scenario_end",
+        "name": "",
         "type": 2,
         "id": 153001
     },
     "11000000": {
-        "name": "advent_xm22_rank_5_reward",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 1
     },
     "11500000": {
-        "name": "kc_1_awaking_crystal_piece_5",
+        "name": "",
         "type": 0,
         "id": 11003,
         "count": 1
     },
     "11500001": {
-        "name": "kc_1_equipment_enhancement_material_none_r5",
+        "name": "",
         "type": 0,
         "id": 14040,
         "count": 1

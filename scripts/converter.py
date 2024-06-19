@@ -32,12 +32,12 @@ def convert_main_ex_quests(obj):
                 if chapter[84] == "":
                     # is story
                     converted[chapter[0]] = {
-                        "name": chapter[1],
+                        "name": "", #chapter[1],
                         "clearRewardId": int(chapter[3])
                     }
                 else:
                     converted[chapter[0]] = {
-                        "name": chapter[1],
+                        "name": "", #chapter[1],
                         "clearRewardId": int(chapter[3]),
                         "sPlusRewardId": 1,
                         "scoreRewardGroup": int(chapter[70]),
@@ -61,12 +61,12 @@ def convert_boss_quests(obj):
                 if chapter[84] == "":
                     # is story
                     converted[chapter[0]] = {
-                        "name": chapter[1],
+                        "name": "", #chapter[1],
                         "clearRewardId": int(chapter[3])
                     }
                 else:
                     converted[chapter[0]] = {
-                        "name": chapter[2],
+                        "name": "", #chapter[2],
                         "clearRewardId": int(chapter[4]),
                         "sPlusRewardId": 1,
                         "scoreRewardGroup": int(chapter[70]),
@@ -85,7 +85,7 @@ def convert_character_quests(obj):
     converted = {}
     for story_id, character_story in obj.items():
         converted[story_id] = {
-            "name": character_story[3],
+            "name": "", #character_story[3],
             "clearRewardId": character_story[5]
         }
     return converted
@@ -97,7 +97,7 @@ def convert_clear_rewards(obj):
     for reward_id, data in obj.items():
         reward_type = int(data[1])
         new = {
-            "name": data[0],
+            "name": "", #data[0],
             "type": reward_type,
         }
         if (data[2]) != "":
@@ -118,7 +118,7 @@ def convert_score_reward(obj):
             type = int(reward[1])
             if type == 0 and reward[3] != "":
                 converted_group.append({
-                    "name": reward[0],
+                    "name": "", #reward[0],
                     "type": type,
                     "id": int(reward[3]),
                     "count": int(reward[4]),
@@ -126,14 +126,14 @@ def convert_score_reward(obj):
                 })
             elif type == 1:
                 converted_group.append({
-                    "name": reward[0],
+                    "name": "", #reward[0],
                     "type": type,
                     "id": int(reward[6]),
                     "rarity": float(reward[7])
                 })
             else:
                 converted_group.append({
-                    "name": reward[0],
+                    "name": "", #reward[0],
                     "type": type,
                     "field2": reward[2],
                     "field3": reward[3],
@@ -157,7 +157,7 @@ def convert_rare_score_reward(obj):
             rarity = float(reward[4])
 
             new_obj = {
-                "name": name,
+                "name": "", #name,
                 "type": type,
                 "rarity": rarity
             }
@@ -175,7 +175,7 @@ def convert_characters(obj):
     converted = {}
     for characterId, data in obj.items():
         converted[characterId] = {
-            "name": data[0],
+            "name": "", #data[0],
             "rarity": int(data[2]),
             "element": int(data[3]),
             "skill_count": data[36].split(",").count("6")
@@ -195,7 +195,7 @@ to_convert_files = {
     "clear_reward": convert_clear_rewards,
     "score_reward": convert_score_reward,
     "character": convert_characters,
-    # "rare_score_reward": convert_rare_score_reward,
+    "rare_score_reward": convert_rare_score_reward,
     # "world_story_event_boss_battle_quest": convert_main_ex_quests,
     # "world_story_event_quest": convert_main_ex_quests
 }
