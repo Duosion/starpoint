@@ -292,6 +292,11 @@ export interface PlayerMultiSpecialExchangeCampaign {
     status: number
 }
 
+export interface RawPlayerOption {
+    key: string,
+    value: number
+}
+
 export interface RawPlayer {
     id: number
     stamina: number

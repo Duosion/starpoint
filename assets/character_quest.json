@@ -1,1769 +1,4985 @@
 {
-    "1": {
+    "101": {
+        "name": "Alk and Stella",
+        "clearRewardId": "1"
+    },
+    "102": {
+        "name": "Reach for the Stars",
+        "clearRewardId": "1"
+    },
+    "103": {
         "name": "Meteor Break",
         "clearRewardId": "1"
     },
-    "10": {
+    "301": {
+        "name": "Hesitation",
+        "clearRewardId": "1"
+    },
+    "302": {
+        "name": "Anchors Aweigh",
+        "clearRewardId": "1"
+    },
+    "303": {
         "name": "Nostalgia",
         "clearRewardId": "1"
     },
-    "111004": {
+    "1110041": {
+        "name": "All Merry and Maid Up",
+        "clearRewardId": "1"
+    },
+    "1110042": {
+        "name": "Silent Night Shadow",
+        "clearRewardId": "1"
+    },
+    "1110043": {
         "name": "Glad Tidyings We Bring",
         "clearRewardId": "1"
     },
-    "111005": {
+    "1110051": {
+        "name": "Idol Warfare",
+        "clearRewardId": "1"
+    },
+    "1110052": {
+        "name": "Finding Stardom",
+        "clearRewardId": "1"
+    },
+    "1110053": {
         "name": "New Management",
         "clearRewardId": "1"
     },
-    "111007": {
+    "1110071": {
+        "name": "Knight and Blade",
+        "clearRewardId": "1"
+    },
+    "1110072": {
+        "name": "Knight and Tribute",
+        "clearRewardId": "1"
+    },
+    "1110073": {
         "name": "Knight and Valor",
         "clearRewardId": "1"
     },
-    "121003": {
+    "1210031": {
+        "name": "Playing for Crabs",
+        "clearRewardId": "1"
+    },
+    "1210032": {
+        "name": "Chew-Chew-a-Go-Go",
+        "clearRewardId": "1"
+    },
+    "1210033": {
         "name": "Stroller of Fortune",
         "clearRewardId": "1"
     },
-    "121004": {
+    "1210041": {
+        "name": "The Scourge of the Seas",
+        "clearRewardId": "1"
+    },
+    "1210042": {
+        "name": "Frozen in Time",
+        "clearRewardId": "1"
+    },
+    "1210043": {
         "name": "Reunited Once Again",
         "clearRewardId": "1"
     },
-    "131003": {
+    "1310031": {
+        "name": "Holiday Hawker",
+        "clearRewardId": "1"
+    },
+    "1310032": {
+        "name": "Around the Worlds",
+        "clearRewardId": "1"
+    },
+    "1310033": {
         "name": "Surprise!",
         "clearRewardId": "1"
     },
-    "131005": {
+    "1310051": {
+        "name": "Drifting Fist",
+        "clearRewardId": "1"
+    },
+    "1310052": {
+        "name": "Destructive Fist",
+        "clearRewardId": "1"
+    },
+    "1310053": {
         "name": "Unbeatable Fist",
         "clearRewardId": "1"
     },
-    "141004": {
+    "1410031": {
+        "name": "The One Who Survived",
+        "clearRewardId": "1"
+    },
+    "1410032": {
+        "name": "Watch Your Back",
+        "clearRewardId": "1"
+    },
+    "1410033": {
         "name": "The Spirit of Adventure",
         "clearRewardId": "1"
     },
-    "151003": {
+    "1510031": {
+        "name": "Esteemed Eclair",
+        "clearRewardId": "1"
+    },
+    "1510032": {
+        "name": "Candid Eclair",
+        "clearRewardId": "1"
+    },
+    "1510033": {
         "name": "Shining Eclair",
         "clearRewardId": "1"
     },
-    "151004": {
+    "1510041": {
+        "name": "Trends and Traditions",
+        "clearRewardId": "1"
+    },
+    "1510042": {
+        "name": "O' Unholy Night",
+        "clearRewardId": "1"
+    },
+    "1510043": {
         "name": "Wish Upon a Star",
         "clearRewardId": "1"
     },
-    "161004": {
+    "1610041": {
+        "name": "Solitary Warrior",
+        "clearRewardId": "1"
+    },
+    "1610042": {
+        "name": "The Strongest Technique",
+        "clearRewardId": "1"
+    },
+    "1610043": {
         "name": "Home Away From Home",
         "clearRewardId": "1"
     },
-    "211006": {
+    "2110061": {
+        "name": "Copperhead Kannon",
+        "clearRewardId": "1"
+    },
+    "2110062": {
+        "name": "Scarlet-Faced Kannon",
+        "clearRewardId": "1"
+    },
+    "2110063": {
         "name": "Seasoned Adventurer Kannon",
         "clearRewardId": "1"
     },
-    "211007": {
+    "2110071": {
+        "name": "Cultural Exchange",
+        "clearRewardId": "1"
+    },
+    "2110072": {
+        "name": "A Price on Culture",
+        "clearRewardId": "1"
+    },
+    "2110073": {
         "name": "The Value of Culture",
         "clearRewardId": "1"
     },
-    "231007": {
+    "2310071": {
+        "name": "In Search of a Star",
+        "clearRewardId": "1"
+    },
+    "2310072": {
+        "name": "Holiday Delivery",
+        "clearRewardId": "1"
+    },
+    "2310073": {
         "name": "Your Friendship is \nthe Greatest Gift",
         "clearRewardId": "1"
     },
-    "231008": {
+    "2310081": {
+        "name": "Pretty Face, Pretty Words",
+        "clearRewardId": "1"
+    },
+    "2310082": {
+        "name": "Bad Customer",
+        "clearRewardId": "1"
+    },
+    "2310083": {
         "name": "Dare to Hope",
         "clearRewardId": "1"
     },
-    "241006": {
+    "2410061": {
+        "name": "Sweet Shiruko",
+        "clearRewardId": "1"
+    },
+    "2410062": {
+        "name": "Fame and Misfortune",
+        "clearRewardId": "1"
+    },
+    "2410063": {
         "name": "Shady Portions",
         "clearRewardId": "1"
     },
-    "241008": {
+    "2410081": {
+        "name": "Suzuka the Ninja, on the Job!",
+        "clearRewardId": "1"
+    },
+    "2410082": {
+        "name": "Hard Pass on that Ninja Life!",
+        "clearRewardId": "1"
+    },
+    "2410083": {
         "name": "Ninja No More!",
         "clearRewardId": "1"
     },
-    "251008": {
+    "2510081": {
+        "name": "Show of Spectacles",
+        "clearRewardId": "1"
+    },
+    "2510082": {
+        "name": "Right Round, Light Round",
+        "clearRewardId": "1"
+    },
+    "2510083": {
         "name": "Rainbow Night Show",
         "clearRewardId": "1"
     },
-    "261006": {
+    "2610061": {
+        "name": "A Knight's Resolution",
+        "clearRewardId": "1"
+    },
+    "2610062": {
+        "name": "A Knight's Honor",
+        "clearRewardId": "1"
+    },
+    "2610063": {
         "name": "Flight of the Swallow",
         "clearRewardId": "1"
     },
-    "263001": {
+    "2630011": {
+        "name": "Gilded Ship",
+        "clearRewardId": "1"
+    },
+    "2630012": {
+        "name": "Setting the Stage",
+        "clearRewardId": "1"
+    },
+    "2630013": {
         "name": "Deception Most Dear",
         "clearRewardId": "1"
     },
-    "323001": {
+    "3230011": {
+        "name": "A Holiday Transformation",
+        "clearRewardId": "1"
+    },
+    "3230012": {
         "name": "A Holiday Switcheroo",
         "clearRewardId": "1"
     },
-    "331012": {
+    "3310121": {
+        "name": "Bridge of the Resplendent Curve",
+        "clearRewardId": "1"
+    },
+    "3310122": {
         "name": "Chasing Rainbows",
         "clearRewardId": "1"
     },
-    "333001": {
+    "3330011": {
+        "name": "Mew to the Stage!",
+        "clearRewardId": "1"
+    },
+    "3330012": {
         "name": "Spinning for Tops!",
         "clearRewardId": "1"
     },
-    "341010": {
+    "3410101": {
+        "name": "An Unlikely Bodyguard",
+        "clearRewardId": "1"
+    },
+    "3410102": {
         "name": "This Time For Real",
         "clearRewardId": "1"
     },
-    "351008": {
+    "3510081": {
+        "name": "Mysterious Wild Child",
+        "clearRewardId": "1"
+    },
+    "3510082": {
         "name": "Birthday Pack",
         "clearRewardId": "1"
     },
-    "231006": {
+    "9000446": {
+        "name": "She'll Rock Your World",
+        "clearRewardId": "1"
+    },
+    "9000447": {
+        "name": "Seafood Scramble",
+        "clearRewardId": "1"
+    },
+    "9000448": {
         "name": "A Place to Call Home",
         "clearRewardId": "1"
     },
-    "241005": {
+    "9000449": {
+        "name": "Looking for a Fight",
+        "clearRewardId": "1"
+    },
+    "9000450": {
+        "name": "Fighting for Peace",
+        "clearRewardId": "1"
+    },
+    "9000451": {
         "name": "Glad You're Here",
         "clearRewardId": "1"
     },
-    "321010": {
+    "9000511": {
+        "name": "Lord of the Spring",
+        "clearRewardId": "1"
+    },
+    "9000512": {
         "name": "Shall We Dance?",
         "clearRewardId": "1"
     },
-    "111001": {
+    "11100101": {
+        "name": "Winged Inferno",
+        "clearRewardId": "1"
+    },
+    "11100102": {
+        "name": "The Flow of Fate",
+        "clearRewardId": "1"
+    },
+    "11100103": {
         "name": "Of Serpents and Dragons",
         "clearRewardId": "1"
     },
-    "111002": {
+    "11100201": {
+        "name": "Return of the Crimson Blades",
+        "clearRewardId": "1"
+    },
+    "11100202": {
+        "name": "Get Your Money Right",
+        "clearRewardId": "1"
+    },
+    "11100203": {
         "name": "Home Sweet... Home?",
         "clearRewardId": "1"
     },
-    "111003": {
+    "11100301": {
+        "name": "Destructive Alchemist",
+        "clearRewardId": "1"
+    },
+    "11100302": {
+        "name": "Barrettes and Bonds",
+        "clearRewardId": "1"
+    },
+    "11100303": {
         "name": "Underground Banter",
         "clearRewardId": "1"
     },
-    "111006": {
+    "11100601": {
+        "name": "Damsel in Distress?",
+        "clearRewardId": "1"
+    },
+    "11100602": {
+        "name": "Hanamachi Pride",
+        "clearRewardId": "1"
+    },
+    "11100603": {
         "name": "Dream a Dream",
         "clearRewardId": "1"
     },
-    "111009": {
+    "11100901": {
+        "name": "Beach Treasure Hunt!",
+        "clearRewardId": "1"
+    },
+    "11100902": {
+        "name": "Ocean Treasure Hunt!",
+        "clearRewardId": "1"
+    },
+    "11100903": {
         "name": "Ghost Ship Treasure Hunt!",
         "clearRewardId": "1"
     },
-    "111015": {
+    "11101501": {
+        "name": "Preparing a Dress",
+        "clearRewardId": "1"
+    },
+    "11101502": {
+        "name": "A Booming Haul",
+        "clearRewardId": "1"
+    },
+    "11101503": {
         "name": "The Promised Show",
         "clearRewardId": "1"
     },
-    "111021": {
+    "11102101": {
+        "name": "Santa Queen Is Coming",
+        "clearRewardId": "1"
+    },
+    "11102102": {
+        "name": "Then and Now",
+        "clearRewardId": "1"
+    },
+    "11102103": {
         "name": "Holidays, Schmolidays",
         "clearRewardId": "1"
     },
-    "111027": {
+    "11102701": {
+        "name": "Powerful Princess",
+        "clearRewardId": "1"
+    },
+    "11102702": {
+        "name": "Relic Seeker",
+        "clearRewardId": "1"
+    },
+    "11102703": {
         "name": "The Legendary Four",
         "clearRewardId": "1"
     },
-    "111033": {
+    "11103301": {
+        "name": "The Fellowship of Floof",
+        "clearRewardId": "1"
+    },
+    "11103302": {
+        "name": "To Be a Hero",
+        "clearRewardId": "1"
+    },
+    "11103303": {
         "name": "Ideals and Reality",
         "clearRewardId": "1"
     },
-    "111039": {
+    "11103901": {
+        "name": "Divine Countenance",
+        "clearRewardId": "1"
+    },
+    "11103902": {
+        "name": "His Version of Fun",
+        "clearRewardId": "1"
+    },
+    "11103903": {
         "name": "Showing Appreciation",
         "clearRewardId": "1"
     },
-    "111045": {
+    "11104501": {
+        "name": "The Ostentatious Spy",
+        "clearRewardId": "1"
+    },
+    "11104502": {
+        "name": "The Liar",
+        "clearRewardId": "1"
+    },
+    "11104503": {
         "name": "The Worthy Rival",
         "clearRewardId": "1"
     },
-    "111051": {
+    "11105101": {
+        "name": "The Crimson Fang",
+        "clearRewardId": "1"
+    },
+    "11105102": {
+        "name": "A Day with Stella",
+        "clearRewardId": "1"
+    },
+    "11105103": {
         "name": "Proof of Strength",
         "clearRewardId": "1"
     },
-    "111057": {
+    "11105701": {
+        "name": "The Felder Arbiter",
+        "clearRewardId": "1"
+    },
+    "11105702": {
+        "name": "More than a Name",
+        "clearRewardId": "1"
+    },
+    "11105703": {
         "name": "A Mighty Match",
         "clearRewardId": "1"
     },
-    "111063": {
+    "11106301": {
+        "name": "Passionate Platinum",
+        "clearRewardId": "1"
+    },
+    "11106302": {
+        "name": "Time for an Interview",
+        "clearRewardId": "1"
+    },
+    "11106303": {
         "name": "Shine On, Eclair!",
         "clearRewardId": "1"
     },
-    "111081": {
+    "11108101": {
+        "name": "Out for Revenge",
+        "clearRewardId": "1"
+    },
+    "11108102": {
+        "name": "A Boy and His Dog",
+        "clearRewardId": "1"
+    },
+    "11108103": {
         "name": "Change of Heart",
         "clearRewardId": "1"
     },
-    "111087": {
+    "11108701": {
+        "name": "New Frontier",
+        "clearRewardId": "1"
+    },
+    "11108702": {
+        "name": "Starview, Assemble!",
+        "clearRewardId": "1"
+    },
+    "11108703": {
         "name": "Your Treasure",
         "clearRewardId": "1"
     },
-    "111093": {
+    "11109301": {
+        "name": "Genius Prankster",
+        "clearRewardId": "1"
+    },
+    "11109302": {
+        "name": "World-Hopping Explorer!",
+        "clearRewardId": "1"
+    },
+    "11109303": {
         "name": "It's No Fun All Alone",
         "clearRewardId": "1"
     },
-    "111099": {
+    "11109901": {
+        "name": "Arbiter in Love",
+        "clearRewardId": "1"
+    },
+    "11109902": {
+        "name": "Felder Determination",
+        "clearRewardId": "1"
+    },
+    "11109903": {
         "name": "Honest Feelings",
         "clearRewardId": "1"
     },
-    "111105": {
+    "11110501": {
+        "name": "There Will Be Blood",
+        "clearRewardId": "1"
+    },
+    "11110502": {
+        "name": "Peace and Quiet",
+        "clearRewardId": "1"
+    },
+    "11110503": {
         "name": "In the Face of Death",
         "clearRewardId": "1"
     },
-    "111111": {
+    "11111101": {
+        "name": "Princess Toria, Infiltrator",
+        "clearRewardId": "1"
+    },
+    "11111102": {
+        "name": "The Mirean Dream",
+        "clearRewardId": "1"
+    },
+    "11111103": {
         "name": "A New Alliance",
         "clearRewardId": "1"
     },
-    "111123": {
+    "11112301": {
+        "name": "Culinary Adventure",
+        "clearRewardId": "1"
+    },
+    "11112302": {
+        "name": "King of Seafood",
+        "clearRewardId": "1"
+    },
+    "11112303": {
         "name": "Photogenic Eats",
         "clearRewardId": "1"
     },
-    "111129": {
+    "11112901": {
+        "name": "The Lion's Atonement",
+        "clearRewardId": "1"
+    },
+    "11112902": {
+        "name": "Shared Suffering",
+        "clearRewardId": "1"
+    },
+    "11112903": {
         "name": "Another Way",
         "clearRewardId": "1"
     },
-    "111135": {
+    "11113501": {
+        "name": "\"That\" Golem Club",
+        "clearRewardId": "1"
+    },
+    "11113502": {
+        "name": "The Lonely Genius",
+        "clearRewardId": "1"
+    },
+    "11113503": {
         "name": "Packed with Ambition",
         "clearRewardId": "1"
     },
-    "111141": {
+    "11114101": {
+        "name": "Mia is Treasure Santa!",
+        "clearRewardId": "1"
+    },
+    "11114102": {
+        "name": "You're Treasure Santa!",
+        "clearRewardId": "1"
+    },
+    "11114103": {
         "name": "Tiger-eared Santa",
         "clearRewardId": "1"
     },
-    "111147": {
+    "11114701": {
+        "name": "Playing Nice",
+        "clearRewardId": "1"
+    },
+    "11114702": {
+        "name": "Seizing Opportunity",
+        "clearRewardId": "1"
+    },
+    "11114703": {
         "name": "Kids to the Rescue",
         "clearRewardId": "1"
     },
-    "111153": {
+    "11115301": {
+        "name": "炎の新米冒険者",
+        "clearRewardId": "1"
+    },
+    "11115302": {
+        "name": "君が目指す在り方",
+        "clearRewardId": "1"
+    },
+    "11115303": {
         "name": "優しさの炎は燃え移る",
         "clearRewardId": "1"
     },
-    "111159": {
+    "11115901": {
+        "name": "ステキなオトナに",
+        "clearRewardId": "1"
+    },
+    "11115902": {
+        "name": "やりたいコト、ぜんぶ",
+        "clearRewardId": "1"
+    },
+    "11115903": {
         "name": "はじめてのオシゴト",
         "clearRewardId": "1"
     },
-    "111165": {
+    "11116501": {
+        "name": "Inheriting the Flame",
+        "clearRewardId": "1"
+    },
+    "11116502": {
+        "name": "Her Highness' Wish",
+        "clearRewardId": "1"
+    },
+    "11116503": {
         "name": "Guardian of Flame",
         "clearRewardId": "1"
     },
-    "113001": {
+    "11300101": {
+        "name": "Gold Ship Adrift",
+        "clearRewardId": "1"
+    },
+    "11300102": {
+        "name": "UMAIMEN",
+        "clearRewardId": "1"
+    },
+    "11300103": {
         "name": "To Eden!",
         "clearRewardId": "1"
     },
-    "121001": {
+    "12100101": {
+        "name": "Beauty and the Beast",
+        "clearRewardId": "1"
+    },
+    "12100102": {
+        "name": "Dancing with the Stars",
+        "clearRewardId": "1"
+    },
+    "12100103": {
         "name": "Hearts, Beating as One",
         "clearRewardId": "1"
     },
-    "121002": {
+    "12100201": {
+        "name": "The Diviners' Comeback",
+        "clearRewardId": "1"
+    },
+    "12100202": {
+        "name": "Diviner and Divinity",
+        "clearRewardId": "1"
+    },
+    "12100203": {
         "name": "Child of Tengu",
         "clearRewardId": "1"
     },
-    "121005": {
+    "12100501": {
+        "name": "Steel Wolf",
+        "clearRewardId": "1"
+    },
+    "12100502": {
+        "name": "Shadow of the Maw",
+        "clearRewardId": "1"
+    },
+    "12100503": {
         "name": "Unyielding Steel",
         "clearRewardId": "1"
     },
-    "121006": {
+    "12100601": {
+        "name": "Draconic Defender",
+        "clearRewardId": "1"
+    },
+    "12100602": {
+        "name": "Mountain of Dragons",
+        "clearRewardId": "1"
+    },
+    "12100603": {
         "name": "Role of the Guardian",
         "clearRewardId": "1"
     },
-    "121007": {
+    "12100701": {
+        "name": "Journey without End",
+        "clearRewardId": "1"
+    },
+    "12100702": {
+        "name": "Shard of Hope",
+        "clearRewardId": "1"
+    },
+    "12100703": {
         "name": "Blossoming",
         "clearRewardId": "1"
     },
-    "121008": {
+    "12100801": {
+        "name": "Surfing Is the Solution",
+        "clearRewardId": "1"
+    },
+    "12100802": {
+        "name": "A Cowardly Prince's Pride",
+        "clearRewardId": "1"
+    },
+    "12100803": {
         "name": "A Prince's Support",
         "clearRewardId": "1"
     },
-    "121009": {
+    "12100901": {
+        "name": "Always Something",
+        "clearRewardId": "1"
+    },
+    "12100902": {
+        "name": "When Life Gives You Lemons",
+        "clearRewardId": "1"
+    },
+    "12100903": {
         "name": "Never Gonna Give Up",
         "clearRewardId": "1"
     },
-    "121015": {
+    "12101501": {
+        "name": "The Glacial Oculus",
+        "clearRewardId": "1"
+    },
+    "12101502": {
+        "name": "Reylas & Altair",
+        "clearRewardId": "1"
+    },
+    "12101503": {
         "name": "The Beginning",
         "clearRewardId": "1"
     },
-    "121021": {
+    "12102101": {
+        "name": "My Duty",
+        "clearRewardId": "1"
+    },
+    "12102102": {
+        "name": "Her Lonesome Past",
+        "clearRewardId": "1"
+    },
+    "12102103": {
         "name": "Another's Sake",
         "clearRewardId": "1"
     },
-    "121027": {
+    "12102701": {
+        "name": "Operation: Remodeling",
+        "clearRewardId": "1"
+    },
+    "12102702": {
+        "name": "For Subaru's Sake",
+        "clearRewardId": "1"
+    },
+    "12102703": {
         "name": "A Day in the Life",
         "clearRewardId": "1"
     },
-    "121033": {
+    "12103301": {
+        "name": "Enter the Dragon",
+        "clearRewardId": "1"
+    },
+    "12103302": {
+        "name": "The Way of the Dragon",
+        "clearRewardId": "1"
+    },
+    "12103303": {
         "name": "Master Killer",
         "clearRewardId": "1"
     },
-    "121039": {
+    "12103901": {
+        "name": "An Oath before Rest",
+        "clearRewardId": "1"
+    },
+    "12103902": {
+        "name": "Taste of Prosperity",
+        "clearRewardId": "1"
+    },
+    "12103903": {
         "name": "Differing Answers",
         "clearRewardId": "1"
     },
-    "121045": {
+    "12104501": {
+        "name": "First Steps",
+        "clearRewardId": "1"
+    },
+    "12104502": {
+        "name": "Always Watching",
+        "clearRewardId": "1"
+    },
+    "12104503": {
         "name": "Land, Sea, or Sky",
         "clearRewardId": "1"
     },
-    "121051": {
+    "12105101": {
+        "name": "Healer of the Sea",
+        "clearRewardId": "1"
+    },
+    "12105102": {
+        "name": "Healing Master",
+        "clearRewardId": "1"
+    },
+    "12105103": {
         "name": "Fear and Courage",
         "clearRewardId": "1"
     },
-    "121069": {
+    "12106901": {
+        "name": "Fang and Fist",
+        "clearRewardId": "1"
+    },
+    "12106902": {
+        "name": "Killer Confessions",
+        "clearRewardId": "1"
+    },
+    "12106903": {
         "name": "A Beast No More",
         "clearRewardId": "1"
     },
-    "121070": {
+    "12107001": {
+        "name": "Courage",
+        "clearRewardId": "1"
+    },
+    "12107002": {
+        "name": "Forms of Affection",
+        "clearRewardId": "1"
+    },
+    "12107003": {
         "name": "Changes of Heart",
         "clearRewardId": "1"
     },
-    "121075": {
+    "12107501": {
+        "name": "The Blaue Fraxis",
+        "clearRewardId": "1"
+    },
+    "12107502": {
+        "name": "A Future for All",
+        "clearRewardId": "1"
+    },
+    "12107503": {
         "name": "All in the Same Boat",
         "clearRewardId": "1"
     },
-    "121081": {
+    "12108101": {
+        "name": "Ice Magic 101",
+        "clearRewardId": "1"
+    },
+    "12108102": {
+        "name": "Professor Cipher",
+        "clearRewardId": "1"
+    },
+    "12108103": {
         "name": "New Horizons",
         "clearRewardId": "1"
     },
-    "121087": {
+    "12108701": {
+        "name": "Plans for the Holidays",
+        "clearRewardId": "1"
+    },
+    "12108702": {
+        "name": "Santa's Struggle",
+        "clearRewardId": "1"
+    },
+    "12108703": {
         "name": "Here by Your Side",
         "clearRewardId": "1"
     },
-    "121093": {
+    "12109301": {
+        "name": "Keeper of Cosmic Law",
+        "clearRewardId": "1"
+    },
+    "12109302": {
+        "name": "False Idol",
+        "clearRewardId": "1"
+    },
+    "12109303": {
         "name": "Best Paw Forward",
         "clearRewardId": "1"
     },
-    "121099": {
+    "12109901": {
+        "name": "Are You a Creep?",
+        "clearRewardId": "1"
+    },
+    "12109902": {
+        "name": "Serious, but Troubled",
+        "clearRewardId": "1"
+    },
+    "12109903": {
         "name": "Qualia Explorer",
         "clearRewardId": "1"
     },
-    "121105": {
+    "12110501": {
+        "name": "Uniquely Icy",
+        "clearRewardId": "1"
+    },
+    "12110502": {
+        "name": "Freedom and Fate",
+        "clearRewardId": "1"
+    },
+    "12110503": {
         "name": "Opposing Destiny",
         "clearRewardId": "1"
     },
-    "121111": {
+    "12111101": {
+        "name": "HERO:REBUILD",
+        "clearRewardId": "1"
+    },
+    "12111102": {
+        "name": "Avenger",
+        "clearRewardId": "1"
+    },
+    "12111103": {
         "name": "Themis",
         "clearRewardId": "1"
     },
-    "121117": {
+    "12111701": {
+        "name": "Idols, Reveling",
+        "clearRewardId": "1"
+    },
+    "12111702": {
+        "name": "Worlds, Connected",
+        "clearRewardId": "1"
+    },
+    "12111703": {
         "name": "Memories, Forever Lost",
         "clearRewardId": "1"
     },
-    "121129": {
+    "12112901": {
+        "name": "An Unexpected Reunion",
+        "clearRewardId": "1"
+    },
+    "12112902": {
+        "name": "The Path We Choose",
+        "clearRewardId": "1"
+    },
+    "12112903": {
         "name": "Shadowing the Blades",
         "clearRewardId": "1"
     },
-    "121135": {
+    "12113501": {
+        "name": "The Tyrant's Last Stand",
+        "clearRewardId": "1"
+    },
+    "12113502": {
+        "name": "Sea Dog's Proposal",
+        "clearRewardId": "1"
+    },
+    "12113503": {
         "name": "Pirate Legend's Return",
         "clearRewardId": "1"
     },
-    "121141": {
+    "12114101": {
+        "name": "The Path of Light",
+        "clearRewardId": "1"
+    },
+    "12114102": {
+        "name": "To the Pinnacle",
+        "clearRewardId": "1"
+    },
+    "12114103": {
         "name": "A Brother's Laugh",
         "clearRewardId": "1"
     },
-    "121147": {
+    "12114701": {
+        "name": "A New Dream",
+        "clearRewardId": "1"
+    },
+    "12114702": {
+        "name": "My Hero",
+        "clearRewardId": "1"
+    },
+    "12114703": {
         "name": "Hoping for a Friend",
         "clearRewardId": "1"
     },
-    "121153": {
+    "12115301": {
+        "name": "Subjugation",
+        "clearRewardId": "1"
+    },
+    "12115302": {
+        "name": "Another Way Forward",
+        "clearRewardId": "1"
+    },
+    "12115303": {
         "name": "First Light",
         "clearRewardId": "1"
     },
-    "121159": {
+    "12115901": {
+        "name": "ベスタの娘",
+        "clearRewardId": "1"
+    },
+    "12115902": {
+        "name": "鏡の心に映るのは？",
+        "clearRewardId": "1"
+    },
+    "12115903": {
         "name": "見つけたもの",
         "clearRewardId": "1"
     },
-    "121165": {
+    "12116501": {
+        "name": "九龍のギャングスター",
+        "clearRewardId": "1"
+    },
+    "12116502": {
+        "name": "街角の悪党",
+        "clearRewardId": "1"
+    },
+    "12116503": {
         "name": "自由を欲する少女",
         "clearRewardId": "1"
     },
-    "131001": {
+    "13100101": {
+        "name": "Dreaming Fox",
+        "clearRewardId": "1"
+    },
+    "13100102": {
+        "name": "A New Rival?",
+        "clearRewardId": "1"
+    },
+    "13100103": {
         "name": "Bridging the Gap",
         "clearRewardId": "1"
     },
-    "131002": {
+    "13100201": {
+        "name": "Ultra Cute Alchemist",
+        "clearRewardId": "1"
+    },
+    "13100202": {
+        "name": "World Tour",
+        "clearRewardId": "1"
+    },
+    "13100203": {
         "name": "Battle Ready Body",
         "clearRewardId": "1"
     },
-    "131004": {
+    "13100401": {
+        "name": "A Star Adventurer Appears!",
+        "clearRewardId": "1"
+    },
+    "13100402": {
+        "name": "Those Who Know Most, Speak Least",
+        "clearRewardId": "1"
+    },
+    "13100403": {
         "name": "A Mysterious Visitor",
         "clearRewardId": "1"
     },
-    "131011": {
+    "13101101": {
+        "name": "Do Androids Dream",
+        "clearRewardId": "1"
+    },
+    "13101102": {
+        "name": "The End of Duty",
+        "clearRewardId": "1"
+    },
+    "13101103": {
         "name": "Forget-Me-Nots",
         "clearRewardId": "1"
     },
-    "131012": {
+    "13101201": {
+        "name": "The Firework Fanatic",
+        "clearRewardId": "1"
+    },
+    "13101202": {
+        "name": "Contest in the Clouds",
+        "clearRewardId": "1"
+    },
+    "13101203": {
         "name": "Embers in the Night Sky",
         "clearRewardId": "1"
     },
-    "131013": {
+    "13101301": {
+        "name": "Beach Fun for Everyone",
+        "clearRewardId": "1"
+    },
+    "13101302": {
+        "name": "Festival of Shows",
+        "clearRewardId": "1"
+    },
+    "13101303": {
         "name": "Going Swimmingly",
         "clearRewardId": "1"
     },
-    "131014": {
+    "13101401": {
+        "name": "Between Daybreak and Water's Edge",
+        "clearRewardId": "1"
+    },
+    "13101402": {
+        "name": "Between Love and Curiosity",
+        "clearRewardId": "1"
+    },
+    "13101403": {
         "name": "Between Heaven and Earth",
         "clearRewardId": "1"
     },
-    "131020": {
+    "13102001": {
+        "name": "What Is Love?",
+        "clearRewardId": "1"
+    },
+    "13102002": {
+        "name": "Dirty Deeds",
+        "clearRewardId": "1"
+    },
+    "13102003": {
         "name": "Dearly Beloved",
         "clearRewardId": "1"
     },
-    "131026": {
+    "13102601": {
+        "name": "Beauty and the Beef",
+        "clearRewardId": "1"
+    },
+    "13102602": {
+        "name": "What We Do for Love",
+        "clearRewardId": "1"
+    },
+    "13102603": {
         "name": "A Cosmic Revelation",
         "clearRewardId": "1"
     },
-    "131032": {
+    "13103201": {
+        "name": "The Memento",
+        "clearRewardId": "1"
+    },
+    "13103202": {
+        "name": "What Lies Within",
+        "clearRewardId": "1"
+    },
+    "13103203": {
         "name": "Unbreakable Bonds",
         "clearRewardId": "1"
     },
-    "131038": {
+    "13103801": {
+        "name": "The Great Chief Tink",
+        "clearRewardId": "1"
+    },
+    "13103802": {
+        "name": "Coming Together",
+        "clearRewardId": "1"
+    },
+    "13103803": {
         "name": "Our Team",
         "clearRewardId": "1"
     },
-    "131044": {
+    "13104401": {
+        "name": "Enter Zantetsu!",
+        "clearRewardId": "1"
+    },
+    "13104402": {
+        "name": "The Spirit of a Hero",
+        "clearRewardId": "1"
+    },
+    "13104403": {
         "name": "This Path We Walk",
         "clearRewardId": "1"
     },
-    "131050": {
+    "13105001": {
+        "name": "Thrill Seeker",
+        "clearRewardId": "1"
+    },
+    "13105002": {
+        "name": "A Thrilling Price",
+        "clearRewardId": "1"
+    },
+    "13105003": {
         "name": "To My Beloved",
         "clearRewardId": "1"
     },
-    "131056": {
+    "13105601": {
+        "name": "Sera and Dez",
+        "clearRewardId": "1"
+    },
+    "13105602": {
+        "name": "Dez's Day Out",
+        "clearRewardId": "1"
+    },
+    "13105603": {
         "name": "As You Are",
         "clearRewardId": "1"
     },
-    "131062": {
+    "13106201": {
+        "name": "Switch Hitter",
+        "clearRewardId": "1"
+    },
+    "13106202": {
+        "name": "Line Drive",
+        "clearRewardId": "1"
+    },
+    "13106203": {
         "name": "Home Run",
         "clearRewardId": "1"
     },
-    "131068": {
+    "13106801": {
+        "name": "The Aftermath",
+        "clearRewardId": "1"
+    },
+    "13106802": {
+        "name": "Goddess and Archon",
+        "clearRewardId": "1"
+    },
+    "13106803": {
         "name": "The Vesta's Future",
         "clearRewardId": "1"
     },
-    "131074": {
+    "13107401": {
+        "name": "A Place to Return To",
+        "clearRewardId": "1"
+    },
+    "13107402": {
+        "name": "Sins of a Warrior",
+        "clearRewardId": "1"
+    },
+    "13107403": {
         "name": "The Reason They Fight",
         "clearRewardId": "1"
     },
-    "131080": {
+    "13108001": {
+        "name": "Sister to the Storm",
+        "clearRewardId": "1"
+    },
+    "13108002": {
+        "name": "Expectations",
+        "clearRewardId": "1"
+    },
+    "13108003": {
         "name": "Beyond This World",
         "clearRewardId": "1"
     },
-    "131086": {
+    "13108601": {
+        "name": "Reason for Strength",
+        "clearRewardId": "1"
+    },
+    "13108602": {
+        "name": "Boys' Night Out",
+        "clearRewardId": "1"
+    },
+    "13108603": {
         "name": "Home",
         "clearRewardId": "1"
     },
-    "131092": {
+    "13109201": {
+        "name": "The Strongest Wimp",
+        "clearRewardId": "1"
+    },
+    "13109202": {
+        "name": "A Pioneer's Resolve",
+        "clearRewardId": "1"
+    },
+    "13109203": {
         "name": "A Hero Could Save Us",
         "clearRewardId": "1"
     },
-    "131098": {
+    "13109801": {
+        "name": "Moonlit Spider",
+        "clearRewardId": "1"
+    },
+    "13109802": {
+        "name": "Sticky Situation",
+        "clearRewardId": "1"
+    },
+    "13109803": {
         "name": "Expanding Web",
         "clearRewardId": "1"
     },
-    "131104": {
+    "13110401": {
+        "name": "Summer Sky Send Off",
+        "clearRewardId": "1"
+    },
+    "13110402": {
+        "name": "Piercing Cloudy Skies",
+        "clearRewardId": "1"
+    },
+    "13110403": {
         "name": "Through Endless Blue",
         "clearRewardId": "1"
     },
-    "131110": {
+    "13111001": {
+        "name": "An Idol Hero's Dreams",
+        "clearRewardId": "1"
+    },
+    "13111002": {
+        "name": "Courage to Dream",
+        "clearRewardId": "1"
+    },
+    "13111003": {
         "name": "Brave Strike",
         "clearRewardId": "1"
     },
-    "131116": {
+    "13111601": {
+        "name": "Vampire Girl",
+        "clearRewardId": "1"
+    },
+    "13111602": {
+        "name": "Shared Blood",
+        "clearRewardId": "1"
+    },
+    "13111603": {
         "name": "Night Owls",
         "clearRewardId": "1"
     },
-    "131122": {
+    "13112201": {
+        "name": "Blending In",
+        "clearRewardId": "1"
+    },
+    "13112202": {
+        "name": "Determined Advance",
+        "clearRewardId": "1"
+    },
+    "13112203": {
         "name": "Together, Moving Forward",
         "clearRewardId": "1"
     },
-    "131128": {
+    "13112801": {
+        "name": "Shibuya's S.E.D.F.",
+        "clearRewardId": "1"
+    },
+    "13112802": {
+        "name": "Tink and the Rookies",
+        "clearRewardId": "1"
+    },
+    "13112803": {
         "name": "New Year, New Path",
         "clearRewardId": "1"
     },
-    "131134": {
+    "13113401": {
+        "name": "ボディデザイナーの機人",
+        "clearRewardId": "1"
+    },
+    "13113402": {
+        "name": "可能性の形",
+        "clearRewardId": "1"
+    },
+    "13113403": {
         "name": "一番似合う服",
         "clearRewardId": "1"
     },
-    "131140": {
+    "13114001": {
+        "name": "反転せしカオス",
+        "clearRewardId": "1"
+    },
+    "13114002": {
+        "name": "憧れた、二人きりの終末",
+        "clearRewardId": "1"
+    },
+    "13114003": {
         "name": "共に",
         "clearRewardId": "1"
     },
-    "131146": {
+    "13114601": {
+        "name": "エスコートする男",
+        "clearRewardId": "1"
+    },
+    "13114602": {
+        "name": "理念の男",
+        "clearRewardId": "1"
+    },
+    "13114603": {
         "name": "前へ進む男",
         "clearRewardId": "1"
     },
-    "131152": {
+    "13115201": {
+        "name": "Look Back",
+        "clearRewardId": "1"
+    },
+    "13115202": {
+        "name": "BOOM!!",
+        "clearRewardId": "1"
+    },
+    "13115203": {
         "name": "Truth of Betrayal",
         "clearRewardId": "1"
     },
-    "131158": {
+    "13115801": {
+        "name": "裁刀の能力者",
+        "clearRewardId": "1"
+    },
+    "13115802": {
+        "name": "強さの意味",
+        "clearRewardId": "1"
+    },
+    "13115803": {
         "name": "切り拓く刃に心を乗せて",
         "clearRewardId": "1"
     },
-    "141001": {
+    "14100101": {
+        "name": "Wandering Tempest",
+        "clearRewardId": "1"
+    },
+    "14100102": {
+        "name": "Cake is Mightier than the Sword",
+        "clearRewardId": "1"
+    },
+    "14100103": {
         "name": "Winds of Change",
         "clearRewardId": "1"
     },
-    "141002": {
+    "14100201": {
+        "name": "The Runaway Oracle",
+        "clearRewardId": "1"
+    },
+    "14100202": {
+        "name": "Wish on the Wind",
+        "clearRewardId": "1"
+    },
+    "14100203": {
         "name": "Calling",
         "clearRewardId": "1"
     },
-    "141003": {
+    "14100301": {
+        "name": "Ghostly Regalia",
+        "clearRewardId": "1"
+    },
+    "14100302": {
+        "name": "A New Heir",
+        "clearRewardId": "1"
+    },
+    "14100303": {
         "name": "Partners in Crime-busting",
         "clearRewardId": "1"
     },
-    "141005": {
+    "14100501": {
+        "name": "A Prophecy of Love",
+        "clearRewardId": "1"
+    },
+    "14100502": {
+        "name": "Masurel's Herbs",
+        "clearRewardId": "1"
+    },
+    "14100503": {
         "name": "An Honest Dialogue",
         "clearRewardId": "1"
     },
-    "141006": {
-        "name": "Merits of Investing",
+    "14100601": {
+        "name": "The Business of Peace",
         "clearRewardId": "1"
     },
-    "141007": {
-        "name": "What Truly Matters",
-        "clearRewardId": "1"
-    },
-    "141008": {
-        "name": "Of Fate and Free Will",
-        "clearRewardId": "1"
-    },
-    "141009": {
-        "name": "The Takeover",
-        "clearRewardId": "1"
-    },
-    "141015": {
-        "name": "Everlasting Bonds",
-        "clearRewardId": "1"
-    },
-    "141021": {
-        "name": "Knight of the Stars",
-        "clearRewardId": "1"
-    },
-    "141027": {
-        "name": "Performing in Style",
-        "clearRewardId": "1"
-    },
-    "141033": {
-        "name": "Feelings Conveyed",
-        "clearRewardId": "1"
-    },
-    "141039": {
-        "name": "Among the Stars",
-        "clearRewardId": "1"
-    },
-    "141045": {
-        "name": "Challengers",
-        "clearRewardId": "1"
-    },
-    "141051": {
-        "name": "Eternal Parting",
-        "clearRewardId": "1"
-    },
-    "141057": {
-        "name": "Parting Clouds",
-        "clearRewardId": "1"
-    },
-    "141063": {
-        "name": "Love is War",
-        "clearRewardId": "1"
-    },
-    "141069": {
-        "name": "Old Friends",
-        "clearRewardId": "1"
-    },
-    "141081": {
-        "name": "Spreading Cheer",
-        "clearRewardId": "1"
-    },
-    "141087": {
-        "name": "Paying for Presents",
-        "clearRewardId": "1"
-    },
-    "141093": {
-        "name": "The Guiding Star",
-        "clearRewardId": "1"
-    },
-    "141099": {
-        "name": "The Stars Tonight",
-        "clearRewardId": "1"
-    },
-    "141105": {
-        "name": "What’s Most Sacred",
-        "clearRewardId": "1"
-    },
-    "141111": {
-        "name": "The View from the Lead",
-        "clearRewardId": "1"
-    },
-    "141117": {
-        "name": "Hope for an Underdog",
-        "clearRewardId": "1"
-    },
-    "141123": {
-        "name": "Mirror Image",
-        "clearRewardId": "1"
-    },
-    "141135": {
-        "name": "Priestess of Fortune",
-        "clearRewardId": "1"
-    },
-    "141141": {
-        "name": "The 100 Friend Dream",
-        "clearRewardId": "1"
-    },
-    "141147": {
-        "name": "愛は、広がっていく",
-        "clearRewardId": "1"
-    },
-    "141153": {
-        "name": "不安をほどいて",
-        "clearRewardId": "1"
-    },
-    "141159": {
-        "name": "王か騎士か",
-        "clearRewardId": "1"
-    },
-    "141165": {
-        "name": "Fight for the Future",
-        "clearRewardId": "1"
-    },
-    "141171": {
-        "name": "俺が味方だ",
-        "clearRewardId": "1"
-    },
-    "151001": {
-        "name": "Joy",
-        "clearRewardId": "1"
-    },
-    "151002": {
-        "name": "The Heart of a King",
-        "clearRewardId": "1"
-    },
-    "151005": {
-        "name": "Runaway",
-        "clearRewardId": "1"
-    },
-    "151006": {
-        "name": "Dawn of a Hero",
-        "clearRewardId": "1"
-    },
-    "151007": {
-        "name": "Golden Heart",
-        "clearRewardId": "1"
-    },
-    "151009": {
-        "name": "Return",
-        "clearRewardId": "1"
-    },
-    "151011": {
-        "name": "Dear Friends",
-        "clearRewardId": "1"
-    },
-    "151012": {
-        "name": "A Timely Recapitulation",
-        "clearRewardId": "1"
-    },
-    "151013": {
-        "name": "The Farlan Saint",
-        "clearRewardId": "1"
-    },
-    "151014": {
-        "name": "The Light Through the Dark",
-        "clearRewardId": "1"
-    },
-    "151015": {
-        "name": "Even If We Have to Part",
-        "clearRewardId": "1"
-    },
-    "151021": {
-        "name": "Branching Futures",
-        "clearRewardId": "1"
-    },
-    "151027": {
-        "name": "The Rules of Love",
-        "clearRewardId": "1"
-    },
-    "151033": {
-        "name": "Shining Arm",
-        "clearRewardId": "1"
-    },
-    "151039": {
-        "name": "Reformation",
-        "clearRewardId": "1"
-    },
-    "151045": {
-        "name": "Burning Ambition",
-        "clearRewardId": "1"
-    },
-    "151051": {
-        "name": "Dreaming Together",
-        "clearRewardId": "1"
-    },
-    "151063": {
-        "name": "Summer's End",
-        "clearRewardId": "1"
-    },
-    "151069": {
+    "14100602": {
         "name": "For the Future",
         "clearRewardId": "1"
     },
-    "151075": {
+    "14100603": {
+        "name": "Merits of Investing",
+        "clearRewardId": "1"
+    },
+    "14100701": {
+        "name": "Small, but Brave",
+        "clearRewardId": "1"
+    },
+    "14100702": {
+        "name": "Searching for a Goddess",
+        "clearRewardId": "1"
+    },
+    "14100703": {
+        "name": "What Truly Matters",
+        "clearRewardId": "1"
+    },
+    "14100801": {
+        "name": "How To Hunt a Dragon",
+        "clearRewardId": "1"
+    },
+    "14100802": {
+        "name": "Schult's Delivery Service",
+        "clearRewardId": "1"
+    },
+    "14100803": {
+        "name": "Of Fate and Free Will",
+        "clearRewardId": "1"
+    },
+    "14100901": {
+        "name": "Saga Turf War",
+        "clearRewardId": "1"
+    },
+    "14100902": {
+        "name": "Full Speed Ahead",
+        "clearRewardId": "1"
+    },
+    "14100903": {
+        "name": "The Takeover",
+        "clearRewardId": "1"
+    },
+    "14101501": {
+        "name": "A Parting for the Ages",
+        "clearRewardId": "1"
+    },
+    "14101502": {
+        "name": "Eternity Ender",
+        "clearRewardId": "1"
+    },
+    "14101503": {
+        "name": "Everlasting Bonds",
+        "clearRewardId": "1"
+    },
+    "14102101": {
+        "name": "Berserker's Plight",
+        "clearRewardId": "1"
+    },
+    "14102102": {
+        "name": "A New Me",
+        "clearRewardId": "1"
+    },
+    "14102103": {
+        "name": "Knight of the Stars",
+        "clearRewardId": "1"
+    },
+    "14102701": {
+        "name": "To Yamato We Go",
+        "clearRewardId": "1"
+    },
+    "14102702": {
+        "name": "Just a Sip",
+        "clearRewardId": "1"
+    },
+    "14102703": {
+        "name": "Performing in Style",
+        "clearRewardId": "1"
+    },
+    "14103301": {
+        "name": "Navy Girl",
+        "clearRewardId": "1"
+    },
+    "14103302": {
+        "name": "What's for Dinner?",
+        "clearRewardId": "1"
+    },
+    "14103303": {
+        "name": "Feelings Conveyed",
+        "clearRewardId": "1"
+    },
+    "14103901": {
+        "name": "Moonlit Stage",
+        "clearRewardId": "1"
+    },
+    "14103902": {
+        "name": "Sprite Dancer",
+        "clearRewardId": "1"
+    },
+    "14103903": {
+        "name": "Among the Stars",
+        "clearRewardId": "1"
+    },
+    "14104501": {
+        "name": "The Sage",
+        "clearRewardId": "1"
+    },
+    "14104502": {
+        "name": "Anger",
+        "clearRewardId": "1"
+    },
+    "14104503": {
+        "name": "Challengers",
+        "clearRewardId": "1"
+    },
+    "14105101": {
+        "name": "Endless Summer",
+        "clearRewardId": "1"
+    },
+    "14105102": {
+        "name": "Everlasting Challenge",
+        "clearRewardId": "1"
+    },
+    "14105103": {
+        "name": "Eternal Parting",
+        "clearRewardId": "1"
+    },
+    "14105701": {
+        "name": "Raging Storm",
+        "clearRewardId": "1"
+    },
+    "14105702": {
+        "name": "Unbidden Memories",
+        "clearRewardId": "1"
+    },
+    "14105703": {
+        "name": "Parting Clouds",
+        "clearRewardId": "1"
+    },
+    "14106301": {
+        "name": "Her First Swimsuit",
+        "clearRewardId": "1"
+    },
+    "14106302": {
+        "name": "Permissible Feelings",
+        "clearRewardId": "1"
+    },
+    "14106303": {
+        "name": "Love is War",
+        "clearRewardId": "1"
+    },
+    "14106901": {
+        "name": "Festive Adventurers",
+        "clearRewardId": "1"
+    },
+    "14106902": {
+        "name": "The Storyteller",
+        "clearRewardId": "1"
+    },
+    "14106903": {
+        "name": "Old Friends",
+        "clearRewardId": "1"
+    },
+    "14108101": {
+        "name": "Holiday Boot Camp",
+        "clearRewardId": "1"
+    },
+    "14108102": {
+        "name": "Bringing Smiles",
+        "clearRewardId": "1"
+    },
+    "14108103": {
+        "name": "Spreading Cheer",
+        "clearRewardId": "1"
+    },
+    "14108701": {
+        "name": "Lost Girl from Another World",
+        "clearRewardId": "1"
+    },
+    "14108702": {
+        "name": "Boar Friends Forever",
+        "clearRewardId": "1"
+    },
+    "14108703": {
+        "name": "Paying for Presents",
+        "clearRewardId": "1"
+    },
+    "14109301": {
+        "name": "A Beautiful Encounter",
+        "clearRewardId": "1"
+    },
+    "14109302": {
+        "name": "The Woes of Youth",
+        "clearRewardId": "1"
+    },
+    "14109303": {
+        "name": "The Guiding Star",
+        "clearRewardId": "1"
+    },
+    "14109901": {
+        "name": "Gentleman Dragon",
+        "clearRewardId": "1"
+    },
+    "14109902": {
+        "name": "Finding Happiness",
+        "clearRewardId": "1"
+    },
+    "14109903": {
+        "name": "The Stars Tonight",
+        "clearRewardId": "1"
+    },
+    "14110501": {
+        "name": "Running Free",
+        "clearRewardId": "1"
+    },
+    "14110502": {
+        "name": "Fun Is Priority One",
+        "clearRewardId": "1"
+    },
+    "14110503": {
+        "name": "What’s Most Sacred",
+        "clearRewardId": "1"
+    },
+    "14111101": {
+        "name": "Once More",
+        "clearRewardId": "1"
+    },
+    "14111102": {
+        "name": "Up until Now",
+        "clearRewardId": "1"
+    },
+    "14111103": {
+        "name": "The View from the Lead",
+        "clearRewardId": "1"
+    },
+    "14111701": {
+        "name": "A Sight to Behold",
+        "clearRewardId": "1"
+    },
+    "14111702": {
+        "name": "Shared Struggle",
+        "clearRewardId": "1"
+    },
+    "14111703": {
+        "name": "Hope for an Underdog",
+        "clearRewardId": "1"
+    },
+    "14112301": {
+        "name": "Hollow Smile",
+        "clearRewardId": "1"
+    },
+    "14112302": {
+        "name": "Reflected Wish",
+        "clearRewardId": "1"
+    },
+    "14112303": {
+        "name": "Mirror Image",
+        "clearRewardId": "1"
+    },
+    "14113501": {
+        "name": "Birdfolk Priestess",
+        "clearRewardId": "1"
+    },
+    "14113502": {
+        "name": "On Winged Luck",
+        "clearRewardId": "1"
+    },
+    "14113503": {
+        "name": "Priestess of Fortune",
+        "clearRewardId": "1"
+    },
+    "14114101": {
+        "name": "Queen of the Hares",
+        "clearRewardId": "1"
+    },
+    "14114102": {
+        "name": "What a Queen Desires",
+        "clearRewardId": "1"
+    },
+    "14114103": {
+        "name": "The 100 Friend Dream",
+        "clearRewardId": "1"
+    },
+    "14114701": {
+        "name": "ヴァレント・オフショット",
+        "clearRewardId": "1"
+    },
+    "14114702": {
+        "name": "新たなるステージ",
+        "clearRewardId": "1"
+    },
+    "14114703": {
+        "name": "愛は、広がっていく",
+        "clearRewardId": "1"
+    },
+    "14115301": {
+        "name": "縛られない少女",
+        "clearRewardId": "1"
+    },
+    "14115302": {
+        "name": "守りたいゆとり",
+        "clearRewardId": "1"
+    },
+    "14115303": {
+        "name": "不安をほどいて",
+        "clearRewardId": "1"
+    },
+    "14115901": {
+        "name": "菓子か騎士か",
+        "clearRewardId": "1"
+    },
+    "14115902": {
+        "name": "戦士か騎士か",
+        "clearRewardId": "1"
+    },
+    "14115903": {
+        "name": "王か騎士か",
+        "clearRewardId": "1"
+    },
+    "14116501": {
+        "name": "Great Teacher Phiria",
+        "clearRewardId": "1"
+    },
+    "14116502": {
+        "name": "Her World, Her Rules",
+        "clearRewardId": "1"
+    },
+    "14116503": {
+        "name": "Fight for the Future",
+        "clearRewardId": "1"
+    },
+    "14117101": {
+        "name": "風来坊の男",
+        "clearRewardId": "1"
+    },
+    "14117102": {
+        "name": "仕方ねえ",
+        "clearRewardId": "1"
+    },
+    "14117103": {
+        "name": "俺が味方だ",
+        "clearRewardId": "1"
+    },
+    "15100101": {
+        "name": "Awakening",
+        "clearRewardId": "1"
+    },
+    "15100102": {
+        "name": "Promises",
+        "clearRewardId": "1"
+    },
+    "15100103": {
+        "name": "Joy",
+        "clearRewardId": "1"
+    },
+    "15100201": {
+        "name": "Prince of Nihil",
+        "clearRewardId": "1"
+    },
+    "15100202": {
+        "name": "Good Kings are Servants",
+        "clearRewardId": "1"
+    },
+    "15100203": {
+        "name": "The Heart of a King",
+        "clearRewardId": "1"
+    },
+    "15100501": {
+        "name": "The Troubleshooter",
+        "clearRewardId": "1"
+    },
+    "15100502": {
+        "name": "World of Excitement",
+        "clearRewardId": "1"
+    },
+    "15100503": {
+        "name": "Runaway",
+        "clearRewardId": "1"
+    },
+    "15100601": {
+        "name": "Aiming for Blue Skies",
+        "clearRewardId": "1"
+    },
+    "15100602": {
+        "name": "Sunset Memories",
+        "clearRewardId": "1"
+    },
+    "15100603": {
+        "name": "Dawn of a Hero",
+        "clearRewardId": "1"
+    },
+    "15100701": {
+        "name": "Son of the Sixth House",
+        "clearRewardId": "1"
+    },
+    "15100702": {
+        "name": "Crybaby",
+        "clearRewardId": "1"
+    },
+    "15100703": {
+        "name": "Golden Heart",
+        "clearRewardId": "1"
+    },
+    "15100901": {
+        "name": "Awakening",
+        "clearRewardId": "1"
+    },
+    "15100902": {
+        "name": "Take Flight",
+        "clearRewardId": "1"
+    },
+    "15100903": {
+        "name": "Return",
+        "clearRewardId": "1"
+    },
+    "15101101": {
+        "name": "Reunion Lunch",
+        "clearRewardId": "1"
+    },
+    "15101102": {
+        "name": "Satisfied Tummy",
+        "clearRewardId": "1"
+    },
+    "15101103": {
+        "name": "Dear Friends",
+        "clearRewardId": "1"
+    },
+    "15101201": {
+        "name": "A Promising Exposition",
+        "clearRewardId": "1"
+    },
+    "15101202": {
+        "name": "A Violent Development",
+        "clearRewardId": "1"
+    },
+    "15101203": {
+        "name": "A Timely Recapitulation",
+        "clearRewardId": "1"
+    },
+    "15101301": {
+        "name": "The Figurehead",
+        "clearRewardId": "1"
+    },
+    "15101302": {
+        "name": "The Power of Prayer",
+        "clearRewardId": "1"
+    },
+    "15101303": {
+        "name": "The Farlan Saint",
+        "clearRewardId": "1"
+    },
+    "15101401": {
+        "name": "Lady from the Rumors",
+        "clearRewardId": "1"
+    },
+    "15101402": {
+        "name": "With Great Power",
+        "clearRewardId": "1"
+    },
+    "15101403": {
+        "name": "The Light Through the Dark",
+        "clearRewardId": "1"
+    },
+    "15101501": {
+        "name": "A Chance Meeting",
+        "clearRewardId": "1"
+    },
+    "15101502": {
+        "name": "For My Fans",
+        "clearRewardId": "1"
+    },
+    "15101503": {
+        "name": "Even If We Have to Part",
+        "clearRewardId": "1"
+    },
+    "15102101": {
+        "name": "A Friendly Exchange",
+        "clearRewardId": "1"
+    },
+    "15102102": {
+        "name": "The Oracle's Ordeal",
+        "clearRewardId": "1"
+    },
+    "15102103": {
+        "name": "Branching Futures",
+        "clearRewardId": "1"
+    },
+    "15102701": {
+        "name": "A Sweet Lesson",
+        "clearRewardId": "1"
+    },
+    "15102702": {
+        "name": "A Bitter Truth",
+        "clearRewardId": "1"
+    },
+    "15102703": {
+        "name": "The Rules of Love",
+        "clearRewardId": "1"
+    },
+    "15103301": {
+        "name": "The Crystal Soldier",
+        "clearRewardId": "1"
+    },
+    "15103302": {
+        "name": "Vengeance",
+        "clearRewardId": "1"
+    },
+    "15103303": {
+        "name": "Shining Arm",
+        "clearRewardId": "1"
+    },
+    "15103901": {
+        "name": "Extermination",
+        "clearRewardId": "1"
+    },
+    "15103902": {
+        "name": "Asceticism",
+        "clearRewardId": "1"
+    },
+    "15103903": {
+        "name": "Reformation",
+        "clearRewardId": "1"
+    },
+    "15104501": {
+        "name": "Respite from War",
+        "clearRewardId": "1"
+    },
+    "15104502": {
+        "name": "Playing with Fire",
+        "clearRewardId": "1"
+    },
+    "15104503": {
+        "name": "Burning Ambition",
+        "clearRewardId": "1"
+    },
+    "15105101": {
+        "name": "Turning Heads",
+        "clearRewardId": "1"
+    },
+    "15105102": {
+        "name": "Conquering Fear",
+        "clearRewardId": "1"
+    },
+    "15105103": {
+        "name": "Dreaming Together",
+        "clearRewardId": "1"
+    },
+    "15106301": {
+        "name": "Summer Beginnings",
+        "clearRewardId": "1"
+    },
+    "15106302": {
+        "name": "Summer Encounter",
+        "clearRewardId": "1"
+    },
+    "15106303": {
+        "name": "Summer's End",
+        "clearRewardId": "1"
+    },
+    "15106901": {
+        "name": "Palpebra's Knight",
+        "clearRewardId": "1"
+    },
+    "15106902": {
+        "name": "Behind the Scenes",
+        "clearRewardId": "1"
+    },
+    "15106903": {
+        "name": "For the Future",
+        "clearRewardId": "1"
+    },
+    "15107501": {
+        "name": "Prelude to Halloween",
+        "clearRewardId": "1"
+    },
+    "15107502": {
+        "name": "A Concerted Effort",
+        "clearRewardId": "1"
+    },
+    "15107503": {
         "name": "For Elise",
         "clearRewardId": "1"
     },
-    "151081": {
+    "15108101": {
+        "name": "The Heavenly Mistress",
+        "clearRewardId": "1"
+    },
+    "15108102": {
+        "name": "Befriending a Goddess",
+        "clearRewardId": "1"
+    },
+    "15108103": {
         "name": "Saintly Ambition",
         "clearRewardId": "1"
     },
-    "151087": {
+    "15108701": {
+        "name": "Changes",
+        "clearRewardId": "1"
+    },
+    "15108702": {
+        "name": "Heroes",
+        "clearRewardId": "1"
+    },
+    "15108703": {
         "name": "Valentine Daydream",
         "clearRewardId": "1"
     },
-    "151093": {
+    "15109301": {
+        "name": "Humanity Gained",
+        "clearRewardId": "1"
+    },
+    "15109302": {
+        "name": "Baby Steps",
+        "clearRewardId": "1"
+    },
+    "15109303": {
         "name": "Endless Evolution",
         "clearRewardId": "1"
     },
-    "151099": {
+    "15109901": {
+        "name": "Setting High Scores",
+        "clearRewardId": "1"
+    },
+    "15109902": {
+        "name": "R & R",
+        "clearRewardId": "1"
+    },
+    "15109903": {
         "name": "Everything You've Got",
         "clearRewardId": "1"
     },
-    "151105": {
+    "15110501": {
+        "name": "New Destination",
+        "clearRewardId": "1"
+    },
+    "15110502": {
+        "name": "Reminiscent Admiration",
+        "clearRewardId": "1"
+    },
+    "15110503": {
         "name": "Special Delivery",
         "clearRewardId": "1"
     },
-    "151117": {
+    "15111701": {
+        "name": "Enter the Summer Hero",
+        "clearRewardId": "1"
+    },
+    "15111702": {
+        "name": "To Lose It All",
+        "clearRewardId": "1"
+    },
+    "15111703": {
         "name": "My Hero Assembly",
         "clearRewardId": "1"
     },
-    "151123": {
+    "15112301": {
+        "name": "Chosen by the Sword",
+        "clearRewardId": "1"
+    },
+    "15112302": {
+        "name": "Courage to Speak",
+        "clearRewardId": "1"
+    },
+    "15112303": {
         "name": "Hartstrahl, to Me!",
         "clearRewardId": "1"
     },
-    "151129": {
+    "15112901": {
+        "name": "Fraternal Conflict",
+        "clearRewardId": "1"
+    },
+    "15112902": {
+        "name": "Swallow in Flight",
+        "clearRewardId": "1"
+    },
+    "15112903": {
         "name": "Bundled Blades",
         "clearRewardId": "1"
     },
-    "151141": {
+    "15114101": {
+        "name": "Presents For All",
+        "clearRewardId": "1"
+    },
+    "15114102": {
+        "name": "Sleigh Ride Home",
+        "clearRewardId": "1"
+    },
+    "15114103": {
         "name": "The After-Party",
         "clearRewardId": "1"
     },
-    "151147": {
+    "15114701": {
+        "name": "Stella's Resolve",
+        "clearRewardId": "1"
+    },
+    "15114702": {
+        "name": "Special Treatment",
+        "clearRewardId": "1"
+    },
+    "15114703": {
         "name": "A Story for You",
         "clearRewardId": "1"
     },
-    "151153": {
+    "15115301": {
+        "name": "Hatching a Plan",
+        "clearRewardId": "1"
+    },
+    "15115302": {
+        "name": "Champion's Duty",
+        "clearRewardId": "1"
+    },
+    "15115303": {
         "name": "The Road Ahead",
         "clearRewardId": "1"
     },
-    "151159": {
+    "15115901": {
+        "name": "聖龍転生",
+        "clearRewardId": "1"
+    },
+    "15115902": {
+        "name": "偉大なる意地っ張り",
+        "clearRewardId": "1"
+    },
+    "15115903": {
         "name": "光の目覚め",
         "clearRewardId": "1"
     },
-    "151165": {
+    "15116501": {
+        "name": "A New Beginning",
+        "clearRewardId": "1"
+    },
+    "15116502": {
+        "name": "When You're Older",
+        "clearRewardId": "1"
+    },
+    "15116503": {
         "name": "A Journey Far Away",
         "clearRewardId": "1"
     },
-    "151171": {
+    "15117101": {
+        "name": "三つ目の神器",
+        "clearRewardId": "1"
+    },
+    "15117102": {
+        "name": "夜をほどく",
+        "clearRewardId": "1"
+    },
+    "15117103": {
         "name": "幾度の夜をほどいて",
         "clearRewardId": "1"
     },
-    "153001": {
+    "15300101": {
+        "name": "Remembering Victory",
+        "clearRewardId": "1"
+    },
+    "15300102": {
+        "name": "From Now On",
+        "clearRewardId": "1"
+    },
+    "15300103": {
         "name": "A New Act Begins",
         "clearRewardId": "1"
     },
-    "161001": {
+    "16100101": {
+        "name": "Wicked Witch of the Rift",
+        "clearRewardId": "1"
+    },
+    "16100102": {
+        "name": "The Witch's Spell",
+        "clearRewardId": "1"
+    },
+    "16100103": {
         "name": "Witch Among the Stars",
         "clearRewardId": "1"
     },
-    "161002": {
+    "16100201": {
+        "name": "The Vagrant",
+        "clearRewardId": "1"
+    },
+    "16100202": {
+        "name": "Unforgettable Eyes",
+        "clearRewardId": "1"
+    },
+    "16100203": {
         "name": "Newfound Promise",
         "clearRewardId": "1"
     },
-    "161005": {
+    "16100501": {
+        "name": "Laughing Gal",
+        "clearRewardId": "1"
+    },
+    "16100502": {
+        "name": "Promise of Tomorrow",
+        "clearRewardId": "1"
+    },
+    "16100503": {
         "name": "Don't Leave Me",
         "clearRewardId": "1"
     },
-    "161006": {
+    "16100601": {
+        "name": "Visitor From Beyond",
+        "clearRewardId": "1"
+    },
+    "16100602": {
+        "name": "A Promise Made",
+        "clearRewardId": "1"
+    },
+    "16100603": {
         "name": "A Whole New World",
         "clearRewardId": "1"
     },
-    "161007": {
+    "16100701": {
+        "name": "A Very Special Spell",
+        "clearRewardId": "1"
+    },
+    "16100702": {
+        "name": "Kith and Kin",
+        "clearRewardId": "1"
+    },
+    "16100703": {
         "name": "Words We Couldn't Say",
         "clearRewardId": "1"
     },
-    "161008": {
+    "16100801": {
+        "name": "Alice in Resortland",
+        "clearRewardId": "1"
+    },
+    "16100802": {
+        "name": "Alice in Boredomland",
+        "clearRewardId": "1"
+    },
+    "16100803": {
         "name": "Alice in Fashionland",
         "clearRewardId": "1"
     },
-    "161009": {
+    "16100901": {
+        "name": "Something's Missing",
+        "clearRewardId": "1"
+    },
+    "16100902": {
+        "name": "From the Heart",
+        "clearRewardId": "1"
+    },
+    "16100903": {
         "name": "A Peaceful Day Off",
         "clearRewardId": "1"
     },
-    "161015": {
+    "16101501": {
+        "name": "A Devilish Makeover",
+        "clearRewardId": "1"
+    },
+    "16101502": {
+        "name": "Friends Across Worlds",
+        "clearRewardId": "1"
+    },
+    "16101503": {
         "name": "Those We Look Up To",
         "clearRewardId": "1"
     },
-    "161021": {
+    "16102101": {
+        "name": "The Void Beckons",
+        "clearRewardId": "1"
+    },
+    "16102102": {
+        "name": "Delusions of Grandeur",
+        "clearRewardId": "1"
+    },
+    "16102103": {
         "name": "In His House He Waits",
         "clearRewardId": "1"
     },
-    "161027": {
+    "16102701": {
+        "name": "Birth of the Curse",
+        "clearRewardId": "1"
+    },
+    "16102702": {
+        "name": "Take My Hand",
+        "clearRewardId": "1"
+    },
+    "16102703": {
         "name": "The Value of Discourse",
         "clearRewardId": "1"
     },
-    "161033": {
+    "16103301": {
+        "name": "Fiendish Santa",
+        "clearRewardId": "1"
+    },
+    "16103302": {
+        "name": "Heart-Warming Gift",
+        "clearRewardId": "1"
+    },
+    "16103303": {
         "name": "Call to the Skies",
         "clearRewardId": "1"
     },
-    "161039": {
+    "16103901": {
+        "name": "Reach Out to the Truth",
+        "clearRewardId": "1"
+    },
+    "16103902": {
+        "name": "Hand in Hand",
+        "clearRewardId": "1"
+    },
+    "16103903": {
         "name": "Brave Little Soul",
         "clearRewardId": "1"
     },
-    "161045": {
+    "16104501": {
+        "name": "Witch of the Depths",
+        "clearRewardId": "1"
+    },
+    "16104502": {
+        "name": "One and the Same",
+        "clearRewardId": "1"
+    },
+    "16104503": {
         "name": "A \"Diabolic\" Plan",
         "clearRewardId": "1"
     },
-    "161051": {
+    "16105101": {
+        "name": "Adventure on the Dunes",
+        "clearRewardId": "1"
+    },
+    "16105102": {
+        "name": "Endless Blue Bop",
+        "clearRewardId": "1"
+    },
+    "16105103": {
         "name": "The Horror Within",
         "clearRewardId": "1"
     },
-    "161057": {
+    "16105701": {
+        "name": "Undying Blue",
+        "clearRewardId": "1"
+    },
+    "16105702": {
+        "name": "Loneliness Blues",
+        "clearRewardId": "1"
+    },
+    "16105703": {
         "name": "Stronger Together",
         "clearRewardId": "1"
     },
-    "161063": {
+    "16106301": {
+        "name": "New Career",
+        "clearRewardId": "1"
+    },
+    "16106302": {
+        "name": "Risk and Reward",
+        "clearRewardId": "1"
+    },
+    "16106303": {
         "name": "Never Too Late",
         "clearRewardId": "1"
     },
-    "161069": {
+    "16106901": {
+        "name": "Roses",
+        "clearRewardId": "1"
+    },
+    "16106902": {
+        "name": "Orchids",
+        "clearRewardId": "1"
+    },
+    "16106903": {
         "name": "Peonies",
         "clearRewardId": "1"
     },
-    "161081": {
+    "16108101": {
+        "name": "What Today Holds",
+        "clearRewardId": "1"
+    },
+    "16108102": {
+        "name": "Day by Day",
+        "clearRewardId": "1"
+    },
+    "16108103": {
         "name": "Long Awaited Reunions",
         "clearRewardId": "1"
     },
-    "161082": {
+    "16108201": {
+        "name": "Facing Your Fears",
+        "clearRewardId": "1"
+    },
+    "16108202": {
+        "name": "The Real Issue",
+        "clearRewardId": "1"
+    },
+    "16108203": {
         "name": "Banding Together",
         "clearRewardId": "1"
     },
-    "161087": {
+    "16108701": {
+        "name": "Stepping Stones",
+        "clearRewardId": "1"
+    },
+    "16108702": {
+        "name": "Still a Kid",
+        "clearRewardId": "1"
+    },
+    "16108703": {
         "name": "To Tail a Tiger",
         "clearRewardId": "1"
     },
-    "161093": {
+    "16109301": {
+        "name": "Taken by the Mood",
+        "clearRewardId": "1"
+    },
+    "16109302": {
+        "name": "Fated Conflict",
+        "clearRewardId": "1"
+    },
+    "16109303": {
         "name": "A Witch's Desire",
         "clearRewardId": "1"
     },
-    "161099": {
+    "16109901": {
+        "name": "Princely Spirit",
+        "clearRewardId": "1"
+    },
+    "16109902": {
+        "name": "Cheeky Defiance",
+        "clearRewardId": "1"
+    },
+    "16109903": {
         "name": "Hopeful Blade",
         "clearRewardId": "1"
     },
-    "161105": {
+    "16110501": {
+        "name": "Flowers of the Departed",
+        "clearRewardId": "1"
+    },
+    "16110502": {
+        "name": "The Haunted Antique",
+        "clearRewardId": "1"
+    },
+    "16110503": {
         "name": "Awkward, but Genuine",
         "clearRewardId": "1"
     },
-    "161111": {
+    "16111101": {
+        "name": "The Looking Glass Witch",
+        "clearRewardId": "1"
+    },
+    "16111102": {
+        "name": "Charming Dreams",
+        "clearRewardId": "1"
+    },
+    "16111103": {
         "name": "Spellbound",
         "clearRewardId": "1"
     },
-    "161117": {
+    "16111701": {
+        "name": "Lying Low",
+        "clearRewardId": "1"
+    },
+    "16111702": {
+        "name": "Roundabout Praise",
+        "clearRewardId": "1"
+    },
+    "16111703": {
         "name": "The Mage's Path",
         "clearRewardId": "1"
     },
-    "161123": {
+    "16112301": {
+        "name": "Coreopsis",
+        "clearRewardId": "1"
+    },
+    "16112302": {
+        "name": "Hippeastrum",
+        "clearRewardId": "1"
+    },
+    "16112303": {
         "name": "Gazania",
         "clearRewardId": "1"
     },
-    "161129": {
+    "16112901": {
+        "name": "Bottomless Love",
+        "clearRewardId": "1"
+    },
+    "16112902": {
+        "name": "A Rift in Love",
+        "clearRewardId": "1"
+    },
+    "16112903": {
         "name": "Right or Wrong",
         "clearRewardId": "1"
     },
-    "161135": {
+    "16113501": {
+        "name": "Exposed Heart",
+        "clearRewardId": "1"
+    },
+    "16113502": {
+        "name": "Swords & Hearts",
+        "clearRewardId": "1"
+    },
+    "16113503": {
         "name": "Crossing Blades",
         "clearRewardId": "1"
     },
-    "161147": {
+    "16114701": {
+        "name": "She Who Senses Souls",
+        "clearRewardId": "1"
+    },
+    "16114702": {
+        "name": "To See the Unseen",
+        "clearRewardId": "1"
+    },
+    "16114703": {
         "name": "Be Brave and Honest",
         "clearRewardId": "1"
     },
-    "161153": {
+    "16115301": {
+        "name": "The Same Eyes",
+        "clearRewardId": "1"
+    },
+    "16115302": {
+        "name": "Exposing Shadows",
+        "clearRewardId": "1"
+    },
+    "16115303": {
         "name": "To a Safe Haven",
         "clearRewardId": "1"
     },
-    "161159": {
+    "16115901": {
+        "name": "Witnessing the Iris",
+        "clearRewardId": "1"
+    },
+    "16115902": {
+        "name": "Incubator of Stars",
+        "clearRewardId": "1"
+    },
+    "16115903": {
         "name": "Beloved Weakness",
         "clearRewardId": "1"
     },
-    "161165": {
+    "16116501": {
+        "name": "ロクデナシ師匠、来る",
+        "clearRewardId": "1"
+    },
+    "16116502": {
+        "name": "武の極みを求めて",
+        "clearRewardId": "1"
+    },
+    "16116503": {
         "name": "愉快な時間",
         "clearRewardId": "1"
     },
-    "161171": {
+    "16117101": {
+        "name": "似非神官は平穏を望む",
+        "clearRewardId": "1"
+    },
+    "16117102": {
+        "name": "とある平穏な一日",
+        "clearRewardId": "1"
+    },
+    "16117103": {
         "name": "とても面倒な事",
         "clearRewardId": "1"
     },
-    "161177": {
+    "16117701": {
+        "name": "Shatter the Night",
+        "clearRewardId": "1"
+    },
+    "16117702": {
+        "name": "Crush the Doubt",
+        "clearRewardId": "1"
+    },
+    "16117703": {
         "name": "Bring the Dawn",
         "clearRewardId": "1"
     },
-    "161183": {
+    "16118301": {
+        "name": "終わりを超えて、続く日々",
+        "clearRewardId": "1"
+    },
+    "16118302": {
+        "name": "伝えたい言葉",
+        "clearRewardId": "1"
+    },
+    "16118303": {
         "name": "響き紡ぐ君の歌",
         "clearRewardId": "1"
     },
-    "161189": {
+    "16118901": {
+        "name": "願いの呼び声",
+        "clearRewardId": "1"
+    },
+    "16118902": {
+        "name": "壊された世界",
+        "clearRewardId": "1"
+    },
+    "16118903": {
         "name": "星の導きは誰にでも",
         "clearRewardId": "1"
     },
-    "163001": {
+    "16300101": {
+        "name": "Fallen From Grace",
+        "clearRewardId": "1"
+    },
+    "16300102": {
+        "name": "Calling",
+        "clearRewardId": "1"
+    },
+    "16300103": {
         "name": "Yakumo Rising",
         "clearRewardId": "1"
     },
-    "211001": {
+    "21100101": {
+        "name": "Scholar",
+        "clearRewardId": "1"
+    },
+    "21100102": {
+        "name": "Shackles",
+        "clearRewardId": "1"
+    },
+    "21100103": {
         "name": "Oath",
         "clearRewardId": "1"
     },
-    "211002": {
+    "21100201": {
+        "name": "My Lovely Pet",
+        "clearRewardId": "1"
+    },
+    "21100202": {
+        "name": "Keeping Up Appearances",
+        "clearRewardId": "1"
+    },
+    "21100203": {
         "name": "Boatside Rescue",
         "clearRewardId": "1"
     },
-    "211003": {
+    "21100301": {
+        "name": "Sushi's Fine... I Guess",
+        "clearRewardId": "1"
+    },
+    "21100302": {
+        "name": "The Ninja Art of Angling",
+        "clearRewardId": "1"
+    },
+    "21100303": {
         "name": "Firework Forecast",
         "clearRewardId": "1"
     },
-    "211004": {
+    "21100401": {
+        "name": "Crossed Paths",
+        "clearRewardId": "1"
+    },
+    "21100402": {
+        "name": "Demon-born Demon Hunter",
+        "clearRewardId": "1"
+    },
+    "21100403": {
         "name": "Demon Hunting 101",
         "clearRewardId": "1"
     },
-    "211005": {
+    "21100501": {
+        "name": "Buyer Beware",
+        "clearRewardId": "1"
+    },
+    "21100502": {
+        "name": "Everything Comes With a Price",
+        "clearRewardId": "1"
+    },
+    "21100503": {
         "name": "A Blessing or a Curse?",
         "clearRewardId": "1"
     },
-    "211008": {
+    "21100801": {
+        "name": "Woman Warrior",
+        "clearRewardId": "1"
+    },
+    "21100802": {
+        "name": "Celebrity Seminar",
+        "clearRewardId": "1"
+    },
+    "21100803": {
         "name": "The Best of Both Worlds",
         "clearRewardId": "1"
     },
-    "211009": {
+    "21100901": {
+        "name": "Scaredy Cat Sniper",
+        "clearRewardId": "1"
+    },
+    "21100902": {
+        "name": "Reclaiming the Heirloom",
+        "clearRewardId": "1"
+    },
+    "21100903": {
         "name": "Heart of the Cartridge",
         "clearRewardId": "1"
     },
-    "211010": {
+    "21101001": {
+        "name": "A Pirate's Landing",
+        "clearRewardId": "1"
+    },
+    "21101002": {
+        "name": "Desert Flower",
+        "clearRewardId": "1"
+    },
+    "21101003": {
         "name": "True Mates",
         "clearRewardId": "1"
     },
-    "211011": {
+    "21101101": {
+        "name": "A Girl's Beginnings",
+        "clearRewardId": "1"
+    },
+    "21101102": {
+        "name": "A Girl's Awakening",
+        "clearRewardId": "1"
+    },
+    "21101103": {
         "name": "A Girl's Enlightenment",
         "clearRewardId": "1"
     },
-    "211012": {
+    "21101201": {
+        "name": "Girl with the Magic Sword",
+        "clearRewardId": "1"
+    },
+    "21101202": {
+        "name": "Spiral of Hatred",
+        "clearRewardId": "1"
+    },
+    "21101203": {
         "name": "Voice of Flame",
         "clearRewardId": "1"
     },
-    "211013": {
+    "21101301": {
+        "name": "Foul Yokai!",
+        "clearRewardId": "1"
+    },
+    "21101302": {
+        "name": "Are Yokai Really So Bad?",
+        "clearRewardId": "1"
+    },
+    "21101303": {
         "name": "Protecting the Weak",
         "clearRewardId": "1"
     },
-    "211014": {
+    "21101401": {
+        "name": "A Day in Her Life",
+        "clearRewardId": "1"
+    },
+    "21101402": {
+        "name": "Clad in Mystery",
+        "clearRewardId": "1"
+    },
+    "21101403": {
         "name": "For the Sake of Dear Friends",
         "clearRewardId": "1"
     },
-    "211020": {
+    "21102001": {
+        "name": "Professor Perfect's Secret",
+        "clearRewardId": "1"
+    },
+    "21102002": {
+        "name": "Professor Perfect's Helpers",
+        "clearRewardId": "1"
+    },
+    "21102003": {
         "name": "Professor Perfect's Guidance",
         "clearRewardId": "1"
     },
-    "211026": {
+    "21102601": {
+        "name": "A New Look",
+        "clearRewardId": "1"
+    },
+    "21102602": {
+        "name": "Special Instructor",
+        "clearRewardId": "1"
+    },
+    "21102603": {
         "name": "Holiday Gift",
         "clearRewardId": "1"
     },
-    "211032": {
+    "21103201": {
+        "name": "The Hidden Village",
+        "clearRewardId": "1"
+    },
+    "21103202": {
+        "name": "A Shaman's Power",
+        "clearRewardId": "1"
+    },
+    "21103203": {
         "name": "The Winding Path",
         "clearRewardId": "1"
     },
-    "211038": {
+    "21103801": {
+        "name": "Hotter than Sand",
+        "clearRewardId": "1"
+    },
+    "21103802": {
+        "name": "Playing Lovers",
+        "clearRewardId": "1"
+    },
+    "21103803": {
         "name": "Friend to Dragons",
         "clearRewardId": "1"
     },
-    "211044": {
+    "21104401": {
+        "name": "Language and Barriers",
+        "clearRewardId": "1"
+    },
+    "21104402": {
+        "name": "Harsh Tongue",
+        "clearRewardId": "1"
+    },
+    "21104403": {
         "name": "Sincere Expressions",
         "clearRewardId": "1"
     },
-    "211050": {
+    "21105001": {
+        "name": "Floofy New Nurse",
+        "clearRewardId": "1"
+    },
+    "21105002": {
+        "name": "Nursing Aspirations",
+        "clearRewardId": "1"
+    },
+    "21105003": {
         "name": "Happiness for All",
         "clearRewardId": "1"
     },
-    "211056": {
+    "21105601": {
+        "name": "Growing Pains",
+        "clearRewardId": "1"
+    },
+    "21105602": {
+        "name": "The Friends We Made along the Way",
+        "clearRewardId": "1"
+    },
+    "21105603": {
         "name": "Hanetsuki Tournament",
         "clearRewardId": "1"
     },
-    "211062": {
+    "21106201": {
+        "name": "臆病少女の事情",
+        "clearRewardId": "1"
+    },
+    "21106202": {
+        "name": "臆病少女の克服",
+        "clearRewardId": "1"
+    },
+    "21106203": {
         "name": "臆病少女の反撃",
         "clearRewardId": "1"
     },
-    "213001": {
+    "21300101": {
+        "name": "Beginner's Gastronomy",
+        "clearRewardId": "1"
+    },
+    "21300102": {
+        "name": "Half-Forgotten Dreams",
+        "clearRewardId": "1"
+    },
+    "21300103": {
         "name": "The Gift",
         "clearRewardId": "1"
     },
-    "213013": {
+    "21301301": {
+        "name": "Long-Awaited Return",
+        "clearRewardId": "1"
+    },
+    "21301302": {
+        "name": "The Same as Before",
+        "clearRewardId": "1"
+    },
+    "21301303": {
         "name": "A New Blade",
         "clearRewardId": "1"
     },
-    "221001": {
+    "22100101": {
+        "name": "Beacon",
+        "clearRewardId": "1"
+    },
+    "22100102": {
+        "name": "Flightless Swallow",
+        "clearRewardId": "1"
+    },
+    "22100103": {
         "name": "Castles in the Sky",
         "clearRewardId": "1"
     },
-    "221002": {
+    "22100201": {
+        "name": "Angel of the Kaleidoscope",
+        "clearRewardId": "1"
+    },
+    "22100202": {
+        "name": "The Guiding Hand",
+        "clearRewardId": "1"
+    },
+    "22100203": {
         "name": "In the Stars' Embrace",
         "clearRewardId": "1"
     },
-    "221003": {
+    "22100301": {
+        "name": "Reunited",
+        "clearRewardId": "1"
+    },
+    "22100302": {
+        "name": "Underwater Treasure Hunt",
+        "clearRewardId": "1"
+    },
+    "22100303": {
         "name": "The Forbidden Tome",
         "clearRewardId": "1"
     },
-    "221004": {
+    "22100401": {
+        "name": "How to Treat a Lady",
+        "clearRewardId": "1"
+    },
+    "22100402": {
+        "name": "Runaway",
+        "clearRewardId": "1"
+    },
+    "22100403": {
         "name": "Alice and the Cat",
         "clearRewardId": "1"
     },
-    "221006": {
+    "22100601": {
+        "name": "Clerk-at-Arms",
+        "clearRewardId": "1"
+    },
+    "22100602": {
+        "name": "Woman in the Chair",
+        "clearRewardId": "1"
+    },
+    "22100603": {
         "name": "The Strength to Fail",
         "clearRewardId": "1"
     },
-    "221007": {
+    "22100701": {
+        "name": "Man with a Tail",
+        "clearRewardId": "1"
+    },
+    "22100702": {
+        "name": "Underwater Genius",
+        "clearRewardId": "1"
+    },
+    "22100703": {
         "name": "Fight Poison with Poison",
         "clearRewardId": "1"
     },
-    "221008": {
+    "22100801": {
+        "name": "Need for Greed",
+        "clearRewardId": "1"
+    },
+    "22100802": {
+        "name": "How to Use a Sprite",
+        "clearRewardId": "1"
+    },
+    "22100803": {
         "name": "A Lamp Full of Memories",
         "clearRewardId": "1"
     },
-    "221009": {
+    "22100901": {
+        "name": "Mizuchi, Drowning",
+        "clearRewardId": "1"
+    },
+    "22100902": {
+        "name": "Emotions Freed",
+        "clearRewardId": "1"
+    },
+    "22100903": {
         "name": "Trust and Betrayal",
         "clearRewardId": "1"
     },
-    "221010": {
+    "22101001": {
+        "name": "Going off the Rails",
+        "clearRewardId": "1"
+    },
+    "22101002": {
+        "name": "For My Beloved",
+        "clearRewardId": "1"
+    },
+    "22101003": {
         "name": "Burning with a Passion",
         "clearRewardId": "1"
     },
-    "221011": {
+    "22101101": {
+        "name": "A Knight on the Sea",
+        "clearRewardId": "1"
+    },
+    "22101102": {
+        "name": "A Knight's Code",
+        "clearRewardId": "1"
+    },
+    "22101103": {
         "name": "A Knight's Tale",
         "clearRewardId": "1"
     },
-    "221017": {
+    "22101701": {
+        "name": "Assassin in Distress",
+        "clearRewardId": "1"
+    },
+    "22101702": {
+        "name": "With Great Power...",
+        "clearRewardId": "1"
+    },
+    "22101703": {
         "name": "Assassin Showdown!",
         "clearRewardId": "1"
     },
-    "221022": {
+    "22102201": {
+        "name": "Yamato Tour Guide",
+        "clearRewardId": "1"
+    },
+    "22102202": {
+        "name": "Parasol Publicity",
+        "clearRewardId": "1"
+    },
+    "22102203": {
         "name": "Model Debut",
         "clearRewardId": "1"
     },
-    "221028": {
+    "22102801": {
+        "name": "The Stylish Mage",
+        "clearRewardId": "1"
+    },
+    "22102802": {
+        "name": "Tutor on the Beach",
+        "clearRewardId": "1"
+    },
+    "22102803": {
         "name": "A Chance Reunion",
         "clearRewardId": "1"
     },
-    "221034": {
+    "22103401": {
+        "name": "Ocean's Guardian",
+        "clearRewardId": "1"
+    },
+    "22103402": {
+        "name": "Gun Nuts",
+        "clearRewardId": "1"
+    },
+    "22103403": {
         "name": "Tainted Waters",
         "clearRewardId": "1"
     },
-    "221040": {
+    "22104001": {
+        "name": "Fun in the Sun",
+        "clearRewardId": "1"
+    },
+    "22104002": {
+        "name": "Culinary Contest",
+        "clearRewardId": "1"
+    },
+    "22104003": {
         "name": "A Lesson in Love",
         "clearRewardId": "1"
     },
-    "221053": {
+    "22105301": {
+        "name": "Cosplay Contest",
+        "clearRewardId": "1"
+    },
+    "22105302": {
+        "name": "Going Undercover",
+        "clearRewardId": "1"
+    },
+    "22105303": {
         "name": "A Maid's Charms",
         "clearRewardId": "1"
     },
-    "221054": {
+    "22105401": {
+        "name": "All These Lies",
+        "clearRewardId": "1"
+    },
+    "22105402": {
+        "name": "Cool Adults",
+        "clearRewardId": "1"
+    },
+    "22105403": {
         "name": "The Restorer",
         "clearRewardId": "1"
     },
-    "221060": {
+    "22106001": {
+        "name": "Hopping the High Seas",
+        "clearRewardId": "1"
+    },
+    "22106002": {
+        "name": "A Helping Hand",
+        "clearRewardId": "1"
+    },
+    "22106003": {
         "name": "Beloved Local Hero",
         "clearRewardId": "1"
     },
-    "221066": {
+    "22106601": {
+        "name": "Happy, Healthy Summer",
+        "clearRewardId": "1"
+    },
+    "22106602": {
+        "name": "Happy, Healthy Love",
+        "clearRewardId": "1"
+    },
+    "22106603": {
         "name": "Happy, Healthy Friends",
         "clearRewardId": "1"
     },
-    "221072": {
+    "22107201": {
+        "name": "Thief-Hunting Thief",
+        "clearRewardId": "1"
+    },
+    "22107202": {
+        "name": "Utopian Dream",
+        "clearRewardId": "1"
+    },
+    "22107203": {
         "name": "Yesterday's Setting Sun",
         "clearRewardId": "1"
     },
-    "221078": {
+    "22107801": {
+        "name": "夢見心地の恋模様",
+        "clearRewardId": "1"
+    },
+    "22107802": {
+        "name": "こいのかたち",
+        "clearRewardId": "1"
+    },
+    "22107803": {
         "name": "一番知りたい恋物語",
         "clearRewardId": "1"
     },
-    "222001": {
+    "22200101": {
+        "name": "There's Something in the Water...",
+        "clearRewardId": "1"
+    },
+    "22200102": {
+        "name": "Future Ensign",
+        "clearRewardId": "1"
+    },
+    "22200103": {
         "name": "Aim for the Stars!",
         "clearRewardId": "1"
     },
-    "223001": {
+    "22300101": {
+        "name": "Let's Go Somewhere Far",
+        "clearRewardId": "1"
+    },
+    "22300102": {
+        "name": "With Treasure In Hand",
+        "clearRewardId": "1"
+    },
+    "22300103": {
         "name": "On Another Adventure",
         "clearRewardId": "1"
     },
-    "223007": {
+    "22300701": {
+        "name": "Sisters",
+        "clearRewardId": "1"
+    },
+    "22300702": {
+        "name": "Relaxation",
+        "clearRewardId": "1"
+    },
+    "22300703": {
         "name": "Status Report",
         "clearRewardId": "1"
     },
-    "223013": {
+    "22301301": {
+        "name": "Dreams to Daily Life",
+        "clearRewardId": "1"
+    },
+    "22301302": {
+        "name": "Placing Our Hopes",
+        "clearRewardId": "1"
+    },
+    "22301303": {
         "name": "Hopes for the Future",
         "clearRewardId": "1"
     },
-    "223019": {
+    "22301901": {
+        "name": "Festival's Conclusion",
+        "clearRewardId": "1"
+    },
+    "22301902": {
+        "name": "The Real Deal",
+        "clearRewardId": "1"
+    },
+    "22301903": {
         "name": "One Step at a Time",
         "clearRewardId": "1"
     },
-    "231001": {
+    "23100101": {
+        "name": "The Sound of Thunder",
+        "clearRewardId": "1"
+    },
+    "23100102": {
+        "name": "How to Feed a Dragon",
+        "clearRewardId": "1"
+    },
+    "23100103": {
         "name": "What Do Dragons Dream?",
         "clearRewardId": "1"
     },
-    "231002": {
+    "23100201": {
+        "name": "Mad Scientist",
+        "clearRewardId": "1"
+    },
+    "23100202": {
+        "name": "Smuggling Secrets",
+        "clearRewardId": "1"
+    },
+    "23100203": {
         "name": "The World Ever Changing",
         "clearRewardId": "1"
     },
-    "231003": {
+    "23100301": {
+        "name": "Invasion of the Space Dandy",
+        "clearRewardId": "1"
+    },
+    "23100302": {
+        "name": "A Brand New Start of It",
+        "clearRewardId": "1"
+    },
+    "23100303": {
         "name": "Small World Blues",
         "clearRewardId": "1"
     },
-    "231004": {
+    "23100401": {
+        "name": "The Warrior Elf",
+        "clearRewardId": "1"
+    },
+    "23100402": {
+        "name": "Strange Songs",
+        "clearRewardId": "1"
+    },
+    "23100403": {
         "name": "Starflame",
         "clearRewardId": "1"
     },
-    "231005": {
+    "23100501": {
+        "name": "An Old Cat's Caprice",
+        "clearRewardId": "1"
+    },
+    "23100502": {
+        "name": "Self-proclaimed Sage",
+        "clearRewardId": "1"
+    },
+    "23100503": {
         "name": "Times Change Fast",
         "clearRewardId": "1"
     },
-    "231009": {
+    "23100901": {
+        "name": "Reset Memories",
+        "clearRewardId": "1"
+    },
+    "23100902": {
+        "name": "Defective Machine",
+        "clearRewardId": "1"
+    },
+    "23100903": {
         "name": "True Worth",
         "clearRewardId": "1"
     },
-    "231012": {
+    "23101201": {
+        "name": "Sunny-side Gambler",
+        "clearRewardId": "1"
+    },
+    "23101202": {
+        "name": "Ante",
+        "clearRewardId": "1"
+    },
+    "23101203": {
         "name": "Big Blind",
         "clearRewardId": "1"
     },
-    "231013": {
+    "23101301": {
+        "name": "A Turbulent Past",
+        "clearRewardId": "1"
+    },
+    "23101302": {
+        "name": "An Exciting Present",
+        "clearRewardId": "1"
+    },
+    "23101303": {
         "name": "A Promising Future",
         "clearRewardId": "1"
     },
-    "231014": {
+    "23101401": {
+        "name": "Cultural Differences?",
+        "clearRewardId": "1"
+    },
+    "23101402": {
+        "name": "Something Important",
+        "clearRewardId": "1"
+    },
+    "23101403": {
         "name": "For the Fans",
         "clearRewardId": "1"
     },
-    "231020": {
+    "23102001": {
+        "name": "Little Lab of Horrors",
+        "clearRewardId": "1"
+    },
+    "23102002": {
+        "name": "Banquet of the Dead",
+        "clearRewardId": "1"
+    },
+    "23102003": {
         "name": "Science Never Sleeps!",
         "clearRewardId": "1"
     },
-    "231032": {
+    "23103201": {
+        "name": "Here Comes Adonis",
+        "clearRewardId": "1"
+    },
+    "23103202": {
+        "name": "Holiday Nostalgia",
+        "clearRewardId": "1"
+    },
+    "23103203": {
         "name": "To All a Good Night",
         "clearRewardId": "1"
     },
-    "231038": {
+    "23103801": {
+        "name": "Teeny Tiny Teacher",
+        "clearRewardId": "1"
+    },
+    "23103802": {
+        "name": "Big!",
+        "clearRewardId": "1"
+    },
+    "23103803": {
         "name": "An Important Lesson",
         "clearRewardId": "1"
     },
-    "231044": {
+    "23104401": {
+        "name": "How to be Popular 101",
+        "clearRewardId": "1"
+    },
+    "23104402": {
+        "name": "The Courage to Change",
+        "clearRewardId": "1"
+    },
+    "23104403": {
         "name": "The Confession",
         "clearRewardId": "1"
     },
-    "231050": {
+    "23105001": {
+        "name": "A Shocking Naivety",
+        "clearRewardId": "1"
+    },
+    "23105002": {
+        "name": "A Smile Every Day",
+        "clearRewardId": "1"
+    },
+    "23105003": {
         "name": "A Lurking Shadow",
         "clearRewardId": "1"
     },
-    "231056": {
+    "23105601": {
+        "name": "Innocent Fugitive",
+        "clearRewardId": "1"
+    },
+    "23105602": {
+        "name": "Truth and Knowledge",
+        "clearRewardId": "1"
+    },
+    "23105603": {
         "name": "A Writhing Shadow",
         "clearRewardId": "1"
     },
-    "231063": {
+    "23106301": {
+        "name": "Fortuitous Fuku",
+        "clearRewardId": "1"
+    },
+    "23106302": {
+        "name": "A Room of Her Own",
+        "clearRewardId": "1"
+    },
+    "23106303": {
         "name": "Humans and Yokai",
         "clearRewardId": "1"
     },
-    "231069": {
+    "23106901": {
+        "name": "Striving for Harmony",
+        "clearRewardId": "1"
+    },
+    "23106902": {
+        "name": "Everything I Can to Help",
+        "clearRewardId": "1"
+    },
+    "23106903": {
         "name": "A Cozy New Year",
         "clearRewardId": "1"
     },
-    "231075": {
+    "23107501": {
+        "name": "The Legendary Elegia",
+        "clearRewardId": "1"
+    },
+    "23107502": {
+        "name": "The Burden of Proof",
+        "clearRewardId": "1"
+    },
+    "23107503": {
         "name": "You Can't Fix Her",
         "clearRewardId": "1"
     },
-    "231081": {
+    "23108101": {
+        "name": "A Lot to Live up To",
+        "clearRewardId": "1"
+    },
+    "23108102": {
+        "name": "My Own Design",
+        "clearRewardId": "1"
+    },
+    "23108103": {
         "name": "The Perfect Fit",
         "clearRewardId": "1"
     },
-    "231087": {
+    "23108701": {
+        "name": "Kindly Handsome Youth",
+        "clearRewardId": "1"
+    },
+    "23108702": {
+        "name": "A Heart of Gold",
+        "clearRewardId": "1"
+    },
+    "23108703": {
         "name": "A Shared Feeling",
         "clearRewardId": "1"
     },
-    "231093": {
+    "23109301": {
+        "name": "Shooting for the Top",
+        "clearRewardId": "1"
+    },
+    "23109302": {
+        "name": "Just You Wait",
+        "clearRewardId": "1"
+    },
+    "23109303": {
         "name": "Working in Concert",
         "clearRewardId": "1"
     },
-    "231099": {
+    "23109901": {
+        "name": "ヒーロー・メカニック",
+        "clearRewardId": "1"
+    },
+    "23109902": {
+        "name": "ハイウェイ・チェイス",
+        "clearRewardId": "1"
+    },
+    "23109903": {
         "name": "それぞれのクール",
         "clearRewardId": "1"
     },
-    "233001": {
+    "23300101": {
+        "name": "Laying Eyes on Starview",
+        "clearRewardId": "1"
+    },
+    "23300102": {
+        "name": "A Use for My Magic",
+        "clearRewardId": "1"
+    },
+    "23300103": {
         "name": "A New Tomorrow",
         "clearRewardId": "1"
     },
-    "233007": {
+    "23300701": {
+        "name": "The Lion and the Cat",
+        "clearRewardId": "1"
+    },
+    "23300702": {
+        "name": "Lion in the City",
+        "clearRewardId": "1"
+    },
+    "23300703": {
         "name": "Lion Among the Waves",
         "clearRewardId": "1"
     },
-    "233013": {
+    "23301301": {
+        "name": "Moving Forward",
+        "clearRewardId": "1"
+    },
+    "23301302": {
+        "name": "To Earn a Living",
+        "clearRewardId": "1"
+    },
+    "23301303": {
         "name": "New Memories",
         "clearRewardId": "1"
     },
-    "241001": {
+    "24100101": {
+        "name": "Eye of the Beholder",
+        "clearRewardId": "1"
+    },
+    "24100102": {
+        "name": "Treasure Hunting 101",
+        "clearRewardId": "1"
+    },
+    "24100103": {
         "name": "Friends Forever",
         "clearRewardId": "1"
     },
-    "241002": {
+    "24100201": {
+        "name": "Avian Halberdier",
+        "clearRewardId": "1"
+    },
+    "24100202": {
+        "name": "Birdfolk of a Feather",
+        "clearRewardId": "1"
+    },
+    "24100203": {
         "name": "Dreams in Starlight",
         "clearRewardId": "1"
     },
-    "241003": {
+    "24100301": {
+        "name": "Soushiro the Chaperone",
+        "clearRewardId": "1"
+    },
+    "24100302": {
+        "name": "Starview Study Hall",
+        "clearRewardId": "1"
+    },
+    "24100303": {
         "name": "Love Hurts",
         "clearRewardId": "1"
     },
-    "241004": {
+    "24100401": {
+        "name": "New Life",
+        "clearRewardId": "1"
+    },
+    "24100402": {
+        "name": "Colors of Life",
+        "clearRewardId": "1"
+    },
+    "24100403": {
         "name": "Life and Death",
         "clearRewardId": "1"
     },
-    "241007": {
+    "24100701": {
+        "name": "Prideful Pup",
+        "clearRewardId": "1"
+    },
+    "24100702": {
+        "name": "School's in Session!",
+        "clearRewardId": "1"
+    },
+    "24100703": {
         "name": "So... Hungry!",
         "clearRewardId": "1"
     },
-    "241009": {
+    "24100901": {
+        "name": "Nice ta Meetcha!",
+        "clearRewardId": "1"
+    },
+    "24100902": {
+        "name": "Trends and Tradition",
+        "clearRewardId": "1"
+    },
+    "24100903": {
         "name": "Tengu's Honor",
         "clearRewardId": "1"
     },
-    "241015": {
+    "24101501": {
+        "name": "Ways of the Woods",
+        "clearRewardId": "1"
+    },
+    "24101502": {
+        "name": "Sole Memento",
+        "clearRewardId": "1"
+    },
+    "24101503": {
         "name": "Chasing Moonlight",
         "clearRewardId": "1"
     },
-    "241021": {
+    "24102101": {
+        "name": "Despite Slacking",
+        "clearRewardId": "1"
+    },
+    "24102102": {
+        "name": "Others First",
+        "clearRewardId": "1"
+    },
+    "24102103": {
         "name": "Gem Science",
         "clearRewardId": "1"
     },
-    "241027": {
+    "24102701": {
+        "name": "Why We Fight",
+        "clearRewardId": "1"
+    },
+    "24102702": {
+        "name": "Fighting for Fun",
+        "clearRewardId": "1"
+    },
+    "24102703": {
         "name": "The Endless Battle",
         "clearRewardId": "1"
     },
-    "241033": {
+    "24103301": {
+        "name": "The Whirlwind",
+        "clearRewardId": "1"
+    },
+    "24103302": {
+        "name": "Taking on the Heat!",
+        "clearRewardId": "1"
+    },
+    "24103303": {
         "name": "A Team's Bond",
         "clearRewardId": "1"
     },
-    "241039": {
+    "24103901": {
+        "name": "Blessings for Sale",
+        "clearRewardId": "1"
+    },
+    "24103902": {
+        "name": "Protect Me!",
+        "clearRewardId": "1"
+    },
+    "24103903": {
         "name": "I'm Off!",
         "clearRewardId": "1"
     },
-    "241045": {
+    "24104501": {
+        "name": "Setting Off",
+        "clearRewardId": "1"
+    },
+    "24104502": {
+        "name": "Second Thoughts",
+        "clearRewardId": "1"
+    },
+    "24104503": {
         "name": "Travel Tales",
         "clearRewardId": "1"
     },
-    "241051": {
+    "24105101": {
+        "name": "Training Fanatic",
+        "clearRewardId": "1"
+    },
+    "24105102": {
+        "name": "My Answer!",
+        "clearRewardId": "1"
+    },
+    "24105103": {
         "name": "A New Way to Train!",
         "clearRewardId": "1"
     },
-    "241057": {
+    "24105701": {
+        "name": "A Girl's Costume",
+        "clearRewardId": "1"
+    },
+    "24105702": {
+        "name": "A Girl's Understanding",
+        "clearRewardId": "1"
+    },
+    "24105703": {
         "name": "A Girl's Aid",
         "clearRewardId": "1"
     },
-    "241063": {
+    "24106301": {
+        "name": "Dream Within a Dream",
+        "clearRewardId": "1"
+    },
+    "24106302": {
+        "name": "Lost in Reality",
+        "clearRewardId": "1"
+    },
+    "24106303": {
         "name": "Yet the World Goes On",
         "clearRewardId": "1"
     },
-    "241069": {
+    "24106901": {
+        "name": "Die-Hard Avenger",
+        "clearRewardId": "1"
+    },
+    "24106902": {
+        "name": "Conflicted Avenger",
+        "clearRewardId": "1"
+    },
+    "24106903": {
         "name": "Outlaw Avenger",
         "clearRewardId": "1"
     },
-    "243001": {
+    "24300101": {
+        "name": "Lost Girl",
+        "clearRewardId": "1"
+    },
+    "24300102": {
+        "name": "The Strength to Protect",
+        "clearRewardId": "1"
+    },
+    "24300103": {
         "name": "My Ideal Self",
         "clearRewardId": "1"
     },
-    "243007": {
+    "24300701": {
+        "name": "A New Journey",
+        "clearRewardId": "1"
+    },
+    "24300702": {
+        "name": "50 Paintings In",
+        "clearRewardId": "1"
+    },
+    "24300703": {
         "name": "And for Number 100...",
         "clearRewardId": "1"
     },
-    "243013": {
+    "24301301": {
+        "name": "The White-Tailed Reindeer",
+        "clearRewardId": "1"
+    },
+    "24301302": {
+        "name": "Good King Whitetail",
+        "clearRewardId": "1"
+    },
+    "24301303": {
         "name": "The Promise",
         "clearRewardId": "1"
     },
-    "243019": {
+    "24301901": {
+        "name": "Testing Boundaries",
+        "clearRewardId": "1"
+    },
+    "24301902": {
+        "name": "Stomping Grounds",
+        "clearRewardId": "1"
+    },
+    "24301903": {
         "name": "Step by Step",
         "clearRewardId": "1"
     },
-    "251001": {
+    "25100101": {
+        "name": "Can You Hear Me?",
+        "clearRewardId": "1"
+    },
+    "25100102": {
+        "name": "Record of a Diva",
+        "clearRewardId": "1"
+    },
+    "25100103": {
         "name": "Take a Deep Breath",
         "clearRewardId": "1"
     },
-    "251002": {
-        "name": "A True Knight",
+    "25100201": {
+        "name": "Steel Arms, Golden Heart",
         "clearRewardId": "1"
     },
-    "251003": {
+    "25100202": {
+        "name": "In the Tusks of the Boar",
+        "clearRewardId": "1"
+    },
+    "25100301": {
+        "name": "Help Wanted",
+        "clearRewardId": "1"
+    },
+    "25100302": {
+        "name": "Boundless Ambition",
+        "clearRewardId": "1"
+    },
+    "25100303": {
         "name": "The Light Within",
         "clearRewardId": "1"
     },
-    "251004": {
+    "25100401": {
+        "name": "Law and Order",
+        "clearRewardId": "1"
+    },
+    "25100402": {
+        "name": "Hot on the Trail",
+        "clearRewardId": "1"
+    },
+    "25100403": {
         "name": "Finn's Determination",
         "clearRewardId": "1"
     },
-    "251005": {
+    "25100501": {
+        "name": "Knight of Palpebra",
+        "clearRewardId": "1"
+    },
+    "25100502": {
+        "name": "Blade of Fury",
+        "clearRewardId": "1"
+    },
+    "25100503": {
         "name": "Show Me the Way",
         "clearRewardId": "1"
     },
-    "251006": {
+    "25100601": {
+        "name": "A Wild Hunter Appears!",
+        "clearRewardId": "1"
+    },
+    "25100602": {
+        "name": "Searching for a Myth",
+        "clearRewardId": "1"
+    },
+    "25100603": {
         "name": "Despite It All",
         "clearRewardId": "1"
     },
-    "251007": {
+    "25100701": {
+        "name": "Plagueville",
+        "clearRewardId": "1"
+    },
+    "25100702": {
+        "name": "Off to the Forest",
+        "clearRewardId": "1"
+    },
+    "25100703": {
         "name": "Drawing a Blank",
         "clearRewardId": "1"
     },
-    "251009": {
+    "25100901": {
+        "name": "Wild Card Sellsword",
+        "clearRewardId": "1"
+    },
+    "25100902": {
+        "name": "Floretta Ever After",
+        "clearRewardId": "1"
+    },
+    "25100903": {
         "name": "A Place to Belong",
         "clearRewardId": "1"
     },
-    "251010": {
+    "25101001": {
+        "name": "Guardian Angel",
+        "clearRewardId": "1"
+    },
+    "25101002": {
+        "name": "Alms for the Poor",
+        "clearRewardId": "1"
+    },
+    "25101003": {
         "name": "Cradle in the Waves",
         "clearRewardId": "1"
     },
-    "251011": {
+    "25101101": {
+        "name": "Lockpicking 100",
+        "clearRewardId": "1"
+    },
+    "25101102": {
+        "name": "The Things We Lock Away",
+        "clearRewardId": "1"
+    },
+    "25101103": {
         "name": "The Key to the Heart",
         "clearRewardId": "1"
     },
-    "251017": {
+    "25101701": {
+        "name": "A Night to Remember",
+        "clearRewardId": "1"
+    },
+    "25101702": {
+        "name": "Liars Together",
+        "clearRewardId": "1"
+    },
+    "25101703": {
         "name": "Alongside the Star",
         "clearRewardId": "1"
     },
-    "251023": {
+    "25102301": {
+        "name": "Discretional Doctor",
+        "clearRewardId": "1"
+    },
+    "25102302": {
+        "name": "To Learn and Teach",
+        "clearRewardId": "1"
+    },
+    "25102303": {
         "name": "Give and Take",
         "clearRewardId": "1"
     },
-    "251029": {
+    "25102901": {
+        "name": "A Knight's Day Off",
+        "clearRewardId": "1"
+    },
+    "25102902": {
+        "name": "A Knight's Plight",
+        "clearRewardId": "1"
+    },
+    "25102903": {
         "name": "Our Future",
         "clearRewardId": "1"
     },
-    "251035": {
+    "25103501": {
+        "name": "Floating Fighter",
+        "clearRewardId": "1"
+    },
+    "25103502": {
+        "name": "Don't Sweat It",
+        "clearRewardId": "1"
+    },
+    "25103503": {
         "name": "Like Father...",
         "clearRewardId": "1"
     },
-    "251041": {
+    "25104101": {
+        "name": "Taste of Home",
+        "clearRewardId": "1"
+    },
+    "25104102": {
+        "name": "Crew Reunion",
+        "clearRewardId": "1"
+    },
+    "25104103": {
         "name": "No Apology Needed",
         "clearRewardId": "1"
     },
-    "251047": {
+    "25104701": {
+        "name": "Sleeping Cutie",
+        "clearRewardId": "1"
+    },
+    "25104702": {
+        "name": "In Dreamland",
+        "clearRewardId": "1"
+    },
+    "25104703": {
         "name": "The Forms of Love",
         "clearRewardId": "1"
     },
-    "251053": {
+    "25105301": {
+        "name": "Light of the Desert",
+        "clearRewardId": "1"
+    },
+    "25105302": {
+        "name": "Unyielding Resolve",
+        "clearRewardId": "1"
+    },
+    "25105303": {
         "name": "You're Not Alone",
         "clearRewardId": "1"
     },
-    "251059": {
+    "25105901": {
+        "name": "Fool Me Twice",
+        "clearRewardId": "1"
+    },
+    "25105902": {
+        "name": "Kings and Fools",
+        "clearRewardId": "1"
+    },
+    "25105903": {
         "name": "A Fiend's Blessing",
         "clearRewardId": "1"
     },
-    "251065": {
+    "25106501": {
+        "name": "The Squad Commander",
+        "clearRewardId": "1"
+    },
+    "25106502": {
+        "name": "Dreams vs. Reality",
+        "clearRewardId": "1"
+    },
+    "25106503": {
         "name": "The Direct Report",
         "clearRewardId": "1"
     },
-    "251071": {
+    "25107101": {
+        "name": "Vivid Listlessness",
+        "clearRewardId": "1"
+    },
+    "25107102": {
+        "name": "Analog Life",
+        "clearRewardId": "1"
+    },
+    "25107103": {
         "name": "Belonging",
         "clearRewardId": "1"
     },
-    "251077": {
+    "25107701": {
+        "name": "Summer Poster Girl",
+        "clearRewardId": "1"
+    },
+    "25107702": {
+        "name": "Here to Help",
+        "clearRewardId": "1"
+    },
+    "25107703": {
         "name": "Payback",
         "clearRewardId": "1"
     },
-    "253001": {
+    "25200203": {
+        "name": "A True Knight",
+        "clearRewardId": "1"
+    },
+    "25300101": {
+        "name": "The Taste of the Future",
+        "clearRewardId": "1"
+    },
+    "25300102": {
+        "name": "Dream Cuisine",
+        "clearRewardId": "1"
+    },
+    "25300103": {
         "name": "Guide, Don't Lead",
         "clearRewardId": "1"
     },
-    "253007": {
+    "25300701": {
+        "name": "A Fleeting Dream",
+        "clearRewardId": "1"
+    },
+    "25300702": {
+        "name": "Transcending Humanity",
+        "clearRewardId": "1"
+    },
+    "25300703": {
         "name": "Wriggling Love",
         "clearRewardId": "1"
     },
-    "253013": {
+    "25301301": {
+        "name": "The Grand Creator",
+        "clearRewardId": "1"
+    },
+    "25301302": {
+        "name": "A Weapon All Her Own",
+        "clearRewardId": "1"
+    },
+    "25301303": {
         "name": "Her Greatest Treasure",
         "clearRewardId": "1"
     },
-    "253019": {
+    "25301901": {
+        "name": "The Aftermath",
+        "clearRewardId": "1"
+    },
+    "25301902": {
+        "name": "Step by Step",
+        "clearRewardId": "1"
+    },
+    "25301903": {
         "name": "The Distant Beyond",
         "clearRewardId": "1"
     },
-    "261001": {
+    "26100101": {
+        "name": "The Little Fiend",
+        "clearRewardId": "1"
+    },
+    "26100102": {
+        "name": "The Price of Sweetness",
+        "clearRewardId": "1"
+    },
+    "26100103": {
         "name": "Something Worth Protecting",
         "clearRewardId": "1"
     },
-    "261003": {
+    "26100301": {
+        "name": "Reporting for Duty",
+        "clearRewardId": "1"
+    },
+    "26100302": {
+        "name": "War-forged Ties",
+        "clearRewardId": "1"
+    },
+    "26100303": {
         "name": "For Tomorrow",
         "clearRewardId": "1"
     },
-    "261004": {
+    "26100401": {
+        "name": "Haunted House Adventure",
+        "clearRewardId": "1"
+    },
+    "26100402": {
+        "name": "A Fair to Die For",
+        "clearRewardId": "1"
+    },
+    "26100403": {
         "name": "Friends Beyond the Grave",
         "clearRewardId": "1"
     },
-    "261005": {
+    "26100501": {
+        "name": "That Old Dark Magic",
+        "clearRewardId": "1"
+    },
+    "26100502": {
+        "name": "Flowers of Darkness",
+        "clearRewardId": "1"
+    },
+    "26100503": {
         "name": "Dark Illusions",
         "clearRewardId": "1"
     },
-    "261007": {
+    "26100701": {
+        "name": "Parting Shot",
+        "clearRewardId": "1"
+    },
+    "26100702": {
+        "name": "Reminiscence",
+        "clearRewardId": "1"
+    },
+    "26100703": {
         "name": "Hidden Treasure",
         "clearRewardId": "1"
     },
-    "261008": {
+    "26100801": {
+        "name": "Necromancer Girl",
+        "clearRewardId": "1"
+    },
+    "26100802": {
+        "name": "Another Way to See the Departed",
+        "clearRewardId": "1"
+    },
+    "26100803": {
         "name": "Happiness: A Goal to Strive For",
         "clearRewardId": "1"
     },
-    "261009": {
+    "26100901": {
+        "name": "Beauty in Paradise",
+        "clearRewardId": "1"
+    },
+    "26100902": {
+        "name": "Stars to Your Beauty",
+        "clearRewardId": "1"
+    },
+    "26100903": {
         "name": "What Makes You Beautiful",
         "clearRewardId": "1"
     },
-    "261010": {
+    "26101001": {
+        "name": "Leave It to ME!",
+        "clearRewardId": "1"
+    },
+    "26101002": {
+        "name": "From Zero to Hero",
+        "clearRewardId": "1"
+    },
+    "26101003": {
         "name": "A Heartfelt Request",
         "clearRewardId": "1"
     },
-    "261011": {
+    "26101101": {
+        "name": "Uncouth Alchemist",
+        "clearRewardId": "1"
+    },
+    "26101102": {
+        "name": "Like an Inert Shard",
+        "clearRewardId": "1"
+    },
+    "26101103": {
         "name": "For the Sake of Tomorrow",
         "clearRewardId": "1"
     },
-    "261017": {
+    "26101701": {
+        "name": "Don't Fear the Reaper",
+        "clearRewardId": "1"
+    },
+    "26101702": {
+        "name": "Echoes of the Dead",
+        "clearRewardId": "1"
+    },
+    "26101703": {
         "name": "Undying Determination",
         "clearRewardId": "1"
     },
-    "261023": {
+    "26102301": {
+        "name": "Purple Haze Rebel",
+        "clearRewardId": "1"
+    },
+    "26102302": {
+        "name": "Herbalist at Heart",
+        "clearRewardId": "1"
+    },
+    "26102303": {
         "name": "Between Good & Evil",
         "clearRewardId": "1"
     },
-    "261029": {
+    "26102901": {
+        "name": "Hanging with Friends",
+        "clearRewardId": "1"
+    },
+    "26102902": {
+        "name": "Fiendish Sisters",
+        "clearRewardId": "1"
+    },
+    "26102903": {
         "name": "Settle Down, Class",
         "clearRewardId": "1"
     },
-    "261035": {
+    "26103501": {
+        "name": "Deep-Sea Espionage",
+        "clearRewardId": "1"
+    },
+    "26103502": {
+        "name": "The Boundless Sands",
+        "clearRewardId": "1"
+    },
+    "26103503": {
         "name": "Dead Men Die Twice",
         "clearRewardId": "1"
     },
-    "261041": {
+    "26104101": {
+        "name": "Determined Traveler",
+        "clearRewardId": "1"
+    },
+    "26104102": {
+        "name": "What's in a Name",
+        "clearRewardId": "1"
+    },
+    "26104103": {
         "name": "Reformed Wish",
         "clearRewardId": "1"
     },
-    "261047": {
+    "26104701": {
+        "name": "The Young Merchant",
+        "clearRewardId": "1"
+    },
+    "26104702": {
+        "name": "Profit from Peace",
+        "clearRewardId": "1"
+    },
+    "26104703": {
         "name": "To Keep a Promise",
         "clearRewardId": "1"
     },
-    "261059": {
+    "26105901": {
+        "name": "Overly Free Spirit",
+        "clearRewardId": "1"
+    },
+    "26105902": {
+        "name": "Bittersweet Truth",
+        "clearRewardId": "1"
+    },
+    "26105903": {
         "name": "Fight Fire with Fire",
         "clearRewardId": "1"
     },
-    "261065": {
+    "26106501": {
+        "name": "Waking from the Dream",
+        "clearRewardId": "1"
+    },
+    "26106502": {
+        "name": "Similarities",
+        "clearRewardId": "1"
+    },
+    "26106503": {
         "name": "Differences",
         "clearRewardId": "1"
     },
-    "261071": {
+    "26107101": {
+        "name": "Shion Reborn",
+        "clearRewardId": "1"
+    },
+    "26107102": {
+        "name": "Intriguing Intrigue",
+        "clearRewardId": "1"
+    },
+    "26107103": {
         "name": "Truth from Lies",
         "clearRewardId": "1"
     },
-    "261077": {
+    "26107701": {
+        "name": "A Guild Halloween",
+        "clearRewardId": "1"
+    },
+    "26107702": {
+        "name": "More than Our Past",
+        "clearRewardId": "1"
+    },
+    "26107703": {
         "name": "Saving Halloween",
         "clearRewardId": "1"
     },
-    "261083": {
-        "name": "Holiday Healing",
+    "26108301": {
+        "name": "Santa's Nurse",
         "clearRewardId": "1"
     },
-    "261089": {
-        "name": "災禍の離別",
-        "clearRewardId": "1"
-    },
-    "263002": {
-        "name": "What the Future Holds",
-        "clearRewardId": "1"
-    },
-    "263003": {
-        "name": "Drop-Dead Performance",
-        "clearRewardId": "1"
-    },
-    "263009": {
-        "name": "For Emilia",
-        "clearRewardId": "1"
-    },
-    "311001": {
-        "name": "Try, Try Again",
-        "clearRewardId": "1"
-    },
-    "311002": {
-        "name": "Witch's Cauldron",
-        "clearRewardId": "1"
-    },
-    "311003": {
-        "name": "Some Scars Never Fade",
-        "clearRewardId": "1"
-    },
-    "311004": {
-        "name": "Hunting Memories",
-        "clearRewardId": "1"
-    },
-    "311005": {
-        "name": "Dr. Jin's Practice",
-        "clearRewardId": "1"
-    },
-    "311006": {
-        "name": "The Mission Continues",
-        "clearRewardId": "1"
-    },
-    "311008": {
-        "name": "Here Comes Another Daredevil",
-        "clearRewardId": "1"
-    },
-    "311009": {
-        "name": "Guiding Lights",
-        "clearRewardId": "1"
-    },
-    "311010": {
-        "name": "Rules of the Kaleidoscope",
-        "clearRewardId": "1"
-    },
-    "311011": {
-        "name": "Memories of the Wind",
-        "clearRewardId": "1"
-    },
-    "311012": {
+    "26108302": {
         "name": "Doctor's Orders",
         "clearRewardId": "1"
     },
-    "311013": {
+    "26108303": {
+        "name": "Holiday Healing",
+        "clearRewardId": "1"
+    },
+    "26108901": {
+        "name": "新たなる冥龍",
+        "clearRewardId": "1"
+    },
+    "26108902": {
+        "name": "闇に繋がれた想い",
+        "clearRewardId": "1"
+    },
+    "26108903": {
+        "name": "災禍の離別",
+        "clearRewardId": "1"
+    },
+    "26300201": {
+        "name": "How It Started",
+        "clearRewardId": "1"
+    },
+    "26300202": {
+        "name": "How It's Going",
+        "clearRewardId": "1"
+    },
+    "26300203": {
+        "name": "What the Future Holds",
+        "clearRewardId": "1"
+    },
+    "26300301": {
+        "name": "Losing Your Head Over Sales",
+        "clearRewardId": "1"
+    },
+    "26300302": {
+        "name": "You're Safe With Me",
+        "clearRewardId": "1"
+    },
+    "26300303": {
+        "name": "Drop-Dead Performance",
+        "clearRewardId": "1"
+    },
+    "26300901": {
+        "name": "Dangerous Reminder",
+        "clearRewardId": "1"
+    },
+    "26300902": {
+        "name": "A Step Forward",
+        "clearRewardId": "1"
+    },
+    "26300903": {
+        "name": "For Emilia",
+        "clearRewardId": "1"
+    },
+    "31100101": {
+        "name": "Fail Better!",
+        "clearRewardId": "1"
+    },
+    "31100102": {
+        "name": "Try, Try Again",
+        "clearRewardId": "1"
+    },
+    "31100201": {
+        "name": "Clutter Be Gone!",
+        "clearRewardId": "1"
+    },
+    "31100202": {
+        "name": "Witch's Cauldron",
+        "clearRewardId": "1"
+    },
+    "31100301": {
+        "name": "The Bodyguard",
+        "clearRewardId": "1"
+    },
+    "31100302": {
+        "name": "Some Scars Never Fade",
+        "clearRewardId": "1"
+    },
+    "31100401": {
+        "name": "Raider of Ruins",
+        "clearRewardId": "1"
+    },
+    "31100402": {
+        "name": "Hunting Memories",
+        "clearRewardId": "1"
+    },
+    "31100501": {
+        "name": "The Doctor is In",
+        "clearRewardId": "1"
+    },
+    "31100502": {
+        "name": "Dr. Jin's Practice",
+        "clearRewardId": "1"
+    },
+    "31100601": {
+        "name": "A Military Woman",
+        "clearRewardId": "1"
+    },
+    "31100602": {
+        "name": "The Mission Continues",
+        "clearRewardId": "1"
+    },
+    "31100801": {
+        "name": "The Deathrush Berserker",
+        "clearRewardId": "1"
+    },
+    "31100802": {
+        "name": "Here Comes Another Daredevil",
+        "clearRewardId": "1"
+    },
+    "31100901": {
+        "name": "Fire Shaman",
+        "clearRewardId": "1"
+    },
+    "31100902": {
+        "name": "Guiding Lights",
+        "clearRewardId": "1"
+    },
+    "31101001": {
+        "name": "Professionalism",
+        "clearRewardId": "1"
+    },
+    "31101002": {
+        "name": "Rules of the Kaleidoscope",
+        "clearRewardId": "1"
+    },
+    "31101101": {
+        "name": "Daily Prayers",
+        "clearRewardId": "1"
+    },
+    "31101102": {
+        "name": "Memories of the Wind",
+        "clearRewardId": "1"
+    },
+    "31101201": {
+        "name": "House of Healing",
+        "clearRewardId": "1"
+    },
+    "31101202": {
+        "name": "Doctor's Orders",
+        "clearRewardId": "1"
+    },
+    "31101301": {
+        "name": "Of Mice and Sven",
+        "clearRewardId": "1"
+    },
+    "31101302": {
         "name": "The Measure of a Mouse",
         "clearRewardId": "1"
     },
-    "311019": {
+    "31101901": {
+        "name": "Miracle Tailor",
+        "clearRewardId": "1"
+    },
+    "31101902": {
         "name": "The Gift of Joy!",
         "clearRewardId": "1"
     },
-    "311025": {
+    "31102501": {
+        "name": "Debt by Chocolate",
+        "clearRewardId": "1"
+    },
+    "31102502": {
         "name": "White Fest Rewards",
         "clearRewardId": "1"
     },
-    "321001": {
+    "32100101": {
         "name": "Palpebran Ranger",
         "clearRewardId": "1"
     },
-    "321002": {
+    "32100102": {
+        "name": "Palpebran Ranger",
+        "clearRewardId": "1"
+    },
+    "32100201": {
+        "name": "Spiders Beware!",
+        "clearRewardId": "1"
+    },
+    "32100202": {
         "name": "Trust Fall",
         "clearRewardId": "1"
     },
-    "321003": {
+    "32100301": {
+        "name": "Gentle Giant",
+        "clearRewardId": "1"
+    },
+    "32100302": {
         "name": "Giant Troubles",
         "clearRewardId": "1"
     },
-    "321004": {
+    "32100401": {
+        "name": "Dangerous Nurse",
+        "clearRewardId": "1"
+    },
+    "32100402": {
         "name": "A Nurse's Battlefield",
         "clearRewardId": "1"
     },
-    "321005": {
+    "32100501": {
+        "name": "Forlorn Fangs",
+        "clearRewardId": "1"
+    },
+    "32100502": {
         "name": "Muscle Memory",
         "clearRewardId": "1"
     },
-    "321006": {
+    "32100601": {
+        "name": "Shirano's Kitchen",
+        "clearRewardId": "1"
+    },
+    "32100602": {
         "name": "The Softest Governess",
         "clearRewardId": "1"
     },
-    "321007": {
+    "32100701": {
+        "name": "Off and On Track",
+        "clearRewardId": "1"
+    },
+    "32100702": {
         "name": "Clearing the Clutter",
         "clearRewardId": "1"
     },
-    "321008": {
+    "32100801": {
+        "name": "Nautical Justice!",
+        "clearRewardId": "1"
+    },
+    "32100802": {
         "name": "How to Use a Treasure Map",
         "clearRewardId": "1"
     },
-    "321009": {
+    "32100901": {
+        "name": "The Guild Mascot",
+        "clearRewardId": "1"
+    },
+    "32100902": {
         "name": "Humans and Dragons",
         "clearRewardId": "1"
     },
-    "321011": {
+    "32101101": {
+        "name": "Courage to Believe",
+        "clearRewardId": "1"
+    },
+    "32101102": {
         "name": "Courage to Be Me",
         "clearRewardId": "1"
     },
-    "321012": {
+    "32101201": {
+        "name": "A Girl With a Dream",
+        "clearRewardId": "1"
+    },
+    "32101202": {
         "name": "City of Stars",
         "clearRewardId": "1"
     },
-    "321013": {
+    "32101301": {
+        "name": "Patrolling Prankster",
+        "clearRewardId": "1"
+    },
+    "32101302": {
         "name": "Prankster on the Shore",
         "clearRewardId": "1"
     },
-    "331001": {
+    "33100101": {
+        "name": "Sheeplish Interpreter",
+        "clearRewardId": "1"
+    },
+    "33100102": {
         "name": "Hammer of Justice",
         "clearRewardId": "1"
     },
-    "331002": {
+    "33100201": {
+        "name": "A Sweet Encounter",
+        "clearRewardId": "1"
+    },
+    "33100202": {
         "name": "20 CCs of Royal Jelly, Stat!",
         "clearRewardId": "1"
     },
-    "331003": {
+    "33100301": {
+        "name": "Planting, Not Stomping!",
+        "clearRewardId": "1"
+    },
+    "33100302": {
         "name": "The Eternal Thunder Fist",
         "clearRewardId": "1"
     },
-    "331004": {
+    "33100401": {
+        "name": "The Bro is Back!",
+        "clearRewardId": "1"
+    },
+    "33100402": {
         "name": "Operation: Burny Gloop",
         "clearRewardId": "1"
     },
-    "331005": {
+    "33100501": {
+        "name": "Birds of a Feather",
+        "clearRewardId": "1"
+    },
+    "33100502": {
         "name": "A Proper Town",
         "clearRewardId": "1"
     },
-    "331006": {
+    "33100601": {
+        "name": "Droppin' Mad Zaps!",
+        "clearRewardId": "1"
+    },
+    "33100602": {
         "name": "ENCOOORE!",
         "clearRewardId": "1"
     },
-    "331007": {
+    "33100701": {
+        "name": "Lady With a Knife",
+        "clearRewardId": "1"
+    },
+    "33100702": {
         "name": "Tatiana the Swiftblade",
         "clearRewardId": "1"
     },
-    "331010": {
+    "33101001": {
+        "name": "The Missing Heir",
+        "clearRewardId": "1"
+    },
+    "33101002": {
         "name": "From Rags to Riches",
         "clearRewardId": "1"
     },
-    "331011": {
+    "33101101": {
+        "name": "Mechanical Genius",
+        "clearRewardId": "1"
+    },
+    "33101102": {
         "name": "Problem Student",
         "clearRewardId": "1"
     },
-    "331013": {
+    "33101301": {
+        "name": "Into the Woods",
+        "clearRewardId": "1"
+    },
+    "33101302": {
         "name": "Out of the Woods",
         "clearRewardId": "1"
     },
-    "331014": {
+    "33101401": {
+        "name": "Defying Gravity",
+        "clearRewardId": "1"
+    },
+    "33101402": {
         "name": "Underwater Shine",
         "clearRewardId": "1"
     },
-    "331020": {
+    "33102001": {
+        "name": "It's Raining Luck!",
+        "clearRewardId": "1"
+    },
+    "33102002": {
         "name": "In Perfect Harmony",
         "clearRewardId": "1"
     },
-    "341001": {
+    "34100101": {
+        "name": "A Palepebran Adventurer",
+        "clearRewardId": "1"
+    },
+    "34100102": {
         "name": "Into the Labyrinth",
         "clearRewardId": "1"
     },
-    "341002": {
+    "34100201": {
+        "name": "Blessed by the Sun",
+        "clearRewardId": "1"
+    },
+    "34100202": {
         "name": "Smiles 101",
         "clearRewardId": "1"
     },
-    "341003": {
+    "34100301": {
+        "name": "The Champion and the Undead Lord",
+        "clearRewardId": "1"
+    },
+    "34100302": {
         "name": "Dinner With a Skeleton",
         "clearRewardId": "1"
     },
-    "341004": {
+    "34100401": {
+        "name": "The Gambler",
+        "clearRewardId": "1"
+    },
+    "34100402": {
         "name": "Pirate Eater",
         "clearRewardId": "1"
     },
-    "341005": {
+    "34100501": {
+        "name": "The \"Beast\" in Beastfolk",
+        "clearRewardId": "1"
+    },
+    "34100502": {
         "name": "Cat Ear Craze",
         "clearRewardId": "1"
     },
-    "341006": {
+    "34100601": {
+        "name": "A Friendly Curse",
+        "clearRewardId": "1"
+    },
+    "34100602": {
         "name": "Clowns Have Feelings Too",
         "clearRewardId": "1"
     },
-    "341007": {
+    "34100701": {
+        "name": "Nature Calls",
+        "clearRewardId": "1"
+    },
+    "34100702": {
         "name": "A Hearty Dose",
         "clearRewardId": "1"
     },
-    "341008": {
+    "34100801": {
+        "name": "Experience Counts",
+        "clearRewardId": "1"
+    },
+    "34100802": {
         "name": "Keep Friends Close",
         "clearRewardId": "1"
     },
-    "341009": {
+    "34100901": {
+        "name": "Good Help is Hard to Find",
+        "clearRewardId": "1"
+    },
+    "34100902": {
         "name": "Only Free Cheese is in the Trap",
         "clearRewardId": "1"
     },
-    "341011": {
+    "34101101": {
+        "name": "Magical Lecture",
+        "clearRewardId": "1"
+    },
+    "34101102": {
         "name": "Mage Nellie",
         "clearRewardId": "1"
     },
-    "341017": {
+    "34101701": {
+        "name": "Starting Out",
+        "clearRewardId": "1"
+    },
+    "34101702": {
         "name": "Coming into Her Own",
         "clearRewardId": "1"
     },
-    "351001": {
+    "35100101": {
+        "name": "When Life Gives You Lemons",
+        "clearRewardId": "1"
+    },
+    "35100102": {
         "name": "A Lucky Break",
         "clearRewardId": "1"
     },
-    "351002": {
+    "35100201": {
+        "name": "Let's get GORGEOUS!",
+        "clearRewardId": "1"
+    },
+    "35100202": {
         "name": "Beauty Isn't Skin Deep!",
         "clearRewardId": "1"
     },
-    "351003": {
+    "35100301": {
+        "name": "Law and Order",
+        "clearRewardId": "1"
+    },
+    "35100302": {
         "name": "Duty and Desire",
         "clearRewardId": "1"
     },
-    "351004": {
+    "35100401": {
+        "name": "Little Boy, Big Bird",
+        "clearRewardId": "1"
+    },
+    "35100402": {
         "name": "The Big Day",
         "clearRewardId": "1"
     },
-    "351005": {
+    "35100501": {
+        "name": "Fishy Business",
+        "clearRewardId": "1"
+    },
+    "35100502": {
         "name": "Bistro Brawlers",
         "clearRewardId": "1"
     },
-    "351006": {
+    "35100601": {
+        "name": "What Makes a Knight",
+        "clearRewardId": "1"
+    },
+    "35100602": {
         "name": "The Will to Defend",
         "clearRewardId": "1"
     },
-    "351007": {
+    "35100701": {
+        "name": "An Adventurous Article",
+        "clearRewardId": "1"
+    },
+    "35100702": {
         "name": "Piece of Cake!",
         "clearRewardId": "1"
     },
-    "351009": {
+    "35100901": {
+        "name": "A Moth to the Flame",
+        "clearRewardId": "1"
+    },
+    "35100902": {
         "name": "The Moth's Trap",
         "clearRewardId": "1"
     },
-    "351015": {
+    "35101501": {
+        "name": "Happy Hallowork!",
+        "clearRewardId": "1"
+    },
+    "35101502": {
         "name": "Halloween Getaway!",
         "clearRewardId": "1"
     },
-    "351021": {
+    "35102101": {
+        "name": "First Day on the Job",
+        "clearRewardId": "1"
+    },
+    "35102102": {
         "name": "Other World Problems",
         "clearRewardId": "1"
     },
-    "351027": {
+    "35102701": {
+        "name": "Extremeboarder",
+        "clearRewardId": "1"
+    },
+    "35102702": {
         "name": "Bigger than a Dream",
         "clearRewardId": "1"
     },
-    "351033": {
+    "35103301": {
+        "name": "Tiny Player",
+        "clearRewardId": "1"
+    },
+    "35103302": {
         "name": "Player in Love",
         "clearRewardId": "1"
     },
-    "361001": {
+    "36100101": {
+        "name": "Lingering Memories",
+        "clearRewardId": "1"
+    },
+    "36100102": {
         "name": "Death Rites",
         "clearRewardId": "1"
     },
-    "361002": {
+    "36100201": {
+        "name": "Art of the Desert Moon",
+        "clearRewardId": "1"
+    },
+    "36100202": {
         "name": "Myth Half-Buried in Sand",
         "clearRewardId": "1"
     },
-    "361003": {
+    "36100301": {
+        "name": "The Turncoat",
+        "clearRewardId": "1"
+    },
+    "36100302": {
         "name": "A Strange Tea Party",
         "clearRewardId": "1"
     },
-    "361004": {
+    "36100401": {
+        "name": "Too Good To Be True!",
+        "clearRewardId": "1"
+    },
+    "36100402": {
         "name": "Always a Pleasure",
         "clearRewardId": "1"
     },
-    "361005": {
+    "36100501": {
+        "name": "The Lonesome Guardian",
+        "clearRewardId": "1"
+    },
+    "36100502": {
         "name": "The Goat Thief",
         "clearRewardId": "1"
     },
-    "361006": {
+    "36100601": {
+        "name": "Jaded Maid",
+        "clearRewardId": "1"
+    },
+    "36100602": {
         "name": "Troublemaking Maid",
         "clearRewardId": "1"
     },
-    "361007": {
+    "36100701": {
+        "name": "Seasoned Veteran",
+        "clearRewardId": "1"
+    },
+    "36100702": {
         "name": "I'm Not Giving Up!",
         "clearRewardId": "1"
     },
-    "361008": {
+    "36100801": {
+        "name": "Bad Romance",
+        "clearRewardId": "1"
+    },
+    "36100802": {
         "name": "I Choose You!",
         "clearRewardId": "1"
     },
-    "361009": {
+    "36100901": {
+        "name": "Top Suspect Meryll",
+        "clearRewardId": "1"
+    },
+    "36100902": {
         "name": "Planetview Village",
         "clearRewardId": "1"
     },
-    "361015": {
+    "36101501": {
+        "name": "Meryll Holidays!",
+        "clearRewardId": "1"
+    },
+    "36101502": {
         "name": "Festival of Fanservice",
         "clearRewardId": "1"
     },
-    "361021": {
+    "36102101": {
+        "name": "Mummy Boy",
+        "clearRewardId": "1"
+    },
+    "36102102": {
         "name": "Dead Living",
         "clearRewardId": "1"
     },
-    "361027": {
+    "36102701": {
+        "name": "Rabbit Fighter",
+        "clearRewardId": "1"
+    },
+    "36102702": {
         "name": "Seeking Strength",
         "clearRewardId": "1"
     },
-    "361033": {
+    "36103301": {
+        "name": "Searching for Clues",
+        "clearRewardId": "1"
+    },
+    "36103302": {
         "name": "Detective on the Case!",
         "clearRewardId": "1"
     }

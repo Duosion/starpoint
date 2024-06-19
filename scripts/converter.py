@@ -83,8 +83,8 @@ def convert_boss_quests(obj):
 
 def convert_character_quests(obj):
     converted = {}
-    for _, character_story in obj.items():
-        converted[character_story[0]] = {
+    for story_id, character_story in obj.items():
+        converted[story_id] = {
             "name": character_story[3],
             "clearRewardId": character_story[5]
         }
@@ -195,7 +195,9 @@ to_convert_files = {
     "clear_reward": convert_clear_rewards,
     "score_reward": convert_score_reward,
     "character": convert_characters,
-    "rare_score_reward": convert_rare_score_reward
+    # "rare_score_reward": convert_rare_score_reward,
+    # "world_story_event_boss_battle_quest": convert_main_ex_quests,
+    # "world_story_event_quest": convert_main_ex_quests
 }
 
 for file_name, converter in to_convert_files.items():

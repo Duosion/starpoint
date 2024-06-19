@@ -61,6 +61,14 @@ export default function init(
         FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
     )`).run();
 
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_options (
+        key TEXT NOT NULL,
+        value INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        PRIMARY KEY (key, player_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run();
+
     database.prepare(`CREATE TABLE IF NOT EXISTS players_triggered_tutorials (
         id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,

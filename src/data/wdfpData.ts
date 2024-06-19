@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, getDefaultPlayerData, serializeBoolean } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -2318,6 +2318,116 @@ function insertPlayerMultiSpecialExchangeCampaignsSync(
     })()
 }
 
+
+/**
+ * Inserts a player option into the database.
+ * 
+ * @param playerId The ID of the player.
+ * @param key The key of the option.
+ * @param value The value of the option
+ */
+export function insertPlayerOptionSync(
+    playerId: number,
+    key: string,
+    value: boolean
+) {
+    db.prepare(`
+    INSERT INTO players_options (key, value, player_id)
+    VALUES (?, ?, ?)
+    `).run(
+        key,
+        serializeBoolean(value),
+        playerId
+    )
+}
+
+/**
+ * Batch inserts a record of options into the database.
+ * 
+ * @param playerId The ID of the player that these options belong to.
+ * @param options The record of options to insert.
+ */
+export function insertPlayerOptionsSync(
+    playerId: number,
+    options: Record<string, boolean>
+) {
+    db.transaction(() => {
+        for (const [key, value] of Object.entries(options)) {
+            insertPlayerOptionSync(playerId, key, value)
+        }
+    })()
+}
+
+/**
+ * Gets all of the options that a player has saved.
+ * 
+ * @param playerId The ID of the player.
+ * @returns A record of options.
+ */
+export function getPlayerOptionsSync(
+    playerId: number
+): Record<string, boolean> {
+    const rawOptions = db.prepare(`
+    SELECT key, value
+    FROM players_options
+    WHERE player_id = ?
+    `).all(playerId) as RawPlayerOption[]
+
+    const result: Record<string, boolean> = {}
+
+    for (const rawOption of rawOptions) {
+        result[rawOption.key] = deserializeBoolean(rawOption.value)
+    }
+
+    return result
+}
+
+/**
+ * Updates the value of a player option.
+ * 
+ * @param playerId The ID of the player to update the option of.
+ * @param key The key of the option to update.
+ * @param value The new value.
+ */
+export function updatePlayerOptionSync(
+    playerId: number,
+    key: string,
+    value: boolean
+) {
+    db.prepare(`
+    UPDATE players_options
+    SET value = ?
+    WHERE key = ? AND player_id = ?    
+    `).run(serializeBoolean(value), key, playerId)
+}
+
+/**
+ * Batch updates a player's options.
+ * 
+ * @param playerId The ID of the player to update the options of.
+ * @param options A record of options to update the values of.
+ */
+export function updatePlayerOptionsSync(
+    playerId: number,
+    options: Record<string, boolean>
+) {
+    // get all of a player's options
+    const allOptions = getPlayerOptionsSync(playerId)
+
+    db.transaction(() => {
+        for (const [key, newValue] of Object.entries(options)) {
+            const existingValue = allOptions[key]
+            if (existingValue === undefined) {
+                // insert the value since it doesn't exist.
+                insertPlayerOptionSync(playerId, key, newValue)
+            } else if (newValue !== existingValue) {
+                // update the value since it's different than the existing value
+                updatePlayerOptionSync(playerId, key, newValue)
+            }
+        }
+    })()
+}
+
 export function getPlayerFromAccountIdSync(
     accountId: number
 ): Player | null {
@@ -2569,6 +2679,19 @@ export function insertDefaultPlayerSync(
 
     // insert quest progress
     insertPlayerQuestProgressListSync(playerId, {})
+
+    // insert options
+    insertPlayerOptionsSync(playerId, {
+        "gacha_play_no_rarity_up_movie": false,
+        "auto_play": false,
+        "number_notation_symbol": true,
+        "payment_alert": true,
+        "room_number_hidden": false,
+        "attention_sound_effect": true,
+        "attention_vibration": false,
+        "attention_enable_in_battle": true,
+        "simple_ability_description": false
+    })
 
     // insert gacha info
     insertPlayerGachaInfoListSync(playerId, [

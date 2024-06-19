@@ -3,6 +3,7 @@ import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, get
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { givePlayerRewardSync } from "../../lib/quest";
 import { generateDataHeaders } from "../../utils";
+import { QuestCategory } from "../../lib/types";
 
 interface FinishBody {
     party_id: number,

@@ -50,6 +50,7 @@ export function serializePlayerData(
     purchasedTimesList: Record<string, number>,
     startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[],
     multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[],
+    userOption: Record<string, boolean>,
     viewerId?: number,
 ): Object {
 
@@ -220,17 +221,7 @@ export function serializePlayerData(
         "available_asset_version": "2.1.121",
         "should_prompt_takeover_registration": false,
         "has_unread_news_item": false,
-        "user_option": {
-            "gacha_play_no_rarity_up_movie": false,
-            "auto_play": false,
-            "number_notation_symbol": true,
-            "payment_alert": true,
-            "room_number_hidden": false,
-            "attention_sound_effect": true,
-            "attention_vibration": false,
-            "attention_enable_in_battle": true,
-            "simple_ability_description": false
-        },
+        "user_option": userOption,
         "drawn_quest_list": drawnQuestList.map(drawnQuest => {
             return {
                 "category_id": drawnQuest.categoryId,
