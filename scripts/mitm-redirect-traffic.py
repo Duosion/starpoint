@@ -4,7 +4,7 @@ API_HOST = "localhost"
 API_PORT = 8000
 API_SCHEME = 'http'
 
-prefixes = ["/openapi", "/infodesk", ""]
+prefixes = ["", "", ""]
 
 import socket
 

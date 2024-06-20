@@ -78,10 +78,10 @@ fastify.register(attentionApiPlugin, { prefix: "/latest/api/index.php/attention"
 fastify.register(characterApiPlugin, { prefix: "/latest/api/index.php/character" })
 
 // openapi
-fastify.register(openapiPlugin, { prefix: "/openapi/service" })
+fastify.register(openapiPlugin, { prefix: "/service" })
 
 // infodesk
-fastify.register(infodeskPlugin, { prefix: "/infodesk" })
+fastify.register(infodeskPlugin, { prefix: "" })
 
 // listen
 fastify.listen({ port: 8000 }, (err, address) => {
