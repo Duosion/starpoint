@@ -22,7 +22,27 @@ hostnames = {
 }
 
 # Resolve hostnames to IP addresses
-hosts = {}
+hosts = {
+    # openapi
+    "3.35.189.170": 0,
+    "15.164.132.131": 0,
+    "18.160.60.78": 0,
+    "18.160.60.56": 0,
+    "18.160.60.41": 0,
+    "18.160.60.124": 0,
+
+    # infodesk
+    "18.64.155.6": 1,
+    "18.64.155.47": 1,
+    "18.64.155.84": 1,
+    "18.64.155.74": 1,
+
+    # na server
+    "3.210.14.73": 2,
+    "3.222.140.107": 2,
+    "52.44.29.229": 2,
+    "3.229.21.155": 2
+}
 for hostname, prefix_index in hostnames.items():
     try:
         ip_address = socket.gethostbyname(hostname)
