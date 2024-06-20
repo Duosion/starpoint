@@ -43,7 +43,7 @@ A work-in-progress server reimplementation for a mobile pinball game.
 ## Connecting (Android)
 - You can connect to the server by proxying traffic from the game client on Android to this server hosted on your computer.
 - I recommend using [mitmproxy](https://mitmproxy.org/) for this purpose.
-- A (script)[scripts/mitm-redirect-traffic.py] is included in the ``/scripts`` directory for mitmproxy to redirect game traffic to this server.
+- A [script](scripts/mitm-redirect-traffic.py) is included in the ``/scripts`` directory for mitmproxy to redirect game traffic to this server.
 - Once you connect the game client to this server, you should clear all data for the game app. This is so that you can sign up for and create an   account with this server instead of the official game servers.
 - Step-by-step instructions for Android are **coming soon**.
 
