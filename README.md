@@ -22,6 +22,10 @@ A work-in-progress server reimplementation for a mobile pinball game.
   ```
   npm install
   ```
+- Compile TypeScript.
+  ```
+  npx tsc
+  ```
 - Run the server.
   ```
   npm run dev
