@@ -2669,7 +2669,7 @@ export function insertDefaultPlayerSync(
             partyGroups[(i + 1).toString()] = group
         }
     }
-    insertPlayerPartyGroupListSync(playerId, {})
+    insertPlayerPartyGroupListSync(playerId, partyGroups)
 
     // insert items
     insertPlayerItemsSync(playerId, {})
