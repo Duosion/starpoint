@@ -1317,6 +1317,22 @@ export function updatePlayerPartySync(
     )
 }
 
+export function updatePlayerPartyGroupSync(
+    playerId: number,
+    groupId: number,
+    colorId: number
+) {
+    db.prepare(`
+    UPDATE players_party_groups
+    SET color_id = ?
+    WHERE id = ? AND player_id = ?
+    `).run(
+        colorId,
+        groupId,
+        playerId
+    )
+}
+
 /**
  * Gets the amount of a singular item that a player owns.
  * 

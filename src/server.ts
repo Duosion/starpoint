@@ -12,6 +12,8 @@ import optionApiPlugin from "./routes/api/option"
 import singleBattleQuestApiPlugin from "./routes/api/singleBattleQuest"
 import attentionApiPlugin from "./routes/api/attention"
 import characterApiPlugin from "./routes/api/character"
+import partyGroupApiPlugin from "./routes/api/partyGroup"
+
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
@@ -76,6 +78,7 @@ fastify.register(optionApiPlugin, { prefix: "/latest/api/index.php/option" })
 fastify.register(singleBattleQuestApiPlugin, { prefix: "/latest/api/index.php/single_battle_quest" })
 fastify.register(attentionApiPlugin, { prefix: "/latest/api/index.php/attention" })
 fastify.register(characterApiPlugin, { prefix: "/latest/api/index.php/character" })
+fastify.register(partyGroupApiPlugin, { prefix: "/latest/api/index.php/party_group" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
