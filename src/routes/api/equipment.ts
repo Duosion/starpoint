@@ -1,23 +1,19 @@
 // Handles the insertion of mana into characters.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerSync, getSession, updatePlayerPartyGroupSync } from "../../data/wdfpData";
+import { getAccountPlayers, getPlayerSync, getSession, playerOwnsEquipmentSync, updatePlayerEquipmentSync, updatePlayerPartyGroupSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
-interface EditBody {
+interface SetProtectionBody {
+    protection: boolean
+    equipment_ids: number[]
     viewer_id: number
     api_count: number
-    retry_count: number
-    party_group_edit_params_list: {
-        party_group_id: number,
-        party_category: number,
-        party_group_color_id: number
-    }[]
 }
 
 const routes = async (fastify: FastifyInstance) => {
-    fastify.post("/edit", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as EditBody
+    fastify.post("/set_protection", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as SetProtectionBody
 
         const viewerId = body.viewer_id
         if (!viewerId || isNaN(viewerId)) return reply.status(400).send({
@@ -41,9 +37,14 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No players bound to account."
         })
 
-        // update party groups
-        for (const editParamsList of body.party_group_edit_params_list) {
-            updatePlayerPartyGroupSync(playerId, editParamsList.party_group_id, editParamsList.party_group_color_id)
+        // update protection
+        const newProtection = body.protection
+        for (const equipmentId of body.equipment_ids) {
+            if (playerOwnsEquipmentSync(playerId, equipmentId)) {
+                updatePlayerEquipmentSync(playerId, equipmentId, {
+                    protection: newProtection
+                })
+            }
         }
         
         reply.header("content-type", "application/x-msgpack")
@@ -51,7 +52,9 @@ const routes = async (fastify: FastifyInstance) => {
             "data_headers": generateDataHeaders({
                 viewer_id: viewerId
             }),
-            "data": {}
+            "data": {
+                
+            }
         })
     })
 }
