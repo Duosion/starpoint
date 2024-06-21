@@ -142,6 +142,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         let session = await getSession(clientZat)
+        console.log("zat session login:", session)
         if (session === null) {
             // attempt to generate a new session
             const idpAlias = generateIdpAlias(body.appId, body.deviceId, body.os)

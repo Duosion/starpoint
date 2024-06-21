@@ -266,6 +266,7 @@ function getSessionSync(
 
     // viewer tokens don't expire.
     if (session.type !== SessionType.VIEWER && new Date() >= session.expires) {
+        console.log(`session of type (${session.type}) expired:`, session)
         deleteSessionSync(session.token)
         return null
     }
@@ -1313,6 +1314,22 @@ export function updatePlayerPartySync(
         party.abilitySoulIds[2],
         serializeBoolean(party.edited),
         slot,
+        playerId
+    )
+}
+
+export function updatePlayerPartyGroupSync(
+    playerId: number,
+    groupId: number,
+    colorId: number
+) {
+    db.prepare(`
+    UPDATE players_party_groups
+    SET color_id = ?
+    WHERE id = ? AND player_id = ?
+    `).run(
+        colorId,
+        groupId,
         playerId
     )
 }
