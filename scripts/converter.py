@@ -86,7 +86,7 @@ def convert_character_quests(obj):
     for story_id, character_story in obj.items():
         converted[story_id] = {
             "name": "", #character_story[3],
-            "clearRewardId": character_story[5]
+            "clearRewardId": int(character_story[5])
         }
     return converted
 
