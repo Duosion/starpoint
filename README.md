@@ -3,12 +3,14 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 
 ## Implemented Features
 * Tutorial
-* Character levelling & uncapping.
+* Character leveling & uncapping.
 * Party organization
 * Main story quests
 * Main story quest drops
 * Character stories
 * Guest login flow
+
+For a more in-depth view of the progress completed, visit the [API endpoints document](/docs/api-endpoints.md).
 
 ## Installation
 - Install [Node.js](https://nodejs.org/en/download/package-manager).
@@ -37,12 +39,8 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 - In order to utilize Starpoint, you will have to redirect traffic from the game client, originally intended for the official servers, to an instance of Starpoint running on your computer.
 - [Android Connection Guide](/docs/connecting-android.md)
 
-## Scripts
-The ``/scripts`` directory contains two useful scripts:
-- ``converter.py``
-  - Converts game asset files into a form that's readable by the server. The output of this script has been stored in the ``/assets`` directory.
-- ``mitm-redirect-traffic.py``
-  - A script for [mitmproxy](https://mitmproxy.org/) which will redirect all incoming game traffic to this server.
+## Contribution
+Interested in contributing to Starpoint? Read the [contribution guide](/docs/contributing.md) to learn more!
 
 ## Special Thanks
 Special thanks to [wdfp-extractor](https://github.com/ScripterSugar/wdfp-extractor) for providing the assets and knowledge required to create the ``converter.py`` script.
