@@ -33,16 +33,18 @@ The following is an overview of the project structure.
 ### Server-Client Traffic
 When the game client makes calls to ``na.wdfp.kakaogames.com`` it sends a POST request with its body in a base64-encoded msgpack format. It also expects responses from the server to be in this format.
 
-I recommend the [msgpack-converter website](https://ref45638.github.io/msgpack-converter/) by ref45638 when viewing captured traffic to and from this endpoint.
+I recommend the usage of ref45638's [msgpack-converter website](https://ref45638.github.io/msgpack-converter/) when viewing captured traffic to and from this server.
 
 For all other API endpoints, the client and server simply communicate using JSON.
 
 ### Captured Traffic
-Using traffic between the game client and the official game servers is the easiest way to reverse engineer and implement specific endpoints.
+Examining captured traffic between the game client and the official game servers is the easiest way to reverse engineer and implement specific endpoints.
 
 In order to capture traffic, I recommend following the [android connection tutorial](./connecting-android), but instead of running ``start.bat``, run ``start_mitmweb_capture.bat``.
 
 This will open mitmweb and capture traffic between the game client and official game servers instead of proxying traffic to Starpoint.
+
+You will be simply playing the game like normal, but all of the network traffic you are generating is being captured by mitmweb.
 
 You can save the traffic that mitmweb captures and reference it at a later point when implementing endpoints.
 
