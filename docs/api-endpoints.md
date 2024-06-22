@@ -34,6 +34,7 @@ Endpoint | Status
 ``/single_battle_quest/start`` | :white_check_mark:
 ``/attention/check`` | :white_check_mark:
 ``/character/over_limit`` | :white_check_mark:
+``/character/learn_mana_node`` | :warning:
 ``/party_group/edit`` | :white_check_mark:
 ``/equipment/set_protection`` | :white_check_mark:
 

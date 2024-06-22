@@ -1,9 +1,9 @@
 // Handles the insertion of mana into characters.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerCharacterSync, getPlayerItemSync, getPlayerSync, getSession, updatePlayerCharacterSync, updatePlayerItemSync } from "../../data/wdfpData";
+import { getAccountPlayers, getPlayerCharacterSync, getPlayerItemSync, getPlayerSync, getSession, hasPlayerUnlockedCharacterManaNodeSync, insertPlayerCharacterManaNodesSync, updatePlayerCharacterSync, updatePlayerItemSync, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
-import { getCharacterDataSync } from "../../lib/assets";
+import { getCharacterDataSync, getCharacterManaNodeSync } from "../../lib/assets";
 import { clientSerializeDate } from "../../data/utils";
 
 interface OverLimitBody {
@@ -15,6 +15,13 @@ interface OverLimitBody {
     over_limit_count: number
 }
 
+interface LearnManaNodeBody {
+    viewer_id: number,
+    character_id: number,
+    api_count: number,
+    mana_node_multiplied_id_list: number[]
+}
+
 const characterMaxOverLimits: Record<number, number> = {
     [1]: 12, // 1* max over limit count
     [2]: 10, // 2* max over limit count
@@ -24,6 +31,132 @@ const characterMaxOverLimits: Record<number, number> = {
 }
 
 const routes = async (fastify: FastifyInstance) => {
+    fastify.post("/learn_mana_node", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as LearnManaNodeBody
+
+        const viewerId = body.viewer_id
+        const characterId = body.character_id
+        const toUnlockNodeIds = body.mana_node_multiplied_id_list
+        if (!viewerId || isNaN(viewerId) || !characterId || isNaN(characterId) || !toUnlockNodeIds) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        const player = !isNaN(playerId) ? getPlayerSync(playerId) : null
+
+        if (player === null) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // get character data
+        const characterData = getPlayerCharacterSync(playerId, characterId)
+        if (characterData === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Character not owned."
+        })
+
+        // compute the combined cost of each node
+        let manaCost = 0
+        const itemsCosts: Record<string, number> = {}
+
+        const userCharacterManaNodeListItem: Object[] = []
+
+        for (const manaNodeId of toUnlockNodeIds) {
+            if (hasPlayerUnlockedCharacterManaNodeSync(playerId, characterId, manaNodeId)) return reply.status(400).send({
+                "error": "Bad Request",
+                "message": `Mana node '${manaNodeId}' already unlocked.`
+            })
+
+            const nodeData = getCharacterManaNodeSync(characterId, manaNodeId)
+            if (nodeData === null) return reply.status(400).send({
+                "error": "Bad Request",
+                "message": `Mana node '${manaNodeId}' does not exist.`
+            })
+
+            if (nodeData !== null) {
+                manaCost += nodeData.manaCost
+
+                for (const [itemId, itemCost] of Object.entries(nodeData.items)) {
+                    const existing = itemsCosts[itemId]
+                    itemsCosts[itemId] = existing ? existing + itemCost : itemCost
+                }
+
+                userCharacterManaNodeListItem.push({
+                    "mana_node_multiplied_id": manaNodeId
+                })
+            }
+        }
+
+        // validate that the player has enough materials to unlock these nodes
+        // TODO: Allow the usage of paidMana
+        const newMana = player.freeMana - manaCost
+        if (0 > newMana) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Not enough mana."
+        })
+
+        for (const [itemId, itemCost] of Object.entries(itemsCosts)) {
+            const item = getPlayerItemSync(playerId, itemId)
+            const newAmount = item === null ? -1 : item - itemCost
+            if (0 > newAmount) return reply.status(400).send({
+                "error": "Bad Request",
+                "message": `Not enough of item with id ${itemId}`
+            })
+
+            // replace the object value with the newAmount for deduction later
+            itemsCosts[itemId] = newAmount
+        }
+
+        // deduct mana
+        updatePlayerSync({
+            id: playerId,
+            freeMana: newMana
+        })
+
+        // deduct item amounts
+        for (const [itemId, newAmount] of Object.entries(itemsCosts)) {
+            updatePlayerItemSync(playerId, itemId, newAmount)
+        }
+
+        // insert new mana nodes
+        insertPlayerCharacterManaNodesSync(playerId, characterId, toUnlockNodeIds)
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "user_info": {
+                    "free_mana": newMana
+                },
+                "character_list": [
+                    {
+                        "character_id": characterId,
+                        "create_time": clientSerializeDate(characterData.joinTime),
+                        "update_time": clientSerializeDate(characterData.updateTime),
+                        "join_time": clientSerializeDate(characterData.joinTime)
+                    }
+                ],
+                "item_list": itemsCosts,
+                "user_character_mana_node_list": {
+                    [String(characterId)]: userCharacterManaNodeListItem
+                },
+                "mail_arrived": false
+            }
+        }) 
+    })
+
     fastify.post("/over_limit", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as OverLimitBody
 
