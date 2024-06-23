@@ -18,6 +18,7 @@ import equipmentApiPlugin from "./routes/api/equipment"
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
+import path from "path";
 
 // gc-openapi-zinny3.kakaogames.com
 // gc-infodesk-zinny3.kakaogames.com
@@ -87,6 +88,13 @@ fastify.register(openapiPlugin, { prefix: "/openapi/service" })
 
 // infodesk
 fastify.register(infodeskPlugin, { prefix: "/infodesk" })
+
+// static CDN
+// english
+fastify.register(require('@fastify/static'), {
+    root: path.join(__dirname, "..", ".cdn/en"),
+    prefix: "/patch/Live/2.0.0/en"
+})
 
 // listen
 fastify.listen({ port: 8000 }, (err, address) => {

@@ -3,3 +3,4 @@ out
 mitm_redirect
 .database
 scripts/in
+.cdn
