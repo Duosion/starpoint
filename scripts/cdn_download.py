@@ -3,14 +3,11 @@
 import requests
 import os
 import json
-from msgpack import unpackb
-from base64 import b64decode
 from progress.bar import IncrementalBar
 from math import floor
 from threading import Thread, enumerate, current_thread
 
 CDN_URL = "http://patch.wdfp.kakaogames.com/Live/2.0.0"
-GET_ASSET_LIST_ENDPOINT = "https://na.wdfp.kakaogames.com/latest/api/index.php/gacha/exec"
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 OUTPUT_DIR = os.path.join(ROOT, "..", ".cdn")
@@ -20,69 +17,37 @@ if not os.path.exists(OUTPUT_DIR):
 
 ASSET_LISTS_DIR = os.path.join(ROOT, "..", "assets/asset_lists")
 asset_lists_paths = {
-    "en": os.path.join(ASSET_LISTS_DIR, "en-full.json")
+    "en-android": [
+        os.path.join(ASSET_LISTS_DIR, "en-android-full.json"), 
+        os.path.join(ASSET_LISTS_DIR, "en-android-short.json")
+    ]
 }
 
-# get the full list from GET_ASSET_LIST_ENDPOINT
-def get_assets(lang = 'en'):
-    file_locations = []
-    total_size = 0
+def get_asset_locations(languages = []):
+    location_size_map = {}
+    for lang in languages:
+        paths = asset_lists_paths.get(lang) or []
 
-    asset_list_path = asset_lists_paths.get(lang)
-    if asset_list_path == None:
-        return (
-            file_locations,
-            total_size
-        )
+        # load the asset lists
+        print(paths)
+        for path in paths:
+            asset_list = None
+            with open(path, 'r') as file:
+                asset_list = json.load(file)
 
-    # load the asset list
-    asset_list = None
-    with open(asset_list_path, 'r') as file:
-        asset_list = json.load(file)
+            try:
+                for data in asset_list['data']['full']['archive']:
+                    location_size_map[data['location'].replace('{$cdnAddress}', '')] = data['size']
 
-    # parse file locations & total_size
-    asset_list_data = asset_list['data']
-    if asset_list_data == None:
-        return (
-            file_locations,
-            total_size
-        )
-    
-    asset_list_data_full = asset_list_data['full']
-    if asset_list_data_full == None:
-        return (
-            file_locations,
-            total_size
-        )
-    
-    asset_list_data_diff = asset_list_data['diff']
-    if asset_list_data_diff == None:
-        return (
-            file_locations,
-            total_size
-        )
+                # add diff locations
+                for diff_data in asset_list['data']['diff']:
+                    for data in diff_data['archive']:
+                        location_size_map[data['location'].replace('{$cdnAddress}', '')] = data['size']
 
-    with open(os.path.join(OUTPUT_DIR, "metadata.json"), "w") as file:
-        json.dump(asset_list, file)
+            except Exception as error:
+                print(f"Error when parsing asset list data. Error: {error}")
 
-    try:
-        for data in asset_list_data_full['archive']:
-            file_locations.append(data['location'].replace('{$cdnAddress}', ''))
-            total_size += data['size']
-
-        # add diff locations
-        for diff_data in asset_list_data_diff:
-            for data in diff_data['archive']:
-                file_locations.append(data['location'].replace('{$cdnAddress}', ''))
-                total_size += data['size']
-
-    except Exception as error:
-        print(f"Error when parsing asset list data. Error: {error}")
-
-    return (
-        file_locations,
-        total_size
-    )
+    return location_size_map
 
 def download_assets(start, end, locations, bar, output_dir=OUTPUT_DIR):
     for location_n in range(start, end):
@@ -137,15 +102,45 @@ def download_assets_multithread(locations, thread_count=4, output_dir=OUTPUT_DIR
 
 
 # get user input
-lang = input('Enter the language code for the CDN you wish to download. (en)\n')
-match lang:
+platform_choice = input('Enter the platform to download the CDN for. \nPlatform [ALL/android/ios]:')
+match platform_choice:
+    case 'ios':
+        platform_choice = 'ios'
+    case 'android':
+        platform_choice = 'android'
     case _:
-        lang = 'en'
+        platform_choice = 'all'
+
+print(f'Selected platform "{platform_choice}".\n')
+
+
+lang_choice = input('Enter the language code for the CDN you wish to download. \nLanguage Code [ALL/en]:')
+match lang_choice:
+    case 'en':
+        lang_choice = 'en'
+    case _:
+        lang_choice = 'all'
+
+print(f'Selected language "{lang_choice}".\n')
+
+languages = []
+for lang, _ in asset_lists_paths.items():
+    if ( lang_choice == 'all' or lang.startswith(lang_choice)) and ( platform_choice == 'all' or lang.endswith(platform_choice) ):
+        languages.append(lang)
 
 # get the assets
-assets_tuple = get_assets(lang)
-locations = assets_tuple[0]
-total_size = assets_tuple[1]
+asset_locations_map = get_asset_locations(languages)
+
+locations = []
+total_size = 0
+for location, size in asset_locations_map.items():
+    locations.append(location)
+    total_size += size
+
+choice = input(f'The download will be {round(total_size / 1e+9, 2)} GB. Continue? \n[Y/n]:')
+match choice:
+    case 'n':
+        exit()
 
 if (len(locations) > 0):
     download_assets_multithread(locations)

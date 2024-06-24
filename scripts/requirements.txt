@@ -1,3 +1,2 @@
 progress==1.6
-msgpack==1.0.8
 requests==2.32.3
