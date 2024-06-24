@@ -40,7 +40,7 @@ For all other API endpoints, the client and server simply communicate using JSON
 ### Captured Traffic
 Examining captured traffic between the game client and the official game servers is the easiest way to reverse engineer and implement specific endpoints.
 
-In order to capture traffic, I recommend following the [android connection tutorial](./connecting-android), but instead of running ``start.bat``, run ``start_mitmweb_capture.bat``.
+In order to capture traffic, I recommend following the [android connection tutorial](./connecting-android.md), but instead of running ``start.bat``, run ``start_mitmweb_capture.bat``.
 
 This will open mitmweb and capture traffic between the game client and official game servers instead of proxying traffic to Starpoint.
 

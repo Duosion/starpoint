@@ -1083,13 +1083,33 @@ export function getPlayerCharactersManaNodesSync(
 }
 
 /**
+ * Checks whether a player has unlocked a specific mana node.
+ * 
+ * @param playerId The ID of the player to check.
+ * @param characterId The ID of the character.
+ * @param manaNodeId The ID of the mana node.
+ * @returns Whether the specified mana node has been unlocked or not.
+ */
+export function hasPlayerUnlockedCharacterManaNodeSync(
+    playerId: number,
+    characterId: number,
+    manaNodeId: string | number
+): boolean {
+    return db.prepare(`
+    SELECT value
+    FROM players_characters_mana_nodes
+    WHERE player_id = ? AND character_id = ? AND value = ?
+    `).get(playerId, characterId, Number(manaNodeId)) !== undefined
+}
+
+/**
  * Inserts mana nodes for a particular character into the database.
  * 
  * @param playerId The ID of the player.
  * @param characterId The ID of the character to insert the mana nodes of.
  * @param manaNodes The mana nodes values to insert.
  */
-function insertPlayerCharacterManaNodesSync(
+export function insertPlayerCharacterManaNodesSync(
     playerId: number,
     characterId: number | string,
     manaNodes: number[]

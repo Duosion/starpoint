@@ -204,3 +204,14 @@ export interface GivePlayerScoreRewardsResult extends PlayerRewardResult {
     drop_score_reward_ids: DropScoreRewardId[]
     drop_rare_reward_ids: DropScoreRewardId[]
 }
+
+// mana nodes
+export interface ManaNode {
+    items: Record<string, number>,
+    manaCost: number,
+    field1: string,
+    field5: string,
+    field6: string
+}
+
+export type ManaNodes = Record<string, Record<string, ManaNode>>

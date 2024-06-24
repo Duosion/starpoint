@@ -249,7 +249,7 @@ export function serializePlayerData(
                 "campaign_id": 19,
                 "gacha_id": 155,
                 "count": 1
-            }
+            },
         ],
         "purchased_times_list": {
             "gs.kg.worldflipper.pakage_monthly": 0,

@@ -182,6 +182,28 @@ def convert_characters(obj):
         }
     return converted
 
+def convert_mana_nodes(obj):
+    converted = {}
+    for characterId, data in obj.items():
+        mana_nodes = {}
+        for _, nodes in data.items(): 
+            for _, node in nodes.items():
+                item_list = {}
+                item_costs = node[3].split(",")
+                
+                for n, item_id in enumerate(node[2].split(",")):
+                    item_list[item_id.strip()] = int(item_costs[n].strip())
+
+                mana_nodes[node[0]] = {
+                    "items": item_list,
+                    "manaCost": int(node[4]),
+                    "field1": node[1],
+                    "field5": node[5],
+                    "field6": node[6]
+                }
+        converted[characterId] = mana_nodes
+    return converted
+
 def save_json(obj, file_path):
     with open(file_path, 'w', encoding='utf8') as file:
         json.dump(obj, file, indent=4, ensure_ascii=False)
@@ -196,6 +218,7 @@ to_convert_files = {
     "score_reward": convert_score_reward,
     "character": convert_characters,
     "rare_score_reward": convert_rare_score_reward,
+    "mana_node": convert_mana_nodes
     # "world_story_event_boss_battle_quest": convert_main_ex_quests,
     # "world_story_event_quest": convert_main_ex_quests
 }

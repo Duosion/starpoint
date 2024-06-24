@@ -6,7 +6,8 @@ import exQuests from "../../assets/ex_quest.json";
 import mainQuests from "../../assets/main_quest.json";
 import rareScoreRewards from "../../assets/rare_score_reward.json";
 import scoreRewards from "../../assets/score_reward.json";
-import { AssetCharacter, BattleQuest, ClearRewards, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import manaNodes from "../../assets/mana_node.json";
+import { AssetCharacter, BattleQuest, ClearRewards, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -171,4 +172,24 @@ export function getCharacterDataSync(
     if (!character) return null;
 
     return character
+}
+
+/**
+ * Gets the data for a character mana node.
+ * 
+ * @param characterId The ID of the character.
+ * @param manaNodeId The ID of the mana node.
+ * @returns A ManaNode object or null.
+ */
+export function getCharacterManaNodeSync(
+    characterId: string | number,
+    manaNodeId: string | number
+): ManaNode | null {
+    const characterManaNodes = (manaNodes as ManaNodes)[String(characterId)]
+    if (!characterManaNodes) return null;
+
+    const manaNode = characterManaNodes[String(manaNodeId)]
+    if (!manaNode) return null;
+
+    return manaNode
 }

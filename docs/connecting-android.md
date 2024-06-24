@@ -2,7 +2,7 @@
 The following is a general guide for connecting the Android game client to Starpoint.
 
 ## Installing Mitmproxy
-- If not already installed, install mitmproxy from their [website](https://mitmrpoxy.org)
+- If not already installed, install mitmproxy from their [website](https://mitmproxy.org)
 - Follow their [installation instructions](https://docs.mitmproxy.org/stable/overview-installation/) for your platform.
 - The mitmproxy tool will act as an intermediary between Starpoint and the game client, redirecting all game traffic to Starpoint.
 
