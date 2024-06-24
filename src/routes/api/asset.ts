@@ -2,8 +2,8 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { generateDataHeaders, getServerTime } from "../../utils";
-import enFull from "../../../assets/cdn/en-full.json";
-import enShort from "../../../assets/cdn/en-short.json";
+import enFull from "../../../assets/asset_lists/en-full.json";
+import enShort from "../../../assets/asset_lists/en-short.json";
 
 interface GetPathBody {
     target_asset_version: string,
