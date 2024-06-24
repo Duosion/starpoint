@@ -1,4 +1,4 @@
-import Fastify from "fastify";
+import Fastify, { FastifyRequest } from "fastify";
 import apiPlugin from "./routes/api";
 import assetApiPlugin from "./routes/api/asset";
 import toolApiPlugin from "./routes/api/tool";
@@ -19,6 +19,7 @@ import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 import { pack, unpack } from "msgpackr";
 import path from "path";
+import { ContentTypeParserDoneFunction } from "fastify/types/content-type-parser";
 
 // gc-openapi-zinny3.kakaogames.com
 // gc-infodesk-zinny3.kakaogames.com
@@ -47,7 +48,21 @@ fastify.addHook('onSend', (_, reply, payload, done) => {
 })
 
 // content-type parsers
-fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (_, body: string, done) => {
+function jsonParser(_: FastifyRequest, body: string, done: ContentTypeParserDoneFunction) {
+    try {
+        var json = JSON.parse(body)
+        done(null, json)
+    } catch (err) {
+        done(null, undefined)
+    }
+}
+
+fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (request: FastifyRequest, body: string, done) => {
+    // on IOS, for some reason, requests to infodesk and openapi are JSON, but the content-type header is set as 'application/x-www-form-urlencoded'
+    const routeUrl = request.routeOptions.url || ''
+    if (routeUrl.startsWith("/openapi") || routeUrl.startsWith("/infodesk"))
+        return jsonParser(request, body, done);
+
     try {
         const unpacked = unpack(Buffer.from(body, "base64"))
         done(null, unpacked)
@@ -55,14 +70,7 @@ fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'st
         done(err as Error, undefined)
     }
 })
-fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function (_, body: string, done) {
-    try {
-        var json = JSON.parse(body)
-        done(null, json)
-    } catch (err) {
-        done(null, undefined)
-    }
-})
+fastify.addContentTypeParser('application/json', { parseAs: 'string' }, jsonParser)
 
 // register plugins
 
