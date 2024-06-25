@@ -1,4 +1,5 @@
 import { randomInt } from "crypto"
+import { FastifyRequest } from "fastify"
 
 /**
  * Returns the current server time as a unix epoch.
@@ -72,4 +73,24 @@ export function generateDataHeaders(
     }
 
     return headers
+}
+
+export enum Platform {
+    ANDROID,
+    IOS
+}
+
+export function getRequestPlatformSync(
+    request: FastifyRequest
+): Platform {
+
+    // check user agent
+    if ((request.headers["user-agent"] || '').includes('AppleWebKit'))
+        return Platform.IOS;
+
+    // check requestedby header
+    if ((request.headers["requestedby"] || '') === 'ios')
+        return Platform.IOS;
+
+    return Platform.ANDROID
 }

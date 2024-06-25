@@ -20,6 +20,9 @@ asset_lists_paths = {
     "en-android": [
         os.path.join(ASSET_LISTS_DIR, "en-android-full.json"), 
         os.path.join(ASSET_LISTS_DIR, "en-android-short.json")
+    ],
+    "en-ios": [
+        os.path.join(ASSET_LISTS_DIR, "en-ios-full.json")
     ]
 }
 
