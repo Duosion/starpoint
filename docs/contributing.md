@@ -55,3 +55,6 @@ The ``/scripts`` directory contains two useful scripts:
   - Simply put files from [wdfp-extractor](https://github.com/ScripterSugar/wdfp-extractor) into a folder called ``in`` in the same directory as the script and it will convert them into a folder called ``out``.
 - ``mitm-redirect-traffic.py``
   - A script for [mitmproxy](https://mitmproxy.org/) which will redirect all incoming game traffic to this server.
+- ``cdn_download.py``
+  - A script for downloading a copy of the game's official CDN.
+  - Run instructions are included in the main README.
