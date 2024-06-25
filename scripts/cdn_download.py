@@ -21,6 +21,14 @@ asset_lists_paths = {
         os.path.join(ASSET_LISTS_DIR, "en-android-full.json"), 
         os.path.join(ASSET_LISTS_DIR, "en-android-short.json")
     ],
+    "ko-android": [
+        os.path.join(ASSET_LISTS_DIR, "ko-android-full.json"), 
+        os.path.join(ASSET_LISTS_DIR, "ko-android-short.json")
+    ],
+    "th-android": [
+        os.path.join(ASSET_LISTS_DIR, "th-android-full.json"), 
+        os.path.join(ASSET_LISTS_DIR, "th-android-short.json")
+    ],
     "en-ios": [
         os.path.join(ASSET_LISTS_DIR, "en-ios-full.json")
     ]
@@ -32,7 +40,6 @@ def get_asset_locations(languages = []):
         paths = asset_lists_paths.get(lang) or []
 
         # load the asset lists
-        print(paths)
         for path in paths:
             asset_list = None
             with open(path, 'r') as file:
@@ -117,10 +124,14 @@ match platform_choice:
 print(f'Selected platform "{platform_choice}".\n')
 
 
-lang_choice = input('Enter the language code for the CDN you wish to download. \nLanguage Code [ALL/en]:')
+lang_choice = input('Enter the language code for the CDN you wish to download. \nLanguage Code [ALL/en/ko/th]:')
 match lang_choice:
     case 'en':
         lang_choice = 'en'
+    case 'ko':
+        lang_choice = 'ko'
+    case 'th':
+        lang_choice = 'th'
     case _:
         lang_choice = 'all'
 
