@@ -83,9 +83,8 @@ export enum Platform {
 export function getRequestPlatformSync(
     request: FastifyRequest
 ): Platform {
-
     // check user agent
-    if ((request.headers["user-agent"] || '').includes('AppleWebKit'))
+    if ((request.headers["user-agent"] || '').includes('iOS;'))
         return Platform.IOS;
 
     // check requestedby header
