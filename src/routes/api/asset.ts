@@ -1,9 +1,10 @@
 
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { generateDataHeaders, getServerTime } from "../../utils";
-import enFull from "../../../assets/asset_lists/en-full.json";
-import enShort from "../../../assets/asset_lists/en-short.json";
+import { Platform, generateDataHeaders, getRequestPlatformSync, getServerTime } from "../../utils";
+import enAndroidFull from "../../../assets/asset_lists/en-android-full.json";
+import enAndroidShort from "../../../assets/asset_lists/en-android-short.json";
+import enIOSFull from "../../../assets/asset_lists/en-ios-full.json";
 
 interface GetPathBody {
     target_asset_version: string,
@@ -12,14 +13,17 @@ interface GetPathBody {
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/version_info", async(request: FastifyRequest, reply: FastifyReply) => {
+        const platform = getRequestPlatformSync(request)
+
         reply.header("content-type", "application/x-msgpack")
         reply.status(200).send({
             "data_headers": generateDataHeaders(),
             "data": {
                 "base_url": "{$cdnAddress}/en/entities/files/",
-                "files_list": "{$cdnAddress}/en/entities/2.1.121-android_medium.csv",
-                "total_size": 8846079322,
-                "delayed_assets_size": 6919955738
+                "files_list": platform === Platform.ANDROID ? "{$cdnAddress}/en/entities/2.1.121-android_medium.csv"
+                    : "{$cdnAddress}/en/entities/2.1.122-ios_small.csv",
+                "total_size": platform === Platform.ANDROID ? 8846079322 : 7928642125,
+                "delayed_assets_size": platform === Platform.ANDROID ? 6919955738 : 6362644965
             }
         })
     })
@@ -31,12 +35,15 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Invalid headers provided."
         })
 
+        // get the platform that this request originates from.
+        const platform = getRequestPlatformSync(request)
+
         reply.header("content-type", "application/x-msgpack")
         if (header === 'fulfill') {
-            reply.status(200).send(enFull)
+            reply.status(200).send(platform === Platform.ANDROID ? enAndroidFull : enIOSFull)
         } else {
             // send short
-            reply.status(200).send(enShort)
+            reply.status(200).send(platform === Platform.ANDROID ? enAndroidShort : enIOSFull)
         }
     })
 }
