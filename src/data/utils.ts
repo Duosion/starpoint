@@ -73,7 +73,7 @@ export function serializePlayerData(
                     "status": bondToken.status
                 }
             }),
-            "mana_board_index": 1
+            "mana_board_index": character.manaBoardIndex
         }
     }
 

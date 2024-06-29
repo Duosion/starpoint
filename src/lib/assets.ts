@@ -175,21 +175,37 @@ export function getCharacterDataSync(
 }
 
 /**
+ * Gets all of a character's mana nodes of a certain level.
+ * 
+ * @param characterId The ID of the character.
+ * @param level The mana node level to get the nodes of.
+ * @returns A record containing ManaNode objects or null.
+ */
+export function getCharacterManaNodesSync(
+    characterId: string | number,
+    level: string | number,
+): Record<string, ManaNode> | null{
+    const characterManaNodes = (manaNodes as ManaNodes)[String(characterId)]
+    if (!characterManaNodes) return null;
+
+    return characterManaNodes[String(level)] || null
+}
+
+/**
  * Gets the data for a character mana node.
  * 
  * @param characterId The ID of the character.
+ * @param level The mana node level to get the node from.
  * @param manaNodeId The ID of the mana node.
  * @returns A ManaNode object or null.
  */
 export function getCharacterManaNodeSync(
     characterId: string | number,
+    level: string | number,
     manaNodeId: string | number
 ): ManaNode | null {
-    const characterManaNodes = (manaNodes as ManaNodes)[String(characterId)]
-    if (!characterManaNodes) return null;
+    const nodes = getCharacterManaNodesSync(characterId, level);
+    if (!nodes) return null;
 
-    const manaNode = characterManaNodes[String(manaNodeId)]
-    if (!manaNode) return null;
-
-    return manaNode
+    return nodes[String(manaNodeId)] || null
 }

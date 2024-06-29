@@ -33,8 +33,11 @@ Endpoint | Status
 ``/single_battle_quest/abort`` | :white_check_mark:
 ``/single_battle_quest/start`` | :white_check_mark:
 ``/attention/check`` | :white_check_mark:
+``/character/set_illustration_settings`` | :warning:
 ``/character/over_limit`` | :white_check_mark:
-``/character/learn_mana_node`` | :warning:
+``/character/receive_bond_token`` | :white_check_mark:
+``/character/open_mana_board`` | :warning:
+``/character/learn_mana_node`` | :white_check_mark:
 ``/party_group/edit`` | :white_check_mark:
 ``/equipment/set_protection`` | :white_check_mark:
 

@@ -908,6 +908,29 @@ function insertPlayerCharacterBondTokenSync(
 }
 
 /**
+ * Updates a player's character's bond token.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @param bondToken The updated bondToken.
+ */
+export function updatePlayerCharacterBondTokenSync(
+    playerId: number,
+    characterId: number | string,
+    bondToken: PlayerCharacterBondToken
+) {
+    db.prepare(`
+    UPDATE players_characters_bond_tokens
+    SET status = ?
+    WHERE player_id = ? AND character_id = ?
+    `).run(
+        bondToken.status,
+        playerId,
+        Number(characterId)
+    )
+}
+
+/**
  * Inserts a single character into a player's inventory.
  * 
  * @param playerId The ID of the player to add the character to.
@@ -1080,6 +1103,26 @@ export function getPlayerCharactersManaNodesSync(
     }
 
     return buckets
+}
+
+/**
+ * Gets all of the mana nodes that a player has unlocked for a specific character.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @returns A list of unlocked mana node ids.
+ */
+export function getPlayerCharacterManaNodesSync(
+    playerId: number,
+    characterId: number
+): number[] {
+    const rawNodes = db.prepare(`
+    SELECT value, character_id
+    FROM players_characters_mana_nodes
+    WHERE character_id = ? AND player_id = ?
+    `).all(characterId, playerId) as RawPlayerCharacterManaNode[]
+
+    return rawNodes.map(rawNode => rawNode.value);
 }
 
 /**

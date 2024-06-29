@@ -214,4 +214,4 @@ export interface ManaNode {
     field6: string
 }
 
-export type ManaNodes = Record<string, Record<string, ManaNode>>
+export type ManaNodes = Record<string, Record<string, Record<string, ManaNode>>>

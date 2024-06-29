@@ -1,9 +1,9 @@
 // Handles the insertion of mana into characters.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerCharacterSync, getPlayerItemSync, getPlayerSync, getSession, hasPlayerUnlockedCharacterManaNodeSync, insertPlayerCharacterManaNodesSync, updatePlayerCharacterSync, updatePlayerItemSync, updatePlayerSync } from "../../data/wdfpData";
+import { getAccountPlayers, getPlayerCharacterManaNodesSync, getPlayerCharacterSync, getPlayerCharactersManaNodesSync, getPlayerItemSync, getPlayerSync, getSession, givePlayerItemSync, hasPlayerUnlockedCharacterManaNodeSync, insertPlayerCharacterManaNodesSync, updatePlayerCharacterBondTokenSync, updatePlayerCharacterSync, updatePlayerItemSync, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
-import { getCharacterDataSync, getCharacterManaNodeSync } from "../../lib/assets";
+import { getCharacterDataSync, getCharacterManaNodeSync, getCharacterManaNodesSync } from "../../lib/assets";
 import { clientSerializeDate } from "../../data/utils";
 
 interface OverLimitBody {
@@ -22,6 +22,20 @@ interface LearnManaNodeBody {
     mana_node_multiplied_id_list: number[]
 }
 
+interface SetIllustrationSettingsBody {
+    character_id: number,
+    api_count: number,
+    illustration_settings: number[],
+    viewer_id: number
+}
+
+interface ReceiveBondTokenBody {
+    character_id: number,
+    mana_board_index: number,
+    api_count: number,
+    viewer_id: number
+}
+
 const characterMaxOverLimits: Record<number, number> = {
     [1]: 12, // 1* max over limit count
     [2]: 10, // 2* max over limit count
@@ -30,7 +44,207 @@ const characterMaxOverLimits: Record<number, number> = {
     [5]: 4,  // 5* max over limit count 
 }
 
+const openManaBoardRequiredUncaps: Record<number, number> = {
+    [1]: 10,
+    [2]: 8,
+    [3]: 6,
+    [4]: 4,
+    [5]: 2
+}
+
 const routes = async (fastify: FastifyInstance) => {
+    fastify.post("/set_illustration_settings", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as SetIllustrationSettingsBody
+
+        const viewerId = body.viewer_id
+        const characterId = body.character_id
+        if (!viewerId || isNaN(viewerId) || !characterId || isNaN(characterId)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {}
+        }) 
+    })
+
+    fastify.post("/receive_bond_token", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as ReceiveBondTokenBody
+
+        const viewerId = body.viewer_id
+        const characterId = body.character_id
+        const manaBoardIndex = body.mana_board_index
+        if (isNaN(viewerId) || isNaN(characterId) || isNaN(manaBoardIndex)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        const player = !isNaN(playerId) ? getPlayerSync(playerId) : null
+
+        if (player === null) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // get character data
+        const characterData = getPlayerCharacterSync(playerId, characterId)
+        if (characterData === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Character not owned."
+        })
+
+        const bondTokenReceivable = characterData.bondTokenList[manaBoardIndex - 1]?.status === 1
+        if (!bondTokenReceivable) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Cannot receive bond token."
+        })
+
+        // reward the bond token
+        const newBondTokens = player.bondToken + 1
+        updatePlayerSync({
+            id: playerId,
+            bondToken: newBondTokens
+        })
+
+        // update bond token status
+        updatePlayerCharacterBondTokenSync(playerId, characterId, {
+            manaBoardIndex: manaBoardIndex,
+            status: 2
+        });
+
+        // build bond token list for response
+        let bondTokenList: Object[] = []
+        for (const entry of characterData.bondTokenList) {
+            const entryIndex = entry.manaBoardIndex
+            bondTokenList.push({
+                "mana_board_index": entryIndex,
+                "status": entryIndex === manaBoardIndex ? 2 : entry.status
+            })
+        }
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "user_info": {
+                    "bond_token": newBondTokens
+                },
+                "character_list": [
+                    {
+                        "character_id": characterId,
+                        "bond_token_list": bondTokenList,
+                        "create_time": clientSerializeDate(characterData.joinTime),
+                        "update_time": clientSerializeDate(characterData.updateTime),
+                        "join_time": clientSerializeDate(characterData.joinTime)
+                    }
+                ],
+                "mail_arrived": false
+            }
+        }) 
+    })
+
+    fastify.post("/open_mana_board", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as ReceiveBondTokenBody
+        
+        const viewerId = body.viewer_id
+        const characterId = body.character_id
+        const manaBoardIndex = body.mana_board_index
+        if (isNaN(viewerId) || isNaN(characterId) || isNaN(manaBoardIndex)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // get character data
+        const characterData = getPlayerCharacterSync(playerId, characterId)
+        if (characterData === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Character not owned."
+        })
+
+        // get character asset data
+        const characterAssetData = getCharacterDataSync(characterId)
+        if (characterAssetData === null) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No character asset data found."
+        })
+
+        // make sure that the mana board index is valid
+        if (!characterData.bondTokenList[manaBoardIndex - 1]) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": `Character does not have mana board with index ${manaBoardIndex}.`
+        })
+
+        // ensure that the mana board can be opened
+        // TODO: Add level check.  5*: Level 80, 4*: Level 70, 3*: Level 60.
+        if (openManaBoardRequiredUncaps[characterAssetData.rarity] > characterData.overLimitStep) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": `Character is not uncapped enough to unlock mana board.`
+        })
+        if (1 > characterData.bondTokenList[manaBoardIndex - 2]?.status) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": `Must unlock all previous mana board nodes.`
+        })
+
+        updatePlayerCharacterSync(playerId, characterId, {
+            manaBoardIndex: manaBoardIndex
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "character_list": [
+                    {
+                        "viewer_id": viewerId,
+                        "character_id": characterId,
+                        "mana_board_index": manaBoardIndex,
+                        "create_time": clientSerializeDate(characterData.joinTime),
+                        "update_time": clientSerializeDate(characterData.updateTime),
+                        "join_time": clientSerializeDate(characterData.joinTime)
+                    }
+                ],
+                "mail_arrived": false
+            }
+        }) 
+    })
+
     fastify.post("/learn_mana_node", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as LearnManaNodeBody
 
@@ -71,14 +285,31 @@ const routes = async (fastify: FastifyInstance) => {
 
         const userCharacterManaNodeListItem: Object[] = []
 
+        // get mana node data from assets
+        const currentManaNodeIndex = characterData.manaBoardIndex;
+        const characterManaNodes = getCharacterManaNodesSync(characterId, currentManaNodeIndex)
+        if (characterManaNodes === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": `Character does not have mana nodes of index '${currentManaNodeIndex}'.`
+        })
+
+        // get currently unlocked nodes
+        const unlockedManaNodes = getPlayerCharacterManaNodesSync(playerId, characterId);
+        const unlockedManaNodesRecord: Record<string, boolean> = {}
+        let indexUnlockedNodesCount = 0 // the number of nodes that have been unlocked for the selected index
+        for (const manaNodeId of unlockedManaNodes) {
+            unlockedManaNodesRecord[manaNodeId] = true
+            indexUnlockedNodesCount += characterManaNodes[manaNodeId] === undefined ? 0 : 1
+        }
+        
         for (const manaNodeId of toUnlockNodeIds) {
-            if (hasPlayerUnlockedCharacterManaNodeSync(playerId, characterId, manaNodeId)) return reply.status(400).send({
+            if (unlockedManaNodesRecord[manaNodeId]) return reply.status(400).send({
                 "error": "Bad Request",
                 "message": `Mana node '${manaNodeId}' already unlocked.`
             })
 
-            const nodeData = getCharacterManaNodeSync(characterId, manaNodeId)
-            if (nodeData === null) return reply.status(400).send({
+            const nodeData = characterManaNodes[manaNodeId];
+            if (nodeData === undefined) return reply.status(400).send({
                 "error": "Bad Request",
                 "message": `Mana node '${manaNodeId}' does not exist.`
             })
@@ -128,6 +359,40 @@ const routes = async (fastify: FastifyInstance) => {
             updatePlayerItemSync(playerId, itemId, newAmount)
         }
 
+        // increase evolution level
+        let characterEvolutionLevel = characterData.evolutionLevel
+        let evolutionData: Object = []
+        if (characterEvolutionLevel === 0) {
+            characterEvolutionLevel = 1
+            updatePlayerCharacterSync(playerId, characterId, {
+                evolutionLevel: characterEvolutionLevel
+            })
+
+            evolutionData = {
+                "character_id": characterId,
+                "level": 1,
+                "img_level": 1
+            }
+        }
+
+        // give bond reward, if available
+        const amityScrollReceivable = characterData.bondTokenList[currentManaNodeIndex - 1]?.status === 0
+        const bondTokenList: Object[] = []
+        if (amityScrollReceivable && (indexUnlockedNodesCount + toUnlockNodeIds.length) === Object.keys(characterManaNodes).length) {
+            updatePlayerCharacterBondTokenSync(playerId, characterId, {
+                manaBoardIndex: currentManaNodeIndex,
+                status: 1
+            });
+
+            for (const entry of characterData.bondTokenList) {
+                const entryIndex = entry.manaBoardIndex
+                bondTokenList.push({
+                    "mana_board_index": entryIndex,
+                    "status": entryIndex === currentManaNodeIndex ? 1 : entry.status
+                })
+            }
+        }
+
         // insert new mana nodes
         insertPlayerCharacterManaNodesSync(playerId, characterId, toUnlockNodeIds)
 
@@ -142,12 +407,16 @@ const routes = async (fastify: FastifyInstance) => {
                 },
                 "character_list": [
                     {
+                        "evolution_level": characterEvolutionLevel,
+                        "evolution_img_level": characterEvolutionLevel,
                         "character_id": characterId,
                         "create_time": clientSerializeDate(characterData.joinTime),
                         "update_time": clientSerializeDate(characterData.updateTime),
-                        "join_time": clientSerializeDate(characterData.joinTime)
+                        "join_time": clientSerializeDate(characterData.joinTime),
+                        "bond_token_list": bondTokenList
                     }
                 ],
+                "evolution": evolutionData,
                 "item_list": itemsCosts,
                 "user_character_mana_node_list": {
                     [String(characterId)]: userCharacterManaNodeListItem

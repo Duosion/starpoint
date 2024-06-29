@@ -185,8 +185,9 @@ def convert_characters(obj):
 def convert_mana_nodes(obj):
     converted = {}
     for characterId, data in obj.items():
-        mana_nodes = {}
-        for _, nodes in data.items(): 
+        levels = {}
+        for level, nodes in data.items():
+            mana_nodes = {}
             for _, node in nodes.items():
                 item_list = {}
                 item_costs = node[3].split(",")
@@ -201,7 +202,8 @@ def convert_mana_nodes(obj):
                     "field5": node[5],
                     "field6": node[6]
                 }
-        converted[characterId] = mana_nodes
+            levels[level] = mana_nodes
+        converted[characterId] = levels
     return converted
 
 def save_json(obj, file_path):
