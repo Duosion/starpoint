@@ -30,7 +30,7 @@ interface FinishBody {
     is_accomplished: boolean
     statistics: {
         party: {
-            unison_characters: (number | null)[],
+            unison_characters: { id: (number | null) }[],
             characters: { id: (number | null) }[],
             equipments: (number | null)[],
             ability_soul_ids: (number | null)[]
@@ -94,11 +94,11 @@ const routes = async (fastify: FastifyInstance) => {
 
         // calculate clear rank
         const clearTime = body.elapsed_time_ms
-        const clearRank = questData.sPlusRankTime >= clearTime ? 5 
-                            : questData.sRankTime >= clearTime ? 4
-                            : questData.aRankTime >= clearTime ? 3
-                            : questData.bRankTime >= clearTime ? 2
-                            : 1
+        const clearRank = questData.sPlusRankTime >= clearTime ? 5
+            : questData.sRankTime >= clearTime ? 4
+                : questData.aRankTime >= clearTime ? 3
+                    : questData.bRankTime >= clearTime ? 2
+                        : 1
 
         // calculate player rewards
         const newExpPool = playerData.expPool + questData.poolExpReward
@@ -150,7 +150,7 @@ const routes = async (fastify: FastifyInstance) => {
         const scoreRewardsResult = givePlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup)
 
         // reward character exp
-        const partyCharacterIds = body.statistics.party.characters
+        const partyCharacterIds = [...body.statistics.party.characters, ...body.statistics.party.unison_characters]
         const partyCharacterIdsArray: number[] = []
         for (const value of partyCharacterIds.values()) {
             if (value.id !== null) partyCharacterIdsArray.push(value.id);
