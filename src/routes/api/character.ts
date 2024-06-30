@@ -36,7 +36,7 @@ interface ReceiveBondTokenBody {
     viewer_id: number
 }
 
-const characterMaxOverLimits: Record<number, number> = {
+export const characterMaxOverLimits: Record<number, number> = {
     [1]: 12, // 1* max over limit count
     [2]: 10, // 2* max over limit count
     [3]: 8,  // 3* max over limit count 

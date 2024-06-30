@@ -6,6 +6,8 @@ import { getCharacterDataSync, getExAbilityPools, getExBoostItem, getExStatusPoo
 import { generateDataHeaders } from "../../utils"
 import { randomInt } from "crypto"
 import { clientSerializeDate } from "../../data/utils"
+import { characterExpCaps } from "../../lib/character"
+import { characterMaxOverLimits } from "./character"
 
 interface ExBoostDrawBody {
     character_id: number,
@@ -66,7 +68,8 @@ const drawExpBoost = async (request: FastifyRequest, reply: FastifyReply, autoAc
     })
 
     // get player character data
-    if (!playerOwnsCharacterSync(playerId, characterId)) return reply.status(400).send({
+    const characterData = getPlayerCharacterSync(playerId, characterId)
+    if (characterData === null) return reply.status(400).send({
         "error": "Bad Request",
         "message": "Player does not own character."
     })
@@ -101,6 +104,13 @@ const drawExpBoost = async (request: FastifyRequest, reply: FastifyReply, autoAc
     if (0 > afterCostItemAmount) return reply.status(400).send({
         "error": "Bad Request",
         "message": "Not enough of item."
+    })
+
+    // ensure that the requested character is level 100
+    const rarity = characterAssetData.rarity
+    if (characterExpCaps[rarity][characterMaxOverLimits[rarity]] > characterData.exp) return reply.status(400).send({
+        "error": "Bad Request",
+        "message": "Character not level 100."
     })
 
     // get the status pools
@@ -157,12 +167,6 @@ const drawExpBoost = async (request: FastifyRequest, reply: FastifyReply, autoAc
 
     reply.header("content-type", "application/x-msgpack")
     if (autoAccept) {
-        const characterData = getPlayerCharacterSync(playerId, characterId)
-        if (characterData === null) return reply.status(400).send({
-            "error": "Bad Request",
-            "message": "Player does not own character."
-        })
-
         // update player character data
         updatePlayerCharacterSync(playerId, characterId, {
             exBoost: {
