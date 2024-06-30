@@ -21,7 +21,7 @@ For a more in-depth view of the progress completed, visit the [API endpoints doc
    - If you do not have git installed, click the green "Code" button at the top of the page and select "Download ZIP" to download a ZIP of the repository instead.
 3. Navigate to the directory where the repository was cloned/unzipped to.
 4. Double click on the start.bat file to start the server.
-  - If mitmproxy is installed, this will also start up mitmproxy automatically.
+   - If mitmproxy is installed, this will also start up mitmproxy automatically.
 4. The server is now listening on port 8000 for any game traffic.
 
 ## FAQ

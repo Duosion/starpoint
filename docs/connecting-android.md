@@ -10,7 +10,7 @@ The following is a general guide for connecting the Android game client to Starp
 1. Ensure that mitmproxy is installed to the ``C:\Program Files\mitmproxy`` folder.
 2. In the directory where you installed Starpoint, locate and run the ``start.bat`` file.
 3. The Starpoint server and mitmproxy will start in their own windows.
-### Manual method
+### (Optional) Manual method
 1. Navigate to the mitmproxy Program Files directory, usually located at ``C:\Program Files\mitmproxy\bin``.
 2. Open a command prompt in this directory and run the following line:
    ```
