@@ -1,0 +1,104 @@
+{
+    "10001": {
+        "tier": 1,
+        "count": 5
+    },
+    "10002": {
+        "tier": 2,
+        "count": 1
+    },
+    "10003": {
+        "tier": 3,
+        "count": 1
+    },
+    "14001": {
+        "tier": 1,
+        "count": 5,
+        "element": 0
+    },
+    "14002": {
+        "tier": 2,
+        "count": 1,
+        "element": 0
+    },
+    "14003": {
+        "tier": 3,
+        "count": 1,
+        "element": 0
+    },
+    "14004": {
+        "tier": 1,
+        "count": 5,
+        "element": 1
+    },
+    "14005": {
+        "tier": 2,
+        "count": 1,
+        "element": 1
+    },
+    "14006": {
+        "tier": 3,
+        "count": 1,
+        "element": 1
+    },
+    "14007": {
+        "tier": 1,
+        "count": 5,
+        "element": 2
+    },
+    "14008": {
+        "tier": 2,
+        "count": 1,
+        "element": 2
+    },
+    "14009": {
+        "tier": 3,
+        "count": 1,
+        "element": 2
+    },
+    "14010": {
+        "tier": 1,
+        "count": 5,
+        "element": 3
+    },
+    "14011": {
+        "tier": 2,
+        "count": 1,
+        "element": 3
+    },
+    "14012": {
+        "tier": 3,
+        "count": 1,
+        "element": 3
+    },
+    "14013": {
+        "tier": 1,
+        "count": 5,
+        "element": 5
+    },
+    "14014": {
+        "tier": 2,
+        "count": 1,
+        "element": 5
+    },
+    "14015": {
+        "tier": 3,
+        "count": 1,
+        "element": 5
+    },
+    "14016": {
+        "tier": 1,
+        "count": 5,
+        "element": 4
+    },
+    "14017": {
+        "tier": 2,
+        "count": 1,
+        "element": 4
+    },
+    "14018": {
+        "tier": 3,
+        "count": 1,
+        "element": 4
+    }
+}

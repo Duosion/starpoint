@@ -215,3 +215,16 @@ export interface ManaNode {
 }
 
 export type ManaNodes = Record<string, Record<string, Record<string, ManaNode>>>
+
+// ex ability
+export type ExAbilities = Record<string, number[]>
+
+export type ExStatus = ExAbilities
+
+export interface ExBoostItem {
+    tier: number,
+    count: number,
+    element?: Element
+}
+
+export type ExBoostItems = Record<string, ExBoostItem>;

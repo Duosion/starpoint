@@ -58,7 +58,8 @@ const routes = async (fastify: FastifyInstance) => {
 
         const viewerId = body.viewer_id
         const characterId = body.character_id
-        if (!viewerId || isNaN(viewerId) || !characterId || isNaN(characterId)) return reply.status(400).send({
+        const illustration_settings = body.illustration_settings
+        if (isNaN(viewerId) || isNaN(characterId) || !illustration_settings) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid request body."
         })
@@ -67,6 +68,19 @@ const routes = async (fastify: FastifyInstance) => {
         if (!viewerIdSession) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid viewer id."
+        })
+
+        // get player id
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        if (playerId === undefined) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // update character
+        updatePlayerCharacterSync(playerId, characterId, {
+            illustrationSettings: illustration_settings.slice(0, 6)
         })
 
         reply.header("content-type", "application/x-msgpack")

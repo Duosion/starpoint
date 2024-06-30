@@ -121,6 +121,9 @@ export default function init(
         stack INTEGER NOT NULL,
         mana_board_index INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
+        ex_boost_status_id INTEGER,
+        ex_boost_ability_id_list TEXT,
+        illustration_settings TEXT,
         PRIMARY KEY (id, player_id),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();

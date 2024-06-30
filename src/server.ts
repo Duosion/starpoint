@@ -14,6 +14,7 @@ import attentionApiPlugin from "./routes/api/attention"
 import characterApiPlugin from "./routes/api/character"
 import partyGroupApiPlugin from "./routes/api/partyGroup"
 import equipmentApiPlugin from "./routes/api/equipment"
+import exBoostApiPlugin from "./routes/api/exBoost"
 
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
@@ -90,6 +91,7 @@ fastify.register(attentionApiPlugin, { prefix: "/latest/api/index.php/attention"
 fastify.register(characterApiPlugin, { prefix: "/latest/api/index.php/character" })
 fastify.register(partyGroupApiPlugin, { prefix: "/latest/api/index.php/party_group" })
 fastify.register(equipmentApiPlugin, { prefix: "/latest/api/index.php/equipment" })
+fastify.register(exBoostApiPlugin, { prefix: "/latest/api/index.php/ex_boost" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

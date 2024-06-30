@@ -26,6 +26,34 @@ export function deserializeBoolean(
 }
 
 /**
+ * Converts a list of numbers into a string.
+ * 
+ * @param toSerialize The list of numbers to serialize.
+ * @returns A serialized string.
+ */
+export function serializeNumberList(
+    toSerialize: number[]
+): string {
+    return toSerialize.join(',')
+}
+
+/**
+ * Converts a serialized string into a list of numbers.
+ * 
+ * @param toDeserialize The serialized string to deserialize.
+ * @returns A list of numbers.
+ */
+export function deserializeNumberList(
+    toDeserialize: string
+): number[] {
+    try {
+        return toDeserialize.split(",").map(str => Number(str))
+    } catch (error) {
+        return []
+    }
+}
+
+/**
  * Serializes a player data object in the way that the world flipper client expects it.
  * 
  * @param player The player data object to serialize.
@@ -58,7 +86,7 @@ export function serializePlayerData(
     const userCharacterList: Record<string, Object> = {}
     for (const [characterId, character] of Object.entries(characterList)) {
         // convert bond tokens
-        userCharacterList[characterId] = {
+        const converted_character: Record<string, any> = {
             "entry_count": character.entryCount,
             "evolution_level": character.evolutionLevel,
             "over_limit_step": character.overLimitStep,
@@ -75,6 +103,20 @@ export function serializePlayerData(
             }),
             "mana_board_index": character.manaBoardIndex
         }
+        
+        const exBoost = character.exBoost
+        if (exBoost !== undefined) {
+            converted_character['ex_boost'] = {
+                "status_id": exBoost.statusId,
+                "ability_id_list": exBoost.abilityIdList
+            }
+        }
+        
+        if (character.illustrationSettings !== undefined) {
+            converted_character['illustration_settings'] = character.illustrationSettings
+        }
+
+        userCharacterList[characterId] = converted_character
     }
 
     // convert parties

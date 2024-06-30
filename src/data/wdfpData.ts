@@ -1,8 +1,8 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
-import { deserializeBoolean, getDefaultPlayerData, serializeBoolean } from "./utils";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
 const expPoolMax = 100000 // the maximum amount of exp that can be pooled
@@ -758,6 +758,24 @@ function buildCharacterBondToken(
 }
 
 /**
+ * Builds a PlayerCharacterExBoost object.
+ * 
+ * @param exBoostStatusId The ex boost's status ID
+ * @param exBoostAbilityIdList The serialized string representing the ex boost's ability id list.
+ * @returns A PlayerCharacterExBoost object or undefined.
+ */
+function buildPlayerCharacterExBoost(
+    exBoostStatusId: number | null,
+    exBoostAbilityIdList: string | null
+): PlayerCharacterExBoost | undefined {
+    if (exBoostStatusId === null || exBoostAbilityIdList === null) return undefined
+    return {
+        statusId: exBoostStatusId,
+        abilityIdList: deserializeNumberList(exBoostAbilityIdList)
+    }
+}
+
+/**
  * Converts a RawPlayerCharacter into a PlayerCharacter
  * 
  * @param rawCharacter The RawPlayerCharacter to convert.
@@ -778,6 +796,8 @@ function buildPlayerCharacter(
         exp: rawCharacter.exp,
         stack: rawCharacter.stack,
         manaBoardIndex: rawCharacter.mana_board_index,
+        exBoost: buildPlayerCharacterExBoost(rawCharacter.ex_boost_status_id, rawCharacter.ex_boost_ability_id_list),
+        illustrationSettings: rawCharacter.illustration_settings === null ? undefined : deserializeNumberList(rawCharacter.illustration_settings),
         bondTokenList: bondTokens
     }
 }
@@ -814,7 +834,8 @@ export function getPlayerCharacterSync(
 
     const rawCharacter = db.prepare(`
     SELECT id, entry_count, evolution_level, over_limit_step, protection,
-        join_time, update_time, exp, stack, mana_board_index
+        join_time, update_time, exp, stack, mana_board_index, ex_boost_status_id,
+        ex_boost_ability_id_list, illustration_settings
     FROM players_characters
     WHERE player_id = ? AND id = ?
     `).get(playerId, characterId) as RawPlayerCharacter
@@ -846,7 +867,8 @@ export function getPlayerCharactersSync(
 
     const rawCharacters = db.prepare(`
     SELECT id, entry_count, evolution_level, over_limit_step, protection,
-        join_time, update_time, exp, stack, mana_board_index
+        join_time, update_time, exp, stack, mana_board_index, ex_boost_status_id,
+        ex_boost_ability_id_list, illustration_settings
     FROM players_characters
     WHERE player_id = ?
     `).all(playerId) as RawPlayerCharacter[]
@@ -944,8 +966,10 @@ export function insertPlayerCharacterSync(
 ) {
     // insert into characters table
     db.prepare(`
-    INSERT INTO players_characters (id, entry_count, evolution_level, over_limit_step, protection, join_time, update_time, exp, stack, mana_board_index, player_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO players_characters (id, entry_count, evolution_level, over_limit_step, 
+        protection, join_time, update_time, exp, stack, mana_board_index, player_id,
+        ex_boost_status_id, ex_boost_ability_id_list, illustration_settings)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
         Number(characterId),
         character.entryCount,
@@ -957,7 +981,10 @@ export function insertPlayerCharacterSync(
         character.exp,
         character.stack,
         character.manaBoardIndex,
-        playerId
+        playerId,
+        character.exBoost?.statusId === undefined ? null : character.exBoost.statusId,
+        character.exBoost?.abilityIdList === undefined ? null : serializeNumberList(character.exBoost.abilityIdList),
+        character.illustrationSettings === undefined ? null : serializeNumberList(character.illustrationSettings)
     )
 
     // insert mana board nodes
@@ -1064,6 +1091,20 @@ export function updatePlayerCharacterSync(
                 values.push(value)
             }
         }
+    }
+
+    const exBoost = character.exBoost
+    if (exBoost !== undefined) {
+        sets.push('ex_boost_status_id = ?')
+        sets.push('ex_boost_ability_id_list = ?')
+        values.push(exBoost.statusId)
+        values.push(serializeNumberList(exBoost.abilityIdList))
+    }
+
+    const illustration_settings = character.illustrationSettings
+    if (illustration_settings !== undefined) {
+        sets.push('illustration_settings = ?')
+        values.push(serializeNumberList(illustration_settings))
     }
 
     if (sets.length > 0) db.prepare(`

@@ -103,6 +103,14 @@ export interface RawPlayerCharacter {
     exp: number
     stack: number
     mana_board_index: number
+    ex_boost_status_id: number | null
+    ex_boost_ability_id_list: string | null
+    illustration_settings: string | null
+}
+
+export interface PlayerCharacterExBoost {
+    statusId: number,
+    abilityIdList: number[]
 }
 
 export interface PlayerCharacter {
@@ -115,6 +123,8 @@ export interface PlayerCharacter {
     exp: number
     stack: number
     manaBoardIndex: number
+    exBoost?: PlayerCharacterExBoost
+    illustrationSettings?: number[]
     bondTokenList: PlayerCharacterBondToken[]
 }
 
