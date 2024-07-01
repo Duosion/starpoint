@@ -243,6 +243,20 @@ def convert_ex_ability(obj):
         converted[tier].append(int(ability_id))
     return converted
 
+# def convert_mana_nodes_save_data(obj):
+#     converted = {}
+
+#     for character_id, levels in obj.items():
+#         nodes = []
+#         for _, level in levels.items():
+#             for _, node in level.items():
+#                 nodes.append(int(node[0]))
+#         converted[character_id] = nodes
+
+#     return {
+#         "user_character_mana_node_list": converted
+#     }
+
 def save_json(obj, file_path):
     with open(file_path, 'w', encoding='utf8') as file:
         json.dump(obj, file, indent=4, ensure_ascii=False)

@@ -12,6 +12,16 @@ export function getServerTime(date: Date = new Date()): number {
 }
 
 /**
+ * Converts a server time value (unix epoch in seconds) into a Date.
+ * 
+ * @param serverTime The unix epoch value.
+ * @returns The date.
+ */
+export function getDateFromServerTime(serverTime: number): Date {
+    return new Date(serverTime * 1000)
+}
+
+/**
  * Generates an IdpAlias to identify a particular device.
  * 
  * @param appId 
