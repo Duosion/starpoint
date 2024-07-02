@@ -15,6 +15,8 @@ interface GetPathBody {
     viewer_id: number
 }
 
+export const availableAssetVersion = "2.1.122"
+
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/version_info", async(request: FastifyRequest, reply: FastifyReply) => {
         const platform = getRequestPlatformSync(request)

@@ -4,3 +4,4 @@ mitm_redirect
 .database
 scripts/in
 .cdn
+web/public/tailwind.css

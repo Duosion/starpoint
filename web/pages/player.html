@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/tailwind.css">
+    <title>Starpoint - Player</title>
+</head>
+
+<body class="bg-background text-on-surface relative">
+    <article
+        class="mt-16 m-auto max-w-screen-2xl min-h-screen box-border flex flex-col md:items-start items-center px-3 pb-3">
+        <h1 class="md:text-5xl text-4xl mt-4 font-bold mb-4 text-on-background">Player "{{playerName}}"</h1>
+        <h2 class="text-2xl text-on-surface-variant mt-2 mb-4">"{{playerComment}}"</h2>
+        <section
+            class="mt-8 flex flex-col items-center justify-center p-5 border border-outline-variant bg-surface-container rounded-3xl w-full gap-5">
+            <h3 class="text-xl text-on-background font-semibold mt-2">Download a copy of this player's save data in JSON
+                format.</h3>
+            <a href="/api/player/save?id={{playerId}}"
+                class="text-base bg-primary text-on-primary h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-primary before:hover:opacity-[0.12] transition-opacity">
+                Download Save
+            </a>
+        </section>
+        <form
+            class="mt-5 flex flex-col items-center justify-center p-5 border border-outline-variant bg-surface-container rounded-3xl w-full gap-5"
+            method="post" 
+            action="/api/player/save?id={{playerId}}"
+            enctype="multipart/form-data">
+            <h3 class="text-xl text-on-background font-semibold mt-2">Upload new save data.</h3>
+            <input id="save-data" name="save-data" type="file" accept=".json,.txt" required/>
+            {{uploadError}}
+            <button
+                type="submit"
+                class="text-base bg-primary text-on-primary h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-primary before:hover:opacity-[0.12] transition-opacity">
+                Upload Save
+            </button>
+        </form>
+
+    </article>
+</body>
+
+</html>

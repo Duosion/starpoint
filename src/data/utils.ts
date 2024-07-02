@@ -1,5 +1,10 @@
+import { getCharacterDataSync } from "../lib/assets"
 import { getDateFromServerTime, getServerTime } from "../utils"
-import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
+import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
+
+import saveData from "../../assets/save_data.json"
+import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync } from "./wdfpData"
+import { availableAssetVersion } from "../routes/api/asset"
 
 /**
  * Serializes a boolean into a number, which is storable by the database.
@@ -255,7 +260,7 @@ export function serializePlayerData(
                 "gacha_exchange_point": gachaInfo.gachaExchangePoint
             }
         }),
-        "available_asset_version": "2.1.121",
+        "available_asset_version": availableAssetVersion,
         "should_prompt_takeover_registration": false,
         "has_unread_news_item": false,
         "user_option": toSerialize.userOption,
@@ -385,7 +390,7 @@ export function getDefaultPlayerData(): Omit<Player, 'id'> {
  * 
  * @param toDeserialize The client player data to be deserialized
  */
-function deserializePlayerData(
+export function deserializePlayerData(
     playerId: number,
     toDeserialize: Partial<ClientPlayerData>
 ): MergedPlayerData {
@@ -465,6 +470,10 @@ function deserializePlayerData(
 
         const characterList: Record<string, PlayerCharacter> = {}
         for (const [characterId, character] of Object.entries(userCharacterList)) {
+            // get asset data
+            const assetData = getCharacterDataSync(characterId)
+            if (assetData === null) throw new Error(`Character with id "${characterId}" does not exist.`);
+
             const entryCount = character['entry_count']
             const evolutionLevel = character['evolution_level']
             const overLimitStep = character['over_limit_step']
@@ -503,6 +512,9 @@ function deserializePlayerData(
                 })
             }
 
+            // validan length of bond token list
+            if (bondTokenList.length > 2) throw new Error(`Invalid bond_token_list length for character with id "${characterId}".`);
+
             const exBoost = character['ex_boost']
             if (exBoost !== undefined) {
                 const statusId = exBoost['status_id']
@@ -521,10 +533,239 @@ function deserializePlayerData(
             characterList[characterId] = converted_character
         }
 
+        // deserialize mana node list
+        const characterManaNodeList = toDeserialize['user_character_mana_node_list']
+        if (characterManaNodeList === undefined) throw new Error("Missing 'user_character_mana_node_list' field.");
 
+        // deserialize party list
+        const userPartyGroupList = toDeserialize['user_party_group_list']
+        if (userPartyGroupList === undefined) throw new Error("Missing 'user_party_group_list' field.");
 
-    } catch (error: number | any) {
-        throw new Error(error)
+        const partyGroupList: Record<string, PlayerPartyGroup> = {}
+        for (const [groupId, group] of Object.entries(userPartyGroupList)) {
+            const userList = group['list']
+            const colorId = group['color_id']
+            if (isNaN(colorId)) throw new Error(`Invalid fields in group with id "${groupId}"`);
+
+            const list: Record<string, PlayerParty> = {}
+            for (const [partyId, party] of Object.entries(userList)) {
+                const name = party['name']
+                const characterIds = party['character_ids']
+                const unisonCharacterIds = party['unison_character_ids']
+                const equipmentIds = party['equipment_ids']
+                const abilitySoulIds = party['ability_soul_ids']
+                const edited = party['edited']
+                const options = party['options']
+                if (name === undefined || edited === undefined || options === undefined
+                    || characterIds === undefined || unisonCharacterIds === undefined
+                    || equipmentIds === undefined || abilitySoulIds === undefined
+                ) throw new Error(`Invalid party team with id "${partyId}" in group with id "${groupId}"`);
+
+                // check lengths
+                if (characterIds.length > 3 || unisonCharacterIds.length > 3 || equipmentIds.length > 3 || abilitySoulIds.length > 3) throw new Error(`Invalid array lengths for party with id "${partyId}" in group with id "${groupId}"`);
+
+                list[partyId] = {
+                    name: name,
+                    characterIds: characterIds,
+                    unisonCharacterIds: unisonCharacterIds,
+                    equipmentIds: equipmentIds,
+                    abilitySoulIds: abilitySoulIds,
+                    edited: edited,
+                    options: {
+                        allowOtherPlayersToHealMe: options?.allow_other_players_to_heal_me === undefined ? true : options.allow_other_players_to_heal_me
+                    }
+                }
+            }
+            partyGroupList[groupId] = {
+                list: list,
+                colorId: colorId
+            }
+        }
+
+        // deserialize item list
+        const itemList = toDeserialize['item_list']
+        if (itemList === undefined) throw new Error("Missing 'item_list' field.");
+
+        // deserialize equipment
+        const userEquipmentList = toDeserialize['user_equipment_list']
+        if (userEquipmentList === undefined) throw new Error("Missing 'user_equipment_list' field.");
+
+        const equipmentList: Record<string, PlayerEquipment> = {}
+        for (const [equipmentId, equipment] of Object.entries(userEquipmentList)) {
+            const enhancementLevel = equipment['enhancement_level']
+            const level = equipment['level']
+            const protection = equipment['protection']
+            const stack = equipment['stack']
+            if (isNaN(enhancementLevel) || isNaN(level) || protection === undefined || isNaN(stack)) throw new Error(`Invalid fields for equipment with id "${equipmentId}"`);
+
+            equipmentList[equipmentId] = {
+                enhancementLevel: enhancementLevel,
+                level: level,
+                protection: protection,
+                stack: stack
+            }
+        }
+
+        // deserialize quest progress
+        const userQuestProgress = toDeserialize['quest_progress']
+        if (userQuestProgress === undefined) throw new Error("Missing 'quest_progress' field.");
+
+        const questProgress: Record<string, PlayerQuestProgress[]> = {}
+        for (const [section, progresses] of Object.entries(userQuestProgress)) {
+            const list: PlayerQuestProgress[] = []
+            for (const progress of progresses) {
+                const finished = progress['finished']
+                const questId = progress['quest_id']
+                if (isNaN(questId) || finished === undefined) throw new Error(`Invalid quest progress in section "${section}"`);
+
+                list.push({
+                    bestElapsedTimeMs: progress['best_elapsed_time_ms'],
+                    clearRank: progress['clear_rank'],
+                    finished: finished,
+                    highScore: progress['high_score'],
+                    questId: questId
+                })
+            }
+            questProgress[section] = list
+        }
+
+        // deserialize gacha info list
+        const userGachaInfoList = toDeserialize['gacha_info_list']
+        if (userGachaInfoList === undefined) throw new Error("Missing 'gacha_info_list' field.");
+
+        const gachaInfoList: PlayerGachaInfo[] = userGachaInfoList.map(gachaInfo => {
+            const gachaId = gachaInfo['gacha_id']
+            const isDailyFirst = gachaInfo['is_daily_first']
+            const isAccountFirst = gachaInfo['is_account_first']
+            if (isNaN(gachaId) || isDailyFirst === undefined || isAccountFirst === undefined) throw new Error(`Invalid or missing fields for 'gacha_info' field.`);
+
+            return {
+                gachaId: gachaId,
+                isDailyFirst: isDailyFirst,
+                isAccountFirst: isAccountFirst,
+                gachaExchangePoint: gachaInfo['gacha_exchange_point']
+            }
+        })
+
+        // deserialize player options
+        const userOption = toDeserialize['user_option']
+        if (userOption === undefined) throw new Error("Missing 'user_option' field.");
+
+        // deserialize drawn quest list
+        const userDrawnQuestList = toDeserialize['drawn_quest_list']
+        if (userDrawnQuestList === undefined) throw new Error("Missing 'drawn_quest_list' field.");
+
+        const drawnQuestList: PlayerDrawnQuest[] = userDrawnQuestList.map(drawnQuest => {
+            const categoryId = drawnQuest['category_id']
+            const questId = drawnQuest['quest_id']
+            const oddsId = drawnQuest['odds_id']
+
+            if (isNaN(categoryId) || isNaN(questId) || isNaN(oddsId)) throw new Error(`Invalid or missing fields for 'drawn_quest_list' field.`);
+
+            return {
+                categoryId: categoryId,
+                questId: questId,
+                oddsId: oddsId
+            }
+        })
+
+        // deserialize periodic reward point list
+        const periodicRewardPointList = toDeserialize['user_periodic_reward_point_list']
+        if (periodicRewardPointList === undefined) throw new Error("Missing 'user_periodic_reward_point_list' field.");
+
+        // deserialize active mission list
+        const allActiveMissionList = toDeserialize['all_active_mission_list']
+        if (allActiveMissionList === undefined) throw new Error("Missing 'all_active_mission_list' field.");
+
+        // convert box gacha list
+        const userBoxGachaList = toDeserialize['box_gacha_list']
+        if (userBoxGachaList === undefined) throw new Error("Missing 'box_gacha_list' field.");
+
+        const boxGachaList: Record<string, PlayerBoxGacha[]> = {}
+        for (const [section, list] of Object.entries(userBoxGachaList)) {
+            boxGachaList[section] = list.map(boxGacha => {
+                const boxId = boxGacha['box_id']
+                const resetTimes = boxGacha['reset_times']
+                const remainingNumber = boxGacha['remaining_number']
+                const isClosed = boxGacha['is_closed']
+
+                if (isNaN(boxId) || isNaN(resetTimes) || isNaN(remainingNumber) || isClosed === undefined) throw new Error(`Invalid or missing fields for 'box_gacha_list' field in section ${section}.`);
+
+                return {
+                    boxId: boxId,
+                    resetTimes: resetTimes,
+                    remainingNumber: remainingNumber,
+                    isClosed: isClosed
+                }
+            })
+        }
+
+        // deserialize start dash exchange campaign list
+        const userStartDashCampaignList = toDeserialize['start_dash_exchange_campaign_list']
+        if (userStartDashCampaignList === undefined) throw new Error("Missing 'start_dash_exchange_campaign_list' field.");
+
+        const startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[] = userStartDashCampaignList.map(campaign => {
+            const campaignId = campaign['campaign_id']
+            const gachaId = campaign['gacha_id']
+            const periodStartTime = campaign['period_start_time']
+            const periodEndTime = campaign['period_end_time']
+            const status = campaign['status']
+            const termIndex = campaign['term_index']
+
+            if (isNaN(campaignId) || isNaN(gachaId) || isNaN(periodStartTime) || isNaN(periodEndTime) || isNaN(status) || isNaN(termIndex))
+                throw new Error("Invalid or missing fields for 'start_dash_exchange_campaign_list' field.");
+
+            return {
+                campaignId: campaignId,
+                gachaId: gachaId,
+                periodStartTime: getDateFromServerTime(periodStartTime),
+                periodEndTime: getDateFromServerTime(periodEndTime),
+                status: status,
+                termIndex: termIndex
+            }
+        })
+
+        // deserialize multi special exchange campaign list
+        const userMultiSpecialExchangeCampaignList = toDeserialize['multi_special_exchange_campaign_list']
+        if (userMultiSpecialExchangeCampaignList === undefined) throw new Error("Missing 'multi_special_exchange_campaign_list' field.");
+
+        const multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[] = userMultiSpecialExchangeCampaignList.map(campaign => {
+            const campaignId = campaign['campaign_id']
+            const status = campaign['status']
+
+            if (isNaN(campaignId) || isNaN(status))
+                throw new Error("Invalid or missing fields for 'multi_special_exchange_campaign_list' field.");
+
+            return {
+                campaignId: campaignId,
+                status: status
+            }
+        })
+
+        return {
+            player: player,
+            dailyChallengePointList: dailyChallengePointList,
+            triggeredTutorial: triggeredTutorial,
+            clearedRegularMissionList: clearedRegularMissionList,
+            characterList: characterList,
+            characterManaNodeList: characterManaNodeList,
+            partyGroupList: partyGroupList,
+            itemList: itemList,
+            equipmentList: equipmentList,
+            questProgress: questProgress,
+            gachaInfoList: gachaInfoList,
+            drawnQuestList: drawnQuestList,
+            periodicRewardPointList: periodicRewardPointList,
+            allActiveMissionList: allActiveMissionList,
+            boxGachaList: boxGachaList,
+            purchasedTimesList: {},
+            startDashExchangeCampaignList: startDashExchangeCampaignList,
+            multiSpecialExchangeCampaignList: multiSpecialExchangeCampaignList,
+            userOption: userOption
+        }
+
+    } catch (error: Error | any) {
+        throw error
     }
 }
 
@@ -539,4 +780,42 @@ export function clientSerializeDate(
     date: Date
 ): string {
     return `${date.getUTCFullYear()}-${date.getUTCMonth().toString().padStart(2, "0")}-${date.getUTCDate().toString().padStart(2, "0")} ${date.getUTCHours().toString().padStart(2, "0")}:${date.getUTCMinutes().toString().padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`
+}
+
+/**
+ * Takes a playerID and returns all of the necessary data for the game client.
+ * 
+ * @param playerId 
+ * @param viewerId 
+ * @returns 
+ */
+export function getClientSerializedData(
+    playerId: number,
+    viewerId: number
+): ClientPlayerData | null {
+
+    const playerData = getPlayerSync(playerId)
+    if (playerData === null) return null
+
+    return serializePlayerData({
+        player: playerData,
+        dailyChallengePointList: getPlayerDailyChallengePointListSync(playerId),
+        triggeredTutorial: getPlayerTriggeredTutorialsSync(playerId),
+        clearedRegularMissionList: getPlayerClearedRegularMissionListSync(playerId),
+        characterList: getPlayerCharactersSync(playerId),
+        characterManaNodeList: getPlayerCharactersManaNodesSync(playerId),
+        partyGroupList: getPlayerPartyGroupListSync(playerId),
+        itemList: getPlayerItemsSync(playerId),
+        equipmentList: getPlayerEquipmentListSync(playerId),
+        questProgress: getPlayerQuestProgressSync(playerId),
+        gachaInfoList: getPlayerGachaInfoSync(playerId),
+        drawnQuestList: getPlayerDrawnQuestsSync(playerId),
+        periodicRewardPointList: getPlayerPeriodicRewardPointsSync(playerId),
+        allActiveMissionList: getPlayerActiveMissionsSync(playerId),
+        boxGachaList: getPlayerBoxGachasSync(playerId),
+        purchasedTimesList: {},
+        startDashExchangeCampaignList: getPlayerStartDashExchangeCampaignsSync(playerId),
+        multiSpecialExchangeCampaignList: getPlayerMultiSpecialExchangeCampaignsSync(playerId),
+        userOption: getPlayerOptionsSync(playerId)
+    }, viewerId)
 }

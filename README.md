@@ -33,6 +33,8 @@ For a more in-depth view of the progress completed, visit the [API endpoints doc
   - Read the "Connecting" section below.
 - **Can I import my save data?**
   - Not yet. This is a planned feature, however.
+- **How do I import my save data?**
+  - Once you have Starpoint running, visit [http://localhost:8000](http://localhost:8000) in your browser and visit the players page.
 - **How can I download my save data?**
   - You can download your save data **before EOS** by visting & following the instructions for the [wdfp-save-downloader repository](https://github.com/Duosion/wdfp-save-downloader).
 - **I am getting an 'H404' error**

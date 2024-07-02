@@ -256,7 +256,7 @@ export interface RawPlayerActiveMission {
 
 export interface PlayerActiveMission {
     progress: number
-    stages?: Record<string, boolean>
+    stages: Record<string, boolean> | never[]
 }
 
 export interface RawPlayerBoxGacha {
@@ -517,11 +517,11 @@ export interface ClientPlayerData {
     expired_premium_bonus_list: unknown
     user_daily_challenge_point_list: UserDailyChallengePointListItem[]
     bonus_index_list: unknown
-    login_bonus_received_at: unknown
+    login_bonus_received_at?: unknown
     user_notice_list: unknown[]
     user_triggered_tutorial: number[]
-    user_tutorial: UserTutorial | null
-    tutorial_gacha: unknown
+    user_tutorial?: UserTutorial | null
+    tutorial_gacha?: unknown
     cleared_regular_mission_list: Record<string, number>
     user_character_list: UserCharacterList
     user_character_mana_node_list: UserCharacterManaNodeList
