@@ -57,7 +57,7 @@ export function givePlayerScoreRewardsSync(
                     const rareGroupId = reward.id
                     const group = getRareScoreRewardGroup(rareGroupId)
                     if (group !== null) {
-                        const random_index = 1 >= group.length ? 0 : randomInt(group.length - 1)
+                        const random_index = 1 >= group.length ? 0 : randomInt(group.length)
                         const reward = group[random_index]
                         const result = givePlayerRewardSync(playerId, reward)
 

@@ -1,10 +1,7 @@
 ## Contribution Guide
 Learn the basics of the Starpoint project to begin contributing!
 
-## What Needs to be Done
-At the moment, the majority of the work left in order for Starpoint to be complete is the implementation of the various endpoints that the game client interacts with.
-
-## What Has Been Done
+## What's Left?
 There is a table of the endpoints that have been implemented in the [api endpoints document](./api-endpoints.md).
 
 ## Project Structure

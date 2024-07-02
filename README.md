@@ -3,7 +3,7 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 
 ## Implemented Features
 * Tutorial
-* Character leveling & uncapping.
+* Character leveling, uncapping, & ex boosting
 * Party organization
 * Main story quests
 * Main story quest drops
@@ -13,30 +13,35 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 For a more in-depth view of the progress completed, visit the [API endpoints document](/docs/api-endpoints.md).
 
 ## Installation
-- Install [Node.js](https://nodejs.org/en/download/package-manager).
-- Clone the repository from the command line.
-  ```
-  git clone https://github.com/Duosion/starpoint.git
-  ```
-- Navigate to the directory where the repository was cloned to.
-- Double click on the start.bat file to start the server.
-  - If mitmproxy is installed, this will also start up mitmproxy automatically.
-- The server is now listening on port 8000 for any game traffic.
+1. Install [Node.js](https://nodejs.org/en/download/package-manager).
+2. Clone the repository from the command line.
+   ```
+   git clone https://github.com/Duosion/starpoint.git
+   ```
+   - If you do not have git installed, click the green "Code" button at the top of the page and select "Download ZIP" to download a ZIP of the repository instead.
+3. Navigate to the directory where the repository was cloned/unzipped to.
+4. Double click on the start.bat file to start the server.
+   - If mitmproxy is installed, this will also start up mitmproxy automatically.
+4. The server is now listening on port 8000 for any game traffic.
 
 ## FAQ
 - **Do I have to host this on my own?**
   - Yes. I will not be hosting this server myself.
 - **Does this work for IOS devices?**
-  - At the moment, this server has not been tested for compatibility with the IOS game client.
+  - Starpoint has support for IOS, but has not been tested for compatibility with the IOS game client.
 - **How do I connect the game to this server?**
   - Read the "Connecting" section below.
 - **Can I import my save data?**
   - Not yet. This is a planned feature, however.
-- **I am getting a 'H404' error**
+- **How do I import my save data?**
+  - Once you have Starpoint running, visit [http://localhost:8000](http://localhost:8000) in your browser and visit the players page.
+- **How can I download my save data?**
+  - You can download your save data **before EOS** by visting & following the instructions for the [wdfp-save-downloader repository](https://github.com/Duosion/wdfp-save-downloader).
+- **I am getting an 'H404' error**
   - Receiving this error means that the feature you are trying to interact with has not been implemented yet.
 
 ## Connecting
-- In order to utilize Starpoint, you will have to redirect traffic from the game client, originally intended for the official servers, to an instance of Starpoint running on your computer.
+In order to utilize Starpoint, you will have to redirect traffic from the game client, originally intended for the official servers, to an instance of Starpoint running on your computer.
 - [Android Connection Guide](/docs/connecting-android.md)
 
 ## Contribution
@@ -50,21 +55,21 @@ Once the game servers close, this CDN will also close. Therefore, Starpoint offe
 In order to replicate the game's CDN, Starpoint requires a copy of the files that the game's CDN would normally serve. For the purpose of this, a CDN downloading script has been created.
 
 ### CDN Download Instructions (Windows)
-- Ensure that you have [python](https://www.python.org/downloads/) downloaded and installed.
-- Locate the ``download_cdn.bat`` file in the directory where you downloaded Starpoint.
-- Double click the batch file and follow the instructions in the newly opened window.
+1. Ensure that you have [python](https://www.python.org/downloads/) downloaded and installed.
+2. Locate the ``download_cdn.bat`` file in the directory where you downloaded Starpoint.
+3. Double click the batch file and follow the instructions in the newly opened window.
 
 ### CDN Download Instructions (Other)
-- Ensure that you have [python](https://www.python.org/downloads/) downloaded and installed.
-- Navigate to the directory where you downloaded Starpoint and open a terminal.
-- Install the requirements for the download script by running:
-  ```
-  pip install -r scripts/requirements.txt
-  ```
-- Run the download script:
-  ```
-  python scripts/cdn_download.py
-  ```
+1. Ensure that you have [python](https://www.python.org/downloads/) downloaded and installed.
+2. Navigate to the directory where you downloaded Starpoint and open a terminal.
+3. Install the requirements for the download script by running:
+   ```
+   pip install -r scripts/requirements.txt
+   ```
+4. Run the download script:
+   ```
+   python scripts/cdn_download.py
+   ```
 
 ### Download Info
 - The CDN files will be downloaded to a directory called ``.cdn`` under the main Starpoint directory.

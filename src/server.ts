@@ -1,4 +1,9 @@
 import Fastify, { FastifyRequest } from "fastify";
+import { ContentTypeParserDoneFunction } from "fastify/types/content-type-parser";
+import fastifyStatic from "@fastify/static";
+import { pack, unpack } from "msgpackr";
+import path from "path";
+// api routes
 import apiPlugin from "./routes/api";
 import assetApiPlugin from "./routes/api/asset";
 import toolApiPlugin from "./routes/api/tool";
@@ -14,12 +19,14 @@ import attentionApiPlugin from "./routes/api/attention"
 import characterApiPlugin from "./routes/api/character"
 import partyGroupApiPlugin from "./routes/api/partyGroup"
 import equipmentApiPlugin from "./routes/api/equipment"
-
+import exBoostApiPlugin from "./routes/api/exBoost"
+// web routes
+import indexWebPlugin from "./routes/web"
+// web api routes
+import indexWebApiPlugin from "./routes/web_api"
+// misc routes
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
-import { pack, unpack } from "msgpackr";
-import path from "path";
-import { ContentTypeParserDoneFunction } from "fastify/types/content-type-parser";
 
 // gc-openapi-zinny3.kakaogames.com
 // gc-infodesk-zinny3.kakaogames.com
@@ -90,6 +97,7 @@ fastify.register(attentionApiPlugin, { prefix: "/latest/api/index.php/attention"
 fastify.register(characterApiPlugin, { prefix: "/latest/api/index.php/character" })
 fastify.register(partyGroupApiPlugin, { prefix: "/latest/api/index.php/party_group" })
 fastify.register(equipmentApiPlugin, { prefix: "/latest/api/index.php/equipment" })
+fastify.register(exBoostApiPlugin, { prefix: "/latest/api/index.php/ex_boost" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
@@ -97,11 +105,25 @@ fastify.register(openapiPlugin, { prefix: "/openapi/service" })
 // infodesk
 fastify.register(infodeskPlugin, { prefix: "/infodesk" })
 
+// web routes
+fastify.register(indexWebPlugin, { prefix: "/" }),
+
+// web api routes
+fastify.register(indexWebApiPlugin, { prefix: "/api" })
+
+// web static
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "..", "web/public"),
+    prefix: "/public",
+    decorateReply: false
+})
+
 // static CDN
 // english
-fastify.register(require('@fastify/static'), {
+fastify.register(fastifyStatic, {
     root: path.join(__dirname, "..", ".cdn/en"),
-    prefix: "/patch/Live/2.0.0/en"
+    prefix: "/patch/Live/2.0.0/en",
+    decorateReply: false
 })
 
 // listen
@@ -110,5 +132,5 @@ fastify.listen({ port: 8000 }, (err, address) => {
         fastify.log.error(err)
         process.exit(1)
     }
-    console.log(`StarPoint is listening on ${address}`)
+    console.log(`StarPoint is listening on http://localhost:8000`)
 })

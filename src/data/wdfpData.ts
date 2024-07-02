@@ -1,8 +1,8 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
-import { deserializeBoolean, getDefaultPlayerData, serializeBoolean } from "./utils";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
 const expPoolMax = 100000 // the maximum amount of exp that can be pooled
@@ -758,6 +758,24 @@ function buildCharacterBondToken(
 }
 
 /**
+ * Builds a PlayerCharacterExBoost object.
+ * 
+ * @param exBoostStatusId The ex boost's status ID
+ * @param exBoostAbilityIdList The serialized string representing the ex boost's ability id list.
+ * @returns A PlayerCharacterExBoost object or undefined.
+ */
+function buildPlayerCharacterExBoost(
+    exBoostStatusId: number | null,
+    exBoostAbilityIdList: string | null
+): PlayerCharacterExBoost | undefined {
+    if (exBoostStatusId === null || exBoostAbilityIdList === null) return undefined
+    return {
+        statusId: exBoostStatusId,
+        abilityIdList: deserializeNumberList(exBoostAbilityIdList)
+    }
+}
+
+/**
  * Converts a RawPlayerCharacter into a PlayerCharacter
  * 
  * @param rawCharacter The RawPlayerCharacter to convert.
@@ -778,6 +796,8 @@ function buildPlayerCharacter(
         exp: rawCharacter.exp,
         stack: rawCharacter.stack,
         manaBoardIndex: rawCharacter.mana_board_index,
+        exBoost: buildPlayerCharacterExBoost(rawCharacter.ex_boost_status_id, rawCharacter.ex_boost_ability_id_list),
+        illustrationSettings: rawCharacter.illustration_settings === null ? undefined : deserializeNumberList(rawCharacter.illustration_settings),
         bondTokenList: bondTokens
     }
 }
@@ -814,7 +834,8 @@ export function getPlayerCharacterSync(
 
     const rawCharacter = db.prepare(`
     SELECT id, entry_count, evolution_level, over_limit_step, protection,
-        join_time, update_time, exp, stack, mana_board_index
+        join_time, update_time, exp, stack, mana_board_index, ex_boost_status_id,
+        ex_boost_ability_id_list, illustration_settings
     FROM players_characters
     WHERE player_id = ? AND id = ?
     `).get(playerId, characterId) as RawPlayerCharacter
@@ -827,7 +848,7 @@ export function getPlayerCharacterSync(
     FROM players_characters_bond_tokens
     WHERE player_id = ? AND character_id = ?
     `).all(playerId, characterId) as RawPlayerCharacterBondToken[]
-    
+
     return buildPlayerCharacter(
         rawCharacter,
         rawBondTokens.map(raw => buildCharacterBondToken(raw))
@@ -846,7 +867,8 @@ export function getPlayerCharactersSync(
 
     const rawCharacters = db.prepare(`
     SELECT id, entry_count, evolution_level, over_limit_step, protection,
-        join_time, update_time, exp, stack, mana_board_index
+        join_time, update_time, exp, stack, mana_board_index, ex_boost_status_id,
+        ex_boost_ability_id_list, illustration_settings
     FROM players_characters
     WHERE player_id = ?
     `).all(playerId) as RawPlayerCharacter[]
@@ -908,6 +930,29 @@ function insertPlayerCharacterBondTokenSync(
 }
 
 /**
+ * Updates a player's character's bond token.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @param bondToken The updated bondToken.
+ */
+export function updatePlayerCharacterBondTokenSync(
+    playerId: number,
+    characterId: number | string,
+    bondToken: PlayerCharacterBondToken
+) {
+    db.prepare(`
+    UPDATE players_characters_bond_tokens
+    SET status = ?
+    WHERE player_id = ? AND character_id = ?
+    `).run(
+        bondToken.status,
+        playerId,
+        Number(characterId)
+    )
+}
+
+/**
  * Inserts a single character into a player's inventory.
  * 
  * @param playerId The ID of the player to add the character to.
@@ -921,8 +966,10 @@ export function insertPlayerCharacterSync(
 ) {
     // insert into characters table
     db.prepare(`
-    INSERT INTO players_characters (id, entry_count, evolution_level, over_limit_step, protection, join_time, update_time, exp, stack, mana_board_index, player_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO players_characters (id, entry_count, evolution_level, over_limit_step, 
+        protection, join_time, update_time, exp, stack, mana_board_index, player_id,
+        ex_boost_status_id, ex_boost_ability_id_list, illustration_settings)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
         Number(characterId),
         character.entryCount,
@@ -934,7 +981,10 @@ export function insertPlayerCharacterSync(
         character.exp,
         character.stack,
         character.manaBoardIndex,
-        playerId
+        playerId,
+        character.exBoost?.statusId === undefined ? null : character.exBoost.statusId,
+        character.exBoost?.abilityIdList === undefined ? null : serializeNumberList(character.exBoost.abilityIdList),
+        character.illustrationSettings === undefined ? null : serializeNumberList(character.illustrationSettings)
     )
 
     // insert mana board nodes
@@ -1035,12 +1085,26 @@ export function updatePlayerCharacterSync(
             sets.push(`${mapped} = ?`)
             if (value instanceof Date) {
                 values.push(value.toISOString())
-            } else if (typeof(value) === "boolean") {
+            } else if (typeof (value) === "boolean") {
                 values.push(serializeBoolean(value))
             } else {
                 values.push(value)
             }
         }
+    }
+
+    const exBoost = character.exBoost
+    if (exBoost !== undefined) {
+        sets.push('ex_boost_status_id = ?')
+        sets.push('ex_boost_ability_id_list = ?')
+        values.push(exBoost.statusId)
+        values.push(serializeNumberList(exBoost.abilityIdList))
+    }
+
+    const illustration_settings = character.illustrationSettings
+    if (illustration_settings !== undefined) {
+        sets.push('illustration_settings = ?')
+        values.push(serializeNumberList(illustration_settings))
     }
 
     if (sets.length > 0) db.prepare(`
@@ -1080,6 +1144,26 @@ export function getPlayerCharactersManaNodesSync(
     }
 
     return buckets
+}
+
+/**
+ * Gets all of the mana nodes that a player has unlocked for a specific character.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterId The ID of the character.
+ * @returns A list of unlocked mana node ids.
+ */
+export function getPlayerCharacterManaNodesSync(
+    playerId: number,
+    characterId: number
+): number[] {
+    const rawNodes = db.prepare(`
+    SELECT value, character_id
+    FROM players_characters_mana_nodes
+    WHERE character_id = ? AND player_id = ?
+    `).all(characterId, playerId) as RawPlayerCharacterManaNode[]
+
+    return rawNodes.map(rawNode => rawNode.value);
 }
 
 /**
@@ -1634,7 +1718,7 @@ export function updatePlayerEquipmentSync(
         const mapped = fieldMap[key]
         if (mapped && value !== undefined) {
             sets.push(`${mapped} = ?`)
-            if (typeof(value) === "boolean") {
+            if (typeof (value) === "boolean") {
                 values.push(serializeBoolean(value))
             } else {
                 values.push(value)
@@ -1717,7 +1801,7 @@ export function getPlayerSingleQuestProgressSync(
     FROM players_quest_progress
     WHERE player_id = ? AND section = ? AND quest_id = ?
     `).get(playerId, Number(section), Number(questId)) as RawPlayerQuestProgress
-    
+
     if (rawProgress === undefined) return null;
 
     return buildPlayerQuestProgress(rawProgress)
@@ -1794,7 +1878,7 @@ export function updatePlayerQuestProgressSync(
         const mapped = fieldMap[key]
         if (mapped && value !== undefined) {
             sets.push(`${mapped} = ?`)
-            if (typeof(value) === "boolean") {
+            if (typeof (value) === "boolean") {
                 values.push(serializeBoolean(value))
             } else {
                 values.push(value)
@@ -1898,7 +1982,7 @@ export function updatePlayerGachaInfoSync(
         const mapped = fieldMap[key]
         if (mapped && value !== undefined) {
             sets.push(`${mapped} = ?`)
-            if (typeof(value) === "boolean") {
+            if (typeof (value) === "boolean") {
                 values.push(serializeBoolean(value))
             } else {
                 values.push(value)
@@ -2092,7 +2176,7 @@ function insertPlayerActiveMissionStageSync(
 ) {
     db.prepare(`
     INSERT INTO players_active_missions_stages (id, status, player_id, mission_id)
-    VALUSE (?, ?, ?, ?)   
+    VALUES (?, ?, ?, ?)   
     `).run(
         Number(stageId),
         serializeBoolean(status),
@@ -2492,26 +2576,20 @@ export function getAccountFromPlayerIdSync(
     SELECT account_id
     FROM players
     WHERE id = ?
-    `).get(playerId) as {account_id: number} | undefined
+    `).get(playerId) as { account_id: number } | undefined
 
     return raw === undefined ? null : getAccountSync(raw.account_id)
 }
 
-export function getPlayerSync(
-    playerId: number
-): Player | null {
-    const raw = db.prepare(`
-    SELECT id, stamina, stamina_heal_time, boost_point, boss_boost_point,
-        transition_state, role, name, last_login_time, comment,
-        vmoney, free_vmoney, rank_point, star_crumb,
-        bond_token, exp_pool, exp_pooled_time, leader_character_id, party_slot,
-        degree_id, birth, free_mana, paid_mana, enable_auto_3x, tutorial_step, tutorial_skip_flag
-    FROM players
-    WHERE id = ?    
-    `).get(playerId) as RawPlayer | undefined
-
-    if (raw === undefined) return null
-
+/**
+ * Converts a RawPlayer into a Player
+ * 
+ * @param raw The raw player to convert into a player.
+ * @returns The converted Player
+ */
+function buildPlayer(
+    raw: RawPlayer
+): Player {
     return {
         id: raw.id,
         stamina: raw.stamina,
@@ -2542,6 +2620,37 @@ export function getPlayerSync(
     }
 }
 
+export function getPlayerSync(
+    playerId: number
+): Player | null {
+    const raw = db.prepare(`
+    SELECT id, stamina, stamina_heal_time, boost_point, boss_boost_point,
+        transition_state, role, name, last_login_time, comment,
+        vmoney, free_vmoney, rank_point, star_crumb,
+        bond_token, exp_pool, exp_pooled_time, leader_character_id, party_slot,
+        degree_id, birth, free_mana, paid_mana, enable_auto_3x, tutorial_step, tutorial_skip_flag
+    FROM players
+    WHERE id = ?    
+    `).get(playerId) as RawPlayer | undefined
+
+    if (raw === undefined) return null
+
+    return buildPlayer(raw)
+}
+
+export function getAllPlayersSync(): Player[] {
+    const raw = db.prepare(`
+    SELECT id, stamina, stamina_heal_time, boost_point, boss_boost_point,
+        transition_state, role, name, last_login_time, comment,
+        vmoney, free_vmoney, rank_point, star_crumb,
+        bond_token, exp_pool, exp_pooled_time, leader_character_id, party_slot,
+        degree_id, birth, free_mana, paid_mana, enable_auto_3x, tutorial_step, tutorial_skip_flag
+    FROM players  
+    `).all() as RawPlayer[]
+
+    return raw.map(rawPlayer => buildPlayer(rawPlayer))
+}
+
 /**
  * Inserts a player into the database.
  * 
@@ -2551,16 +2660,12 @@ export function getPlayerSync(
  */
 export function insertPlayerSync(
     accountId: number,
-    player: Omit<Player, 'id'>
+    player: Pick<Partial<Player>, 'id'> & Omit<Player, 'id'>,
 ): number {
-    const insert = db.prepare(`
-    INSERT INTO players (stamina, stamina_heal_time, boost_point, boss_boost_point,
-        transition_state, role, name, last_login_time, comment, vmoney, free_vmoney,
-        rank_point, star_crumb, bond_token, exp_pool, exp_pooled_time, leader_character_id,
-        party_slot, degree_id, birth, free_mana, paid_mana, enable_auto_3x, account_id, 
-        tutorial_step, tutorial_skip_flag)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
+    const playerId = player.id
+    const playerIdGiven = playerId !== undefined
+
+    const values = [
         player.stamina,
         player.staminaHealTime.toISOString(),
         player.boostPoint,
@@ -2587,10 +2692,55 @@ export function insertPlayerSync(
         accountId,
         player.tutorialStep === null ? null : player.tutorialStep,
         player.tutorialSkipFlag === null ? null : serializeBoolean(player.tutorialSkipFlag)
-    )
+    ]
+
+    if (playerIdGiven)
+        values.push(playerId);
+
+    const insert = db.prepare(`
+    INSERT INTO players (stamina, stamina_heal_time, boost_point, boss_boost_point,
+        transition_state, role, name, last_login_time, comment, vmoney, free_vmoney,
+        rank_point, star_crumb, bond_token, exp_pool, exp_pooled_time, leader_character_id,
+        party_slot, degree_id, birth, free_mana, paid_mana, enable_auto_3x, account_id, 
+        tutorial_step, tutorial_skip_flag${playerIdGiven ? ', id' : ''})
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?${playerIdGiven ? ', ?' : ''})
+    `).run(values)
 
     // return
     return Number(insert.lastInsertRowid)
+}
+
+/**
+ * Inserts the data from a MergedPlayerData object into the database.
+ * 
+ * @param toInsert The data to insert into the database.
+ * @returns The newly inserted player's id.
+ */
+export function insertMergedPlayerDataSync(
+    accountId: number,
+    toInsert: MergedPlayerData
+) {
+    const player = toInsert.player
+    const playerId = player.id
+    insertPlayerSync(accountId, player)
+
+    insertPlayerDailyChallengePointListSync(playerId, toInsert.dailyChallengePointList)
+    insertPlayerTriggeredTutorialsSync(playerId, toInsert.triggeredTutorial)
+    insertPlayerClearedRegularMissionListSync(playerId, toInsert.clearedRegularMissionList)
+    insertPlayerCharactersSync(playerId, toInsert.characterList)
+    insertPlayerCharactersManaNodesSync(playerId, toInsert.characterManaNodeList)
+    insertPlayerPartyGroupListSync(playerId, toInsert.partyGroupList)
+    insertPlayerItemsSync(playerId, toInsert.itemList)
+    insertPlayerEquipmentListSync(playerId, toInsert.equipmentList)
+    insertPlayerQuestProgressListSync(playerId, toInsert.questProgress)
+    insertPlayerGachaInfoListSync(playerId, toInsert.gachaInfoList)
+    insertPlayerDrawnQuestsSync(playerId, toInsert.drawnQuestList)
+    insertPlayerPeriodicRewardPointsListSync(playerId, toInsert.periodicRewardPointList)
+    insertPlayerActiveMissionsSync(playerId, toInsert.allActiveMissionList)
+    insertPlayerBoxGachasSync(playerId, toInsert.boxGachaList)
+    insertPlayerStartDashExchangeCampaignsSync(playerId, toInsert.startDashExchangeCampaignList)
+    insertPlayerMultiSpecialExchangeCampaignsSync(playerId, toInsert.multiSpecialExchangeCampaignList)
+    insertPlayerOptionsSync(playerId, toInsert.userOption)
 }
 
 /**
@@ -3246,6 +3396,42 @@ export function updatePlayerSync(
         SET ${sets.join(', ')}
         WHERE id = ?
         `).run([...values, id]);
+}
+
+/**
+ * Replaces a player's data with the provided MergedPlayerData object.
+ * 
+ * @param replaceWith The MergedPlayerData to replace.
+ */
+export function replacePlayerDataSync(
+    replaceWith: MergedPlayerData
+) {
+    try {
+        const playerId = replaceWith.player.id
+
+        const account = getAccountFromPlayerIdSync(playerId)
+        if (account === null)
+            throw new Error("No account tied to player id.");
+
+        // delete player
+        deletePlayerSync(playerId)
+
+        // insert new
+        insertMergedPlayerDataSync(account.id, replaceWith)
+    } catch (error: Error | any) {
+        throw error
+    }
+}
+
+/**
+ * Deletes a player from the database completely.
+ * 
+ * @param playerId The ID of the player to delete
+ */
+export function deletePlayerSync(
+    playerId: number
+) {
+    db.prepare(`DELETE FROM players WHERE id = ?`).run(playerId)
 }
 
 /**

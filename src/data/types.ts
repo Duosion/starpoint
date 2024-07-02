@@ -103,6 +103,14 @@ export interface RawPlayerCharacter {
     exp: number
     stack: number
     mana_board_index: number
+    ex_boost_status_id: number | null
+    ex_boost_ability_id_list: string | null
+    illustration_settings: string | null
+}
+
+export interface PlayerCharacterExBoost {
+    statusId: number,
+    abilityIdList: number[]
 }
 
 export interface PlayerCharacter {
@@ -115,6 +123,8 @@ export interface PlayerCharacter {
     exp: number
     stack: number
     manaBoardIndex: number
+    exBoost?: PlayerCharacterExBoost
+    illustrationSettings?: number[]
     bondTokenList: PlayerCharacterBondToken[]
 }
 
@@ -246,7 +256,7 @@ export interface RawPlayerActiveMission {
 
 export interface PlayerActiveMission {
     progress: number
-    stages?: Record<string, boolean>
+    stages: Record<string, boolean> | never[]
 }
 
 export interface RawPlayerBoxGacha {
@@ -353,4 +363,211 @@ export interface Player {
     enableAuto3x: boolean
     tutorialStep: number | null
     tutorialSkipFlag: boolean | null
+}
+
+// client types
+// Types used by the pinball game client.
+export interface ClientUserInfo {
+    stamina: number
+    stamina_heal_time: number
+    boost_point: number
+    boss_boost_point: number
+    transition_state: number
+    role: number
+    name: string
+    last_login_time: string
+    comment: string
+    vmoney: number
+    free_vmoney: number
+    rank_point: number
+    star_crumb: number
+    bond_token: number
+    exp_pool: number
+    exp_pooled_time: number
+    leader_character_id: number
+    party_slot: number
+    degree_id: number
+    birth: number
+    free_mana: number
+    paid_mana: number
+    enable_auto_3x: boolean
+}
+
+export interface UserDailyChallengePointListItemCampaign {
+    campaign_id: number
+    additional_point: number
+}
+
+export interface UserDailyChallengePointListItem {
+    id: number
+    point: number
+    campaign_list: UserDailyChallengePointListItemCampaign[]
+}
+
+export interface UserTutorial {
+    viewer_id: number
+    tutorial_step: number
+    skip_flag: boolean | null
+    powerflip_failure?: number
+}
+
+export interface UserCharacterBondTokenStatus {
+    mana_board_index: number
+    status: number
+}
+
+export interface UserCharacterExBoost {
+    status_id: number
+    ability_id_list: number[]
+}
+
+export interface UserCharacter {
+    entry_count: number
+    evolution_level: number
+    over_limit_step: number
+    protection: boolean
+    join_time: number
+    update_time: number
+    exp: number
+    stack: number
+    bond_token_list: UserCharacterBondTokenStatus[]
+    mana_board_index: number
+    ex_boost?: UserCharacterExBoost
+    illustration_settings?: number[]
+}
+
+export type UserCharacterList = Record<string, UserCharacter>
+export type UserCharacterManaNodeList = Record<string, number[]>
+
+export interface UserPartyGroupTeam {
+    name: string,
+    character_ids: (number | null)[]
+    unison_character_ids: (number | null)[]
+    equipment_ids: (number | null)[]
+    ability_soul_ids: (number | null)[]
+    edited: boolean
+    options: {
+        allow_other_players_to_heal_me: boolean
+    }
+}
+
+export interface UserPartyGroup {
+    color_id: number,
+    list: Record<string, UserPartyGroupTeam>
+}
+
+export interface UserEquipment {
+    enhancement_level: number,
+    level: number,
+    protection: boolean,
+    stack: number
+}
+
+export interface UserQuestProgress {
+    quest_id: number
+    finished: boolean
+    high_score?: number
+    best_elapsed_time_ms?: number
+    clear_rank?: number
+}
+
+export interface UserGachaInfo {
+    gacha_id: number
+    is_daily_first: boolean
+    is_account_first: boolean
+    gacha_exchange_point?: number
+}
+
+export interface UserDrawnQuest {
+    category_id: number
+    quest_id: number
+    odds_id: number
+}
+
+export interface UserBoxGacha {
+    box_id: number
+    reset_times: number
+    remaining_number: number
+    is_closed: boolean
+}
+
+export interface UserGachaCampaign {
+    campaign_id: number
+    gacha_id: number
+    count: number
+}
+
+export interface UserStartDashCampaignList {
+    campaign_id: number
+    gacha_id: number
+    period_start_time: number
+    period_end_time: number
+    status: number
+    term_index: number
+}
+
+export interface UserMultiSpecialExchangeCampaignList {
+    campaign_id: number
+    status: number
+}
+
+export interface ClientPlayerData {
+    user_info: ClientUserInfo
+    premium_bonus_list: unknown[]
+    expired_premium_bonus_list: unknown
+    user_daily_challenge_point_list: UserDailyChallengePointListItem[]
+    bonus_index_list: unknown
+    login_bonus_received_at?: unknown
+    user_notice_list: unknown[]
+    user_triggered_tutorial: number[]
+    user_tutorial?: UserTutorial | null
+    tutorial_gacha?: unknown
+    cleared_regular_mission_list: Record<string, number>
+    user_character_list: UserCharacterList
+    user_character_mana_node_list: UserCharacterManaNodeList
+    user_party_group_list: Record<string, UserPartyGroup>
+    item_list: Record<string, number>
+    user_equipment_list: Record<string, UserEquipment>
+    user_character_from_town_history: unknown[]
+    quest_progress: Record<string, UserQuestProgress[]>
+    last_main_quest_id: number | null
+    gacha_info_list: UserGachaInfo[]
+    available_asset_version: string
+    should_prompt_takeover_registration: boolean
+    has_unread_news_item: boolean
+    user_option: Record<string, boolean>
+    drawn_quest_list: UserDrawnQuest[]
+    mail_arrived: boolean
+    user_periodic_reward_point_list: PlayerPeriodicRewardPoint[]
+    all_active_mission_list: Record<string, PlayerActiveMission>
+    cleared_collect_item_event_mission_list: unknown[]
+    box_gacha_list: Record<string, UserBoxGacha[]>
+    gacha_campaign_list: UserGachaCampaign[]
+    purchased_times_list: Object
+    start_dash_exchange_campaign_list: UserStartDashCampaignList[]
+    multi_special_exchange_campaign_list: UserMultiSpecialExchangeCampaignList[]
+    associate_token: string
+    config: Object
+}
+
+export interface MergedPlayerData {
+    player: Player,
+    dailyChallengePointList: DailyChallengePointListEntry[],
+    triggeredTutorial: number[],
+    clearedRegularMissionList: Record<string, number>,
+    characterList: Record<string, PlayerCharacter>,
+    characterManaNodeList: Record<string, number[]>,
+    partyGroupList: Record<string, PlayerPartyGroup>,
+    itemList: Record<string, number>,
+    equipmentList: Record<string, PlayerEquipment>,
+    questProgress: Record<string, PlayerQuestProgress[]>,
+    gachaInfoList: PlayerGachaInfo[],
+    drawnQuestList: PlayerDrawnQuest[],
+    periodicRewardPointList: PlayerPeriodicRewardPoint[],
+    allActiveMissionList: Record<string, PlayerActiveMission>,
+    boxGachaList: Record<string, PlayerBoxGacha[]>,
+    purchasedTimesList: Record<string, number>,
+    startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[],
+    multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[],
+    userOption: Record<string, boolean>,
 }

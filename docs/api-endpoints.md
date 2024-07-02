@@ -15,39 +15,45 @@ Symbol | Meaning
 ### ``na.wdfp.kakaogames.com/latest/api/index.php``
 Endpoint | Status
 :------- | :-------
-``/load`` | :white_check_mark:
 ``/asset/version_info`` | :warning:
 ``/asset/get_path`` | :warning:
-``/tool/get_header_response`` | :white_check_mark:
-``/tool/signup`` | :white_check_mark:
-``/reproduce/post`` | :white_check_mark:
-``/tutorial/finish_trigger`` | :white_check_mark:
-``/tutorial/update_step`` | :white_check_mark:
-``/gacha/exec`` | :no_entry:
-``/party/edit`` | :white_check_mark:
+``/attention/check`` | :white_check_mark:
+``/character/set_illustration_settings`` | :white_check_mark:
+``/character/over_limit`` | :white_check_mark:
+``/character/receive_bond_token`` | :white_check_mark:
+``/character/open_mana_board`` | :warning:
+``/character/learn_mana_node`` | :white_check_mark:
+``/equipment/set_protection`` | :white_check_mark:
 ``/expod/inject_exp`` | :white_check_mark:
-``/story_quest/finish`` | :white_check_mark:
+``/ex_boost/first_draw`` | :white_check_mark:
+``/ex_boost/draw`` | :white_check_mark:
+``/ex_boost/select`` | :white_check_mark:
+``/gacha/exec`` | :no_entry:
+``/load`` | :white_check_mark:
 ``/option/update`` | :white_check_mark:
 ``/option/update_in_battle`` | :white_check_mark:
+``/party/edit`` | :white_check_mark:
+``/party_group/edit`` | :white_check_mark:
+``/reproduce/post`` | :white_check_mark:
+``/story_quest/finish`` | :white_check_mark:
 ``/single_battle_quest/finish`` | :white_check_mark:
 ``/single_battle_quest/abort`` | :white_check_mark:
 ``/single_battle_quest/start`` | :white_check_mark:
-``/attention/check`` | :white_check_mark:
-``/character/over_limit`` | :white_check_mark:
-``/character/learn_mana_node`` | :warning:
-``/party_group/edit`` | :white_check_mark:
-``/equipment/set_protection`` | :white_check_mark:
+``/tool/get_header_response`` | :white_check_mark:
+``/tool/signup`` | :white_check_mark:
+``/tutorial/finish_trigger`` | :white_check_mark:
+``/tutorial/update_step`` | :white_check_mark:
 
 ### ``openapi-zinny3.game.kakao.com/service``
 Endpoint | Status
 :------- | :-------
-``/v3/util/country/get`` | :white_check_mark:
-``/v4/device/accessToken/create`` | :warning:
-``/v3/zat/login`` | :white_check_mark:
-``/v3/push/token/register`` | :white_check_mark:
 ``/v3/agreement/getForLogin`` | :white_check_mark:
-``/v3/player/heartbeat`` | :warning:
 ``/v4/auth/loginDevice`` | :white_check_mark:
+``/v4/device/accessToken/create`` | :warning:
+``/v3/player/heartbeat`` | :warning:
+``/v3/push/token/register`` | :white_check_mark:
+``/v3/util/country/get`` | :white_check_mark:
+``/v3/zat/login`` | :white_check_mark:
 
 ### ``gc-infodesk-zinny3.kakaogames.com``
 Endpoint | Status

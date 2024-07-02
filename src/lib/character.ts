@@ -3,34 +3,34 @@ import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, insertPlayer
 import { getCharacterDataSync } from "./assets";
 import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, RewardPlayerCharacterExpResult } from "./types";
 
-const characterExpCaps: Record<number, number[]> = {
+export const characterExpCaps: Record<number, number[]> = {
     [1]: [ // 1* max exp amounts for each uncap level 
-        11416, // level 40
-        // level 45
-        // level 50
-        // level 55
-        // level 60
-        // level 65
-        // level 70
-        // level 75
-        // level 80
-        // level 85
-        // level 90
-        // level 95
-        // level 100
+        11416,  // level 40
+        15820,  // level 45
+        21477,  // level 50
+        28538,  // level 55
+        37241,  // level 60
+        49481,  // level 65
+        66600,  // level 70
+        91180,  // level 75
+        125223, // level 80
+        170928, // level 85
+        216633, // level 90
+        262338, // level 95
+        308043, // level 100
     ],
     [2]: [ // 2* max exp amounts for each uncap level 
-        21477, // level 50
-        // level 55
-        // level 60
-        // level 65
-        // level 70
-        // level 75
-        // level 80
-        // level 85
-        // level 90
-        // level 95
-        // level 100
+        21477,  // level 50
+        28538,  // level 55
+        37241,  // level 60
+        49481,  // level 65
+        66600,  // level 70
+        91180,  // level 75
+        125223, // level 80
+        170928, // level 85
+        216633, // level 90
+        262338, // level 95
+        308043, // level 100
     ],
     [3]: [ // 3* max exp amounts for each uncap level 
         37241,  // level 60
@@ -38,10 +38,10 @@ const characterExpCaps: Record<number, number[]> = {
         66600,  // level 70
         91180,  // level 75
         125223, // level 80
-        // level 85
-        // level 90
-        // level 95
-        // level 100
+        170928, // level 85
+        216633, // level 90
+        262338, // level 95
+        308043  // level 100
     ], 
     [4]: [ // 4* max exp amounts for each uncap level 
         76272,  // level 70
@@ -49,8 +49,8 @@ const characterExpCaps: Record<number, number[]> = {
         139190, // level 80
         189995, // level 85
         240800, // level 90
-        // level 95
-        // level 100
+        291605, // level 95
+        342410  // level 100
     ],
     [5]: [ // 5* max exp amounts for each uncap level 
         153988, // level 80

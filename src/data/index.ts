@@ -47,6 +47,7 @@ export default function getDatabase(
 
     // set pragma
     db.pragma('journal_mode = WAL')
+    db.pragma('foreign_keys = ON')
 
     // call init function
     const init = metadata.init

@@ -7,7 +7,10 @@ import mainQuests from "../../assets/main_quest.json";
 import rareScoreRewards from "../../assets/rare_score_reward.json";
 import scoreRewards from "../../assets/score_reward.json";
 import manaNodes from "../../assets/mana_node.json";
-import { AssetCharacter, BattleQuest, ClearRewards, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import exAbility from "../../assets/ex_ability.json";
+import exBoost from "../../assets/ex_boost.json";
+import exStatus from "../../assets/ex_status.json";
+import { AssetCharacter, BattleQuest, ClearRewards, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -175,21 +178,73 @@ export function getCharacterDataSync(
 }
 
 /**
+ * Gets all of a character's mana nodes of a certain level.
+ * 
+ * @param characterId The ID of the character.
+ * @param level The mana node level to get the nodes of.
+ * @returns A record containing ManaNode objects or null.
+ */
+export function getCharacterManaNodesSync(
+    characterId: string | number,
+    level: string | number,
+): Record<string, ManaNode> | null{
+    const characterManaNodes = (manaNodes as ManaNodes)[String(characterId)]
+    if (!characterManaNodes) return null;
+
+    return characterManaNodes[String(level)] || null
+}
+
+/**
  * Gets the data for a character mana node.
  * 
  * @param characterId The ID of the character.
+ * @param level The mana node level to get the node from.
  * @param manaNodeId The ID of the mana node.
  * @returns A ManaNode object or null.
  */
 export function getCharacterManaNodeSync(
     characterId: string | number,
+    level: string | number,
     manaNodeId: string | number
 ): ManaNode | null {
-    const characterManaNodes = (manaNodes as ManaNodes)[String(characterId)]
-    if (!characterManaNodes) return null;
+    const nodes = getCharacterManaNodesSync(characterId, level);
+    if (!nodes) return null;
 
-    const manaNode = characterManaNodes[String(manaNodeId)]
-    if (!manaNode) return null;
+    return nodes[String(manaNodeId)] || null
+}
 
-    return manaNode
+/**
+ * Gets the ExAbilities record.
+ * 
+ * @returns 
+ */
+export function getExAbilityPools(): ExAbilities {
+    return exAbility as ExAbilities;
+}
+
+/**
+ * Gets an ex status pool.
+ * 
+ * @param tier The tier of the pool to get.
+ * @returns A list of numbers with the StatusIDs corresponding to the requested pool.
+ */
+export function getExStatusPool(
+    tier: string | number
+): number[] | null {
+    const pool = (exStatus as ExStatus)[String(tier)]
+    return pool === undefined ? null : pool
+}
+
+/**
+ * Gets an ex boost item.
+ * 
+ * @param itemId The ID of the item.
+ * @returns The ExBoostItem that was found, or null.
+ */
+export function getExBoostItem(
+    itemId: string | number
+): ExBoostItem | null {
+    const item = (exBoost as ExBoostItems)[String(itemId)]
+
+    return item === undefined ? null : item
 }

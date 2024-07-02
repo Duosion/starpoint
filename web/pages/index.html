@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/tailwind.css">
+    <title>Starpoint</title>
+</head>
+
+<body class="bg-background text-on-surface relative">
+    <article class="mt-32 m-auto max-w-screen-2xl min-h-screen box-border flex flex-col items-center px-3 pb-3">
+        <img src="/public/img/logo.png" class="w-20 h-20">
+        <h1 class="md:text-6xl text-4xl mt-4 font-black mb-4 text-on-background text-center">Starpoint</h1>
+        <h2 class="text-xl mb-5 text-on-surface-variant text-center">Server emulator for a mobile pinball game.</h2>
+        <ul class="w-full mt-16 flex flex-col md:flex-row justify-center gap-5">
+            <li class="md:flex-1 w-full min-w-56">
+                <a href="/player"
+                    class="p-5 h-full text-on-surface hover:text-primary flex flex-col gap-3 border-outline-variant transition-colors border rounded-3xl hover:bg-surface-container-low">
+                    <h4 class="text-lg w-full font-bold text-inherit transition-colors">Players</h4>
+                    <p class="text-md text-on-surface-variant w-full">Import and download player save data.</p>
+                </a>
+            </li>
+            <li class="md:flex-1 w-full min-w-56">
+                <a href="https://github.com/Duosion/starpoint"
+                    class="p-5 h-full text-on-surface hover:text-primary flex flex-col gap-3 border-outline-variant transition-colors border rounded-3xl hover:bg-surface-container-low">
+                    <h4 class="text-lg w-full font-bold text-inherit transition-colors">Source Code</h4>
+                    <p class="text-md text-on-surface-variant w-full">View the Starpoint source code.</p>
+                </a>
+            </li>
+            <li class="md:flex-1 w-full min-w-56">
+                <a href="https://github.com/Duosion/wdfp-save-downloader"
+                    class="p-5 h-full text-on-surface hover:text-primary flex flex-col gap-3 border-outline-variant transition-colors border rounded-3xl hover:bg-surface-container-low">
+                    <h4 class="text-lg w-full font-bold text-inherit transition-colors">Save Downloader</h4>
+                    <p class="text-md text-on-surface-variant w-full">Download a copy of your save data.</p>
+                </a>
+            </li>
+        </ul>
+    </article>
+</body>
+
+</html>

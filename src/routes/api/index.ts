@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SessionType } from "../../data/types";
-import { serializePlayerData } from "../../data/utils";
+import { getClientSerializedData, serializePlayerData } from "../../data/utils";
 import { collectPooledExpSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
@@ -53,8 +53,8 @@ const routes = async (fastify: FastifyInstance) => {
         // collect the player's pooled exp
         collectPooledExpSync(playerId)
 
-        const playerData = getPlayerSync(playerId)
-        if (playerData === null) return reply.status(500).send({
+        const clientData = getClientSerializedData(playerId, viewerId)
+        if (clientData === null) return reply.status(500).send({
             "error": "Internal Server Error",
             "message": "No player data."
         })
@@ -65,28 +65,7 @@ const routes = async (fastify: FastifyInstance) => {
                 asset_update: true,
                 viewer_id: viewerId
             }),
-            "data": serializePlayerData(
-                playerData,
-                getPlayerDailyChallengePointListSync(playerId),
-                getPlayerTriggeredTutorialsSync(playerId),
-                getPlayerClearedRegularMissionListSync(playerId),
-                getPlayerCharactersSync(playerId),
-                getPlayerCharactersManaNodesSync(playerId),
-                getPlayerPartyGroupListSync(playerId),
-                getPlayerItemsSync(playerId),
-                getPlayerEquipmentListSync(playerId),
-                getPlayerQuestProgressSync(playerId),
-                getPlayerGachaInfoSync(playerId),
-                getPlayerDrawnQuestsSync(playerId),
-                getPlayerPeriodicRewardPointsSync(playerId),
-                getPlayerActiveMissionsSync(playerId),
-                getPlayerBoxGachasSync(playerId),
-                {},
-                getPlayerStartDashExchangeCampaignsSync(playerId),
-                getPlayerMultiSpecialExchangeCampaignsSync(playerId),
-                getPlayerOptionsSync(playerId),
-                viewerId
-            )
+            "data": clientData
         })
     })
 }
