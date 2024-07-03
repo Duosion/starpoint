@@ -16,8 +16,8 @@ import { CharacterReward, CurrencyReward, DropScoreRewardId, EquipmentItemReward
  */
 export function givePlayerScoreRewardsSync(
     playerId: number,
-    groupId: number,
-    scoreRewards: ScoreReward[]
+    groupId?: number,
+    scoreRewards?: ScoreReward[]
 ): GivePlayerScoreRewardsResult {
 
     const dropScoreRewardIds: DropScoreRewardId[] = []
@@ -30,82 +30,84 @@ export function givePlayerScoreRewardsSync(
     let equipmentList: Object[] = []
     let items: Record<string, number> = {}
 
-    let rewardIndex = 0
-    for (const scoreReward of scoreRewards) {
-        rewardIndex += 1;
-        switch (scoreReward.type) {
-            case ScoreRewardType.ITEM: {
-                const reward = scoreReward as ItemScoreReward
-                const itemId = reward.id
-                const rewardAmount = reward.count * 10
-                items[String(itemId)] = givePlayerItemSync(playerId, itemId, rewardAmount);
-                
-                dropScoreRewardIds.push({
-                    group_id: groupId,
-                    index: rewardIndex,
-                    number: rewardAmount
-                })
-                break;
-            }
-            case ScoreRewardType.RARE_POOL: {
-                const reward = scoreReward as RareScoreRewardGroup
-                const roll = randomInt(0, 100) / 100
+    if (scoreRewards !== undefined && groupId !== undefined) {
+        let rewardIndex = 0
+        for (const scoreReward of scoreRewards) {
+            rewardIndex += 1;
+            switch (scoreReward.type) {
+                case ScoreRewardType.ITEM: {
+                    const reward = scoreReward as ItemScoreReward
+                    const itemId = reward.id
+                    const rewardAmount = reward.count * 10
+                    items[String(itemId)] = givePlayerItemSync(playerId, itemId, rewardAmount);
 
-                if (reward.rarity >= roll) {
-                    // give reward from group
-                    // TODO: implement RareScoreReward rarity using .rarity field instead of having an even chance between all items in pool
-                    const rareGroupId = reward.id
-                    const group = getRareScoreRewardGroup(rareGroupId)
-                    if (group !== null) {
-                        const random_index = 1 >= group.length ? 0 : randomInt(group.length)
-                        const reward = group[random_index]
-                        const result = givePlayerRewardSync(playerId, reward)
-
-                        // merge arrays
-                        mana += result.user_info.free_mana
-                        vmoney += result.user_info.free_vmoney
-                        joinedCharacterIdList = [...joinedCharacterIdList, ...result.joined_character_id_list]
-                        characterList = [...characterList, ...result.character_list]
-                        equipmentList = [...equipmentList, ...result.equipment_list]
-
-                        // merge items
-                        for (const [itemId, count] of Object.entries(result.items)) {
-                            const existingCount = items[itemId]
-                            if (existingCount === undefined) {
-                                items[itemId] = count
-                            } else {
-                                items[itemId] = existingCount + count
-                            }
-                        }
-
-                        // calculate number
-                        let number = 0
-                        switch (reward.type) {
-                            case RewardType.ITEM:
-                            case RewardType.EQUIPMENT:
-                                number = (reward as Reward as EquipmentItemReward).count
-                                break;
-                            case RewardType.CHARACTER:
-                                number = 1;
-                                break;
-                            case RewardType.BEADS:
-                            case RewardType.MANA:
-                                number = (reward as Reward as CurrencyReward).count
-                                break;
-                        }
-
-                        // add reward id to table
-                        dropRareRewardIds.push({
-                            group_id: rareGroupId,
-                            index: random_index + 1,
-                            number: number
-                        })
-                    }
+                    dropScoreRewardIds.push({
+                        group_id: groupId,
+                        index: rewardIndex,
+                        number: rewardAmount
+                    })
+                    break;
                 }
-                break;
+                case ScoreRewardType.RARE_POOL: {
+                    const reward = scoreReward as RareScoreRewardGroup
+                    const roll = randomInt(0, 100) / 100
+
+                    if (reward.rarity >= roll) {
+                        // give reward from group
+                        // TODO: implement RareScoreReward rarity using .rarity field instead of having an even chance between all items in pool
+                        const rareGroupId = reward.id
+                        const group = getRareScoreRewardGroup(rareGroupId)
+                        if (group !== null) {
+                            const random_index = 1 >= group.length ? 0 : randomInt(group.length)
+                            const reward = group[random_index]
+                            const result = givePlayerRewardSync(playerId, reward)
+
+                            // merge arrays
+                            mana += result.user_info.free_mana
+                            vmoney += result.user_info.free_vmoney
+                            joinedCharacterIdList = [...joinedCharacterIdList, ...result.joined_character_id_list]
+                            characterList = [...characterList, ...result.character_list]
+                            equipmentList = [...equipmentList, ...result.equipment_list]
+
+                            // merge items
+                            for (const [itemId, count] of Object.entries(result.items)) {
+                                const existingCount = items[itemId]
+                                if (existingCount === undefined) {
+                                    items[itemId] = count
+                                } else {
+                                    items[itemId] = existingCount + count
+                                }
+                            }
+
+                            // calculate number
+                            let number = 0
+                            switch (reward.type) {
+                                case RewardType.ITEM:
+                                case RewardType.EQUIPMENT:
+                                    number = (reward as Reward as EquipmentItemReward).count
+                                    break;
+                                case RewardType.CHARACTER:
+                                    number = 1;
+                                    break;
+                                case RewardType.BEADS:
+                                case RewardType.MANA:
+                                    number = (reward as Reward as CurrencyReward).count
+                                    break;
+                            }
+
+                            // add reward id to table
+                            dropRareRewardIds.push({
+                                group_id: rareGroupId,
+                                index: random_index + 1,
+                                number: number
+                            })
+                        }
+                    }
+                    break;
+                }
             }
-        }    
-    } 
+        }
+    }
 
     return {
         drop_score_reward_ids: dropScoreRewardIds,
@@ -171,6 +173,7 @@ export function givePlayerRewardSync(
                                     "status": bondToken.status
                                 }
                             }),
+                            "mana_board_index": 1,
                             "create_time": clientSerializeDate(character.joinTime),
                             "update_time": clientSerializeDate(character.updateTime),
                             "join_time": clientSerializeDate(character.joinTime),
@@ -184,7 +187,7 @@ export function givePlayerRewardSync(
                             "join_time": clientSerializeDate(character.joinTime),
                         })
                     }
-                    
+
                 }
                 break;
             }

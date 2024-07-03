@@ -153,7 +153,7 @@ const routes = async (fastify: FastifyInstance) => {
         const partyCharacterIds = [...body.statistics.party.characters, ...body.statistics.party.unison_characters]
         const partyCharacterIdsArray: number[] = []
         for (const value of partyCharacterIds.values()) {
-            if (value.id !== null) partyCharacterIdsArray.push(value.id);
+            if (value !== null && value.id !== null) partyCharacterIdsArray.push(value.id);
         }
         const addExpAmount = questData.characterExpReward
 
@@ -238,7 +238,8 @@ const routes = async (fastify: FastifyInstance) => {
         const body = request.body as StartBody
 
         const viewerId = body.viewer_id
-        if (!viewerId || isNaN(viewerId)) return reply.status(400).send({
+        const partyId = body.party_id
+        if (isNaN(viewerId) || isNaN(partyId)) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid request body."
         })
@@ -258,7 +259,12 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
-        // update player last quest id 
+        // update player last quest id
+        updatePlayerSync({
+            id: playerId,
+            partySlot: partyId
+        })
+
         const dataHeaders = generateDataHeaders({
             viewer_id: viewerId
         })

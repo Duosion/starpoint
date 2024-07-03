@@ -4,6 +4,9 @@ import characterQuests from "../../assets/character_quest.json";
 import clearRewards from "../../assets/clear_reward.json";
 import exQuests from "../../assets/ex_quest.json";
 import mainQuests from "../../assets/main_quest.json";
+import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
+import worldStoryEventBossBattleQuests from  "../../assets/world_story_event_boss_battle_quest.json";
+import adventEventQuests from "../../assets/advent_event_quest.json"
 import rareScoreRewards from "../../assets/rare_score_reward.json";
 import scoreRewards from "../../assets/score_reward.json";
 import manaNodes from "../../assets/mana_node.json";
@@ -73,7 +76,7 @@ function getQuestSync(
         clearReward: getClearRewardSync(quest.clearRewardId),
         sPlusReward: getClearRewardSync(quest.sPlusRewardId as number),
         scoreRewardGroupId: quest.scoreRewardGroup,
-        scoreRewardGroup: getScoreRewardGroup(quest.scoreRewardGroup as number),
+        scoreRewardGroup: quest.scoreRewardGroup === undefined ? undefined : getScoreRewardGroup(quest.scoreRewardGroup),
         bRankTime: quest.bRankTime,
         aRankTime: quest.aRankTime,
         sRankTime: quest.sRankTime,
@@ -113,7 +116,7 @@ export function getExQuestSync(
 }
 
 /**
- * Gets an boss battle quest.
+ * Gets a boss battle quest.
  * 
  * @param questId The ID of the quest to get.
  * @returns The found BattleQuest or null
@@ -125,7 +128,7 @@ export function getBossBattleQuestSync(
 }
 
 /**
- * Gets an character quest.
+ * Gets a character quest.
  * 
  * @param questId The ID of the quest to get.
  * @returns The found StoryQuest or null
@@ -134,6 +137,42 @@ export function getCharacterQuestSync(
     questId: string | number
 ): StoryQuest | null {
     return getQuestSync((characterQuests as any as RawQuests), questId) as StoryQuest | null
+}
+
+/**
+ * Gets a world story event quest.
+ * 
+ * @param questId The ID of the quest to get.
+ * @returns The found StoryQuest or null
+ */
+export function getWorldStoryEventQuestSync(
+    questId: string | number
+): StoryQuest | null {
+    return getQuestSync((worldStoryEventQuests as RawQuests), questId) as StoryQuest | null
+}
+
+/**
+ * Gets a world story event boss battle quest.
+ * 
+ * @param questId The ID of the quest to get.
+ * @returns The found StoryQuest or null
+ */
+export function getWorldStoryEventBossBattleQuestSync(
+    questId: string | number
+): StoryQuest | null {
+    return getQuestSync((worldStoryEventBossBattleQuests as RawQuests), questId) as StoryQuest | null
+}
+
+/**
+ * Gets an advent quest.
+ * 
+ * @param questId The ID of the quest to get.
+ * @returns The found StoryQuest or null
+ */
+export function getAdventEventQuest(
+    questId: string | number
+): StoryQuest | null {
+    return getQuestSync((adventEventQuests as RawQuests), questId) as StoryQuest | null
 }
 
 /**
@@ -156,6 +195,13 @@ export function getQuestFromCategorySync(
             return getBossBattleQuestSync(questId)
         case QuestCategory.CHARACTER:
             return getCharacterQuestSync(questId)
+        case QuestCategory.WORLD_STORY_EVENT:
+            return getWorldStoryEventQuestSync(questId)
+        case QuestCategory.WORLD_STORY_EVENT_BOSS_BATTLE:
+            return getWorldStoryEventBossBattleQuestSync(questId)
+        case QuestCategory.ADVENT_EVENT_SINGLE:
+        case QuestCategory.ADVENT_EVENT_MULTI:
+            return getAdventEventQuest(questId)
         default:
             return null
     }
