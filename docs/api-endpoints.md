@@ -24,6 +24,7 @@ Endpoint | Status
 ``/character/open_mana_board`` | :warning:
 ``/character/learn_mana_node`` | :white_check_mark:
 ``/equipment/set_protection`` | :white_check_mark:
+``/expod/stack_to_exp`` | :white_check_mark:
 ``/expod/inject_exp`` | :white_check_mark:
 ``/ex_boost/first_draw`` | :white_check_mark:
 ``/ex_boost/draw`` | :white_check_mark:
