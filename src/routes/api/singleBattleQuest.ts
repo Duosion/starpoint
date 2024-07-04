@@ -3,12 +3,12 @@ import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, get
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { givePlayerCharactersExpSync } from "../../lib/character";
 import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
-import { BattleQuest } from "../../lib/types";
+import { BattleQuest, QuestCategory } from "../../lib/types";
 import { generateDataHeaders, getServerTime } from "../../utils";
 
 interface StartBody {
     quest_id: number
-    user_boss_boost_point: boolean
+    use_boss_boost_point: boolean
     use_boost_point: boolean
     category: number
     viewer_id: number
@@ -56,6 +56,16 @@ interface AbortBody {
     category: number
 }
 
+interface ActiveQuest {
+    questId: number,
+    category: QuestCategory,
+    useBossBoostPoint: boolean
+    useBoostPoint: boolean
+    isAutoStartMode: boolean
+}
+
+const activeQuests: Record<number, ActiveQuest> = {}
+
 const routes = async (fastify: FastifyInstance) => {
 
     fastify.post("/finish", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -83,9 +93,19 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
+        // get active quest data
+        const activeQuestData = activeQuests[playerId]
+        if (activeQuestData === undefined) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "No active quest to finish."
+        })
+
+        // delete the active quest data
+        delete activeQuests[playerId]
+
         // get quest data
-        const questCategory = body.category
-        const questId = body.quest_id
+        const questCategory = activeQuestData.category
+        const questId = activeQuestData.questId
         const questData = getQuestFromCategorySync(questCategory, questId) as BattleQuest | null
         if (questData === null || !('sPlusReward' in questData)) return reply.status(400).send({
             "error": "Bad Request",
@@ -153,7 +173,7 @@ const routes = async (fastify: FastifyInstance) => {
         const partyCharacterIds = [...body.statistics.party.characters, ...body.statistics.party.unison_characters]
         const partyCharacterIdsArray: number[] = []
         for (const value of partyCharacterIds.values()) {
-            if (value.id !== null) partyCharacterIdsArray.push(value.id);
+            if (value !== null && value.id !== null) partyCharacterIdsArray.push(value.id);
         }
         const addExpAmount = questData.characterExpReward
 
@@ -220,25 +240,8 @@ const routes = async (fastify: FastifyInstance) => {
     fastify.post("/abort", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as AbortBody
 
-        const headers = generateDataHeaders({ viewer_id: body.viewer_id })
-
-        return reply.status(200).send({
-            "data_headers": headers,
-            "data": {
-                "user_info": {},
-                "category_id": body.category,
-                "is_multi": "single",
-                "start_time": headers['servertime'],
-                "quest_name": ""
-            }
-        })
-    })
-
-    fastify.post("/start", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as StartBody
-
         const viewerId = body.viewer_id
-        if (!viewerId || isNaN(viewerId)) return reply.status(400).send({
+        if (isNaN(viewerId)) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid request body."
         })
@@ -258,7 +261,69 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
-        // update player last quest id 
+        const headers = generateDataHeaders({ viewer_id: body.viewer_id })
+
+        // delete existing active quest
+        delete activeQuests[playerId]
+
+        return reply.status(200).send({
+            "data_headers": headers,
+            "data": {
+                "user_info": {},
+                "category_id": body.category,
+                "is_multi": "single",
+                "start_time": headers['servertime'],
+                "quest_name": ""
+            }
+        })
+    })
+
+    fastify.post("/start", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as StartBody
+
+        const viewerId = body.viewer_id
+        const partyId = body.party_id
+        const questId = body.quest_id
+        const category = body.category
+        const useBoostPoint = body.use_boost_point
+        const useBossBoostPoint = body.use_boss_boost_point
+        const isAutoStartMode = body.is_auto_start_mode
+        if (isNaN(viewerId) || isNaN(partyId) || isNaN(questId) || isNaN(category) || useBoostPoint === undefined || useBossBoostPoint === undefined || isAutoStartMode === undefined) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No player bound to account."
+        })
+
+        // add to active quests table
+        delete activeQuests[playerId]
+        activeQuests[playerId] = {
+            questId: questId,
+            category: category,
+            useBoostPoint: useBoostPoint,
+            useBossBoostPoint: useBossBoostPoint,
+            isAutoStartMode: isAutoStartMode
+        }
+
+        // update player last quest id
+        updatePlayerSync({
+            id: playerId,
+            partySlot: partyId
+        })
+
         const dataHeaders = generateDataHeaders({
             viewer_id: viewerId
         })

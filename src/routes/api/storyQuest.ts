@@ -70,7 +70,6 @@ const routes = async (fastify: FastifyInstance) => {
                 })
             }
         }
-
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
@@ -80,12 +79,13 @@ const routes = async (fastify: FastifyInstance) => {
                 "user_info": {
                     "free_vmoney": playerData.freeVmoney + (rewardResult?.user_info.free_vmoney || 0),
                     "free_mana": playerData.freeMana + (rewardResult?.user_info.free_mana || 0)
-                }
+                },
+                "character_list": rewardResult?.character_list || [],
+                "joined_character_id_list": rewardResult?.joined_character_id_list || [],
+                "equipment_list": rewardResult?.equipment_list || [],
+                "items": rewardResult?.items || {}
             } : [],
-            "character_list": rewardResult?.character_list || [],
-            "joined_character_id_list": rewardResult?.joined_character_id_list || [],
-            "equipment_list": rewardResult?.equipment_list || [],
-            "items": rewardResult?.items || {}
+            
         })
     })
 }
