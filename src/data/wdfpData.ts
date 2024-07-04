@@ -2638,15 +2638,20 @@ export function getPlayerSync(
     return buildPlayer(raw)
 }
 
-export function getAllPlayersSync(): Player[] {
+export function getAllPlayersSync(
+    offset: number = 0,
+    limit: number = 25
+): Player[] {
     const raw = db.prepare(`
     SELECT id, stamina, stamina_heal_time, boost_point, boss_boost_point,
         transition_state, role, name, last_login_time, comment,
         vmoney, free_vmoney, rank_point, star_crumb,
         bond_token, exp_pool, exp_pooled_time, leader_character_id, party_slot,
         degree_id, birth, free_mana, paid_mana, enable_auto_3x, tutorial_step, tutorial_skip_flag
-    FROM players  
-    `).all() as RawPlayer[]
+    FROM players
+    LIMIT ?
+    OFFSET ?
+    `).all(limit, offset) as RawPlayer[]
 
     return raw.map(rawPlayer => buildPlayer(rawPlayer))
 }

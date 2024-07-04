@@ -2,13 +2,36 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import fastifyMultipart from "@fastify/multipart";
 import { deserializePlayerData, getClientSerializedData } from "../../data/utils";
 import { createReadStream } from "fs";
-import { replacePlayerDataSync } from "../../data/wdfpData";
+import { getAllPlayersSync, replacePlayerDataSync } from "../../data/wdfpData";
 
 interface SaveQuery {
     id: string | undefined
 }
 
+interface GetPlayersQuery {
+    page: string | undefined,
+    perPage: string | undefined
+}
+
+const defaultPerPage = 25
+
 const routes = async (fastify: FastifyInstance) => {
+    fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
+        // get page and perPage
+        const { page, perPage } = request.query as GetPlayersQuery
+        const parsedPage = page === undefined ? 0 : Number.parseInt(page)
+        const parsedPerPage = perPage === undefined ? defaultPerPage : Number.parseInt(perPage)
+        if (isNaN(parsedPage) || isNaN(parsedPerPage)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid query parameters."
+        })
+
+        // get players
+        const players = getAllPlayersSync(parsedPage * parsedPerPage, Math.min(defaultPerPage, parsedPerPage))
+
+        return reply.status(200).send(players)
+    })
+
     fastify.get("/save", async (request: FastifyRequest, reply: FastifyReply) => {
         // get id
         const { id } = request.query as SaveQuery
