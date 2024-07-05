@@ -4,7 +4,7 @@ import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, updatePlayer
 import { getRareScoreRewardGroup } from "./assets";
 import { givePlayerCharacterSync } from "./character";
 import { givePlayerEquipmentSync } from "./equipment";
-import { CharacterReward, CurrencyReward, DropScoreRewardId, EquipmentItemReward, GivePlayerScoreRewardsResult, ItemScoreReward, PlayerRewardResult, RareScoreRewardGroup, Reward, RewardType, ScoreReward, ScoreRewardType } from "./types";
+import { CharacterReward, CommonScoreReward, CurrencyReward, CurrencyScoreReward, DropScoreRewardId, EquipmentItemReward, GivePlayerScoreRewardsResult, ItemScoreReward, PlayerRewardResult, RareScoreRewardGroup, Reward, RewardType, ScoreReward, ScoreRewardType } from "./types";
 
 /**
  * Grants a player score rewards.
@@ -17,7 +17,8 @@ import { CharacterReward, CurrencyReward, DropScoreRewardId, EquipmentItemReward
 export function givePlayerScoreRewardsSync(
     playerId: number,
     groupId?: number,
-    scoreRewards?: ScoreReward[]
+    scoreRewards?: ScoreReward[],
+    boostPointUsed: boolean = false,
 ): GivePlayerScoreRewardsResult {
 
     const dropScoreRewardIds: DropScoreRewardId[] = []
@@ -25,6 +26,7 @@ export function givePlayerScoreRewardsSync(
 
     let mana = 0
     let vmoney = 0
+    let expPool = 0
     let joinedCharacterIdList: number[] = []
     let characterList: Object[] = []
     let equipmentList: Object[] = []
@@ -36,10 +38,41 @@ export function givePlayerScoreRewardsSync(
             rewardIndex += 1;
             switch (scoreReward.type) {
                 case ScoreRewardType.ITEM: {
-                    const reward = scoreReward as ItemScoreReward
-                    const itemId = reward.id
-                    const rewardAmount = reward.count * 10
-                    items[String(itemId)] = givePlayerItemSync(playerId, itemId, rewardAmount);
+                    const reward = scoreReward as CommonScoreReward
+
+                    let rewardAmount = 0
+
+                    switch (reward.reward_type) {
+                        case RewardType.ITEM: {
+                            const itemReward = reward as ItemScoreReward
+                            const itemId = itemReward.id
+                            rewardAmount = itemReward.count * 10 * (boostPointUsed ? 2 : 1)
+                            items[String(itemId)] = givePlayerItemSync(playerId, itemId, rewardAmount);
+                            break;
+                        }
+                        case RewardType.MANA: {
+                            const player = getPlayerSync(playerId)
+                            const currencyReward = reward as CurrencyScoreReward
+                            rewardAmount = currencyReward.count * 10 * (boostPointUsed ? 2 : 1)
+                            mana += rewardAmount
+                            updatePlayerSync({
+                                id: playerId,
+                                freeMana: (player?.freeVmoney || 0) + rewardAmount
+                            })
+                            break;
+                        }
+                        case RewardType.EXP: {
+                            const player = getPlayerSync(playerId)
+                            const currencyReward = reward as CurrencyScoreReward
+                            rewardAmount = currencyReward.count * 10 * (boostPointUsed ? 2 : 1)
+                            expPool += rewardAmount
+                            updatePlayerSync({
+                                id: playerId,
+                                expPool: (player?.expPool || 0) + rewardAmount
+                            })
+                            break;
+                        }
+                    }
 
                     dropScoreRewardIds.push({
                         group_id: groupId,
@@ -90,6 +123,7 @@ export function givePlayerScoreRewardsSync(
                                     number = 1;
                                     break;
                                 case RewardType.BEADS:
+                                case RewardType.EXP:
                                 case RewardType.MANA:
                                     number = (reward as Reward as CurrencyReward).count
                                     break;
@@ -114,7 +148,8 @@ export function givePlayerScoreRewardsSync(
         drop_rare_reward_ids: dropRareRewardIds,
         user_info: {
             free_mana: mana,
-            free_vmoney: vmoney
+            free_vmoney: vmoney,
+            exp_pool: expPool
         },
         character_list: characterList,
         joined_character_id_list: joinedCharacterIdList,
@@ -133,6 +168,7 @@ export function givePlayerRewardSync(
 
     let mana = 0
     let vmoney = 0
+    let expPool = 0
     const joinedCharacterIdList: number[] = []
     const characterList: Object[] = []
     const equipmentList: Object[] = []
@@ -207,13 +243,22 @@ export function givePlayerRewardSync(
                 })
                 break;
             }
+            case RewardType.EXP: {
+                expPool = (reward as CurrencyReward).count
+                updatePlayerSync({
+                    id: playerId,
+                    expPool: player.expPool + expPool
+                })
+                break;
+            }
         }
     }
 
     return {
         user_info: {
             free_mana: mana,
-            free_vmoney: vmoney
+            free_vmoney: vmoney,
+            exp_pool: expPool
         },
         character_list: characterList,
         joined_character_id_list: joinedCharacterIdList,

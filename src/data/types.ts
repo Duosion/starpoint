@@ -345,7 +345,7 @@ export interface Player {
     transitionState: number
     role: number
     name: string
-    lastLoginTime: string
+    lastLoginTime: Date
     comment: string
     vmoney: number
     freeVmoney: number

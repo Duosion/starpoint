@@ -100,17 +100,17 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No active quest to finish."
         })
 
-        // delete the active quest data
-        delete activeQuests[playerId]
-
         // get quest data
         const questCategory = activeQuestData.category
         const questId = activeQuestData.questId
         const questData = getQuestFromCategorySync(questCategory, questId) as BattleQuest | null
-        if (questData === null || !('sPlusReward' in questData)) return reply.status(400).send({
+        if (questData === null || !('rankPointReward' in questData)) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Quest doesn't exist."
         })
+
+        // delete the active quest data from global record
+        delete activeQuests[playerId]
 
         // calculate clear rank
         const clearTime = body.elapsed_time_ms
@@ -126,6 +126,11 @@ const routes = async (fastify: FastifyInstance) => {
         const newRankPoint = beforeRankPoint + questData.rankPointReward
         let newMana = playerData.freeMana + questData.manaReward + body.add_mana
 
+        // calculate boost point
+        let newBoostPoint = playerData.boostPoint - (activeQuestData.useBoostPoint ? 1 : 0)
+        let newBossBoostPoint = playerData.bossBoostPoint - (activeQuestData.useBossBoostPoint ? 1 : 0)
+        let useBoostPoint = (activeQuestData.useBoostPoint && (newBoostPoint >= 0)) || (activeQuestData.useBossBoostPoint && (newBossBoostPoint >= 0))
+
         // check current quest progress
         const questProgress = getPlayerSingleQuestProgressSync(playerId, questCategory, questId);
         const questPreviouslyCompleted = questProgress !== null
@@ -133,7 +138,7 @@ const routes = async (fastify: FastifyInstance) => {
         const questAccomplished = !finished && body.is_accomplished
 
         const clearReward = !questPreviouslyCompleted ? givePlayerRewardSync(playerId, questData.clearReward) : null
-        const sPlusClearReward = clearRank === 5 && questProgress?.clearRank !== 5 ? givePlayerRewardSync(playerId, questData.sPlusReward) : null
+        const sPlusClearReward = (clearRank === 5) && (questProgress?.clearRank !== 5) && (questData.sPlusReward !== undefined) ? givePlayerRewardSync(playerId, questData.sPlusReward) : null
 
         if (questAccomplished) {
             // update quest progress
@@ -163,11 +168,13 @@ const routes = async (fastify: FastifyInstance) => {
             id: playerId,
             freeMana: newMana,
             expPool: newExpPool,
-            rankPoint: newRankPoint
+            rankPoint: newRankPoint,
+            boostPoint: newBoostPoint,
+            bossBoostPoint: newBossBoostPoint
         })
 
         // reward score rewards
-        const scoreRewardsResult = givePlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup)
+        const scoreRewardsResult = givePlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup, useBoostPoint)
 
         // reward character exp
         const partyCharacterIds = [...body.statistics.party.characters, ...body.statistics.party.unison_characters]
@@ -193,12 +200,14 @@ const routes = async (fastify: FastifyInstance) => {
             "data": {
                 "user_info": {
                     "free_mana": newMana + (clearReward?.user_info.free_mana || 0) + (sPlusClearReward?.user_info.free_mana || 0) + scoreRewardsResult.user_info.free_mana,
-                    "exp_pool": rewardCharacterExpResult.exp_pool,
+                    "exp_pool": rewardCharacterExpResult.exp_pool + (clearReward?.user_info.exp_pool || 0) + scoreRewardsResult.user_info.exp_pool,
                     "exp_pooled_time": getServerTime(playerData.expPooledTime),
                     "free_vmoney": playerData.freeVmoney + (clearReward?.user_info.free_vmoney || 0) + (sPlusClearReward?.user_info.free_vmoney || 0) + scoreRewardsResult.user_info.free_vmoney,
                     "rank_point": newRankPoint,
                     "stamina": playerData.stamina,
-                    "stamina_heal_time": getServerTime(playerData.staminaHealTime)
+                    "stamina_heal_time": getServerTime(playerData.staminaHealTime),
+                    "boost_point": newBoostPoint,
+                    "boss_boost_point": newBossBoostPoint
                 },
                 "add_exp_list": rewardCharacterExpResult.add_exp_list,
                 "character_list": [

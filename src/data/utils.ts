@@ -206,7 +206,7 @@ export function serializePlayerData(
             "transition_state": playerData.transitionState,
             "role": playerData.role,
             "name": playerData.name,
-            "last_login_time": playerData.lastLoginTime,
+            "last_login_time": clientSerializeDate(playerData.lastLoginTime),
             "comment": playerData.comment,
             "vmoney": playerData.vmoney,
             "free_vmoney": playerData.freeVmoney,
@@ -364,7 +364,7 @@ export function getDefaultPlayerData(): Omit<Player, 'id'> {
         transitionState: 0,
         role: 1,
         name: "플레이어",
-        lastLoginTime: "2024-06-07 13:25:17",
+        lastLoginTime: new Date(),
         comment: "Nice to meet you.",
         vmoney: 0,
         freeVmoney: 150,
@@ -410,7 +410,7 @@ export function deserializePlayerData(
             transitionState: userInfo.transition_state,
             role: userInfo.role,
             name: userInfo.name,
-            lastLoginTime: userInfo.last_login_time,
+            lastLoginTime: deserializeClientDate(userInfo.last_login_time),
             comment: userInfo.comment,
             vmoney: userInfo.vmoney,
             freeVmoney: userInfo.free_vmoney,
@@ -780,6 +780,19 @@ export function clientSerializeDate(
     date: Date
 ): string {
     return `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1).toString().padStart(2, "0")}-${date.getUTCDate().toString().padStart(2, "0")} ${date.getUTCHours().toString().padStart(2, "0")}:${date.getUTCMinutes().toString().padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`
+}
+
+/**
+ * Deserializes a date from a format expected by the client into a Date.
+ * Format: YYYY-MM-DD HH:MM:SS
+ * 
+ * @param date A serialized date as a string.
+ * @returns The deserialized date.
+ */
+export function deserializeClientDate(
+    serializedDate: string
+): Date {
+    return new Date(`${serializedDate.replace(' ', 'T')}.000Z`)
 }
 
 /**

@@ -141,6 +141,46 @@ def convert_advent_quest(obj):
 
     return converted
 
+def convert_daily_exp_mana_event_quest(obj):
+    converted = {}
+    for _, chapter_stages in obj.items():
+        for _, chapter in chapter_stages.items():
+            converted[chapter[0]] = {
+                "name": "", #chapter[2],
+                "clearRewardId": int(chapter[4]),
+                "scoreRewardGroup": int(chapter[66]),
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime":  0,
+                "rankPointReward": int(chapter[68]),
+                "characterExpReward": int(chapter[69]),
+                "manaReward": int(chapter[70]),
+                "poolExpReward": int(chapter[71])
+            }
+
+    return converted
+
+def convert_daily_week_event_quest(obj):
+    converted = {}
+    for _, chapter_stages in obj.items():
+        for _, chapter in chapter_stages.items():
+            converted[chapter[0]] = {
+                "name": "", #chapter[2],
+                "clearRewardId": int(chapter[3]),
+                "scoreRewardGroup": int(chapter[65]),
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime":  0,
+                "rankPointReward": int(chapter[67]),
+                "characterExpReward": int(chapter[68]),
+                "manaReward": int(chapter[69]),
+                "poolExpReward": int(chapter[70])
+            }
+
+    return converted
+
 def convert_character_quests(obj):
     converted = {}
     for story_id, character_story in obj.items():
@@ -176,31 +216,24 @@ def convert_score_reward(obj):
         converted_group = []
         for _, reward in score_group.items():
             type = int(reward[1])
-            if type == 0 and reward[3] != "":
-                converted_group.append({
+            if type == 0:
+                converted_reward = {
                     "name": "", #reward[0],
                     "type": type,
-                    "id": int(reward[3]),
+                    "reward_type": int(reward[2]),
                     "count": int(reward[4]),
                     "field5": int(reward[5]),
-                })
+                }
+                if reward[3] != "":
+                    converted_reward["id"] = int(reward[3])
+
+                converted_group.append(converted_reward)
             elif type == 1:
                 converted_group.append({
                     "name": "", #reward[0],
                     "type": type,
                     "id": int(reward[6]),
                     "rarity": float(reward[7])
-                })
-            else:
-                converted_group.append({
-                    "name": "", #reward[0],
-                    "type": type,
-                    "field2": reward[2],
-                    "field3": reward[3],
-                    "field4": reward[4],
-                    "field5": reward[5],
-                    "field6": reward[6],
-                    "field7": reward[7],
                 })
         converted[group_id] = converted_group
     return converted
@@ -337,7 +370,9 @@ to_convert_files = {
     "ex_ability": convert_ex_ability,
     "world_story_event_boss_battle_quest": convert_event_quest,
     "world_story_event_quest": convert_event_quest,
-    "advent_event_quest": convert_advent_quest
+    "advent_event_quest": convert_advent_quest,
+    "daily_exp_mana_event_quest": convert_daily_exp_mana_event_quest,
+    "daily_week_event_quest": convert_daily_week_event_quest
 }
 
 for file_name, converter in to_convert_files.items():

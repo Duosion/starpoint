@@ -7,6 +7,8 @@ import mainQuests from "../../assets/main_quest.json";
 import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
 import worldStoryEventBossBattleQuests from  "../../assets/world_story_event_boss_battle_quest.json";
 import adventEventQuests from "../../assets/advent_event_quest.json"
+import dailyExpManaEventQuests from "../../assets/daily_exp_mana_event_quest.json";
+import dailyWeekEventQuests from "../../assets/daily_week_event_quest.json";
 import rareScoreRewards from "../../assets/rare_score_reward.json";
 import scoreRewards from "../../assets/score_reward.json";
 import manaNodes from "../../assets/mana_node.json";
@@ -71,10 +73,10 @@ function getQuestSync(
     if (!quest) return null;
 
     // return either a story quest or a battle quest depending on the keys present
-    return 'sPlusRewardId' in quest ? {
+    return 'manaReward' in quest ? {
         name: quest.name,
         clearReward: getClearRewardSync(quest.clearRewardId),
-        sPlusReward: getClearRewardSync(quest.sPlusRewardId as number),
+        sPlusReward: quest.sPlusRewardId === undefined ? undefined : getClearRewardSync(quest.sPlusRewardId),
         scoreRewardGroupId: quest.scoreRewardGroup,
         scoreRewardGroup: quest.scoreRewardGroup === undefined ? undefined : getScoreRewardGroup(quest.scoreRewardGroup),
         bRankTime: quest.bRankTime,
@@ -202,6 +204,10 @@ export function getQuestFromCategorySync(
         case QuestCategory.ADVENT_EVENT_SINGLE:
         case QuestCategory.ADVENT_EVENT_MULTI:
             return getAdventEventQuest(questId)
+        case QuestCategory.DAILY_EXP_MANA_EVENT:
+            return getQuestSync((dailyExpManaEventQuests as RawQuests), questId)
+        case QuestCategory.DAILY_WEEK_EVENT:
+            return getQuestSync((dailyWeekEventQuests as RawQuests), questId)
         default:
             return null
     }

@@ -1,0 +1,80 @@
+{
+    "1001": {
+        "name": "",
+        "clearRewardId": 1,
+        "scoreRewardGroup": 60000,
+        "bRankTime": 0,
+        "aRankTime": 0,
+        "sRankTime": 0,
+        "sPlusRankTime": 0,
+        "rankPointReward": 2,
+        "characterExpReward": 80,
+        "manaReward": 300,
+        "poolExpReward": 300
+    },
+    "1002": {
+        "name": "",
+        "clearRewardId": 1,
+        "scoreRewardGroup": 60001,
+        "bRankTime": 0,
+        "aRankTime": 0,
+        "sRankTime": 0,
+        "sPlusRankTime": 0,
+        "rankPointReward": 4,
+        "characterExpReward": 230,
+        "manaReward": 600,
+        "poolExpReward": 500
+    },
+    "1003": {
+        "name": "",
+        "clearRewardId": 1,
+        "scoreRewardGroup": 60002,
+        "bRankTime": 0,
+        "aRankTime": 0,
+        "sRankTime": 0,
+        "sPlusRankTime": 0,
+        "rankPointReward": 10,
+        "characterExpReward": 550,
+        "manaReward": 900,
+        "poolExpReward": 1000
+    },
+    "1004": {
+        "name": "",
+        "clearRewardId": 1,
+        "scoreRewardGroup": 60003,
+        "bRankTime": 0,
+        "aRankTime": 0,
+        "sRankTime": 0,
+        "sPlusRankTime": 0,
+        "rankPointReward": 13,
+        "characterExpReward": 980,
+        "manaReward": 1500,
+        "poolExpReward": 1800
+    },
+    "1005": {
+        "name": "",
+        "clearRewardId": 1,
+        "scoreRewardGroup": 60004,
+        "bRankTime": 0,
+        "aRankTime": 0,
+        "sRankTime": 0,
+        "sPlusRankTime": 0,
+        "rankPointReward": 83,
+        "characterExpReward": 2360,
+        "manaReward": 2000,
+        "poolExpReward": 3000
+    },
+    "1006": {
+        "name": "",
+        "clearRewardId": 1,
+        "scoreRewardGroup": 60005,
+        "bRankTime": 0,
+        "aRankTime": 0,
+        "sRankTime": 0,
+        "sPlusRankTime": 0,
+        "rankPointReward": 100,
+        "characterExpReward": 4200,
+        "manaReward": 3000,
+        "poolExpReward": 6000
+    }
+}

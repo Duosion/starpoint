@@ -4,7 +4,8 @@ export enum RewardType {
     EQUIPMENT,
     CHARACTER,
     BEADS,
-    MANA
+    MANA,
+    EXP
 }
 
 export enum QuestCategory {
@@ -80,10 +81,19 @@ export type ClearRewards = Record<string, Reward>
 // score rewards
 export interface ScoreReward {
     name: string,
-    type: ScoreRewardType
+    type: ScoreRewardType,
 }
 
-export interface ItemScoreReward extends ScoreReward {
+export interface CommonScoreReward extends ScoreReward {
+    reward_type: RewardType
+}
+
+export interface CurrencyScoreReward extends CommonScoreReward {
+    count: number
+    field5: number
+}
+
+export interface ItemScoreReward extends CommonScoreReward {
     id: number,
     count: number,
     field5: number
@@ -121,7 +131,7 @@ export interface StoryQuest {
 export interface BattleQuest {
     name: string,
     clearReward: Reward,
-    sPlusReward: Reward,
+    sPlusReward?: Reward,
     scoreRewardGroupId?: number,
     scoreRewardGroup?: ScoreReward[],
     bRankTime: number,
@@ -187,6 +197,7 @@ export interface PlayerRewardResult {
     user_info: {
         free_mana: number
         free_vmoney: number
+        exp_pool: number
     },
     character_list: Object[]
     joined_character_id_list: number[]

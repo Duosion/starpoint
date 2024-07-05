@@ -2599,7 +2599,7 @@ function buildPlayer(
         transitionState: raw.transition_state,
         role: raw.role,
         name: raw.name,
-        lastLoginTime: raw.last_login_time,
+        lastLoginTime: new Date(raw.last_login_time),
         comment: raw.comment,
         vmoney: raw.vmoney,
         freeVmoney: raw.free_vmoney,
@@ -2678,7 +2678,7 @@ export function insertPlayerSync(
         player.transitionState,
         player.role,
         player.name,
-        player.lastLoginTime,
+        player.lastLoginTime.toISOString(),
         player.comment,
         player.vmoney,
         player.freeVmoney,
@@ -3439,31 +3439,83 @@ export function deletePlayerSync(
     db.prepare(`DELETE FROM players WHERE id = ?`).run(playerId)
 }
 
+export function collectPlayerDataPooledExpSync(
+    player: Player,
+    dateNow: Date = new Date()
+) {
+    const serverTimeNow = getServerTime(dateNow)
+    const poolTime = getServerTime(player.expPooledTime)
+    const diff = Math.max(0, serverTimeNow - poolTime)
+
+    if (60 > diff) return;
+
+    updatePlayerSync({
+        id: player.id,
+        expPooledTime: dateNow,
+        expPool: player.expPool + Math.min(expPoolMax, Math.floor(diff / 60))
+    })
+}
+
 /**
  * Collects any pooled exp that a player might have.
  * Exp regenerates at a rate of 1 per minute.
  * 
  * @param playerId The ID of the player to collect the pooled EXP of.
  */
-export function collectPooledExpSync(
+export function collectPlayerPooledExpSync(
     playerId: number
 ) {
     // exp regenerates at a rate of 1/min
     const playerData = getPlayerSync(playerId)
     if (!playerData) return;
 
-    const dateNow = new Date()
-    const serverTimeNow = getServerTime(dateNow)
-    const poolTime = getServerTime(playerData.expPooledTime)
-    const diff = Math.max(0, serverTimeNow - poolTime)
+    collectPlayerDataPooledExpSync(playerData)
+}
 
-    if (60 > diff) return;
+/**
+ * Performs a daily reset for a a player data object.
+ * 
+ * @param player The player data to perform the daily reset for
+ * @param loginDate 
+ * @returns A boolean; whether the daily reset was performed
+ */
+export function dailyResetPlayerDataSync(
+    player: Player,
+    loginDate: Date = new Date()
+): boolean {
+    const lastLoginTime = player.lastLoginTime
 
-    updatePlayerSync({
-        id: playerId,
-        expPooledTime: dateNow,
-        expPool: playerData.expPool + Math.min(expPoolMax, Math.floor(diff / 60))
-    })
+    if ( (loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate()) ) {
+        // TODO: daily reset logic.
+        updatePlayerSync({
+            id: player.id,
+            lastLoginTime: loginDate,
+            bossBoostPoint: 3,
+            boostPoint: 3
+        })
+        return true
+    } else {
+        updatePlayerSync({
+            id: player.id,
+            lastLoginTime: loginDate,
+        })
+        return false
+    }
+}
+
+/**
+ * Performs a daily reset for a player
+ * 
+ * @param playerId The ID of the player to perform the daily reset for.
+ * @returns A boolean; whether the daily reset was performed
+ */
+export function dailyResetPlayerSync(
+    playerId: number
+): boolean {
+    const playerData = getPlayerSync(playerId)
+    if (!playerData) return false;
+
+    return dailyResetPlayerDataSync(playerData)
 }
 
 // getAccount(1).then(result => {
