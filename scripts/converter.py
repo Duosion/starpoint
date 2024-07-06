@@ -336,6 +336,42 @@ def convert_ex_ability(obj):
         converted[tier].append(int(ability_id))
     return converted
 
+box_total_counts = {}
+
+def convert_box_rewards(obj):
+    converted = {}
+    for gacha_id, boxes in obj.items():
+        converted_gacha = {}
+        box_total_counts[str(gacha_id)] = {}
+        for box_id, box in boxes.items():
+            converted_box = {}
+            box_total_counts[str(gacha_id)][str(box_id)] = 0
+            for _, reward in box.items():
+                converted_reward = {
+                    "type": int(reward[2]),
+                    "count": int(reward[4]),
+                    "available": int(reward[5]),
+                    "tier": int(reward[6])
+                }
+                box_total_counts[str(gacha_id)][str(box_id)] += converted_reward["available"]
+                if reward[3] != "":
+                    converted_reward["id"] = int(reward[3])
+                
+                converted_box[reward[0]] = converted_reward
+            converted_gacha[box_id] = converted_box
+        converted[gacha_id] = converted_gacha
+    return converted
+
+def convert_box_gacha(obj):
+    converted = {}
+    for gacha_id, gacha in obj.items():
+        converted[gacha_id] = {
+            "itemId": int(gacha[2]),
+            "count": int(gacha[3]),
+            "available_counts": box_total_counts[str(gacha_id)]
+        }
+    return converted
+
 # def convert_mana_nodes_save_data(obj):
 #     converted = {}
 
@@ -372,7 +408,9 @@ to_convert_files = {
     "world_story_event_quest": convert_event_quest,
     "advent_event_quest": convert_advent_quest,
     "daily_exp_mana_event_quest": convert_daily_exp_mana_event_quest,
-    "daily_week_event_quest": convert_daily_week_event_quest
+    "daily_week_event_quest": convert_daily_week_event_quest,
+    "box_reward": convert_box_rewards,
+    "box_gacha": convert_box_gacha
 }
 
 for file_name, converter in to_convert_files.items():

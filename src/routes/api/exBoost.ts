@@ -2,7 +2,7 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { getAccountPlayers, getPlayerCharacterSync, getPlayerItemSync, getPlayerSync, getSession, playerOwnsCharacterSync, updatePlayerCharacterSync, updatePlayerItemSync } from "../../data/wdfpData"
-import { getCharacterDataSync, getExAbilityPools, getExBoostItem, getExStatusPool } from "../../lib/assets"
+import { getCharacterDataSync, getExAbilityPoolsSync, getExBoostItemSync, getExStatusPoolSync } from "../../lib/assets"
 import { generateDataHeaders } from "../../utils"
 import { randomInt } from "crypto"
 import { clientSerializeDate } from "../../data/utils"
@@ -82,7 +82,7 @@ const drawExpBoost = async (request: FastifyRequest, reply: FastifyReply, autoAc
     })
 
     // get ex boost item data
-    const costItemData = getExBoostItem(costItemId)
+    const costItemData = getExBoostItemSync(costItemId)
     if (!costItemData) return reply.status(400).send({
         "error": "Bad Request",
         "message": "Attempt to use invalid cost item."
@@ -115,14 +115,14 @@ const drawExpBoost = async (request: FastifyRequest, reply: FastifyReply, autoAc
 
     // get the status pools
     const drawTier = costItemData.tier
-    const exStatusPool = getExStatusPool(drawTier)
+    const exStatusPool = getExStatusPoolSync(drawTier)
     if (exStatusPool === null) return reply.status(500).send({
         "error": "Internal Server Error",
         "message": "Pool not found."
     })
 
     // get the ability pools
-    const abilityPools = structuredClone(getExAbilityPools());
+    const abilityPools = structuredClone(getExAbilityPoolsSync());
 
     // deduct the item
     updatePlayerItemSync(playerId, costItemId, afterCostItemAmount)

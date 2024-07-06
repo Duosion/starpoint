@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -2232,6 +2232,47 @@ function insertPlayerActiveMissionsSync(
 }
 
 /**
+ * Converts a RawPlayerBoxGacha object into a PlayerBoxGacha object.
+ * 
+ * @param raw The raw object to convert.
+ * @returns The converted object.
+ */
+function buildPlayerBoxGacha(
+    raw: RawPlayerBoxGacha
+): PlayerBoxGacha {
+    return {
+        boxId: raw.box_id,
+        resetTimes: raw.reset_times,
+        remainingNumber: raw.remaining_number,
+        isClosed: deserializeBoolean(raw.is_closed)
+    }
+}
+
+/**
+ * Gets the data for an individual player box gacha.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the box gacha.
+ * @param boxId The ID of the box.
+ * @returns A PlayerBoxGacha object or null.
+ */
+export function getPlayerBoxGachaSync(
+    playerId: number,
+    gachaId: number,
+    boxId: number
+): PlayerBoxGacha | null {
+    const rawBox = db.prepare(`
+    SELECT id, box_id, reset_times, remaining_number, is_closed
+    FROM players_box_gacha
+    WHERE player_id = ? AND id = ? AND box_id = ?
+    `).get(playerId, gachaId, boxId) as RawPlayerBoxGacha
+
+    if (rawBox === undefined) return null;
+
+    return buildPlayerBoxGacha(rawBox)
+}
+
+/**
  * Gets a player's box gachas.
  * 
  * @param playerId The ID of the player
@@ -2256,12 +2297,7 @@ export function getPlayerBoxGachasSync(
             bucket = []
             buckets[id] = bucket
         }
-        bucket.push({
-            boxId: rawBox.box_id,
-            resetTimes: rawBox.reset_times,
-            remainingNumber: rawBox.remaining_number,
-            isClosed: deserializeBoolean(rawBox.is_closed)
-        })
+        bucket.push(buildPlayerBoxGacha(rawBox))
     }
 
     return buckets
@@ -2309,6 +2345,81 @@ function insertPlayerBoxGachasSync(
             }
         }
     })()
+}
+
+/**
+ * Gets all of the drawn rewards for a specific box gacha & box for a player.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The id of the box gacha.
+ * @param boxId The box's ID.
+ * @returns A list of drawn rewards.
+ */
+export function getPlayerBoxGachaDrawnRewardsSync(
+    playerId: number,
+    gachaId: number,
+    boxId: string | number
+): PlayerBoxGachaDrawnReward[] {
+    return db.prepare(`
+    SELECT id, number
+    FROM players_box_gacha_drawn_rewards
+    WHERE box_id = ? AND gacha_id = ? AND player_id = ?
+    `).all(Number(boxId), gachaId, playerId) as PlayerBoxGachaDrawnReward[]
+}
+
+/**
+ * Inserts a drawn reward for a box gacha.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The id of the box gacha.
+ * @param boxId The box's ID.
+ * @param reward The reward to insert.
+ */
+export function insertPlayerBoxGachaDrawnRewardSync(
+    playerId: number,
+    gachaId: number,
+    boxId: string | number,
+    reward: PlayerBoxGachaDrawnReward
+) {
+    db.prepare(`
+    INSERT INTO players_box_gacha_drawn_rewards (id, box_id, gacha_id, number, player_id)
+    VALUES (?, ?, ?, ?, ?)
+    `).run(
+        reward.id,
+        Number(boxId),
+        gachaId,
+        reward.number,
+        playerId
+    )
+}
+
+/**
+ * Updates a drawn reward for a box gacha.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The id of the box gacha.
+ * @param boxId The box's ID.
+ * @param rewardId A list of drawn rewards.
+ * @param newNumber The new number value the drawn reward should have.
+ */
+export function updatePlayerBoxGachaDrawnRewardSync(
+    playerId: number,
+    gachaId: number,
+    boxId: string | number,
+    rewardId: string | number,
+    newNumber: number
+) {
+    db.prepare(`
+    UPDATE players_box_gacha_drawn_rewards
+    SET number = ?
+    WHERE player_id = ? AND gacha_id = ? AND box_id = ? AND id = ?
+    `).run(
+        playerId,
+        gachaId,
+        Number(boxId),
+        Number(rewardId),
+        newNumber
+    )
 }
 
 /**
