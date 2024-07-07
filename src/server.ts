@@ -133,6 +133,7 @@ fastify.register(fastifyStatic, {
 // listen
 fastify.listen({ port: 8000 }, (err, address) => {
     if (err) {
+        console.error(err)
         fastify.log.error(err)
         process.exit(1)
     }

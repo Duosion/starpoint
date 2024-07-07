@@ -2307,19 +2307,19 @@ export function getPlayerBoxGachasSync(
  * Inserts a singular box gacha into a player's data.
  * 
  * @param playerId The ID of the player.
- * @param section 
+ * @param gachaId 
  * @param boxGacha The box gacha's data.
  */
-function insertPlayerBoxGachaSync(
+export function insertPlayerBoxGachaSync(
     playerId: number,
-    section: number | string,
+    gachaId: number | string,
     boxGacha: PlayerBoxGacha
 ) {
     db.prepare(`
     INSERT INTO players_box_gacha (id, box_id, reset_times, remaining_number, is_closed, player_id)
     VALUES (?, ?, ?, ?, ?, ?)
     `).run(
-        Number(section),
+        Number(gachaId),
         boxGacha.boxId,
         boxGacha.resetTimes,
         boxGacha.remainingNumber,
@@ -2345,6 +2345,52 @@ function insertPlayerBoxGachasSync(
             }
         }
     })()
+}
+
+/**
+ * Updates a player's box gacha box.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the box gacha that this box belongs to.
+ * @param boxGacha 
+ * 
+ */
+export function updatePlayerBoxGachaSync(
+    playerId: number,
+    gachaId: number | string,
+    boxGacha: Partial<PlayerBoxGacha> & Pick<PlayerBoxGacha, 'boxId'>
+) {
+    const fieldMap: Record<string, string> = {
+        'resetTimes': 'reset_times',
+        'remainingNumber': 'remaining_number',
+        'isClosed': 'is_closed'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in boxGacha) {
+        const value = boxGacha[key as keyof PlayerBoxGacha]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (typeof (value) === "boolean") {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_box_gacha
+        SET ${sets.join(', ')}
+        WHERE player_id = ? AND id = ? AND box_id = ?
+        `).run([
+            ...values,
+            playerId,
+            Number(gachaId),
+            boxGacha.boxId
+        ]);
 }
 
 /**
@@ -2414,11 +2460,11 @@ export function updatePlayerBoxGachaDrawnRewardSync(
     SET number = ?
     WHERE player_id = ? AND gacha_id = ? AND box_id = ? AND id = ?
     `).run(
+        newNumber,
         playerId,
         gachaId,
         Number(boxId),
         Number(rewardId),
-        newNumber
     )
 }
 

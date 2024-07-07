@@ -326,6 +326,7 @@ export function getBoxGachaSync(
     return {
         redeemItemId: redeemItemData.itemId,
         redeemItemCount: redeemItemData.count,
-        boxes: boxes
+        boxes: boxes,
+        availableCounts: redeemItemData.availableCounts
     }
 }

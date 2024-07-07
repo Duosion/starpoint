@@ -5,6 +5,7 @@ import { getRareScoreRewardGroup } from "./assets";
 import { givePlayerCharacterSync } from "./character";
 import { givePlayerEquipmentSync } from "./equipment";
 import { CharacterReward, CommonScoreReward, CurrencyReward, CurrencyScoreReward, DropScoreRewardId, EquipmentItemReward, GivePlayerScoreRewardsResult, ItemScoreReward, PlayerRewardResult, RareScoreRewardGroup, Reward, RewardType, ScoreReward, ScoreRewardType } from "./types";
+import { Player } from "../data/types";
 
 /**
  * Grants a player score rewards.
@@ -95,46 +96,48 @@ export function givePlayerScoreRewardsSync(
                             const reward = group[random_index]
                             const result = givePlayerRewardSync(playerId, reward)
 
-                            // merge arrays
-                            mana += result.user_info.free_mana
-                            vmoney += result.user_info.free_vmoney
-                            joinedCharacterIdList = [...joinedCharacterIdList, ...result.joined_character_id_list]
-                            characterList = [...characterList, ...result.character_list]
-                            equipmentList = [...equipmentList, ...result.equipment_list]
+                            if (result) {
+                                // merge arrays
+                                mana += result.user_info.free_mana
+                                vmoney += result.user_info.free_vmoney
+                                joinedCharacterIdList = [...joinedCharacterIdList, ...result.joined_character_id_list]
+                                characterList = [...characterList, ...result.character_list]
+                                equipmentList = [...equipmentList, ...result.equipment_list]
 
-                            // merge items
-                            for (const [itemId, count] of Object.entries(result.items)) {
-                                const existingCount = items[itemId]
-                                if (existingCount === undefined) {
-                                    items[itemId] = count
-                                } else {
-                                    items[itemId] = existingCount + count
+                                // merge items
+                                for (const [itemId, count] of Object.entries(result.items)) {
+                                    const existingCount = items[itemId]
+                                    if (existingCount === undefined) {
+                                        items[itemId] = count
+                                    } else {
+                                        items[itemId] = existingCount + count
+                                    }
                                 }
-                            }
 
-                            // calculate number
-                            let number = 0
-                            switch (reward.type) {
-                                case RewardType.ITEM:
-                                case RewardType.EQUIPMENT:
-                                    number = (reward as Reward as EquipmentItemReward).count
-                                    break;
-                                case RewardType.CHARACTER:
-                                    number = 1;
-                                    break;
-                                case RewardType.BEADS:
-                                case RewardType.EXP:
-                                case RewardType.MANA:
-                                    number = (reward as Reward as CurrencyReward).count
-                                    break;
-                            }
+                                // calculate number
+                                let number = 0
+                                switch (reward.type) {
+                                    case RewardType.ITEM:
+                                    case RewardType.EQUIPMENT:
+                                        number = (reward as Reward as EquipmentItemReward).count
+                                        break;
+                                    case RewardType.CHARACTER:
+                                        number = 1;
+                                        break;
+                                    case RewardType.BEADS:
+                                    case RewardType.EXP:
+                                    case RewardType.MANA:
+                                        number = (reward as Reward as CurrencyReward).count
+                                        break;
+                                }
 
-                            // add reward id to table
-                            dropRareRewardIds.push({
-                                group_id: rareGroupId,
-                                index: random_index + 1,
-                                number: number
-                            })
+                                // add reward id to table
+                                dropRareRewardIds.push({
+                                    group_id: rareGroupId,
+                                    index: random_index + 1,
+                                    number: number
+                                })
+                            }  
                         }
                     }
                     break;
@@ -158,46 +161,57 @@ export function givePlayerScoreRewardsSync(
     }
 }
 
-export function givePlayerRewardSync(
+/**
+ * Batch gives a specific player data an array of rewards.
+ * 
+ * @param playerId The ID of the player to reward.
+ * @param rewards The array of rewards to give.
+ * @returns A PlayerRewardResult.
+ */
+export function givePlayerRewardsSync(
     playerId: number,
-    reward: Reward
-): PlayerRewardResult {
-
-    // get player data
-    const player = getPlayerSync(playerId)
-
+    rewards: Reward[]
+): PlayerRewardResult | null {
     let mana = 0
     let vmoney = 0
     let expPool = 0
-    const joinedCharacterIdList: number[] = []
-    const characterList: Object[] = []
-    const equipmentList: Object[] = []
-    let items: Record<string, number> = {}
+    let joinedCharacterIdList: number[] = []
+    let characters: Map<number, Object> = new Map()
+    let equipment: Map<number, Object> = new Map()
+    let items: Map<number, number> = new Map()
 
-    if (player) {
+    for (const reward of rewards) {
         switch (reward.type) {
             case RewardType.ITEM: {
                 const convertedReward = (reward as EquipmentItemReward)
                 const itemId = convertedReward.id
-                items[String(itemId)] = givePlayerItemSync(playerId, itemId, convertedReward.count);
+                const result = givePlayerItemSync(playerId, itemId, convertedReward.count);
+                items.set(itemId, (items.get(itemId) ?? 0) + result)
                 break;
             }
             case RewardType.EQUIPMENT: {
                 const convertedReward = (reward as EquipmentItemReward)
-                equipmentList.push(givePlayerEquipmentSync(playerId, convertedReward.id, convertedReward.count))
+                const equipmentId = convertedReward.id
+                const result = givePlayerEquipmentSync(playerId, equipmentId, convertedReward.count)
+                equipment.set(equipmentId, result)
                 break;
             }
             case RewardType.CHARACTER: {
                 const characterId = (reward as CharacterReward).id
                 const giveResult = givePlayerCharacterSync(playerId, characterId)
                 const giveItemList = giveResult["item_list"]
-                items = giveItemList === undefined ? {} : giveItemList as Record<string, number>
-
+                if (giveItemList !== undefined) {
+                    for (const [stringItemId, count] of Object.entries(giveItemList)) {
+                        const itemId = Number(stringItemId) 
+                        items.set(itemId, (items.get(itemId) ?? 0) + count)
+                    }
+                }
+    
                 const character = getPlayerCharacterSync(playerId, characterId)
                 if (character) {
                     if (0 >= character.stack) {
                         joinedCharacterIdList.push(characterId)
-                        characterList.push({
+                        characters.set(characterId, {
                             "viewer_id": 0,
                             "character_id": characterId,
                             "entry_count": 1,
@@ -215,7 +229,7 @@ export function givePlayerRewardSync(
                             "join_time": clientSerializeDate(character.joinTime),
                         })
                     } else {
-                        characterList.push({
+                        characters.set(characterId, {
                             "character_id": characterId,
                             "stack": character.stack,
                             "create_time": clientSerializeDate(character.joinTime),
@@ -223,38 +237,56 @@ export function givePlayerRewardSync(
                             "join_time": clientSerializeDate(character.joinTime),
                         })
                     }
-
+    
                 }
                 break;
             }
             case RewardType.BEADS: {
-                vmoney = (reward as CurrencyReward).count
-                updatePlayerSync({
-                    id: playerId,
-                    freeVmoney: player.freeVmoney + vmoney
-                })
+                vmoney += (reward as CurrencyReward).count
                 break;
             }
             case RewardType.MANA: {
-                mana = (reward as CurrencyReward).count
-                updatePlayerSync({
-                    id: playerId,
-                    freeMana: player.freeMana + mana
-                })
+                mana += (reward as CurrencyReward).count
                 break;
             }
             case RewardType.EXP: {
-                expPool = (reward as CurrencyReward).count
-                updatePlayerSync({
-                    id: playerId,
-                    expPool: player.expPool + expPool
-                })
+                expPool += (reward as CurrencyReward).count
                 break;
             }
         }
     }
 
-    return {
+    if (mana > 0 || vmoney > 0 || expPool > 0) {
+        // get player
+        const player = getPlayerSync(playerId)
+        if (player === null) return null;
+
+        updatePlayerSync({
+            id: playerId,
+            freeVmoney: player.freeVmoney + vmoney,
+            freeMana: player.freeMana + mana,
+            expPool: player.expPool + expPool
+        })
+    }
+    
+    // build return values
+    const characterList: Object[] = []
+    const equipmentList: Object[] = []
+    const itemsRecord: Record<string, number> = {}
+    
+    characters.forEach(character => {
+        characterList.push(character)
+    })
+
+    equipment.forEach(equipment => {
+        equipmentList.push(equipment)
+    })
+
+    items.forEach((number, id) => {
+        itemsRecord[id] = number
+    })
+
+    return {   
         user_info: {
             free_mana: mana,
             free_vmoney: vmoney,
@@ -263,6 +295,20 @@ export function givePlayerRewardSync(
         character_list: characterList,
         joined_character_id_list: joinedCharacterIdList,
         equipment_list: equipmentList,
-        items: items
+        items: itemsRecord
     }
+}
+
+/**
+ * Gives a player a specific reward.
+ * 
+ * @param playerId The ID of the player.
+ * @param reward The reward to give.
+ * @returns A PlayerRewardResult.
+ */
+export function givePlayerRewardSync(
+    playerId: number,
+    reward: Reward
+): PlayerRewardResult | null {
+    return givePlayerRewardsSync(playerId, [reward])
 }

@@ -9,8 +9,9 @@
 
 import { randomInt } from "crypto"
 import { getPlayerCharacterSync, getPlayerSync, insertPlayerCharacterSync, updatePlayerGachaInfoSync, updatePlayerSync } from "../data/wdfpData"
-import { BoxGacha, BoxGachaBox, BoxGachaIdReward, BoxGachaRewardTier, BoxGachaRewardType } from "./types"
+import { BoxGacha, BoxGachaBox, BoxGachaIdReward, BoxGachaRewardTier, BoxGachaRewardType, BoxGachaDrawResult, Reward, EquipmentItemReward, RewardType, CharacterReward, CurrencyReward, PlayerRewardResult } from "./types"
 import { PlayerBoxGachaDrawnReward } from "../data/types"
+import { givePlayerRewardsSync } from "./quest"
 
 // list of gachas
 // [gacha_id] = (array of character ids)
@@ -143,8 +144,7 @@ export function drawBoxGachaSync(
     drawnRewards: PlayerBoxGachaDrawnReward[],
     drawAmount: number, // the number of times to draw
     stopOnFeaturedReward: boolean = false
-) {
-
+): BoxGachaDrawResult {
     // build drawn reward map
     const drawnRewardsMap = new Map(drawnRewards.map(reward => [reward.id, reward.number]))
 
@@ -165,7 +165,7 @@ export function drawBoxGachaSync(
     let totalDraws = 0
 
     for (let n = 0; n < drawAmount && rewardsPool.length > 0; n++) {
-        const rollIndex = randomInt(rewardsPool.length + 1)
+        const rollIndex = randomInt(rewardsPool.length)
         const rewardId = rewardsPool[rollIndex]
         const reward = rewards[rewardId]
 
@@ -203,6 +203,83 @@ export function drawBoxGachaSync(
         if (reward.tier == BoxGachaRewardTier.FEATURED && stopOnFeaturedReward) break;
     }
 
-    // 
+    // return the draw result
+    const returnSessionDrawnRewards: PlayerBoxGachaDrawnReward[] = []
 
-}   
+    sessionDrawnRewards.forEach((value, rewardId) => {
+        returnSessionDrawnRewards.push({
+            id: Number(rewardId),
+            number: value
+        })
+    })
+
+    return {
+        mana: drawnMana,
+        exp: drawnExp,
+        characters: drawnCharacters,
+        equipment: drawnEquipment,
+        items: drawnItems,
+        rewards: returnSessionDrawnRewards
+    }
+}
+
+/**
+ * Rewards a player with the results of a box gacha draw.
+ * 
+ * @param playerId The ID of the player.
+ * @param drawResult The box gacha draw result.
+ * @returns A PlayerRewardResult.
+ */
+export function rewardPlayerBoxGachaResultSync(
+    playerId: number,
+    drawResult: BoxGachaDrawResult
+): PlayerRewardResult | null {
+    const rewards: Reward[] = []
+
+    // convert draw results into rewards
+
+    // items
+    for (const [itemId, number] of drawResult.items) {
+        rewards.push({
+            name: '',
+            type: RewardType.ITEM,
+            id: itemId,
+            count: number
+        } as EquipmentItemReward)
+    }
+
+    // equipment
+    for (const [equipmentId, number] of drawResult.equipment) {
+        rewards.push({
+            name: '',
+            type: RewardType.EQUIPMENT,
+            id: equipmentId,
+            count: number
+        } as EquipmentItemReward)
+    }
+
+    // characters
+    for (const [characterId, number] of drawResult.characters) {
+        for (let i = 0; i < number; i++) {
+            rewards.push({
+                name: '',
+                type: RewardType.CHARACTER,
+                id: characterId,
+            } as CharacterReward)
+        }
+    }
+
+    // mana & exp
+    rewards.push({
+        name: '',
+        type: RewardType.EXP,
+        count: drawResult.exp,
+    } as CurrencyReward)
+    rewards.push({
+        name: '',
+        type: RewardType.MANA,
+        count: drawResult.mana,
+    } as CurrencyReward)
+
+    return givePlayerRewardsSync(playerId, rewards)
+}

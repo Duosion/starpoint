@@ -368,7 +368,7 @@ def convert_box_gacha(obj):
         converted[gacha_id] = {
             "itemId": int(gacha[2]),
             "count": int(gacha[3]),
-            "available_counts": box_total_counts[str(gacha_id)]
+            "availableCounts": box_total_counts[str(gacha_id)]
         }
     return converted
 
