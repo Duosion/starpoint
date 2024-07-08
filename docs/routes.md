@@ -20,8 +20,9 @@ Endpoint | Status
 [/asset/version_info](./routes/asset_version_info.md) | :warning:
 [/attention/check](./routes/attention_check.md) | :no_entry:
 [/bonus/shown](./routes/bonus_shown.md) | :no_entry:
+``/box_gacha/close`` | :white_check_mark:
 [/box_gacha/exec](./routes/box_gacha_exec.md) | :warning:
-[/box_gacha/get_box_list](./routes/box_gacha_get_box_list.md) | :warning:
+[/box_gacha/get_box_list](./routes/box_gacha_get_box_list.md) | :white_check_mark:
 [/character/add_character_from_town](./routes/character_add_character_from_town.md) | :no_entry:
 [/character/learn_mana_node](./routes/character_learn_mana_node.md) | :white_check_mark:
 [/character/open_mana_board](./routes/character_open_mana_board.md) | :white_check_mark:
