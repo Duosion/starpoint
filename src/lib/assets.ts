@@ -6,14 +6,18 @@ import exQuests from "../../assets/ex_quest.json";
 import mainQuests from "../../assets/main_quest.json";
 import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
 import worldStoryEventBossBattleQuests from  "../../assets/world_story_event_boss_battle_quest.json";
-import adventEventQuests from "../../assets/advent_event_quest.json"
+import adventEventQuests from "../../assets/advent_event_quest.json";
+import dailyExpManaEventQuests from "../../assets/daily_exp_mana_event_quest.json";
+import dailyWeekEventQuests from "../../assets/daily_week_event_quest.json";
 import rareScoreRewards from "../../assets/rare_score_reward.json";
 import scoreRewards from "../../assets/score_reward.json";
 import manaNodes from "../../assets/mana_node.json";
 import exAbility from "../../assets/ex_ability.json";
 import exBoost from "../../assets/ex_boost.json";
 import exStatus from "../../assets/ex_status.json";
-import { AssetCharacter, BattleQuest, ClearRewards, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import boxGacha from "../../assets/box_gacha.json";
+import boxReward from "../../assets/box_reward.json";
+import { AssetCharacter, BattleQuest, BoxGacha, BoxGachaBoxes, ClearRewards, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -71,10 +75,10 @@ function getQuestSync(
     if (!quest) return null;
 
     // return either a story quest or a battle quest depending on the keys present
-    return 'sPlusRewardId' in quest ? {
+    return 'manaReward' in quest ? {
         name: quest.name,
         clearReward: getClearRewardSync(quest.clearRewardId),
-        sPlusReward: getClearRewardSync(quest.sPlusRewardId as number),
+        sPlusReward: quest.sPlusRewardId === undefined ? undefined : getClearRewardSync(quest.sPlusRewardId),
         scoreRewardGroupId: quest.scoreRewardGroup,
         scoreRewardGroup: quest.scoreRewardGroup === undefined ? undefined : getScoreRewardGroup(quest.scoreRewardGroup),
         bRankTime: quest.bRankTime,
@@ -202,6 +206,10 @@ export function getQuestFromCategorySync(
         case QuestCategory.ADVENT_EVENT_SINGLE:
         case QuestCategory.ADVENT_EVENT_MULTI:
             return getAdventEventQuest(questId)
+        case QuestCategory.DAILY_EXP_MANA_EVENT:
+            return getQuestSync((dailyExpManaEventQuests as RawQuests), questId)
+        case QuestCategory.DAILY_WEEK_EVENT:
+            return getQuestSync((dailyWeekEventQuests as RawQuests), questId)
         default:
             return null
     }
@@ -264,7 +272,7 @@ export function getCharacterManaNodeSync(
  * 
  * @returns 
  */
-export function getExAbilityPools(): ExAbilities {
+export function getExAbilityPoolsSync(): ExAbilities {
     return exAbility as ExAbilities;
 }
 
@@ -274,7 +282,7 @@ export function getExAbilityPools(): ExAbilities {
  * @param tier The tier of the pool to get.
  * @returns A list of numbers with the StatusIDs corresponding to the requested pool.
  */
-export function getExStatusPool(
+export function getExStatusPoolSync(
     tier: string | number
 ): number[] | null {
     const pool = (exStatus as ExStatus)[String(tier)]
@@ -287,10 +295,38 @@ export function getExStatusPool(
  * @param itemId The ID of the item.
  * @returns The ExBoostItem that was found, or null.
  */
-export function getExBoostItem(
+export function getExBoostItemSync(
     itemId: string | number
 ): ExBoostItem | null {
     const item = (exBoost as ExBoostItems)[String(itemId)]
 
     return item === undefined ? null : item
+}
+
+/**
+ * Gets the data for a box gacha from the assets folder.
+ * 
+ * @param id The ID of the box gacha.
+ * @returns A BoxGacha object or null, if it didn't exist.
+ */
+export function getBoxGachaSync(
+    id: string | number
+): BoxGacha | null {
+
+    const idString = String(id)
+    // get redeem item data
+    const redeemItemData = (boxGacha as RawBoxGachas)[idString]
+    if (redeemItemData === undefined) return null;
+
+    // get boxes
+    const boxes = (boxReward as RawBoxRewards)[idString]
+    if (boxes === undefined) return null;
+
+    // build box gacha
+    return {
+        redeemItemId: redeemItemData.itemId,
+        redeemItemCount: redeemItemData.count,
+        boxes: boxes,
+        availableCounts: redeemItemData.availableCounts
+    }
 }

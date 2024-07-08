@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -2232,6 +2232,47 @@ function insertPlayerActiveMissionsSync(
 }
 
 /**
+ * Converts a RawPlayerBoxGacha object into a PlayerBoxGacha object.
+ * 
+ * @param raw The raw object to convert.
+ * @returns The converted object.
+ */
+function buildPlayerBoxGacha(
+    raw: RawPlayerBoxGacha
+): PlayerBoxGacha {
+    return {
+        boxId: raw.box_id,
+        resetTimes: raw.reset_times,
+        remainingNumber: raw.remaining_number,
+        isClosed: deserializeBoolean(raw.is_closed)
+    }
+}
+
+/**
+ * Gets the data for an individual player box gacha.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the box gacha.
+ * @param boxId The ID of the box.
+ * @returns A PlayerBoxGacha object or null.
+ */
+export function getPlayerBoxGachaSync(
+    playerId: number,
+    gachaId: number,
+    boxId: number
+): PlayerBoxGacha | null {
+    const rawBox = db.prepare(`
+    SELECT id, box_id, reset_times, remaining_number, is_closed
+    FROM players_box_gacha
+    WHERE player_id = ? AND id = ? AND box_id = ?
+    `).get(playerId, gachaId, boxId) as RawPlayerBoxGacha
+
+    if (rawBox === undefined) return null;
+
+    return buildPlayerBoxGacha(rawBox)
+}
+
+/**
  * Gets a player's box gachas.
  * 
  * @param playerId The ID of the player
@@ -2256,12 +2297,7 @@ export function getPlayerBoxGachasSync(
             bucket = []
             buckets[id] = bucket
         }
-        bucket.push({
-            boxId: rawBox.box_id,
-            resetTimes: rawBox.reset_times,
-            remainingNumber: rawBox.remaining_number,
-            isClosed: deserializeBoolean(rawBox.is_closed)
-        })
+        bucket.push(buildPlayerBoxGacha(rawBox))
     }
 
     return buckets
@@ -2271,19 +2307,19 @@ export function getPlayerBoxGachasSync(
  * Inserts a singular box gacha into a player's data.
  * 
  * @param playerId The ID of the player.
- * @param section 
+ * @param gachaId 
  * @param boxGacha The box gacha's data.
  */
-function insertPlayerBoxGachaSync(
+export function insertPlayerBoxGachaSync(
     playerId: number,
-    section: number | string,
+    gachaId: number | string,
     boxGacha: PlayerBoxGacha
 ) {
     db.prepare(`
     INSERT INTO players_box_gacha (id, box_id, reset_times, remaining_number, is_closed, player_id)
     VALUES (?, ?, ?, ?, ?, ?)
     `).run(
-        Number(section),
+        Number(gachaId),
         boxGacha.boxId,
         boxGacha.resetTimes,
         boxGacha.remainingNumber,
@@ -2309,6 +2345,127 @@ function insertPlayerBoxGachasSync(
             }
         }
     })()
+}
+
+/**
+ * Updates a player's box gacha box.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the box gacha that this box belongs to.
+ * @param boxGacha 
+ * 
+ */
+export function updatePlayerBoxGachaSync(
+    playerId: number,
+    gachaId: number | string,
+    boxGacha: Partial<PlayerBoxGacha> & Pick<PlayerBoxGacha, 'boxId'>
+) {
+    const fieldMap: Record<string, string> = {
+        'resetTimes': 'reset_times',
+        'remainingNumber': 'remaining_number',
+        'isClosed': 'is_closed'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in boxGacha) {
+        const value = boxGacha[key as keyof PlayerBoxGacha]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            if (typeof (value) === "boolean") {
+                values.push(serializeBoolean(value))
+            } else {
+                values.push(value)
+            }
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_box_gacha
+        SET ${sets.join(', ')}
+        WHERE player_id = ? AND id = ? AND box_id = ?
+        `).run([
+            ...values,
+            playerId,
+            Number(gachaId),
+            boxGacha.boxId
+        ]);
+}
+
+/**
+ * Gets all of the drawn rewards for a specific box gacha & box for a player.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The id of the box gacha.
+ * @param boxId The box's ID.
+ * @returns A list of drawn rewards.
+ */
+export function getPlayerBoxGachaDrawnRewardsSync(
+    playerId: number,
+    gachaId: number,
+    boxId: string | number
+): PlayerBoxGachaDrawnReward[] {
+    return db.prepare(`
+    SELECT id, number
+    FROM players_box_gacha_drawn_rewards
+    WHERE box_id = ? AND gacha_id = ? AND player_id = ?
+    `).all(Number(boxId), gachaId, playerId) as PlayerBoxGachaDrawnReward[]
+}
+
+/**
+ * Inserts a drawn reward for a box gacha.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The id of the box gacha.
+ * @param boxId The box's ID.
+ * @param reward The reward to insert.
+ */
+export function insertPlayerBoxGachaDrawnRewardSync(
+    playerId: number,
+    gachaId: number,
+    boxId: string | number,
+    reward: PlayerBoxGachaDrawnReward
+) {
+    db.prepare(`
+    INSERT INTO players_box_gacha_drawn_rewards (id, box_id, gacha_id, number, player_id)
+    VALUES (?, ?, ?, ?, ?)
+    `).run(
+        reward.id,
+        Number(boxId),
+        gachaId,
+        reward.number,
+        playerId
+    )
+}
+
+/**
+ * Updates a drawn reward for a box gacha.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The id of the box gacha.
+ * @param boxId The box's ID.
+ * @param rewardId A list of drawn rewards.
+ * @param newNumber The new number value the drawn reward should have.
+ */
+export function updatePlayerBoxGachaDrawnRewardSync(
+    playerId: number,
+    gachaId: number,
+    boxId: string | number,
+    rewardId: string | number,
+    newNumber: number
+) {
+    db.prepare(`
+    UPDATE players_box_gacha_drawn_rewards
+    SET number = ?
+    WHERE player_id = ? AND gacha_id = ? AND box_id = ? AND id = ?
+    `).run(
+        newNumber,
+        playerId,
+        gachaId,
+        Number(boxId),
+        Number(rewardId),
+    )
 }
 
 /**
@@ -2599,7 +2756,7 @@ function buildPlayer(
         transitionState: raw.transition_state,
         role: raw.role,
         name: raw.name,
-        lastLoginTime: raw.last_login_time,
+        lastLoginTime: new Date(raw.last_login_time),
         comment: raw.comment,
         vmoney: raw.vmoney,
         freeVmoney: raw.free_vmoney,
@@ -2678,7 +2835,7 @@ export function insertPlayerSync(
         player.transitionState,
         player.role,
         player.name,
-        player.lastLoginTime,
+        player.lastLoginTime.toISOString(),
         player.comment,
         player.vmoney,
         player.freeVmoney,
@@ -3439,31 +3596,83 @@ export function deletePlayerSync(
     db.prepare(`DELETE FROM players WHERE id = ?`).run(playerId)
 }
 
+export function collectPlayerDataPooledExpSync(
+    player: Player,
+    dateNow: Date = new Date()
+) {
+    const serverTimeNow = getServerTime(dateNow)
+    const poolTime = getServerTime(player.expPooledTime)
+    const diff = Math.max(0, serverTimeNow - poolTime)
+
+    if (60 > diff) return;
+
+    updatePlayerSync({
+        id: player.id,
+        expPooledTime: dateNow,
+        expPool: player.expPool + Math.min(expPoolMax, Math.floor(diff / 60))
+    })
+}
+
 /**
  * Collects any pooled exp that a player might have.
  * Exp regenerates at a rate of 1 per minute.
  * 
  * @param playerId The ID of the player to collect the pooled EXP of.
  */
-export function collectPooledExpSync(
+export function collectPlayerPooledExpSync(
     playerId: number
 ) {
     // exp regenerates at a rate of 1/min
     const playerData = getPlayerSync(playerId)
     if (!playerData) return;
 
-    const dateNow = new Date()
-    const serverTimeNow = getServerTime(dateNow)
-    const poolTime = getServerTime(playerData.expPooledTime)
-    const diff = Math.max(0, serverTimeNow - poolTime)
+    collectPlayerDataPooledExpSync(playerData)
+}
 
-    if (60 > diff) return;
+/**
+ * Performs a daily reset for a a player data object.
+ * 
+ * @param player The player data to perform the daily reset for
+ * @param loginDate 
+ * @returns A boolean; whether the daily reset was performed
+ */
+export function dailyResetPlayerDataSync(
+    player: Player,
+    loginDate: Date = new Date()
+): boolean {
+    const lastLoginTime = player.lastLoginTime
 
-    updatePlayerSync({
-        id: playerId,
-        expPooledTime: dateNow,
-        expPool: playerData.expPool + Math.min(expPoolMax, Math.floor(diff / 60))
-    })
+    if ( (loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate()) ) {
+        // TODO: daily reset logic.
+        updatePlayerSync({
+            id: player.id,
+            lastLoginTime: loginDate,
+            bossBoostPoint: 3,
+            boostPoint: 3
+        })
+        return true
+    } else {
+        updatePlayerSync({
+            id: player.id,
+            lastLoginTime: loginDate,
+        })
+        return false
+    }
+}
+
+/**
+ * Performs a daily reset for a player
+ * 
+ * @param playerId The ID of the player to perform the daily reset for.
+ * @returns A boolean; whether the daily reset was performed
+ */
+export function dailyResetPlayerSync(
+    playerId: number
+): boolean {
+    const playerData = getPlayerSync(playerId)
+    if (!playerData) return false;
+
+    return dailyResetPlayerDataSync(playerData)
 }
 
 // getAccount(1).then(result => {

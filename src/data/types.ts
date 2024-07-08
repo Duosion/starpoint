@@ -274,6 +274,11 @@ export interface PlayerBoxGacha {
     isClosed: boolean
 }
 
+export interface PlayerBoxGachaDrawnReward {
+    id: number,
+    number: number
+}
+
 export interface RawPlayerStartDashExchangeCampaign {
     campaign_id: number
     gacha_id: number
@@ -345,7 +350,7 @@ export interface Player {
     transitionState: number
     role: number
     name: string
-    lastLoginTime: string
+    lastLoginTime: Date
     comment: string
     vmoney: number
     freeVmoney: number

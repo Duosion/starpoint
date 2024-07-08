@@ -5,3 +5,4 @@ mitm_redirect
 scripts/in
 .cdn
 web/public/tailwind.css
+scripts/__pycache__

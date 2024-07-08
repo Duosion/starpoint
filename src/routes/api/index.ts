@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SessionType } from "../../data/types";
 import { getClientSerializedData, serializePlayerData } from "../../data/utils";
-import { collectPooledExpSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession } from "../../data/wdfpData";
+import { collectPlayerDataPooledExpSync, collectPlayerPooledExpSync, dailyResetPlayerDataSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 
 interface LoadBody {
@@ -44,14 +44,18 @@ const routes = async (fastify: FastifyInstance) => {
 
         const playerIds = await getAccountPlayers(accountId)
         const playerId = playerIds[0]
+        const player = !isNaN(playerId) ? getPlayerSync(playerId) : null
 
-        if (isNaN(playerId)) return reply.status(500).send({
+        if (player === null) return reply.status(500).send({
             "error": "Internal Server Error",
             "message": "No players bound to account."
         })
 
+        // get last login time
+        dailyResetPlayerDataSync(player)
+
         // collect the player's pooled exp
-        collectPooledExpSync(playerId)
+        collectPlayerDataPooledExpSync(player)
 
         const clientData = getClientSerializedData(playerId, viewerId)
         if (clientData === null) return reply.status(500).send({
