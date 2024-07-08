@@ -21,7 +21,7 @@ Content-Length: 1066
 ```
 {
   "idpId": "2eeba3a3-9e7b-49b9-acff-99a813a8dc92",
-  "viewer_id": "<redacted>",
+  "accessToken": "<redacted>",
   "loginType": "auto",
   "resume": false,
   "fields": [
@@ -37,7 +37,7 @@ Content-Length: 1066
     "regTime"
   ],
   "retryNo": 0,
-  "viewer_id": "<redacted>",
+  "deviceAppKey": "<redacted>",
   "androidId": "583de1fa3c5c425f",
   "usimCountry": "zz",
   "appId": "561429",
@@ -56,7 +56,7 @@ Content-Length: 1066
   "clientTime": 1717786048702,
   "timezoneOffset": -21600000,
   "adid": "06f0e655-07cc-4a10-873a-7ade0411e754",
-  "viewer_id": "<redacted>",
+  "whiteKey": "<redacted>",
   "gsiToken": true,
   "serialNo": "android"
 }
@@ -93,9 +93,9 @@ X-Amz-Cf-Id: deyyu07hOVxBrjUeG_fOdqQMZpEG6m_3ZxH_1DgidXFH_WBybZMeaw==
   "zatExpiryTime": 1717829246989,
   "zrtExpiryTime": 1720378046989,
   "firstLogin": false,
-  "viewer_id": "<redacted>",
-  "viewer_id": "<redacted>",
-  "viewer_id": "<redacted>",
+  "externalToken": "<redacted>",
+  "zat": "<redacted>",
+  "zrt": "<redacted>",
   "player": {
     "idpId": "6076023319",
     "appId": "561429",

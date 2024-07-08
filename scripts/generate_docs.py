@@ -34,7 +34,7 @@ host_mappings = {
 def redact_dumps(data):
     dumped = json.dumps(data, indent=2)
     for to_redact in redacted_values.keys():
-        dumped = re.sub(r'\"' + re.escape(to_redact) + r'\": \S+,', f'"{"viewer_id"}": "<redacted>",', dumped)
+        dumped = re.sub(r'\"' + re.escape(to_redact) + r'\": \S+,', f'"{to_redact}": "<redacted>",', dumped)
     return dumped
 
 def request(flow: http.HTTPFlow) -> None:

@@ -19,7 +19,7 @@ Content-Length: 1019
 ### Body
 ```
 {
-  "viewer_id": "<redacted>",
+  "zat": "<redacted>",
   "playerId": "984521158255",
   "loginType": "auto",
   "resume": false,
@@ -56,7 +56,7 @@ Content-Length: 1019
   "clientTime": 1719092458350,
   "timezoneOffset": -21600000,
   "adid": "714b6aad-9e3c-40a0-a025-4ef9a8245154",
-  "viewer_id": "<redacted>",
+  "whiteKey": "<redacted>",
   "gsiToken": true
 }
 ```
@@ -91,8 +91,8 @@ X-Amz-Cf-Id: 8heB-PZq491PWjdX6wwCZLUs0RJ2cqhl7GjxK9jHvYKJsOJSCZLHBw==
 {
   "zatExpiryTime": 1719135658909,
   "firstLogin": false,
-  "viewer_id": "<redacted>",
-  "viewer_id": "<redacted>",
+  "externalToken": "<redacted>",
+  "zat": "<redacted>",
   "player": {
     "idpId": "104425574296791483012",
     "appId": "561429",

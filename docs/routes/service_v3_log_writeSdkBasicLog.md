@@ -23,7 +23,7 @@ Content-Length: 2358
   "logBody": {
     "requestData": "{\"method\":\"POST\",\"header\":{\"txNo\":1381623886,\"openapi_uri\":\"v3\\/zat\\/login\"},\"body\":{\"zat\":\"Ti+AZA8Q+4wmvJ9poGBd\\/loOsD\\/BdjoZocIJ5TISDXajsEpS2sSg0Vl28bHqa2dko2d\\/iL4R\",\"playerId\":\"2\",\"loginType\":\"auto\",\"resume\":false,\"fields\":[\"playerId\",\"customProperty\",\"secureProperty\",\"pushToken\",\"pushOption\",\"agreement\",\"memberKey\",\"lang\",\"firstLoginTime\",\"regTime\"],\"retryNo\":0,\"androidId\":\"583de1fa3c5c425f\",\"usimCountry\":\"zz\",\"appId\":\"561429\",\"appSecret\":\"8a4421148b884608bb96862f3988d832\",\"appVer\":\"0.0.81\",\"market\":\"googlePlay\",\"country\":\"us\",\"lang\":\"en\",\"sdkVer\":\"3.14.14\",\"telecom\":\"unknown\",\"deviceModel\":\"samsung SM-T860\",\"os\":\"android\",\"osVer\":\"12\",\"network\":\"wifi\",\"deviceId\":\"0fdb35fe-5bf3-4bb4-8cd7-cf0e40ed10c4\",\"clientTime\":1717901958730,\"timezoneOffset\":-21600000,\"adid\":\"\",\"whiteKey\":\"\",\"gsiToken\":true},\"uri\":\"auth:\\/\\/v3\\/zat\\/login\"}",
     "savedLoginData": {
-      "viewer_id": "<redacted>",
+      "externalToken": "<redacted>",
       "firstLogin": true,
       "player": {
         "appId": "561429",
@@ -39,15 +39,15 @@ Content-Length: 2358
         "regTime": 1717901866102,
         "status": "normal"
       },
-      "viewer_id": "<redacted>",
+      "zat": "<redacted>",
       "zatExpiryTime": 1717945066102,
-      "viewer_id": "<redacted>",
+      "zrt": "<redacted>",
       "zrtExpiryTime": 1720493866102
     },
     "savedAccount": {
       "idpCode": "zd3",
       "userId": "0fdb35fe-5bf3-4bb4-8cd7-cf0e40ed10c4",
-      "viewer_id": "<redacted>",
+      "accessToken": "<redacted>",
       "ci": "",
       "deviceId": "0fdb35fe-5bf3-4bb4-8cd7-cf0e40ed10c4",
       "expiryTime": 1717905558501
