@@ -120,6 +120,7 @@ const routes = async (fastify: FastifyInstance) => {
                 resetTimes: 0
             })
         } else {
+            // auto close the box if the remaining draws are 0
             playerBoxData.isClosed = remainingDrawsNumber === 0,
             updatePlayerBoxGachaSync(playerId, boxGachaId, {
                 boxId: boxId,

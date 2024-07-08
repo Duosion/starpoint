@@ -10,7 +10,7 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 * Character stories
 * Guest login flow
 
-For a more in-depth view of the progress completed, visit the [API endpoints document](/docs/api-endpoints.md).
+For a more in-depth view of the progress completed, visit the [API routes document](/docs/routes.md).
 
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/package-manager).

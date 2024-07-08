@@ -2,7 +2,9 @@
 Learn the basics of the Starpoint project to begin contributing!
 
 ## What's Left?
-There is a table of the endpoints that have been implemented in the [api endpoints document](./api-endpoints.md).
+There is a list of all routes that have been discovered along with their implementation status in the [routes document](./routes.md)
+
+This document also contains links to individual documentation pages for each route with the data that passes between the client and server.
 
 ## Project Structure
 The following is an overview of the project structure.
