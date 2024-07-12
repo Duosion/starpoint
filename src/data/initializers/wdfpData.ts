@@ -222,6 +222,15 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_gacha_campaigns (
+        gacha_id INTEGER NOT NULL,
+        campaign_id INTEGER NOT NULL,
+        count INTEGER NOT NULL,
+        player_id INTEGER NOT NULL,
+        PRIMARY KEY (gacha_id, campaign_id, player_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run();
+
     database.prepare(`CREATE TABLE IF NOT EXISTS players_drawn_quests (
         category_id INTEGER NOT NULL,
         quest_id INTEGER NOT NULL,

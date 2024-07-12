@@ -8,7 +8,7 @@ import { FastifyRequest } from "fastify"
  * @returns The unix epoch.
  */
 export function getServerTime(date: Date = new Date()): number {
-    return Math.floor(date.getTime() / 1000)
+    return Math.floor(date.getTime() / 1000) //1710116388//
 }
 
 /**

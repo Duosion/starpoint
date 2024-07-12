@@ -1,7 +1,7 @@
 import { clientSerializeDate } from "../data/utils";
 import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, insertPlayerCharacterSync, updatePlayerCharacterSync, updatePlayerSync } from "../data/wdfpData";
 import { getCharacterDataSync } from "./assets";
-import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, RewardPlayerCharacterExpResult } from "./types";
+import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, GivePlayerCharacterResult, RewardPlayerCharacterExpResult } from "./types";
 
 export const characterExpCaps: Record<number, number[]> = {
     [1]: [ // 1* max exp amounts for each uncap level 
@@ -98,16 +98,14 @@ const dupeItemRewards: Record<number, Record<Element, number>> = {
 export function givePlayerCharacterSync(
     playerId: number,
     characterId: number
-): Record<string, Object> {
+): GivePlayerCharacterResult | null {
 
     // get the character's asset data
     const assetData = getCharacterDataSync(characterId)
-    if (assetData === null) return {};
+    if (assetData === null) return null;
 
     // get the current character data
     const playerCharacter = getPlayerCharacterSync(playerId, characterId)
-
-    const toReturn: Record<string, Object> = {}
 
     if (playerCharacter === null) {
         const bondTokenList = [
@@ -127,36 +125,70 @@ export function givePlayerCharacterSync(
         }
 
         // give the player the character
+        const joinTime = new Date()
         insertPlayerCharacterSync(1, characterId, {
             entryCount: 1,
             evolutionLevel: 0,
             overLimitStep: 0,
             protection: false,
-            joinTime: new Date(),
-            updateTime: new Date(),
+            joinTime: joinTime,
+            updateTime: joinTime,
             exp: 0,
             stack: 0,
             manaBoardIndex: 1,
             bondTokenList: bondTokenList
         })
+        
+        const serializedDate = clientSerializeDate(joinTime)
+        return {
+            character: {
+                "viewer_id": 0,
+                "character_id": characterId,
+                "entry_count": 1,
+                "exp": 0,
+                "exp_total": 0,
+                "bond_token_list": bondTokenList.map(bondToken => {
+                    return {
+                        "mana_board_index": bondToken.manaBoardIndex,
+                        "status": bondToken.status
+                    }
+                }),
+                "mana_board_index": 1,
+                "create_time": serializedDate,
+                "update_time": serializedDate,
+                "join_time": serializedDate,
+            }
+        }
     } else {
         // otherwise, it was a dupe
         const dupeRewards = dupeItemRewards[assetData.rarity]
+        let returnItem = undefined
         if (dupeRewards) {
             const itemId = dupeRewards[assetData.element]
-            toReturn["item_list"] = {
-                [String(itemId)]: givePlayerItemSync(playerId, itemId, 1)
+            givePlayerItemSync(playerId, itemId, 1)
+            returnItem = {
+                id: itemId,
+                count: 1
             }
         }
 
         // update stack
-        const currentStack = playerCharacter.stack
+        const newStack = playerCharacter.stack + 1
         updatePlayerCharacterSync(playerId, characterId, {
-            stack: currentStack + 1
+            stack: newStack
         })
-    }
 
-    return toReturn
+        return {
+            character: {
+                "character_id": characterId,
+                "stack": newStack,
+                "create_time": clientSerializeDate(playerCharacter.joinTime),
+                "update_time": clientSerializeDate(playerCharacter.updateTime),
+                "join_time": clientSerializeDate(playerCharacter.joinTime),
+            },
+            item: returnItem
+        }
+    }
 }
 
 /**

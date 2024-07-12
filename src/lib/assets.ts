@@ -1,23 +1,25 @@
+import adventEventQuests from "../../assets/advent_event_quest.json";
 import bossBattleQuests from "../../assets/boss_battle_quest.json";
+import boxGacha from "../../assets/box_gacha.json";
+import boxReward from "../../assets/box_reward.json";
 import characters from "../../assets/character.json";
 import characterQuests from "../../assets/character_quest.json";
 import clearRewards from "../../assets/clear_reward.json";
-import exQuests from "../../assets/ex_quest.json";
-import mainQuests from "../../assets/main_quest.json";
-import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
-import worldStoryEventBossBattleQuests from  "../../assets/world_story_event_boss_battle_quest.json";
-import adventEventQuests from "../../assets/advent_event_quest.json";
 import dailyExpManaEventQuests from "../../assets/daily_exp_mana_event_quest.json";
 import dailyWeekEventQuests from "../../assets/daily_week_event_quest.json";
-import rareScoreRewards from "../../assets/rare_score_reward.json";
-import scoreRewards from "../../assets/score_reward.json";
-import manaNodes from "../../assets/mana_node.json";
+import worldStoryEventBossBattleQuests from "../../assets/world_story_event_boss_battle_quest.json";
+import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
 import exAbility from "../../assets/ex_ability.json";
 import exBoost from "../../assets/ex_boost.json";
+import exQuests from "../../assets/ex_quest.json";
 import exStatus from "../../assets/ex_status.json";
-import boxGacha from "../../assets/box_gacha.json";
-import boxReward from "../../assets/box_reward.json";
-import { AssetCharacter, BattleQuest, BoxGacha, BoxGachaBoxes, ClearRewards, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import gachas from "../../assets/gacha.json";
+import mainQuests from "../../assets/main_quest.json";
+import manaNodes from "../../assets/mana_node.json";
+import rareScoreRewards from "../../assets/rare_score_reward.json";
+import scoreRewards from "../../assets/score_reward.json";
+import gachaCampaigns from "../../assets/gacha_campaign.json";
+import { AssetCharacter, BattleQuest, BoxGacha, ClearRewards, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, Gacha, Gachas, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -329,4 +331,30 @@ export function getBoxGachaSync(
         boxes: boxes,
         availableCounts: redeemItemData.availableCounts
     }
+}
+
+/**
+ * Gets the data for a gacha.
+ * 
+ * @param id The ID of the gacha.
+ * @returns The gacha's data, or null.
+ */
+export function getGachaSync(
+    id: string | number
+): Gacha | null {
+    const data = (gachas as Gachas)[String(id)];
+    
+    return data ?? null
+}
+
+/**
+ * Gets the ID of the gacha campaign assigned to a gacha.
+ * 
+ * @param gachaId The ID of the gacha.
+ * @returns The ID of the assigned gacha campaign or null.
+ */
+export function getGachaCampaignIdSync(
+    gachaId: string | number
+): number | null {
+    return (gachaCampaigns as Record<string, number>)[String(gachaId)] ?? null
 }

@@ -3,21 +3,58 @@
  * Right now all characters in a gacha's pool have an equal chance of being summoned.
  */
 
-
-// fes_guarantee = yellow -> rainbow pinball
-// fes = maybe fakeout
-
-import { randomInt } from "crypto"
+import { randomInt } from "crypto";
 import { getPlayerCharacterSync, getPlayerSync, insertPlayerCharacterSync, updatePlayerGachaInfoSync, updatePlayerSync } from "../data/wdfpData"
-import { BoxGacha, BoxGachaBox, BoxGachaIdReward, BoxGachaRewardTier, BoxGachaRewardType, BoxGachaDrawResult, Reward, EquipmentItemReward, RewardType, CharacterReward, CurrencyReward, PlayerRewardResult } from "./types"
-import { PlayerBoxGachaDrawnReward } from "../data/types"
-import { givePlayerRewardsSync } from "./quest"
+import { BoxGachaBox, BoxGachaIdReward, BoxGachaRewardTier, BoxGachaRewardType, BoxGachaDrawResult, Reward, EquipmentItemReward, RewardType, CharacterReward, CurrencyReward, PlayerRewardResult, Gacha, GachaType, GachaPoolItem, GachaDrawResult, GachaDraws, GachaMovieType, CharacterGacha, GachaMovieSeeds, GachaCharacterDraw, RewardPlayerGachaDrawResult, GachaEquipmentDraw } from "./types"
+import { PlayerBoxGachaDrawnReward } from "../data/types";
+import { givePlayerRewardsSync } from "./quest";
+import movieSeeds from "../../assets/gacha_movie_seeds.json";
+import { givePlayerCharacterSync } from "./character";
+import { givePlayerEquipmentSync } from "./equipment";
 
 // list of gachas
 // [gacha_id] = (array of character ids)
 const gachas: Record<number, number[]> = {
     [157]: [251001, 251002, 251003, 251004, 251005, 251006, 251007, 251008]
 }
+
+const characterGachaRankRates = {
+    normal: [
+        75, // 5*
+        250,  // 4*
+        675 // 3*
+    ],
+    multiGuarantee: [
+        75, // 5*
+        925 // 4*
+    ]
+}
+
+const equipmentGachaRankRates = {
+    normal: [
+        50,  // 5*
+        250, // 4*
+        700  // 3*
+    ],
+    multiGuarantee: [
+        50, // 5*
+        950 // 4*
+    ]
+}
+
+const rankMovieRates = [
+    [ // 5*
+        80,
+        20
+    ],
+    [ // 4*
+        80,
+        20
+    ],
+    [
+        100
+    ]
+]
 
 export interface GachaResult {
     characterId: number,
@@ -129,6 +166,139 @@ export function playerSummon(
         freeVmoney: vmoneyNow,
         vmoney: player.vmoney,
         pulls: pulls
+    }
+}
+
+/**
+ * Selects a random index from a weighted pool.
+ * 
+ * @param min The minimum random value to pick.
+ * @param max The maximum random value to pick.
+ * @param pool The pool to select the random index from.
+ * @returns The index that was selected. null if nothing was selected.
+ */
+function randomPoolItem(
+    min: number,
+    max: number,
+    pool: number[]
+): number | null {
+    let roll = randomInt(min, max)
+
+    let offset = 0;
+    let index = 0
+    for (const rate of pool) {
+        if ((rate + offset) >= roll) return index;
+        offset += rate;
+        index += 1;
+    }
+    return null;
+}
+
+export function drawGachaSync(
+    gacha: Gacha,
+    drawAmount: number
+): GachaDrawResult {
+    const rankRates = gacha.type === GachaType.CHARACTER ? characterGachaRankRates : equipmentGachaRankRates
+
+    const pulls: Map<number, number> = new Map()
+
+    for (let drawNumber = 0; drawNumber < drawAmount; drawNumber++) {
+
+        const drawRankRates = (drawNumber !== 0) && ((drawNumber % 9) === 0) ? rankRates.multiGuarantee : rankRates.normal
+        
+        const ratePool = gacha.pool[(randomPoolItem(0, 1001, drawRankRates) ?? 0) + 1]
+
+        // pick item from pool
+        const selectedItem = ratePool[randomPoolItem(0, 1001, ratePool.map(item => item.rarity)) ?? 0]
+        const selectedItemId = selectedItem.id
+
+        pulls.set(selectedItemId, (pulls.get(selectedItemId) ?? 0) + 1)
+    }
+
+    return pulls
+}
+
+export function rewardPlayerGachaDrawResultSync(
+    playerId: number,
+    gacha: Gacha,
+    gachaDrawResult: GachaDrawResult
+): RewardPlayerGachaDrawResult {
+
+    const draws: GachaDraws = []
+    const characters: Map<number, Object> = new Map()
+    const equipment: Map<number, Object> = new Map()
+    const items: Map<number, number> = new Map()
+
+    if (gacha.type == GachaType.CHARACTER) {
+        const characterGacha = gacha as CharacterGacha
+        // reward characters
+        for (const [characterId, amount] of gachaDrawResult) {
+            for (let n = 0; n < amount; n++) {
+                const giveResult = givePlayerCharacterSync(playerId, characterId)
+                
+                if (giveResult !== null) {
+                    // get character rarity
+                    const rarity = Math.floor(characterId / 100000) - 1
+                    // decide on movie
+                    const movieType = randomPoolItem(1, 101, rankMovieRates[rarity]) ?? GachaMovieType.NORMAL
+
+                    // pick a seed
+                    const seeds = (movieSeeds as GachaMovieSeeds)[rarity + 1][movieType]
+                    const seedIndex = randomInt(0, seeds.length + 1)
+
+                    // build draw
+                    const draw: GachaCharacterDraw = {
+                        "character_id": characterId,
+                        "movie_id": movieType === GachaMovieType.NORMAL ? characterGacha.movieName : characterGacha.guaranteeMovieName,
+                        "seed": seeds[seedIndex] ?? seeds[0],
+                        "entry_count": 1
+                    }
+                    
+                    // set values in items map, characters map, and draws array.
+                    const giveItem = giveResult.item
+                    if (giveItem !== undefined) {
+                        draw['ex_boost_item'] = giveItem // add ex_boost_item to draw
+                        items.set(giveItem.id, (items.get(giveItem.id) ?? 0) + giveItem.count)
+                    }
+
+                    characters.set(characterId, giveResult.character)
+                    draws.push(draw)
+                }
+
+            }
+        }
+    } else {
+        for (const [equipmentId, amount] of gachaDrawResult) {
+            const giveResult = givePlayerEquipmentSync(playerId, equipmentId, amount);
+
+            equipment.set(equipmentId, giveResult)
+            draws.push({
+                "equipment_id": equipmentId,
+                "treasure_up_type": 0    
+            })
+        }
+    }
+    
+    const returnCharacters: Object[] = [];
+    for (const value of characters.values()) {
+        returnCharacters.push(value)
+    }
+
+    const returnEquipment: Object[] = []
+    for (const value of equipment.values()) {
+        returnEquipment.push(value)
+    }
+    
+    const returnItems: Record<number, number> = {}
+    for (const [itemId, amount] of items) {
+        returnItems[itemId] = amount
+    }
+
+    return {
+        draw: draws,
+        characters: returnCharacters,
+        equipment: returnEquipment,
+        items: returnItems
     }
 }
 
@@ -283,3 +453,83 @@ export function rewardPlayerBoxGachaResultSync(
 
     return givePlayerRewardsSync(playerId, rewards)
 }
+
+// {
+//     "data_headers": {
+//         "force_update": false,
+//         "asset_update": false,
+//         "short_udid": 461173975,
+//         "viewer_id": 297417490,
+//         "servertime": 1718941108,
+//         "result_code": 1
+//     },
+//     "data": {
+//         "draw_equipment": [
+//             {
+//                 "equipment_id": 3060007,
+//                 "treasure_up_type": 0
+//             }
+//         ],
+//         "is_erupt": false,
+//         "gacha_info_list": [
+//             {
+//                 "gacha_id": 5033,
+//                 "is_account_first": false,
+//                 "gacha_exchange_point": 1
+//             }
+//         ],
+//         "equipment_list": [
+//             {
+//                 "null": 1,
+//                 "viewer_id": 297417490,
+//                 "equipment_id": 3060007,
+//                 "protection": false,
+//                 "level": 1,
+//                 "enhancement_level": 0,
+//                 "stack": 0
+//             }
+//         ],
+//         "item_list": {
+//             "999005": 0
+//         },
+//         "mail_arrived": false
+//     }
+// }
+
+// const output = [
+//     { // 5*
+      
+//     },
+//     { // 4*
+      
+//     },
+//     { // 3*
+      
+//     }
+//   ]
+  
+//   for (const entry of draw) {
+//     const rarityPool = Math.floor(entry['character_id'] / 100000) - 1
+    
+//     //output[rarityPool][entry['seed']] = entry['movie_id'] === "fes_guarantee" ? 1 : 0
+//     const movieId = entry['movie_id'] === "fes_guarantee" ? 1 : 0
+//     let bucket = output[rarityPool][movieId]
+//     if (bucket === undefined) {
+//       bucket = {}
+//       output[rarityPool][movieId] = bucket
+//     }
+    
+//     bucket[entry['seed']] = true
+//   }
+  
+//   for (const entry of output) {
+//     for (const [movieType, seeds] of Object.entries(entry)) {
+//       const newValue = []
+//       for (const [seed, _] of Object.entries(seeds)) {
+//         newValue.push(seed)
+//       }
+//       entry[movieType] = newValue
+//     }
+//   }
+  
+//   console.log(JSON.stringify(output, 2))
