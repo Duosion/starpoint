@@ -272,10 +272,12 @@ export function rewardPlayerGachaDrawResultSync(
             const giveResult = givePlayerEquipmentSync(playerId, equipmentId, amount);
 
             equipment.set(equipmentId, giveResult)
-            draws.push({
-                "equipment_id": equipmentId,
-                "treasure_up_type": 0    
-            })
+            for (let i = 0; i < amount; i++) {
+                draws.push({
+                    "equipment_id": equipmentId,
+                    "treasure_up_type": 0    
+                })
+            }
         }
     }
     

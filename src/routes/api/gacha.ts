@@ -35,7 +35,10 @@ enum GachaExecType {
     CAMPAIGN_SINGLE,
     CAMPAIGN_MULTI,
     MULTI_TICKET,
-    SINGLE_TICKET
+    SINGLE_TICKET,
+    UNKNOWN_4,
+    UNKNOWN_5,
+    MULTI_WEAPON_TICKET
 }
 
 /*
@@ -181,16 +184,20 @@ const routes = async (fastify: FastifyInstance) => {
 
             // tickets
             case GachaPaymentType.TICKET: {
-                const isMulti = type === GachaExecType.MULTI_TICKET
+                const isWeapon = type === GachaExecType.MULTI_WEAPON_TICKET
+                const isMulti = type === GachaExecType.MULTI_TICKET || isWeapon
 
-                const itemId = isMulti ? 999004 : 999003
+                const itemId = isMulti ? (isWeapon ? 999004 : 999001) : (isWeapon ? 999005 : 999003)
+
                 const itemCount = getPlayerItemSync(playerId, itemId)
-                pullCount = Math.max(1, numberOfExec)
-                const newItemCount = (itemCount ?? -1) - pullCount
+                const useTicketCount = Math.max(1, numberOfExec) 
+                const newItemCount = (itemCount ?? -1) - useTicketCount
                 if (0 > newItemCount) return reply.status(400).send({
                     "error": "Bad Request",
                     "message": "Not enough tickets."
                 })
+
+                pullCount = useTicketCount * (isMulti ? 10 : 1)
 
                 items[itemId] = newItemCount
                 updatePlayerItemSync(playerId, itemId, newItemCount);
@@ -268,7 +275,7 @@ const routes = async (fastify: FastifyInstance) => {
             vmoney: playerPaidVmoney,
             freeVmoney: playerFreeVmoney
         })
-        
+
         reply.header("content-type", "application/x-msgpack")
         if (gachaData.type == GachaType.CHARACTER) {
             return reply.status(200).send({
