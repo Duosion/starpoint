@@ -261,7 +261,12 @@ export function rewardPlayerGachaDrawResultSync(
                         items.set(giveItem.id, (items.get(giveItem.id) ?? 0) + giveItem.count)
                     }
 
-                    characters.set(characterId, giveResult.character)
+                    const existingCharacter = characters.get(characterId)
+                    if (existingCharacter) {
+                        characters.set(characterId, {...existingCharacter, ...giveResult.character})
+                    } else {    
+                        characters.set(characterId, giveResult.character)
+                    }
                     draws.push(draw)
                 }
 

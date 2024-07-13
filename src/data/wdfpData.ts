@@ -3728,7 +3728,9 @@ export function dailyResetPlayerDataSync(
 ): boolean {
     const lastLoginTime = player.lastLoginTime
     const playerId = player.id
+    console.log(lastLoginTime, loginDate)
     if ( (loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate()) ) {
+        console.log("daily reset")
         // TODO: daily reset logic.
         updatePlayerSync({
             id: playerId,
