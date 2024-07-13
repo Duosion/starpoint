@@ -2106,6 +2106,17 @@ export function insertPlayerGachaCampaignSync(
     )
 }
 
+function insertPlayerGachaCampaignListSync(
+    playerId: number,
+    campaigns: PlayerGachaCampaign[]
+) {
+    db.transaction(() => {
+        for (const campaign of campaigns) {
+            insertPlayerGachaCampaignSync(playerId, campaign)
+        }
+    })()
+}
+
 /**
  * Updates a player's gacha campaign.
  * 
@@ -3031,6 +3042,7 @@ export function insertMergedPlayerDataSync(
     insertPlayerEquipmentListSync(playerId, toInsert.equipmentList)
     insertPlayerQuestProgressListSync(playerId, toInsert.questProgress)
     insertPlayerGachaInfoListSync(playerId, toInsert.gachaInfoList)
+    insertPlayerGachaCampaignListSync(playerId, toInsert.gachaCampaignList)
     insertPlayerDrawnQuestsSync(playerId, toInsert.drawnQuestList)
     insertPlayerPeriodicRewardPointsListSync(playerId, toInsert.periodicRewardPointList)
     insertPlayerActiveMissionsSync(playerId, toInsert.allActiveMissionList)
@@ -3728,9 +3740,7 @@ export function dailyResetPlayerDataSync(
 ): boolean {
     const lastLoginTime = player.lastLoginTime
     const playerId = player.id
-    console.log(lastLoginTime, loginDate)
     if ( (loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate()) ) {
-        console.log("daily reset")
         // TODO: daily reset logic.
         updatePlayerSync({
             id: playerId,
@@ -3744,7 +3754,7 @@ export function dailyResetPlayerDataSync(
         for (const gacha of gachaInfo) {
             updatePlayerGachaInfoSync(playerId, {
                 gachaId: gacha.gachaId,
-                isDailyFirst: false
+                isDailyFirst: true
             })
         }
 

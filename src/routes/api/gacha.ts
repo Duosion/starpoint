@@ -6,6 +6,8 @@ import { getGachaCampaignIdSync, getGachaSync } from "../../lib/assets";
 import { GachaType } from "../../lib/types";
 import { serializeGachaCampaign } from "../../data/utils";
 import { UserGachaCampaign } from "../../data/types";
+import { givePlayerCharacterSync } from "../../lib/character";
+import { givePlayerEquipmentSync } from "../../lib/equipment";
 
 interface ExecBody {
     api_count: number,
@@ -14,6 +16,20 @@ interface ExecBody {
     viewer_id: number,
     gacha_id: number,
     type: number
+}
+
+interface ExchangeCharacterBody {
+    character_id: number,
+    api_count: number,
+    gacha_id: number,
+    viewer_id: number
+}
+
+interface ExchangeEquipmentBody {
+    equipment_id: number,
+    gacha_id: number,
+    viewer_id: number,
+    api_count: number
 }
 
 enum GachaPaymentType {
@@ -41,69 +57,158 @@ enum GachaExecType {
     MULTI_WEAPON_TICKET
 }
 
-/*
--- CHARACTER FREE 10 PULL --
-{
-    "api_count": 1,
-    "gacha_id": 157,
-    "number_of_exec": 1,
-    "payment_type": 4,
-    "type": 8,
-    "viewer_id": 389999980
-}
-
--- CHARACTER 10 PULL TICKET --
-{
-    "api_count": 1,
-    "gacha_id": 137,
-    "number_of_exec": 1,
-    "payment_type": 3,
-    "type": 9,
-    "viewer_id": 389999980
-}
-
--- CHARACTER 150 BEADS SINGLE PULL --
-{
-    "api_count": 2,
-    "gacha_id": 137,
-    "number_of_exec": 1,
-    "payment_type": 1,
-    "type": 1,
-    "viewer_id": 389999980
-}
-
--- CHARACTER 50 PAID BEADS SINGLE PULL --
-{
-    "api_count": 1,
-    "gacha_id": 137,
-    "number_of_exec": 1,
-    "payment_type": 2,
-    "type": 5,
-    "viewer_id": 389999980
-}
-
--- CHARACTER 1500 BEADS 10 pull
-{
-    "viewer_id": 389999980,
-    "number_of_exec": 1,
-    "type": 2,
-    "gacha_id": 137,
-    "api_count": 1,
-    "payment_type": 1
-}
-
--- CHARACTER x10 SINGLE SUMMON TICKETS
-{
-    "api_count": 1,
-    "viewer_id": 389999980,
-    "payment_type": 3,
-    "number_of_exec": 10,
-    "gacha_id": 137,
-    "type": 10
-}
-*/
+const exchangeRequiredPoints = 250
 
 const routes = async (fastify: FastifyInstance) => {
+    fastify.post("/exchange_equipment", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as ExchangeEquipmentBody
+
+        const equipmentId = body.equipment_id
+        const gachaId = body.gacha_id
+        const viewerId = body.viewer_id
+        if (isNaN(viewerId) || isNaN(equipmentId) || isNaN(gachaId)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // get gacha info
+        const gachaInfo = getPlayerGachaInfoSync(playerId, gachaId)
+        if (gachaInfo === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "No data for gacha with provided id."
+        })
+
+        const newExchangePoints = (gachaInfo.gachaExchangePoint ?? 0) - exchangeRequiredPoints
+        if (0 > newExchangePoints) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Not enough exchange points."
+        })
+
+        // reward equipment
+        const giveResult = givePlayerEquipmentSync(playerId, equipmentId, 1)
+
+        // update gacha info
+        updatePlayerGachaInfoSync(playerId, {
+            gachaId: gachaId,
+            gachaExchangePoint: newExchangePoints
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "equipment_list": [
+                    giveResult
+                ],
+                "gacha_info_list": [
+                    {
+                        "gacha_id": gachaId,
+                        "is_account_first": gachaInfo.isAccountFirst,
+                        "is_daily_first": gachaInfo.isDailyFirst,
+                        "gacha_exchange_point": newExchangePoints
+                    }
+                ],
+                "encyclopedia_info": [],
+                "mail_arrived": false
+            }
+        })
+
+    })
+
+    fastify.post("/exchange_character", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as ExchangeCharacterBody
+
+        const characterId = body.character_id
+        const gachaId = body.gacha_id
+        const viewerId = body.viewer_id
+        if (isNaN(viewerId) || isNaN(characterId) || isNaN(gachaId)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        // get gacha info
+        const gachaInfo = getPlayerGachaInfoSync(playerId, gachaId)
+        if (gachaInfo === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "No data for gacha with provided id."
+        })
+
+        const newExchangePoints = (gachaInfo.gachaExchangePoint ?? 0) - exchangeRequiredPoints
+        if (0 > newExchangePoints) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Not enough exchange points."
+        })
+
+        // reward character
+        const giveResult = givePlayerCharacterSync(playerId, characterId)
+        if (giveResult === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Could not give player character."
+        })
+
+        // update gacha info
+        updatePlayerGachaInfoSync(playerId, {
+            gachaId: gachaId,
+            gachaExchangePoint: newExchangePoints
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "character_list": [
+                    giveResult?.character
+                ],
+                "item_list": giveResult.item !== undefined ? {
+                    [giveResult.item.id]: giveResult.item.count
+                } : [],
+                "gacha_info_list": [
+                    {
+                        "gacha_id": gachaId,
+                        "is_account_first": gachaInfo.isAccountFirst,
+                        "is_daily_first": gachaInfo.isDailyFirst,
+                        "gacha_exchange_point": newExchangePoints
+                    }
+                ],
+                "encyclopedia_info": [],
+                "mail_arrived": false
+            }
+        })
+
+    })
+
     fastify.post("/exec", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as ExecBody
 
@@ -138,6 +243,7 @@ const routes = async (fastify: FastifyInstance) => {
             "error": "Bad Request",
             "message": "Gacha doesn't exist."
         })
+        const isCharacterGacha = gachaData.type == GachaType.CHARACTER
 
         // get player gacha data
         let playerGachaData = getPlayerGachaInfoSync(playerId, gachaId)
@@ -176,7 +282,7 @@ const routes = async (fastify: FastifyInstance) => {
                     "message": "Already did daily paid summon."
                 })
 
-                playerPaidVmoney -= 50
+                playerPaidVmoney -= isCharacterGacha ? 50 : 25
 
                 pullCount = 1
                 break;
@@ -277,7 +383,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         reply.header("content-type", "application/x-msgpack")
-        if (gachaData.type == GachaType.CHARACTER) {
+        if (isCharacterGacha) {
             return reply.status(200).send({
                 "data_headers": generateDataHeaders({
                     viewer_id: viewerId
