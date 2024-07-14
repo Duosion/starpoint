@@ -1705,7 +1705,7 @@ export function updatePlayerEquipmentSync(
     equipment: Partial<PlayerEquipment>
 ) {
     const fieldMap: Record<string, string> = {
-        'level': 'entry_count',
+        'level': 'level',
         'enhancementLevel': 'enhancement_level',
         'protection': 'protection',
         'stack': 'stack'
