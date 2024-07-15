@@ -1734,6 +1734,25 @@ export function updatePlayerEquipmentSync(
 }
 
 /**
+ * Deletes a piece of equipment from a player's inventory.
+ * 
+ * @param playerId The ID of the player.
+ * @param equipmentId The ID of the equipment to delete.
+ */
+export function deletePlayerEquipmentSync(
+    playerId: number,
+    equipmentId: string | number
+) {
+    db.prepare(`
+    DELETE FROM players_equipment
+    WHERE id = ? AND player_id = ?
+    `).run(
+        Number(equipmentId),
+        playerId
+    )
+}
+
+/**
  * Converts a RawPlayerQuestProgress object into a PlayerQuestProgress object.
  * 
  * @param raw The raw object to convert.

@@ -32,6 +32,8 @@ Endpoint | Status
 [/encyclopedia/index](./routes/encyclopedia_index.md) | :no_entry:
 [/encyclopedia/read_keyword](./routes/encyclopedia_read_keyword.md) | :no_entry:
 [/equipment/set_protection](./routes/equipment_set_protection.md) | :white_check_mark:
+[/equipment/sell_equipment](./routes/equipment_sell_equipment.md) | :white_check_mark:
+[/equipment/sell_stack](./routes/equipment_sell_stack.md) | :white_check_mark:
 [/equipment/upgrade](./routes/equipment_upgrade.md) | :white_check_mark:
 [/ex_boost/draw](./routes/ex_boost_draw.md) | :white_check_mark:
 [/ex_boost/first_draw](./routes/ex_boost_first_draw.md) | :white_check_mark:
