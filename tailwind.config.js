@@ -6,6 +6,9 @@ module.exports = {
     fontFamily: {
       sans: ["Inter"],
     },
+    gridTemplateColumns: {
+      'sidebar': '250px auto'
+    },
     extend: {
       colors: {
         primary: "var(--md-sys-color-primary)",
