@@ -46,19 +46,20 @@
         <article class="w-full">
             <form
                 class="flex flex-col items-center justify-center p-5 border border-outline-variant rounded-3xl w-full gap-5"
-                method="post" action="/api/player/save?id={{playerId}}" enctype="multipart/form-data">
+                method="get" action="/api/server/time">
                 <h3 class="text-xl text-on-background font-semibold">Change the server's time to visit past and future content.</h3>
                 <h3 class="text-lg text-on-surface-variant">Time is in UTC, not your local time zone.</h3>
-                <input id="save-data" name="save-data" type="datetime-local" value="{{currentServerTime}}" class="bg-surface-container rounded-2xl border border-outline-variant p-3" required />
+                <input id="time" name="time" type="datetime-local" value="{{currentServerTime}}" class="bg-surface-container rounded-2xl border border-outline-variant p-3" required />
                 <div class="flex gap-5 justify-center">
                     <button type="submit"
                         class="text-base bg-primary text-on-primary h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-primary before:hover:opacity-[0.12] transition-opacity">
                         Set Time
                     </button>
-                    <button type="submit"
+                    <a
+                        href="/api/server/resetTime"
                         class="text-base border border-outline-variant text-on-surface h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-surface before:hover:opacity-[0.12] transition-opacity">
                         Reset
-                    </button>
+                    </a>
                 </div>
             </form>
         </article>

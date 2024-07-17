@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import playerApiPlugin from "./player"
+import serverApiPlugin from "./server"
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.register(require('@fastify/multipart'), {
@@ -15,6 +16,7 @@ const routes = async (fastify: FastifyInstance) => {
     })
 
     fastify.register(playerApiPlugin, { prefix: "/player" })
+    fastify.register(serverApiPlugin, { prefix: "/server" })
 }
 
 export default routes;
