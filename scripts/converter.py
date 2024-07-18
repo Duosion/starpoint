@@ -456,6 +456,233 @@ def convert_gacha_campaigns(obj):
             campaign_map[gacha_id] = campaign_id
     return campaign_map
 
+def convert_general_shop(obj):
+    converted = {}
+    for item_id, item in obj.items():
+
+        costs = []
+        cost_offset = 12
+        for _ in range(4):
+            if item[cost_offset] != "(None)":
+                costs.append({
+                    "id": int(item[cost_offset]),
+                    "amount": int(item[cost_offset + 1])
+                })
+            cost_offset += 2
+
+        rewards = []
+        reward_offset = 29
+        for _ in range (6):
+            if item[reward_offset] != "(None)":
+                reward = {
+                    "type": int(item[reward_offset])
+                }
+                if item[reward_offset + 1] != "":
+                    reward['id'] = int(item[reward_offset + 1])
+                if item[reward_offset + 2] != "":
+                    reward['cost'] = int(item[reward_offset + 2])
+                rewards.append(reward)
+            reward_offset += 3
+        
+        converted_item = {
+            "costs": costs,
+            "rewards": rewards,
+            "availableFrom": item[20],
+            "availableUntil": item[21] if item[21] != "(None)" else None,
+            "stock": int(item[23]),
+        }
+
+        if (item[9]) != "(None)":
+            converted_item['userCost'] = {
+                "type": int(item[9]),
+                "amount": int(item[10])
+            }
+        
+        converted[item_id] = converted_item
+
+    return converted
+
+def convert_boss_coin_shop(obj):
+    converted = {}
+    for item_id, item in obj.items():
+        costs = []
+        cost_offset = 16
+        for _ in range(4):
+            if item[cost_offset] != "(None)":
+                costs.append({
+                    "id": int(item[cost_offset]),
+                    "amount": int(item[cost_offset + 1])
+                })
+            cost_offset += 2
+
+        rewards = []
+        reward_offset = 31
+        for _ in range (6):
+            if item[reward_offset] != "(None)":
+                reward = {
+                    "type": int(item[reward_offset])
+                }
+                if item[reward_offset + 1] != "":
+                    reward['id'] = int(item[reward_offset + 1])
+                if item[reward_offset + 2] != "":
+                    reward['cost'] = int(item[reward_offset + 2])
+                rewards.append(reward)
+            reward_offset += 3
+        
+        category = int(item[0])
+
+        converted_item = {
+            "costs": costs,
+            "rewards": rewards,
+            "availableFrom": item[24],
+            "availableUntil": item[25] if item[25] != "(None)" else None,
+            "stock": int(item[27]),
+        }
+        
+        if not converted.get(category):
+            converted[category] = {}
+        converted[category][item_id] = converted_item
+
+    return converted
+
+def convert_event_item_shop(obj):
+    converted = {}
+    for item_id, item in obj.items():
+        costs = []
+        cost_offset = 18
+        for _ in range(4):
+            if item[cost_offset] != "(None)":
+                costs.append({
+                    "id": int(item[cost_offset]),
+                    "amount": int(item[cost_offset + 1])
+                })
+            cost_offset += 2
+
+        rewards = []
+        reward_offset = 32
+        for _ in range (6):
+            if item[reward_offset] != "(None)":
+                reward = {
+                    "type": int(item[reward_offset])
+                }
+                if item[reward_offset + 1] != "":
+                    reward['id'] = int(item[reward_offset + 1])
+                if item[reward_offset + 2] != "":
+                    reward['cost'] = int(item[reward_offset + 2])
+                rewards.append(reward)
+            reward_offset += 3
+        
+        event_type = int(item[0])
+        event_id = int(item[1])
+
+        converted_item = {
+            "costs": costs,
+            "rewards": rewards,
+            "availableFrom": item[26],
+            "availableUntil": item[27] if item[27] != "(None)" else None,
+            "stock": int(item[29]),
+        }
+        
+        if not converted.get(event_type):
+            converted[event_type] = {}
+
+        if not converted[event_type].get(event_id):
+            converted[event_type][event_id] = {}
+
+        converted[event_type][event_id][item_id] = converted_item
+
+    return converted
+
+def convert_treasure_shop(obj):
+    converted = {}
+    for item_id, item in obj.items():
+        costs = []
+        cost_offset = 10
+        for _ in range(4):
+            if item[cost_offset] != "(None)":
+                costs.append({
+                    "id": int(item[cost_offset]),
+                    "amount": int(item[cost_offset + 1])
+                })
+            cost_offset += 2
+
+        rewards = []
+        reward_offset = 24
+        for _ in range (6):
+            if item[reward_offset] != "(None)":
+                reward = {
+                    "type": int(item[reward_offset])
+                }
+                if item[reward_offset + 1] != "":
+                    reward['id'] = int(item[reward_offset + 1])
+                if item[reward_offset + 2] != "":
+                    reward['cost'] = int(item[reward_offset + 2])
+                rewards.append(reward)
+            reward_offset += 3
+
+        converted_item = {
+            "costs": costs,
+            "rewards": rewards,
+            "availableFrom": item[18],
+            "availableUntil": item[19] if item[19] != "(None)" else None,
+            "stock": int(item[21]),
+        }
+
+        if (item[7]) != "(None)":
+            converted_item['userCost'] = {
+                "type": int(item[7]),
+                "amount": int(item[8])
+            }
+
+        converted[item_id] = converted_item
+
+    return converted
+
+def convert_star_grain_shop(obj):
+    converted = {}
+    for item_id, item in obj.items():
+        costs = []
+        cost_offset = 10
+        for _ in range(4):
+            if item[cost_offset] != "(None)":
+                costs.append({
+                    "id": int(item[cost_offset]),
+                    "amount": int(item[cost_offset + 1])
+                })
+            cost_offset += 2
+
+        rewards = []
+        reward_offset = 25
+        for _ in range (6):
+            if item[reward_offset] != "(None)":
+                reward = {
+                    "type": int(item[reward_offset])
+                }
+                if item[reward_offset + 1] != "":
+                    reward['id'] = int(item[reward_offset + 1])
+                if item[reward_offset + 2] != "":
+                    reward['cost'] = int(item[reward_offset + 2])
+                rewards.append(reward)
+            reward_offset += 3
+
+        converted_item = {
+            "costs": costs,
+            "rewards": rewards,
+            "availableFrom": item[18],
+            "availableUntil": item[19] if item[19] != "(None)" else None,
+            "stock": int(item[21]),
+        }
+
+        if (item[7]) != "(None)":
+            converted_item['userCost'] = {
+                "type": int(item[7]),
+                "amount": int(item[8])
+            }
+
+        converted[item_id] = converted_item
+
+    return converted
+
 # def convert_mana_nodes_save_data(obj):
 #     converted = {}
 
@@ -496,7 +723,12 @@ to_convert_files = {
     "box_reward": convert_box_rewards,
     "box_gacha": convert_box_gacha,
     "gacha": convert_gacha,
-    "gacha_campaign": convert_gacha_campaigns
+    "gacha_campaign": convert_gacha_campaigns,
+    "general_shop": convert_general_shop,
+    "boss_coin_shop": convert_boss_coin_shop,
+    "event_item_shop": convert_event_item_shop,
+    "treasure_shop": convert_treasure_shop,
+    "star_grain_shop": convert_star_grain_shop
 }
 
 for file_name, converter in to_convert_files.items():

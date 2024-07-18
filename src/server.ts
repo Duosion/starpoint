@@ -21,7 +21,8 @@ import characterApiPlugin from "./routes/api/character"
 import partyGroupApiPlugin from "./routes/api/partyGroup"
 import equipmentApiPlugin from "./routes/api/equipment"
 import exBoostApiPlugin from "./routes/api/exBoost"
-import boxGachaPlugin from "./routes/api/boxGacha"
+import boxGachaApiPlugin from "./routes/api/boxGacha"
+import shopApiPlugin from "./routes/api/shop"
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -101,7 +102,8 @@ fastify.register(characterApiPlugin, { prefix: "/latest/api/index.php/character"
 fastify.register(partyGroupApiPlugin, { prefix: "/latest/api/index.php/party_group" })
 fastify.register(equipmentApiPlugin, { prefix: "/latest/api/index.php/equipment" })
 fastify.register(exBoostApiPlugin, { prefix: "/latest/api/index.php/ex_boost" })
-fastify.register(boxGachaPlugin, { prefix: "/latest/api/index.php/box_gacha" })
+fastify.register(boxGachaApiPlugin, { prefix: "/latest/api/index.php/box_gacha" })
+fastify.register(shopApiPlugin, { prefix: "/latest/api/index.php/shop" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

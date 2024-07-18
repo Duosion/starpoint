@@ -3783,6 +3783,16 @@ export function dailyResetPlayerDataSync(
             updatePlayerGachaCampaignSync(playerId, campaign.gachaId, campaign.campaignId, 1)
         }
 
+        // weekly reset
+        if (loginDate.getUTCDay() === 0) {
+
+        }
+
+        // monthly reset
+        if (loginDate.getUTCDate() === 1) {
+
+        }
+
         return true
     } else {
         updatePlayerSync({

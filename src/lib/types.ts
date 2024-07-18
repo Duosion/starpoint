@@ -64,6 +64,33 @@ export enum ScoreRewardType {
     RARE_POOL
 }
 
+export enum ShopItemRewardType {
+    ITEM,
+    EXP,
+    MANA,
+    CHARACTER,
+    EQUIPMENT
+}
+
+export enum ShopItemUserCostType {
+    BEADS,
+    MANA,
+    AMITY_SCROLL,
+}
+
+export enum ShopType {
+    U0,
+    U1,
+    TREASURE,
+    SPECIAL_PACK,
+    EVENT_ITEM,
+    U5,
+    U6,
+    BOSS_COIN,
+    GENERAL,
+    STAR_GRAIN
+}
+
 // clear rewards
 export interface Reward {
     name: string,
@@ -118,6 +145,24 @@ export interface RareScoreRewardGroup extends ScoreReward {
 export type ScoreRewardGroups = Record<string, ScoreReward[]>
 
 export type RareScoreRewardGroups = Record<string, Reward[]>
+
+// shop rewards
+export interface ShopItemReward {
+    type: ShopItemRewardType,
+}
+
+export interface EquipmentItemShopItemReward extends ShopItemReward {
+    id: number,
+    count: number
+}
+
+export interface CharacterShopItemReward extends ShopItemReward {
+    id: number
+}
+
+export interface CurrencyShopItemReward extends ShopItemReward {
+    count: number
+}
 
 export interface RawQuest {
     name: string,
@@ -371,3 +416,21 @@ export interface GachaEquipmentDraw {
 export type GachaDraws = (GachaCharacterDraw | GachaEquipmentDraw)[]
 
 export type GachaMovieSeeds = Record<string, Record<string, number[]>>
+
+// shops
+export interface ShopItemCost {
+    id: number,
+    amount: number
+}
+
+export interface ShopItem {
+    costs: ShopItemCost[] | never[],
+    rewards: ShopItemReward[] | never[],
+    availableFrom: string,
+    availableUntil: string | null,
+    stock: number
+}
+
+export type ShopItems = Record<string, ShopItem>
+export type BossCoinShopItems = Record<string, ShopItems>
+export type EventShopItems = Record<string, BossCoinShopItems>
