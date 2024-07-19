@@ -5,7 +5,7 @@
             {
                 "type": 0,
                 "id": 1,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -22,7 +22,7 @@
             {
                 "type": 0,
                 "id": 2,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -39,7 +39,7 @@
             {
                 "type": 0,
                 "id": 3,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -56,7 +56,7 @@
             {
                 "type": 0,
                 "id": 4,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -73,7 +73,7 @@
             {
                 "type": 0,
                 "id": 5,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -90,7 +90,7 @@
             {
                 "type": 0,
                 "id": 6,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -107,7 +107,7 @@
             {
                 "type": 0,
                 "id": 7,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -124,7 +124,7 @@
             {
                 "type": 0,
                 "id": 8,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -141,7 +141,7 @@
             {
                 "type": 0,
                 "id": 9,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -158,7 +158,7 @@
             {
                 "type": 0,
                 "id": 10,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -175,7 +175,7 @@
             {
                 "type": 0,
                 "id": 11,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -192,7 +192,7 @@
             {
                 "type": 0,
                 "id": 12,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -209,7 +209,7 @@
             {
                 "type": 0,
                 "id": 13,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -226,7 +226,7 @@
             {
                 "type": 0,
                 "id": 14,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -243,7 +243,7 @@
             {
                 "type": 0,
                 "id": 15,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -260,7 +260,7 @@
             {
                 "type": 0,
                 "id": 16,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -277,7 +277,7 @@
             {
                 "type": 0,
                 "id": 42,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -294,7 +294,7 @@
             {
                 "type": 0,
                 "id": 43,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -311,7 +311,7 @@
             {
                 "type": 0,
                 "id": 44,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -328,7 +328,7 @@
             {
                 "type": 0,
                 "id": 45,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -345,7 +345,7 @@
             {
                 "type": 0,
                 "id": 46,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -362,7 +362,7 @@
             {
                 "type": 0,
                 "id": 47,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -379,7 +379,7 @@
             {
                 "type": 0,
                 "id": 48,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -396,7 +396,7 @@
             {
                 "type": 0,
                 "id": 49,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -412,7 +412,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 500
+                "count": 500
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -428,7 +428,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 1000
+                "count": 1000
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -444,7 +444,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 1500
+                "count": 1500
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -460,7 +460,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 2000
+                "count": 2000
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -476,7 +476,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 3000
+                "count": 3000
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -493,7 +493,7 @@
             {
                 "type": 0,
                 "id": 10001,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2016-10-26 15:00:00",
@@ -510,7 +510,7 @@
             {
                 "type": 0,
                 "id": 2,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -527,7 +527,7 @@
             {
                 "type": 0,
                 "id": 3,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -544,7 +544,7 @@
             {
                 "type": 0,
                 "id": 4,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -561,7 +561,7 @@
             {
                 "type": 0,
                 "id": 6,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -578,7 +578,7 @@
             {
                 "type": 0,
                 "id": 7,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -595,7 +595,7 @@
             {
                 "type": 0,
                 "id": 8,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -612,7 +612,7 @@
             {
                 "type": 0,
                 "id": 10,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -629,7 +629,7 @@
             {
                 "type": 0,
                 "id": 11,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -646,7 +646,7 @@
             {
                 "type": 0,
                 "id": 12,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -663,7 +663,7 @@
             {
                 "type": 0,
                 "id": 14,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -680,7 +680,7 @@
             {
                 "type": 0,
                 "id": 15,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -697,7 +697,7 @@
             {
                 "type": 0,
                 "id": 16,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -714,7 +714,7 @@
             {
                 "type": 0,
                 "id": 43,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -731,7 +731,7 @@
             {
                 "type": 0,
                 "id": 44,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -748,7 +748,7 @@
             {
                 "type": 0,
                 "id": 45,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -765,7 +765,7 @@
             {
                 "type": 0,
                 "id": 47,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -782,7 +782,7 @@
             {
                 "type": 0,
                 "id": 48,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -799,7 +799,7 @@
             {
                 "type": 0,
                 "id": 49,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -815,7 +815,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 2000
+                "count": 2000
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -831,7 +831,7 @@
         "rewards": [
             {
                 "type": 1,
-                "cost": 3000
+                "count": 3000
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -848,7 +848,7 @@
             {
                 "type": 0,
                 "id": 10001,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2021-11-12 04:59:59",
@@ -865,7 +865,7 @@
             {
                 "type": 0,
                 "id": 50,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -882,7 +882,7 @@
             {
                 "type": 0,
                 "id": 51,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -899,7 +899,7 @@
             {
                 "type": 0,
                 "id": 52,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -916,7 +916,7 @@
             {
                 "type": 0,
                 "id": 53,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -933,7 +933,7 @@
             {
                 "type": 0,
                 "id": 54,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -950,7 +950,7 @@
             {
                 "type": 0,
                 "id": 55,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -967,7 +967,7 @@
             {
                 "type": 0,
                 "id": 56,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -984,7 +984,7 @@
             {
                 "type": 0,
                 "id": 57,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1001,7 +1001,7 @@
             {
                 "type": 0,
                 "id": 58,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1018,7 +1018,7 @@
             {
                 "type": 0,
                 "id": 59,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1035,7 +1035,7 @@
             {
                 "type": 0,
                 "id": 60,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1052,7 +1052,7 @@
             {
                 "type": 0,
                 "id": 61,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1069,7 +1069,7 @@
             {
                 "type": 0,
                 "id": 62,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1086,7 +1086,7 @@
             {
                 "type": 0,
                 "id": 63,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1103,7 +1103,7 @@
             {
                 "type": 0,
                 "id": 64,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1120,7 +1120,7 @@
             {
                 "type": 0,
                 "id": 65,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1137,7 +1137,7 @@
             {
                 "type": 0,
                 "id": 66,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",
@@ -1154,7 +1154,7 @@
             {
                 "type": 0,
                 "id": 67,
-                "cost": 1
+                "count": 1
             }
         ],
         "availableFrom": "2024-04-05 04:59:59",

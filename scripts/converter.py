@@ -480,7 +480,7 @@ def convert_general_shop(obj):
                 if item[reward_offset + 1] != "":
                     reward['id'] = int(item[reward_offset + 1])
                 if item[reward_offset + 2] != "":
-                    reward['cost'] = int(item[reward_offset + 2])
+                    reward['count'] = int(item[reward_offset + 2])
                 rewards.append(reward)
             reward_offset += 3
         
@@ -504,6 +504,7 @@ def convert_general_shop(obj):
 
 def convert_boss_coin_shop(obj):
     converted = {}
+    map_output = {}
     for item_id, item in obj.items():
         costs = []
         cost_offset = 16
@@ -525,7 +526,7 @@ def convert_boss_coin_shop(obj):
                 if item[reward_offset + 1] != "":
                     reward['id'] = int(item[reward_offset + 1])
                 if item[reward_offset + 2] != "":
-                    reward['cost'] = int(item[reward_offset + 2])
+                    reward['count'] = int(item[reward_offset + 2])
                 rewards.append(reward)
             reward_offset += 3
         
@@ -541,12 +542,18 @@ def convert_boss_coin_shop(obj):
         
         if not converted.get(category):
             converted[category] = {}
-        converted[category][item_id] = converted_item
 
+        map_output[item_id] = category
+        converted[category][item_id] = converted_item
+        
+    save_json(map_output, os.path.join(FILE_OUTPUT, "boss_coin_shop_item_category_map.json"))
     return converted
 
 def convert_event_item_shop(obj):
     converted = {}
+
+    map_output = {}
+    
     for item_id, item in obj.items():
         costs = []
         cost_offset = 18
@@ -568,7 +575,7 @@ def convert_event_item_shop(obj):
                 if item[reward_offset + 1] != "":
                     reward['id'] = int(item[reward_offset + 1])
                 if item[reward_offset + 2] != "":
-                    reward['cost'] = int(item[reward_offset + 2])
+                    reward['count'] = int(item[reward_offset + 2])
                 rewards.append(reward)
             reward_offset += 3
         
@@ -589,8 +596,14 @@ def convert_event_item_shop(obj):
         if not converted[event_type].get(event_id):
             converted[event_type][event_id] = {}
 
+        map_output[item_id] = {
+            "eventType": event_type,
+            "eventId": event_id
+        }
+
         converted[event_type][event_id][item_id] = converted_item
 
+    save_json(map_output, os.path.join(FILE_OUTPUT, "event_item_shop_id_map.json"))
     return converted
 
 def convert_treasure_shop(obj):
@@ -616,7 +629,7 @@ def convert_treasure_shop(obj):
                 if item[reward_offset + 1] != "":
                     reward['id'] = int(item[reward_offset + 1])
                 if item[reward_offset + 2] != "":
-                    reward['cost'] = int(item[reward_offset + 2])
+                    reward['count'] = int(item[reward_offset + 2])
                 rewards.append(reward)
             reward_offset += 3
 
@@ -661,7 +674,7 @@ def convert_star_grain_shop(obj):
                 if item[reward_offset + 1] != "":
                     reward['id'] = int(item[reward_offset + 1])
                 if item[reward_offset + 2] != "":
-                    reward['cost'] = int(item[reward_offset + 2])
+                    reward['count'] = int(item[reward_offset + 2])
                 rewards.append(reward)
             reward_offset += 3
 

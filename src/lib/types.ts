@@ -64,6 +64,16 @@ export enum ScoreRewardType {
     RARE_POOL
 }
 
+/**
+ * export enum RewardType {
+    ITEM,
+    EQUIPMENT,
+    CHARACTER,
+    BEADS,
+    MANA,
+    EXP
+}
+ */
 export enum ShopItemRewardType {
     ITEM,
     EXP,
@@ -423,12 +433,23 @@ export interface ShopItemCost {
     amount: number
 }
 
+export interface ShopItemUserCost {
+    type: ShopItemUserCostType
+    amount: number
+}
+
 export interface ShopItem {
     costs: ShopItemCost[] | never[],
     rewards: ShopItemReward[] | never[],
     availableFrom: string,
     availableUntil: string | null,
     stock: number
+    userCost?: ShopItemUserCost
+}
+
+export interface EventItemShopIdMapItem {
+    eventType: number
+    eventId: number
 }
 
 export type ShopItems = Record<string, ShopItem>
