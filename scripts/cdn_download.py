@@ -34,6 +34,13 @@ asset_lists_paths = {
     ]
 }
 
+files_lists = {
+    "en-android": "/en/entities/2.1.125-android_medium.csv",
+    "ko-android": "/ko/entities/2.1.121-android_medium.csv",
+    "th-android": "/th/entities/2.1.124-android_medium.csv",
+    "en-ios": "/en/entities/2.1.122-ios_medium.csv"
+}
+
 def get_asset_locations(languages = []):
     location_size_map = {}
     for lang in languages:
@@ -46,16 +53,21 @@ def get_asset_locations(languages = []):
                 asset_list = json.load(file)
 
             try:
-                for data in asset_list['data']['full']['archive']:
+                for data in asset_list['full']['archive']:
                     location_size_map[data['location'].replace('{$cdnAddress}', '')] = data['size']
 
                 # add diff locations
-                for diff_data in asset_list['data']['diff']:
+                for diff_data in asset_list['diff']:
                     for data in diff_data['archive']:
                         location_size_map[data['location'].replace('{$cdnAddress}', '')] = data['size']
 
             except Exception as error:
                 print(f"Error when parsing asset list data. Error: {error}")
+
+        # load file list
+        file_list = files_lists.get(lang) or None
+        if file_list:
+            location_size_map[file_list] = 0
 
     return location_size_map
 
@@ -74,7 +86,7 @@ def download_assets(start, end, locations, bar, output_dir=OUTPUT_DIR):
         except Exception as error:
             print(f"Error when download asset {location}. Error: {error}")
 
-def download_assets_multithread(locations, thread_count=4, output_dir=OUTPUT_DIR):
+def download_assets_multithread(locations, thread_count=6, output_dir=OUTPUT_DIR):
     location_count = len(locations)
     thread_count = min(location_count, thread_count)
     locations_per_thread = floor(location_count / thread_count)

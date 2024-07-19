@@ -15,8 +15,6 @@ interface GetPathBody {
     viewer_id: number
 }
 
-export const availableAssetVersion = "2.1.122"
-
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/version_info", async(request: FastifyRequest, reply: FastifyReply) => {
         const platform = getRequestPlatformSync(request)
@@ -32,20 +30,20 @@ const routes = async (fastify: FastifyInstance) => {
                 switch (deviceLang) {
                     case "ko":
                         baseUrl = '{$cdnAddress}/ko/entities/files/'
-                        filesList = '{$cdnAddress}/ko/entities/2.1.118-android_medium.csv'
-                        totalSize = 8846063893
-                        delayedAssetsSize = 6919955040
+                        filesList = '{$cdnAddress}/ko/entities/2.1.121-android_medium.csv'
+                        totalSize = 8846079322
+                        delayedAssetsSize = 6919955738
                         break;
                     case "th":
                         baseUrl = '{$cdnAddress}/th/entities/files/'
-                        filesList = '{$cdnAddress}/th/entities/2.1.121-android_medium.csv'
-                        totalSize = 8846079322
+                        filesList = '{$cdnAddress}/th/entities/2.1.124-android_medium.csv'
+                        totalSize = 8846063872
                         delayedAssetsSize = 6919955738
                         break;
                     default:
                         baseUrl = '{$cdnAddress}/en/entities/files/'
-                        filesList = '{$cdnAddress}/en/entities/2.1.122-android_medium.csv'
-                        totalSize = 8846063872
+                        filesList = '{$cdnAddress}/en/entities/2.1.125-android_medium.csv'
+                        totalSize = 8846063846
                         delayedAssetsSize = 6919955738
                 }
                 break;
@@ -70,6 +68,7 @@ const routes = async (fastify: FastifyInstance) => {
     })
     
     fastify.post("/get_path", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as GetPathBody
         const header = request.headers['asset_size']
         const deviceLang = request.headers['device_lang']
         if (!header || !deviceLang) return reply.status(400).send({
@@ -81,20 +80,37 @@ const routes = async (fastify: FastifyInstance) => {
         const platform = getRequestPlatformSync(request)
         const sendFull = header === 'fulfill'
 
+        const headers = generateDataHeaders({
+            viewer_id: body.viewer_id,
+            asset_update: true
+        })
+
         reply.header("content-type", "application/x-msgpack")
         reply.status(200)
         switch (platform) {
             case Platform.ANDROID:
                 switch (deviceLang) {
                     case "ko":
-                        return reply.send(sendFull ? koAndroidFull : koAndroidShort)
+                        return reply.send({
+                            "data_headers": headers,
+                            "data": sendFull ? koAndroidFull : koAndroidShort
+                        })
                     case "th":
-                        return reply.send(sendFull ? thAndroidFull : thAndroidShort)
+                        return reply.send({
+                            "data_headers": headers,
+                            "data": sendFull ? thAndroidFull : thAndroidShort
+                        })
                     default:
-                        return reply.send(sendFull ? enAndroidFull : enAndroidShort)
+                        return reply.send({
+                            "data_headers": headers,
+                            "data": sendFull ? enAndroidFull : enAndroidShort
+                        })
                 }
             case Platform.IOS:
-                return reply.send(enIOSFull)
+                return reply.send({
+                    "data_headers": headers,
+                    "data": enIOSFull
+                })
         }
     })
 }

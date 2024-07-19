@@ -129,8 +129,8 @@ fastify.register(fastifyStatic, {
 // static CDN
 // english
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", ".cdn/en"),
-    prefix: "/patch/Live/2.0.0/en",
+    root: path.join(__dirname, "..", ".cdn"),
+    prefix: "/patch/Live/2.0.0",
     decorateReply: false
 })
 
