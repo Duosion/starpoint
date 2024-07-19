@@ -23,6 +23,7 @@ import equipmentApiPlugin from "./routes/api/equipment"
 import exBoostApiPlugin from "./routes/api/exBoost"
 import boxGachaApiPlugin from "./routes/api/boxGacha"
 import shopApiPlugin from "./routes/api/shop"
+import encyclopediaApiPlugin from "./routes/api/encyclopedia"
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -104,6 +105,7 @@ fastify.register(equipmentApiPlugin, { prefix: "/latest/api/index.php/equipment"
 fastify.register(exBoostApiPlugin, { prefix: "/latest/api/index.php/ex_boost" })
 fastify.register(boxGachaApiPlugin, { prefix: "/latest/api/index.php/box_gacha" })
 fastify.register(shopApiPlugin, { prefix: "/latest/api/index.php/shop" })
+fastify.register(encyclopediaApiPlugin,  { prefix: "/latest/api/index.php/encyclopedia" })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

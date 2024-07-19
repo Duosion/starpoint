@@ -29,8 +29,8 @@ Endpoint | Status
 [/character/over_limit](./routes/character_over_limit.md) | :white_check_mark:
 [/character/receive_bond_token](./routes/character_receive_bond_token.md) | :white_check_mark:
 [/character/set_illustration_settings](./routes/character_set_illustration_settings.md) | :white_check_mark:
-[/encyclopedia/index](./routes/encyclopedia_index.md) | :no_entry:
-[/encyclopedia/read_keyword](./routes/encyclopedia_read_keyword.md) | :no_entry:
+[/encyclopedia/index](./routes/encyclopedia_index.md) | :white_check_mark:
+[/encyclopedia/read_keyword](./routes/encyclopedia_read_keyword.md) | :white_check_mark:
 [/equipment/set_protection](./routes/equipment_set_protection.md) | :white_check_mark:
 [/equipment/sell_equipment](./routes/equipment_sell_equipment.md) | :white_check_mark:
 [/equipment/sell_stack](./routes/equipment_sell_stack.md) | :white_check_mark:

@@ -696,6 +696,15 @@ def convert_star_grain_shop(obj):
 
     return converted
 
+def convert_encyclopedia(obj):
+    converted = {}
+    for _, entries in obj.items():
+        for _, item in entries.items():
+            converted[int(item[0])] = {
+                "read": True
+            }
+    return converted
+
 # def convert_mana_nodes_save_data(obj):
 #     converted = {}
 
@@ -741,7 +750,8 @@ to_convert_files = {
     "boss_coin_shop": convert_boss_coin_shop,
     "event_item_shop": convert_event_item_shop,
     "treasure_shop": convert_treasure_shop,
-    "star_grain_shop": convert_star_grain_shop
+    "star_grain_shop": convert_star_grain_shop,
+    "encyclopedia": convert_encyclopedia
 }
 
 for file_name, converter in to_convert_files.items():
