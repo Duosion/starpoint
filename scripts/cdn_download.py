@@ -6,13 +6,18 @@ import json
 from progress.bar import IncrementalBar
 from math import floor
 from threading import Thread, enumerate, current_thread
+#import zipfile
+#from shutil import rmtree
 
 CDN_URL = "http://patch.wdfp.kakaogames.com/Live/2.0.0"
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 OUTPUT_DIR = os.path.join(ROOT, "..", ".cdn")
+TEMP_DIR = os.path.join(ROOT, "..", ".cdn_temp")
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
+if not os.path.exists(TEMP_DIR):
+    os.makedirs(TEMP_DIR)
 
 
 ASSET_LISTS_DIR = os.path.join(ROOT, "..", "assets/asset_lists")
@@ -170,3 +175,40 @@ match choice:
 
 if (len(locations) > 0):
     download_assets_multithread(locations)
+    print("CDN Downloaded Successfully to '.cdn'")
+
+# print("unzipping...")
+# #for file in os.listdir(OUTPUT_DIR):
+# file_path = os.path.join(OUTPUT_DIR, "en")
+# if os.path.isdir(file_path):
+#     for archive in os.listdir(file_path):
+#         archive_path = os.path.join(file_path, archive)
+#         if os.path.isdir(archive_path):
+#             for asset in os.listdir(archive_path):
+#                 asset_path = os.path.join(archive_path, asset)
+#                 out_path = os.path.join(TEMP_DIR, archive, asset.removesuffix(".zip"))
+#                 if not os.path.exists(out_path) and asset.endswith(".zip"):
+#                     os.makedirs(out_path)
+#                     with zipfile.ZipFile(asset_path, 'r') as zip:
+#                         zip.extractall(out_path)
+
+# print("parsing...")
+# lines = []
+# for file in os.listdir(TEMP_DIR):
+#     file_path = os.path.join(TEMP_DIR, file)
+#     if os.path.isdir(file_path):
+#         for archive in os.listdir(file_path):
+#             asset_path = os.path.join(file_path, archive, "production")
+#             if os.path.exists(asset_path):
+#                 for upload in os.listdir(asset_path):
+#                     upload_path = os.path.join(asset_path, upload)
+#                     for hex in os.listdir(upload_path):
+#                         if hex != "hash":
+#                             hex_path = os.path.join(upload_path, hex)
+#                             for hash in os.listdir(hex_path):
+#                                 lines.append(f"{hash},{file}/{archive}/{upload}/{hex}")
+
+# with open(os.path.join(OUTPUT_DIR, "asset-map.csv"), 'w') as file:
+#     file.write('\n'.join(lines))
+
+# #rmtree(TEMP_DIR)

@@ -48,7 +48,7 @@ Endpoint | Status
 [/how_to_get/get_list](./routes/how_to_get_get_list.md) | :no_entry:
 [/load](./routes/load.md) | :white_check_mark:
 [/lounge/get_list](./routes/lounge_get_list.md) | :no_entry:
-[/mail/index](./routes/mail_index.md) | :no_entry:
+[/mail/index](./routes/mail_index.md) | :warning:
 [/mail/receive](./routes/mail_receive.md) | :no_entry:
 [/mail/receive_all](./routes/mail_receive_all.md) | :no_entry:
 [/mission/get_mission_progress](./routes/mission_get_mission_progress.md) | :no_entry:

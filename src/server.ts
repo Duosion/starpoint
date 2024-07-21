@@ -24,6 +24,7 @@ import exBoostApiPlugin from "./routes/api/exBoost"
 import boxGachaApiPlugin from "./routes/api/boxGacha"
 import shopApiPlugin from "./routes/api/shop"
 import encyclopediaApiPlugin from "./routes/api/encyclopedia"
+import mailApiPlugin from "./routes/api/mail"
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -86,26 +87,28 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, jsonPars
 // register plugins
 
 //api
-fastify.register(apiPlugin, { prefix: "/latest/api/index.php" })
-fastify.register(assetApiPlugin, { prefix: "/latest/api/index.php/asset" })
-fastify.register(toolApiPlugin, { prefix: "/latest/api/index.php/tool" })
-fastify.register(reproduceApiPlugin, { prefix: "/latest/api/index.php/reproduce" })
-fastify.register(tutorialApiPlugin, { prefix: "/latest/api/index.php/tutorial" })
-fastify.register(gachaApiPlugin, { prefix: "/latest/api/index.php/gacha" })
-fastify.register(partyApiPlugin, { prefix: "/latest/api/index.php/party" })
-fastify.register(expodApiPlugin, { prefix: "/latest/api/index.php/expod" })
-fastify.register(storyQuestApiPlugin, { prefix: "/latest/api/index.php/story_quest" })
-fastify.register(optionApiPlugin, { prefix: "/latest/api/index.php/option" })
-fastify.register(singleBattleQuestApiPlugin, { prefix: "/latest/api/index.php/single_battle_quest" })
-fastify.register(multiBattleQuestApiPlugin, { prefix: "/latest/api/index.php/multi_battle_quest" })
-fastify.register(attentionApiPlugin, { prefix: "/latest/api/index.php/attention" })
-fastify.register(characterApiPlugin, { prefix: "/latest/api/index.php/character" })
-fastify.register(partyGroupApiPlugin, { prefix: "/latest/api/index.php/party_group" })
-fastify.register(equipmentApiPlugin, { prefix: "/latest/api/index.php/equipment" })
-fastify.register(exBoostApiPlugin, { prefix: "/latest/api/index.php/ex_boost" })
-fastify.register(boxGachaApiPlugin, { prefix: "/latest/api/index.php/box_gacha" })
-fastify.register(shopApiPlugin, { prefix: "/latest/api/index.php/shop" })
-fastify.register(encyclopediaApiPlugin,  { prefix: "/latest/api/index.php/encyclopedia" })
+const apiPrefix = "/latest/api/index.php"
+fastify.register(apiPlugin, { prefix: apiPrefix })
+fastify.register(assetApiPlugin, { prefix: `${apiPrefix}/asset` })
+fastify.register(toolApiPlugin, { prefix: `${apiPrefix}/tool` })
+fastify.register(reproduceApiPlugin, { prefix: `${apiPrefix}/reproduce` })
+fastify.register(tutorialApiPlugin, { prefix: `${apiPrefix}/tutorial` })
+fastify.register(gachaApiPlugin, { prefix: `${apiPrefix}/gacha` })
+fastify.register(partyApiPlugin, { prefix: `${apiPrefix}/party` })
+fastify.register(expodApiPlugin, { prefix: `${apiPrefix}/expod` })
+fastify.register(storyQuestApiPlugin, { prefix: `${apiPrefix}/story_quest` })
+fastify.register(optionApiPlugin, { prefix: `${apiPrefix}/option` })
+fastify.register(singleBattleQuestApiPlugin, { prefix: `${apiPrefix}/single_battle_quest` })
+fastify.register(multiBattleQuestApiPlugin, { prefix: `${apiPrefix}/multi_battle_quest` })
+fastify.register(attentionApiPlugin, { prefix: `${apiPrefix}/attention` })
+fastify.register(characterApiPlugin, { prefix: `${apiPrefix}/character` })
+fastify.register(partyGroupApiPlugin, { prefix: `${apiPrefix}/party_group` })
+fastify.register(equipmentApiPlugin, { prefix: `${apiPrefix}/equipment` })
+fastify.register(exBoostApiPlugin, { prefix: `${apiPrefix}/ex_boost` })
+fastify.register(boxGachaApiPlugin, { prefix: `${apiPrefix}/box_gacha` })
+fastify.register(shopApiPlugin, { prefix: `${apiPrefix}/shop` })
+fastify.register(encyclopediaApiPlugin,  { prefix: `${apiPrefix}/encyclopedia` })
+fastify.register(mailApiPlugin, { prefix: `${apiPrefix}/mail` })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
