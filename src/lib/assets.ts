@@ -1,23 +1,32 @@
+import adventEventQuests from "../../assets/advent_event_quest.json";
 import bossBattleQuests from "../../assets/boss_battle_quest.json";
+import boxGacha from "../../assets/box_gacha.json";
+import boxReward from "../../assets/box_reward.json";
 import characters from "../../assets/character.json";
 import characterQuests from "../../assets/character_quest.json";
 import clearRewards from "../../assets/clear_reward.json";
-import exQuests from "../../assets/ex_quest.json";
-import mainQuests from "../../assets/main_quest.json";
-import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
-import worldStoryEventBossBattleQuests from  "../../assets/world_story_event_boss_battle_quest.json";
-import adventEventQuests from "../../assets/advent_event_quest.json";
 import dailyExpManaEventQuests from "../../assets/daily_exp_mana_event_quest.json";
 import dailyWeekEventQuests from "../../assets/daily_week_event_quest.json";
-import rareScoreRewards from "../../assets/rare_score_reward.json";
-import scoreRewards from "../../assets/score_reward.json";
-import manaNodes from "../../assets/mana_node.json";
+import worldStoryEventBossBattleQuests from "../../assets/world_story_event_boss_battle_quest.json";
+import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
 import exAbility from "../../assets/ex_ability.json";
 import exBoost from "../../assets/ex_boost.json";
+import exQuests from "../../assets/ex_quest.json";
 import exStatus from "../../assets/ex_status.json";
-import boxGacha from "../../assets/box_gacha.json";
-import boxReward from "../../assets/box_reward.json";
-import { AssetCharacter, BattleQuest, BoxGacha, BoxGachaBoxes, ClearRewards, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, ScoreReward, ScoreRewardGroups, StoryQuest } from "./types";
+import gachas from "../../assets/gacha.json";
+import mainQuests from "../../assets/main_quest.json";
+import manaNodes from "../../assets/mana_node.json";
+import rareScoreRewards from "../../assets/rare_score_reward.json";
+import scoreRewards from "../../assets/score_reward.json";
+import gachaCampaigns from "../../assets/gacha_campaign.json";
+import bossCoinShopItems from "../../assets/boss_coin_shop.json";
+import bossCoinShopItemCategoryMap from "../../assets/boss_coin_shop_item_category_map.json";
+import eventItemShopItems from "../../assets/event_item_shop.json";
+import eventItemShopIdMap from "../../assets/event_item_shop_id_map.json";
+import generalShopItems from "../../assets/general_shop.json";
+import starGrainShopItems from "../../assets/star_grain_shop.json";
+import treasureShopItems from "../../assets/treasure_shop.json";
+import { AssetCharacter, BattleQuest, BossCoinShopItems, BoxGacha, ClearRewards, EventItemShopIdMapItem, EventShopItems, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, Gacha, Gachas, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, ScoreReward, ScoreRewardGroups, ShopItem, ShopItems, ShopType, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -328,5 +337,113 @@ export function getBoxGachaSync(
         redeemItemCount: redeemItemData.count,
         boxes: boxes,
         availableCounts: redeemItemData.availableCounts
+    }
+}
+
+/**
+ * Gets the data for a gacha.
+ * 
+ * @param id The ID of the gacha.
+ * @returns The gacha's data, or null.
+ */
+export function getGachaSync(
+    id: string | number
+): Gacha | null {
+    const data = (gachas as Gachas)[String(id)];
+    
+    return data ?? null
+}
+
+/**
+ * Gets the ID of the gacha campaign assigned to a gacha.
+ * 
+ * @param gachaId The ID of the gacha.
+ * @returns The ID of the assigned gacha campaign or null.
+ */
+export function getGachaCampaignIdSync(
+    gachaId: string | number
+): number | null {
+    return (gachaCampaigns as Record<string, number>)[String(gachaId)] ?? null
+}
+
+// shop functions
+
+/**
+ * Gets the items for a generic shop.
+ * 
+ * @param shopType The type of shop to get the items of.
+ * @returns A list of shop items belonging to the specified shop type or null.
+ */
+export function getGenericShopItemsSync(
+    shopType: ShopType
+): ShopItems | null {
+    switch (shopType) {
+        case ShopType.TREASURE:
+            return treasureShopItems as ShopItems
+        case ShopType.GENERAL:
+            return generalShopItems as ShopItems
+        case ShopType.STAR_GRAIN:
+            return starGrainShopItems as ShopItems
+    }
+    return null
+}
+
+/**
+ * Gets the items for a specific event shop.
+ * 
+ * @param eventType The type of event.
+ * @param eventId The ID of the event.
+ * @returns A list of shop items or null.
+ */
+export function getEventShopItemsSync(
+    eventType: number | string,
+    eventId: number | string
+): ShopItems | null {
+    const typeSection = (eventItemShopItems as EventShopItems)[String(eventType)]
+    if (typeSection === undefined) return null;
+
+    return typeSection[String(eventId)] ?? null
+}
+
+/**
+ * Gets the items belonging to a specific boss coin shop.
+ * 
+ * @param bossId The ID of the boss to get the items of.
+ * @returns A list of shop items or null.
+ */
+export function getBossCoinShopItemsSync(
+    bossId: number | string
+): ShopItems | null {
+    return (bossCoinShopItems as BossCoinShopItems)[String(bossId)] ?? null
+}
+
+/**
+ * Gets the data for a specfic ShopItem.
+ * 
+ * @param shopType The type of shop that this item belongs to.
+ * @param itemId The ID of this item.
+ * @returns The ShopItem data or null.
+ */
+export function getShopItemSync(
+    shopType: ShopType,
+    itemId: number | string
+): ShopItem | null {
+    switch(shopType) {
+        case ShopType.TREASURE:
+            return (treasureShopItems as ShopItems)[String(itemId)] ?? null
+        case ShopType.GENERAL:
+            return (generalShopItems as ShopItems)[String(itemId)] ?? null
+        case ShopType.STAR_GRAIN:
+            return (starGrainShopItems as ShopItems)[String(itemId)] ?? null
+        case ShopType.BOSS_COIN:
+            const category = (bossCoinShopItemCategoryMap as Record<string, number>)[itemId]
+            if (category === undefined) return null;
+            return (bossCoinShopItems as BossCoinShopItems)[category][itemId] ?? null
+        case ShopType.EVENT_ITEM:
+            const mapInfo = (eventItemShopIdMap as Record<string, EventItemShopIdMapItem>)[itemId]
+            if (mapInfo === undefined) return null;
+            return (eventItemShopItems as EventShopItems)[mapInfo.eventType][mapInfo.eventId][itemId] ?? null
+        default:
+            return null
     }
 }

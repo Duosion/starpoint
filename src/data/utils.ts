@@ -1,9 +1,9 @@
 import { getCharacterDataSync } from "../lib/assets"
 import { getDateFromServerTime, getServerTime } from "../utils"
-import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
+import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
 
 import saveData from "../../assets/save_data.json"
-import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync } from "./wdfpData"
+import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerGachaCampaignListSync } from "./wdfpData"
 import { availableAssetVersion } from "../routes/api/asset"
 
 /**
@@ -73,6 +73,22 @@ export function serializeBondTokenStatuses(
             status: bondToken.status
         }
     })
+}
+
+/**
+ * Serializes a PlayerGachaCampaign into a UserGachaCampaign.
+ * 
+ * @param campaign 
+ * @returns 
+ */
+export function serializeGachaCampaign(
+    campaign: PlayerGachaCampaign
+): UserGachaCampaign {
+    return {
+        gacha_id: campaign.gachaId,
+        campaign_id: campaign.campaignId,
+        count: campaign.count
+    }
 }
 
 /**
@@ -276,23 +292,7 @@ export function serializePlayerData(
         "all_active_mission_list": toSerialize.allActiveMissionList,
         "cleared_collect_item_event_mission_list": [],
         "box_gacha_list": userBoxGachaList,
-        "gacha_campaign_list": [
-            {
-                "campaign_id": 19,
-                "gacha_id": 157,
-                "count": 1
-            },
-            {
-                "campaign_id": 19,
-                "gacha_id": 700004,
-                "count": 1
-            },
-            {
-                "campaign_id": 19,
-                "gacha_id": 155,
-                "count": 1
-            },
-        ],
+        "gacha_campaign_list": toSerialize.gachaCampaignList.map(campaign => serializeGachaCampaign(campaign)),
         "purchased_times_list": {
             "gs.kg.worldflipper.pakage_monthly": 0,
             "gs.kg.worldflipper.pakage_rank": 0,
@@ -647,6 +647,24 @@ export function deserializePlayerData(
             }
         })
 
+        // deserialize gacha campaign list
+        const userGachaCampaignList = toDeserialize['gacha_campaign_list']
+        let gachaCampaignList: PlayerGachaCampaign[] = []
+        if (userGachaCampaignList !== undefined) {
+            gachaCampaignList = userGachaCampaignList.map(rawCampaign => {
+                const gachaId = rawCampaign['gacha_id']
+                const campaignId = rawCampaign['campaign_id']
+                const count = rawCampaign['count']
+                if (isNaN(gachaId) || isNaN(campaignId) || isNaN(count)) throw new Error(`Invalid or missing fields for 'gacha_campaign_list' field.`);
+
+                return {
+                    gachaId: gachaId,
+                    campaignId: campaignId,
+                    count: count
+                }
+            })
+        }
+
         // deserialize player options
         const userOption = toDeserialize['user_option']
         if (userOption === undefined) throw new Error("Missing 'user_option' field.");
@@ -754,6 +772,7 @@ export function deserializePlayerData(
             equipmentList: equipmentList,
             questProgress: questProgress,
             gachaInfoList: gachaInfoList,
+            gachaCampaignList: gachaCampaignList,
             drawnQuestList: drawnQuestList,
             periodicRewardPointList: periodicRewardPointList,
             allActiveMissionList: allActiveMissionList,
@@ -821,7 +840,8 @@ export function getClientSerializedData(
         itemList: getPlayerItemsSync(playerId),
         equipmentList: getPlayerEquipmentListSync(playerId),
         questProgress: getPlayerQuestProgressSync(playerId),
-        gachaInfoList: getPlayerGachaInfoSync(playerId),
+        gachaInfoList: getPlayerGachaInfoListSync(playerId),
+        gachaCampaignList: getPlayerGachaCampaignListSync(playerId),
         drawnQuestList: getPlayerDrawnQuestsSync(playerId),
         periodicRewardPointList: getPlayerPeriodicRewardPointsSync(playerId),
         allActiveMissionList: getPlayerActiveMissionsSync(playerId),

@@ -1,14 +1,23 @@
 import { randomInt } from "crypto"
 import { FastifyRequest } from "fastify"
 
+// The server's current date.
+let serverTime: Date | null = null;
+
 /**
  * Returns the current server time as a unix epoch.
  * 
- * @param data An optional date; The date to get the time of.
+ * @param date An optional date; The date to get the time of.
  * @returns The unix epoch.
  */
-export function getServerTime(date: Date = new Date()): number {
-    return Math.floor(date.getTime() / 1000)
+export function getServerTime(
+    date: Date = new Date()
+): number {
+    return Math.floor((serverTime ?? date).getTime() / 1000) //1710116388//
+}
+
+export function setServerTime(date: Date | null) {
+    serverTime = date;
 }
 
 /**

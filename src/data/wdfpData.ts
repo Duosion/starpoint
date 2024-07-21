@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -1705,7 +1705,7 @@ export function updatePlayerEquipmentSync(
     equipment: Partial<PlayerEquipment>
 ) {
     const fieldMap: Record<string, string> = {
-        'level': 'entry_count',
+        'level': 'level',
         'enhancementLevel': 'enhancement_level',
         'protection': 'protection',
         'stack': 'stack'
@@ -1731,6 +1731,25 @@ export function updatePlayerEquipmentSync(
         SET ${sets.join(', ')}
         WHERE id = ? AND player_id = ?
         `).run([...values, Number(equipmentId), playerId]);
+}
+
+/**
+ * Deletes a piece of equipment from a player's inventory.
+ * 
+ * @param playerId The ID of the player.
+ * @param equipmentId The ID of the equipment to delete.
+ */
+export function deletePlayerEquipmentSync(
+    playerId: number,
+    equipmentId: string | number
+) {
+    db.prepare(`
+    DELETE FROM players_equipment
+    WHERE id = ? AND player_id = ?
+    `).run(
+        Number(equipmentId),
+        playerId
+    )
 }
 
 /**
@@ -1894,12 +1913,29 @@ export function updatePlayerQuestProgressSync(
 }
 
 /**
+ * Converts a RawPlayerGachaInfo object into a PlayerGachaInfo object.
+ * 
+ * @param rawInfo The raw object to convert.
+ * @returns The converted object.
+ */
+function buildPlayerGachaInfo(
+    rawInfo: RawPlayerGachaInfo
+): PlayerGachaInfo {
+    return {
+        gachaId: rawInfo.gacha_id,
+        isDailyFirst: deserializeBoolean(rawInfo.is_daily_first),
+        isAccountFirst: deserializeBoolean(rawInfo.is_account_first),
+        gachaExchangePoint: rawInfo.gacha_exchange_point
+    }
+}
+
+/**
  * Retrieves the status of various gacha banners for the player.
  * 
  * @param playerId The ID of the player.
  * @returns A list of PlayerGachaInfo.
  */
-export function getPlayerGachaInfoSync(
+export function getPlayerGachaInfoListSync(
     playerId: number
 ): PlayerGachaInfo[] {
     const rawInfo = db.prepare(`
@@ -1909,13 +1945,28 @@ export function getPlayerGachaInfoSync(
     `).all(playerId) as RawPlayerGachaInfo[]
 
     return rawInfo.map(raw => {
-        return {
-            gachaId: raw.gacha_id,
-            isDailyFirst: deserializeBoolean(raw.is_daily_first),
-            isAccountFirst: deserializeBoolean(raw.is_account_first),
-            gachaExchangePoint: raw.gacha_exchange_point
-        }
+        return buildPlayerGachaInfo(raw)
     })
+}
+
+/**
+ * Gets an individual gacha info for a player.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the gacha.
+ * @returns The info that corresponds to the provided gachaId, or null.
+ */
+export function getPlayerGachaInfoSync(
+    playerId: number,
+    gachaId: number
+): PlayerGachaInfo | null {
+    const rawInfo = db.prepare(`
+    SELECT gacha_id, is_daily_first, is_account_first, gacha_exchange_point
+    FROM players_gacha_info
+    WHERE player_id = ? AND gacha_id = ?
+    `).get(playerId, gachaId) as RawPlayerGachaInfo
+
+    return rawInfo === undefined ? null : buildPlayerGachaInfo(rawInfo)
 }
 
 /**
@@ -1924,7 +1975,7 @@ export function getPlayerGachaInfoSync(
  * @param playerId The ID of the player.
  * @param gachaInfo The PlayerGachaInfo data.
  */
-function insertPlayerGachaInfoSync(
+export function insertPlayerGachaInfoSync(
     playerId: number,
     gachaInfo: PlayerGachaInfo
 ) {
@@ -1995,6 +2046,120 @@ export function updatePlayerGachaInfoSync(
         SET ${sets.join(', ')}
         WHERE gacha_id = ? AND player_id = ?
         `).run([...values, id, playerId]);
+}
+
+/**
+ * Converts a RawPlayerGachaCampaign into a PlayerGachaCampaign.
+ * 
+ * @param raw The RawPlayerGachaCampaign to convert.
+ * @returns The converted PlayerGachaCampaign.
+ */
+function buildPlayerGachaCampaign(
+    raw: RawPlayerGachaCampaign
+): PlayerGachaCampaign {
+    return {
+        gachaId: raw.gacha_id,
+        campaignId: raw.campaign_id,
+        count: raw.count
+    }
+}
+
+/**
+ * Gets the status of an individual gacha campaign.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the gacha.
+ * @param campaignId The ID of the gacha campaign.
+ * @returns A PlayerGachaCampaign object or null.
+ */
+export function getPlayerGachaCampaignSync(
+    playerId: number,
+    gachaId: number,
+    campaignId: number,
+): PlayerGachaCampaign | null {
+    const raw = db.prepare(`
+    SELECT gacha_id, campaign_id, count
+    FROM players_gacha_campaigns
+    WHERE player_id = ? AND gacha_id = ? AND campaign_id = ?
+    `).get(playerId, gachaId, campaignId) as RawPlayerGachaCampaign | undefined
+
+    return raw === undefined ? null : buildPlayerGachaCampaign(raw)
+}
+
+/**
+ * Batch gets a list of player gacha campaigns.
+ * 
+ * @param playerId The ID of the player.
+ * @returns The list of gacha campaigns.
+ */
+export function getPlayerGachaCampaignListSync(
+    playerId: number
+): PlayerGachaCampaign[] {
+    const rawList = db.prepare(`
+    SELECT gacha_id, campaign_id, count
+    FROM players_gacha_campaigns
+    WHERE player_id = ?
+    `).all(playerId) as RawPlayerGachaCampaign[]
+
+    return rawList.map(raw => buildPlayerGachaCampaign(raw))
+}
+
+/**
+ * Inserts a gacha campaign into a player's data.
+ * 
+ * @param playerId The ID of the player.
+ * @param campaign The campaign to insert.
+ */
+export function insertPlayerGachaCampaignSync(
+    playerId: number,
+    campaign: PlayerGachaCampaign
+) {
+    db.prepare(`
+    INSERT INTO players_gacha_campaigns (gacha_id, campaign_id, count, player_id)
+    VALUES (?, ?, ?, ?)
+    `).run(
+        campaign.gachaId,
+        campaign.campaignId,
+        campaign.count,
+        playerId
+    )
+}
+
+function insertPlayerGachaCampaignListSync(
+    playerId: number,
+    campaigns: PlayerGachaCampaign[]
+) {
+    db.transaction(() => {
+        for (const campaign of campaigns) {
+            insertPlayerGachaCampaignSync(playerId, campaign)
+        }
+    })()
+}
+
+/**
+ * Updates a player's gacha campaign.
+ * 
+ * @param playerId The ID of the player.
+ * @param gachaId The ID of the gacha.
+ * @param campaignId The ID of the gacha campaign.
+ * @param newCount The new count the gacha campaign should have.
+ */
+export function updatePlayerGachaCampaignSync(
+    playerId: number,
+    gachaId: number,
+    campaignId: number,
+    newCount: number
+) {
+    db.prepare(`
+    UPDATE players_gacha_campaigns
+    SET count = ?
+    WHERE player_id = ? AND gacha_id = ? AND campaign_id = ?
+    `).run(
+        newCount,
+        playerId,
+        gachaId,
+        campaignId
+    )
 }
 
 /**
@@ -2896,6 +3061,7 @@ export function insertMergedPlayerDataSync(
     insertPlayerEquipmentListSync(playerId, toInsert.equipmentList)
     insertPlayerQuestProgressListSync(playerId, toInsert.questProgress)
     insertPlayerGachaInfoListSync(playerId, toInsert.gachaInfoList)
+    insertPlayerGachaCampaignListSync(playerId, toInsert.gachaCampaignList)
     insertPlayerDrawnQuestsSync(playerId, toInsert.drawnQuestList)
     insertPlayerPeriodicRewardPointsListSync(playerId, toInsert.periodicRewardPointList)
     insertPlayerActiveMissionsSync(playerId, toInsert.allActiveMissionList)
@@ -3043,56 +3209,7 @@ export function insertDefaultPlayerSync(
     })
 
     // insert gacha info
-    insertPlayerGachaInfoListSync(playerId, [
-        {
-            gachaId: 2,
-            isDailyFirst: true,
-            isAccountFirst: true
-        },
-        {
-            gachaId: 4,
-            isDailyFirst: true,
-            isAccountFirst: true
-        },
-        {
-            gachaId: 900003,
-            isDailyFirst: true,
-            isAccountFirst: true
-        },
-        {
-            gachaId: 157,
-            isDailyFirst: true,
-            isAccountFirst: true,
-            gachaExchangePoint: 0
-        },
-        {
-            gachaId: 57,
-            isDailyFirst: true,
-            isAccountFirst: true
-        },
-        {
-            gachaId: 5033,
-            isDailyFirst: true,
-            isAccountFirst: true,
-            gachaExchangePoint: 0
-        },
-        {
-            gachaId: 900000,
-            isDailyFirst: true,
-            isAccountFirst: true
-        },
-        {
-            gachaId: 155,
-            isDailyFirst: true,
-            isAccountFirst: true,
-            gachaExchangePoint: 0
-        },
-        {
-            gachaId: 9,
-            isDailyFirst: true,
-            isAccountFirst: true
-        },
-    ])
+    insertPlayerGachaInfoListSync(playerId, [])
 
     // insert drawnQuestList
     insertPlayerDrawnQuestsSync(playerId, [
@@ -3641,19 +3758,45 @@ export function dailyResetPlayerDataSync(
     loginDate: Date = new Date()
 ): boolean {
     const lastLoginTime = player.lastLoginTime
-
+    const playerId = player.id
     if ( (loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate()) ) {
         // TODO: daily reset logic.
         updatePlayerSync({
-            id: player.id,
+            id: playerId,
             lastLoginTime: loginDate,
             bossBoostPoint: 3,
             boostPoint: 3
         })
+
+        // reset gacha "isDailyFirst" values.
+        const gachaInfo = getPlayerGachaInfoListSync(playerId)
+        for (const gacha of gachaInfo) {
+            updatePlayerGachaInfoSync(playerId, {
+                gachaId: gacha.gachaId,
+                isDailyFirst: true
+            })
+        }
+
+        // reset campaigns
+        const gachaCampaigns = getPlayerGachaCampaignListSync(playerId)
+        for (const campaign of gachaCampaigns) {
+            updatePlayerGachaCampaignSync(playerId, campaign.gachaId, campaign.campaignId, 1)
+        }
+
+        // weekly reset
+        if (loginDate.getUTCDay() === 0) {
+
+        }
+
+        // monthly reset
+        if (loginDate.getUTCDate() === 1) {
+
+        }
+
         return true
     } else {
         updatePlayerSync({
-            id: player.id,
+            id: playerId,
             lastLoginTime: loginDate,
         })
         return false
@@ -3674,23 +3817,3 @@ export function dailyResetPlayerSync(
 
     return dailyResetPlayerDataSync(playerData)
 }
-
-// getAccount(1).then(result => {
-//     if (!result) {
-//         const account = insertAccountSync({
-//             appId: "561429",
-//             idpAlias: "561429:8c1685d9-b916-4147-9a9a-38bf61bb49b5:android",
-//             idpCode: "zd3",
-//             idpId: "6076018502",
-//             status: "normal"
-//         })
-//         insertDefaultPlayerSync(account.id)
-//     }
-// })
-
-// 151147
-
-// const charId = 512002
-// console.log(rewardPlayerCharacterSync(1, charId))
-
-//console.log(givePlayerEquipmentSync(1, 1010001, 2))

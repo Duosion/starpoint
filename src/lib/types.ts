@@ -64,6 +64,43 @@ export enum ScoreRewardType {
     RARE_POOL
 }
 
+/**
+ * export enum RewardType {
+    ITEM,
+    EQUIPMENT,
+    CHARACTER,
+    BEADS,
+    MANA,
+    EXP
+}
+ */
+export enum ShopItemRewardType {
+    ITEM,
+    EXP,
+    MANA,
+    CHARACTER,
+    EQUIPMENT
+}
+
+export enum ShopItemUserCostType {
+    BEADS,
+    MANA,
+    AMITY_SCROLL,
+}
+
+export enum ShopType {
+    U0,
+    U1,
+    TREASURE,
+    SPECIAL_PACK,
+    EVENT_ITEM,
+    U5,
+    U6,
+    BOSS_COIN,
+    GENERAL,
+    STAR_GRAIN
+}
+
 // clear rewards
 export interface Reward {
     name: string,
@@ -118,6 +155,24 @@ export interface RareScoreRewardGroup extends ScoreReward {
 export type ScoreRewardGroups = Record<string, ScoreReward[]>
 
 export type RareScoreRewardGroups = Record<string, Reward[]>
+
+// shop rewards
+export interface ShopItemReward {
+    type: ShopItemRewardType,
+}
+
+export interface EquipmentItemShopItemReward extends ShopItemReward {
+    id: number,
+    count: number
+}
+
+export interface CharacterShopItemReward extends ShopItemReward {
+    id: number
+}
+
+export interface CurrencyShopItemReward extends ShopItemReward {
+    count: number
+}
 
 export interface RawQuest {
     name: string,
@@ -204,6 +259,14 @@ export interface RewardPlayerCharacterExpResult {
 }
 
 // quest types
+export interface GivePlayerCharacterResult {
+    character: Object,
+    item?: {
+        id: number,
+        count: number
+    }
+}
+
 export interface PlayerRewardResult {
     user_info: {
         free_mana: number
@@ -297,3 +360,98 @@ export interface BoxGachaDrawResult {
     equipment: Map<number, number>
     items: Map<number, number>
 }
+
+// gacha
+export enum GachaType {
+    CHARACTER,
+    WEAPON
+}
+
+export enum GachaMovieType {
+    NORMAL,
+    GUARANTEE
+}
+
+export interface GachaPoolItem {
+    id: number,
+    rank: number,
+    odds: number,
+    isRateUp: boolean,
+    rarity: number
+}
+
+export interface Gacha {
+    type: GachaType,
+    paymentType: number,
+    singleCost: number,
+    multiCost: number,
+    discountCost: number,
+    startDate: string,
+    endDate: string,
+    pool: Record<string, GachaPoolItem[]>
+}
+
+export interface CharacterGacha extends Gacha {
+    movieName: string,
+    guaranteeMovieName: string
+}
+
+export type Gachas = Record<string, Gacha>
+
+export type GachaDrawResult = Map<number, number>
+
+export interface RewardPlayerGachaDrawResult {
+    draw: GachaDraws,
+    characters: Object[],
+    equipment: Object[],
+    items: Record<number, number>
+}
+
+export interface GachaCharacterDraw {
+    character_id: number,
+    movie_id: string,
+    seed: number,
+    entry_count: number,
+    ex_boost_item?: {
+        id: number,
+        count: number
+    } | []
+}
+
+export interface GachaEquipmentDraw {
+    equipment_id: number,
+    treasure_up_type: number
+}
+
+export type GachaDraws = (GachaCharacterDraw | GachaEquipmentDraw)[]
+
+export type GachaMovieSeeds = Record<string, Record<string, number[]>>
+
+// shops
+export interface ShopItemCost {
+    id: number,
+    amount: number
+}
+
+export interface ShopItemUserCost {
+    type: ShopItemUserCostType
+    amount: number
+}
+
+export interface ShopItem {
+    costs: ShopItemCost[] | never[],
+    rewards: ShopItemReward[] | never[],
+    availableFrom: string,
+    availableUntil: string | null,
+    stock: number
+    userCost?: ShopItemUserCost
+}
+
+export interface EventItemShopIdMapItem {
+    eventType: number
+    eventId: number
+}
+
+export type ShopItems = Record<string, ShopItem>
+export type BossCoinShopItems = Record<string, ShopItems>
+export type EventShopItems = Record<string, BossCoinShopItems>

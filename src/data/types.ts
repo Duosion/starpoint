@@ -226,6 +226,18 @@ export interface PlayerGachaInfo {
     gachaExchangePoint?: number
 }
 
+export interface RawPlayerGachaCampaign {
+    gacha_id: number,
+    campaign_id: number,
+    count: number
+}
+
+export interface PlayerGachaCampaign {
+    gachaId: number,
+    campaignId: number,
+    count: number
+}
+
 export interface RawPlayerDrawnQuest {
     category_id: number
     quest_id: number
@@ -567,6 +579,7 @@ export interface MergedPlayerData {
     equipmentList: Record<string, PlayerEquipment>,
     questProgress: Record<string, PlayerQuestProgress[]>,
     gachaInfoList: PlayerGachaInfo[],
+    gachaCampaignList: PlayerGachaCampaign[],
     drawnQuestList: PlayerDrawnQuest[],
     periodicRewardPointList: PlayerPeriodicRewardPoint[],
     allActiveMissionList: Record<string, PlayerActiveMission>,

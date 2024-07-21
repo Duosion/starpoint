@@ -199,45 +199,16 @@ export function givePlayerRewardsSync(
             case RewardType.CHARACTER: {
                 const characterId = (reward as CharacterReward).id
                 const giveResult = givePlayerCharacterSync(playerId, characterId)
-                const giveItemList = giveResult["item_list"]
-                if (giveItemList !== undefined) {
-                    for (const [stringItemId, count] of Object.entries(giveItemList)) {
-                        const itemId = Number(stringItemId) 
-                        items.set(itemId, (items.get(itemId) ?? 0) + count)
-                    }
+
+                const giveItem = giveResult?.item
+                if (giveItem !== undefined) {
+                    const itemId = giveItem.id
+                    items.set(itemId, (items.get(itemId) ?? 0) + giveItem.count)
                 }
     
-                const character = getPlayerCharacterSync(playerId, characterId)
-                if (character) {
-                    if (0 >= character.stack) {
-                        joinedCharacterIdList.push(characterId)
-                        characters.set(characterId, {
-                            "viewer_id": 0,
-                            "character_id": characterId,
-                            "entry_count": 1,
-                            "exp": 0,
-                            "exp_total": 0,
-                            "bond_token_list": character.bondTokenList.map(bondToken => {
-                                return {
-                                    "mana_board_index": bondToken.manaBoardIndex,
-                                    "status": bondToken.status
-                                }
-                            }),
-                            "mana_board_index": 1,
-                            "create_time": clientSerializeDate(character.joinTime),
-                            "update_time": clientSerializeDate(character.updateTime),
-                            "join_time": clientSerializeDate(character.joinTime),
-                        })
-                    } else {
-                        characters.set(characterId, {
-                            "character_id": characterId,
-                            "stack": character.stack,
-                            "create_time": clientSerializeDate(character.joinTime),
-                            "update_time": clientSerializeDate(character.updateTime),
-                            "join_time": clientSerializeDate(character.joinTime),
-                        })
-                    }
-    
+                const giveCharacter = giveResult?.character
+                if (giveCharacter !== undefined) {
+                    characters.set(characterId, giveCharacter)
                 }
                 break;
             }
