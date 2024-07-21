@@ -3,12 +3,22 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 
 ## Implemented Features
 * Tutorial
-* Character leveling, uncapping, & ex boosting
-* Party organization
-* Main story quests
-* Main story quest drops
+* Character leveling, uncapping, mana boards, & ex boosting
 * Character stories
-* Guest login flow
+* Quests
+  - All main quests playable
+  - Some event/boss quests playable
+* Gacha
+  - Rate-up Portals
+  - Armament Portals
+  - Unit/Armament Exchanges
+* Armaments
+  - Awakening
+  - Melting
+* Most shops
+* Party organization
+* Encyclopedia
+* Time travel to past & future events.
 
 For a more in-depth view of the progress completed, visit the [API routes document](/docs/routes.md).
 
