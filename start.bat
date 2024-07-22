@@ -12,7 +12,7 @@ start cmd.exe /k "cd /d "%BASEPATH%" && npm install && npx tsc && npm run dev"
 
 :: Check if mitmproxy is installed in the install directory
 if exist "C:\Program Files\mitmproxy\bin\mitmproxy.exe" (
-    start cmd.exe /k "cd /d "%MITMPROXYSCRIPTFOLDER%" && "C:\Program Files\mitmproxy\bin\mitmproxy.exe" --mode dns -s mitm-redirect-traffic-cdn.py"
+    start cmd.exe /k "cd /d "%MITMPROXYSCRIPTFOLDER%" && "C:\Program Files\mitmproxy\bin\mitmproxy.exe" -s mitm-redirect-traffic.py -p 8080"
 ) else (
     start cmd.exe /k "cd /d "%MITMPROXYSCRIPTFOLDER%" && echo mitmproxy is not installed at 'C:\Program Files\mitmproxy'. Install from https://mitmproxy.org"
 )
