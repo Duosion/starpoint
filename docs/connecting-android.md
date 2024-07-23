@@ -12,6 +12,8 @@ There are two methods for connecting to Starpoint with an Android device or emul
    - **If you receive a Windows firewall popup, hit "Allow".**
    - For non-Windows users or manual setup, see the "Manual Server Start Method" section below.
 2. The Starpoint server and mitmproxy will start in their own windows.
+  - One of the windows should eventually show ``StarPoint is listening on http://localhost:8000``. This may take a minute or two, give it some time.
+  - The other window should show ``Loading script mitm-redirect-traffic.py`` at the top.
 3. A new tab will open in your web browser. Keep this open for later.
 4. Install the WG tunnel app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.zaneschepke.wireguardautotunnel) or [Github](https://github.com/zaneschepke/wgtunnel/releases/tag/3.4.7)
 5. Ensure your Android device is on the same network as your computer.

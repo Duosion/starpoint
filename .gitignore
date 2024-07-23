@@ -7,3 +7,5 @@ scripts/in
 .misc
 web/public/tailwind.css
 scripts/__pycache__
+dist
+build

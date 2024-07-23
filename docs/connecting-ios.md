@@ -12,7 +12,8 @@ Credit for most of the steps goes to to [trickster.dev](https://www.trickster.de
    - **If you receive a Windows firewall popup, hit "Allow".**
    - For non-Windows users or manual setup, see the "Manual Server Start Method" section below.
 2. The Starpoint server and mitmproxy will start in their own windows.
-3. A new tab will open in your web browser. Keep this open for later.
+   - One of the windows should eventually show ``StarPoint is listening on http://localhost:8000``. This may take a minute or two, give it some time.
+   - The other window should be largely empty and say "Flows" in the top left corner.
 
 ## iOS Setup
 1. Open the settings app.
@@ -23,10 +24,22 @@ Credit for most of the steps goes to to [trickster.dev](https://www.trickster.de
 6. In the "Server" field, enter you computer's IP address. (e.g., `10.0.0.167`)
 7. In the "Port" field, enter `8080`
 8. Press the "Save" button at the top of the screen.
-6. Clear all data for the pinball game via your device's settings.
-7. Open the pinball game, and **sign in as a Guest**.
-8. If prompted, click "Trust for this session" for the mitmproxy certificate.
-9. You will now be connected to Starpoint.
+9. Open safari.
+10. Navigate to the website ``mitm.it``.
+11. Press the green button under "iOS".
+12. Allow the file to be downloaded.
+13. Open the settings app.
+14. Go to "General" and then to "VPN & Device Management"
+15. Locate "mitmproxy" under "Downloaded Profile".
+16. Tap it and press the Install button.
+    - iOS will ask for your PIN code and additional verification.
+17. Go back to the General settings section.
+18. Go to "About" and select "Certificate Trust Settings" at the bottom.
+19. Turn on the switch for the mitmproxy certificate.
+20. Clear all data for the pinball game via your device's settings.
+21. Open the pinball game, and **sign in as a Guest**.
+22. If prompted, click "Trust for this session" for the mitmproxy certificate.
+23. You will now be connected to Starpoint.
 
 ## (Optional) Manual Server Start Method
 1. Navigate to the mitmproxy Program Files directory, usually located at ``C:\Program Files\mitmproxy\bin``.
