@@ -17,6 +17,9 @@ hosts = {
 
     # na server
     "na.wdfp.kakaogames.com": 2,
+
+    # patch
+    "patch.wdfp.kakaogames.com": 3
 }
 
 def request(flow: http.HTTPFlow) -> None:

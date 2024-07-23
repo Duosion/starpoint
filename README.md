@@ -1,4 +1,4 @@
-## Starpoint
+# Starpoint
 A work-in-progress server emulator for the global version of a mobile pinball game.
 
 ## Implemented Features
@@ -23,7 +23,7 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 For a more in-depth view of the progress completed, visit the [API routes document](/docs/routes.md).
 
 ## Installation
-1. Install [Node.js](https://nodejs.org/en/download/package-manager).
+1. Install the latest version of [Node.js](https://nodejs.org/en/download/package-manager).
 2. Clone the repository from the command line.
    ```
    git clone https://github.com/Duosion/starpoint.git
@@ -32,7 +32,10 @@ For a more in-depth view of the progress completed, visit the [API routes docume
 3. Navigate to the directory where the repository was cloned/unzipped to.
 4. Double click on the start.bat file to start the server.
    - If mitmproxy is installed, this will also start up mitmproxy automatically.
-4. The server is now listening on port 8000 for any game traffic.
+5. The server is now listening on port 8000 for any game traffic.
+6. Follow the guide for your phone or emulator:
+   - [Android](/docs/connecting-android.md)
+   - iOS (Coming Soon)
 
 ## FAQ
 - **Do I have to host this on my own?**
