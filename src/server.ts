@@ -25,6 +25,7 @@ import boxGachaApiPlugin from "./routes/api/boxGacha"
 import shopApiPlugin from "./routes/api/shop"
 import encyclopediaApiPlugin from "./routes/api/encyclopedia"
 import mailApiPlugin from "./routes/api/mail"
+import rankingEventApiPlugin from "./routes/api/rankingEvent"
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -109,6 +110,7 @@ fastify.register(boxGachaApiPlugin, { prefix: `${apiPrefix}/box_gacha` })
 fastify.register(shopApiPlugin, { prefix: `${apiPrefix}/shop` })
 fastify.register(encyclopediaApiPlugin,  { prefix: `${apiPrefix}/encyclopedia` })
 fastify.register(mailApiPlugin, { prefix: `${apiPrefix}/mail` })
+fastify.register(rankingEventApiPlugin, { prefix: `${apiPrefix}/ranking_event` })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

@@ -187,4 +187,5 @@ Endpoint | Status
 {infodesk_group_table}
 ''')
 
+if path.exists(TEMP_FILE):
     remove(TEMP_FILE)

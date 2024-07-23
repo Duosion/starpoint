@@ -181,6 +181,202 @@ def convert_daily_week_event_quest(obj):
 
     return converted
 
+def convert_challenge_dungeon_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "clearRewardId": int(quest[4]),
+                "scoreRewardGroup": int(quest[71]),
+                "sPlusRewardId": 1,
+                "bRankTime": floor(float(quest[85]) * 1000),
+                "aRankTime": floor(float(quest[86]) * 1000),
+                "sRankTime": floor(float(quest[87]) * 1000),
+                "sPlusRankTime":  floor(float(quest[88]) * 1000),
+                "rankPointReward": int(quest[92]),
+                "characterExpReward": int(quest[93]),
+                "manaReward": int(quest[94]),
+                "poolExpReward": int(quest[95])
+            }
+    return converted 
+
+def convert_story_event_single_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            if quest[86] == "":
+                # is story
+                converted_quest = {
+                    "name": ""
+                }
+
+                if quest[4] != "(None)":
+                    converted_quest['clearRewardId'] = int(quest[4])
+
+                converted[quest[0]] = converted_quest
+            else:
+                converted[quest[0]] = {
+                    "name": "",
+                    "clearRewardId": int(quest[4]),
+                    "scoreRewardGroup": int(quest[72]),
+                    "sPlusRewardId": 1,
+                    "bRankTime": floor(float(quest[86]) * 1000),
+                    "aRankTime": floor(float(quest[87]) * 1000),
+                    "sRankTime": floor(float(quest[88]) * 1000),
+                    "sPlusRankTime":  floor(float(quest[89]) * 1000),
+                    "rankPointReward": int(quest[94]),
+                    "characterExpReward": int(quest[95]),
+                    "manaReward": int(quest[96]),
+                    "poolExpReward": int(quest[97])
+                }
+    return converted 
+
+def convert_ranking_event_single_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime": 0,
+                "rankPointReward": 0,
+                "characterExpReward": 0,
+                "manaReward": 0,
+                "poolExpReward": 0
+            }
+    return converted 
+
+def convert_solo_time_attack_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "scoreRewardGroup": int(quest[71]),
+                "sPlusRewardId": 1,
+                "bRankTime": floor(float(quest[51]) * 1000),
+                "aRankTime": floor(float(quest[52]) * 1000),
+                "sRankTime": floor(float(quest[53]) * 1000),
+                "sPlusRankTime":  floor(float(quest[54]) * 1000),
+                "rankPointReward": int(quest[85]),
+                "characterExpReward": int(quest[86]),
+                "manaReward": int(quest[87]),
+                "poolExpReward": int(quest[88])
+            }
+    return converted 
+
+def convert_tower_dungeon_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "scoreRewardGroup": int(quest[69]),
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime": 0,
+                "rankPointReward": int(quest[82]),
+                "characterExpReward": int(quest[83]),
+                "manaReward": int(quest[84]),
+                "poolExpReward": int(quest[85])
+            }
+    return converted 
+
+def convert_expert_single_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "clearRewardId": int(quest[6]),
+                "scoreRewardGroup": int(quest[73]),
+                "sPlusRewardId": 1,
+                "bRankTime": floor(float(quest[87]) * 1000),
+                "aRankTime": floor(float(quest[88]) * 1000),
+                "sRankTime": floor(float(quest[89]) * 1000),
+                "sPlusRankTime":  floor(float(quest[90]) * 1000),
+                "rankPointReward": int(quest[96]),
+                "characterExpReward": int(quest[97]),
+                "manaReward": int(quest[98]),
+                "poolExpReward": int(quest[99])
+            }
+    return converted 
+
+def convert_carnival_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "clearRewardId": int(quest[6]),
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime": 0,
+                "rankPointReward": int(quest[94]),
+                "characterExpReward": int(quest[95]),
+                "manaReward": int(quest[96]),
+                "poolExpReward": int(quest[97])
+            }
+    return converted 
+
+def convert_raid_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "clearRewardId": int(quest[5]),
+                "scoreRewardGroup": int(quest[68]),
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime": 0,
+                "rankPointReward": int(quest[81]),
+                "characterExpReward": int(quest[82]),
+                "manaReward": int(quest[83]),
+                "poolExpReward": int(quest[84])
+            }
+    return converted 
+
+def convert_rush_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime": 0,
+                "rankPointReward": int(quest[82]),
+                "characterExpReward": int(quest[83]),
+                "manaReward": int(quest[84]),
+                "poolExpReward": int(quest[85])
+            }
+    return converted 
+
+def convert_score_attack_event_quest(obj):
+    converted = {}
+    for _, quests in obj.items():
+        for _, quest in quests.items():
+            converted[quest[0]] = {
+                "name": "",
+                "bRankTime": 0,
+                "aRankTime": 0,
+                "sRankTime": 0,
+                "sPlusRankTime": 0,
+                "rankPointReward": 0,
+                "characterExpReward": 0,
+                "manaReward": 0,
+                "poolExpReward": 0
+            }
+    return converted 
+
 def convert_character_quests(obj):
     converted = {}
     for story_id, character_story in obj.items():
@@ -742,6 +938,16 @@ to_convert_files = {
     "advent_event_quest": convert_advent_quest,
     "daily_exp_mana_event_quest": convert_daily_exp_mana_event_quest,
     "daily_week_event_quest": convert_daily_week_event_quest,
+    "challenge_dungeon_event_quest": convert_challenge_dungeon_event_quest,
+    "story_event_single_quest": convert_story_event_single_quest,
+    "ranking_event_single_quest": convert_ranking_event_single_quest,
+    "solo_time_attack_event_quest": convert_solo_time_attack_event_quest,
+    "tower_dungeon_event_quest": convert_tower_dungeon_event_quest,
+    "expert_single_event_quest": convert_expert_single_event_quest,
+    "carnival_event_quest": convert_carnival_event_quest,
+    "rush_event_quest": convert_rush_event_quest,
+    "raid_event_quest": convert_raid_event_quest,
+    "score_attack_event_quest": convert_score_attack_event_quest,
     "box_reward": convert_box_rewards,
     "box_gacha": convert_box_gacha,
     "gacha": convert_gacha,

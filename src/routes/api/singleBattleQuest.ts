@@ -137,7 +137,7 @@ const routes = async (fastify: FastifyInstance) => {
         const finished = questProgress !== null ? questProgress.finished : false
         const questAccomplished = !finished && body.is_accomplished
 
-        const clearReward = !questPreviouslyCompleted ? givePlayerRewardSync(playerId, questData.clearReward) : null
+        const clearReward = !questPreviouslyCompleted && questData.clearReward !== undefined ? givePlayerRewardSync(playerId, questData.clearReward) : null
         const sPlusClearReward = (clearRank === 5) && (questProgress?.clearRank !== 5) && (questData.sPlusReward !== undefined) ? givePlayerRewardSync(playerId, questData.sPlusReward) : null
 
         if (questAccomplished) {
