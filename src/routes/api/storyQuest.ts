@@ -52,7 +52,7 @@ const routes = async (fastify: FastifyInstance) => {
         // get quest progress
         const questProgress = getPlayerSingleQuestProgressSync(playerId, questSection, questId);
         const finished = questProgress !== null ? questProgress.finished : false
-        const rewardResult = !finished ? givePlayerRewardSync(playerId, questData.clearReward) : null
+        const rewardResult = !finished && questData.clearReward !== undefined ? givePlayerRewardSync(playerId, questData.clearReward) : null
 
         if (!finished) {
             // update quest progress

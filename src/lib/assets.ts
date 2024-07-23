@@ -9,6 +9,16 @@ import dailyExpManaEventQuests from "../../assets/daily_exp_mana_event_quest.jso
 import dailyWeekEventQuests from "../../assets/daily_week_event_quest.json";
 import worldStoryEventBossBattleQuests from "../../assets/world_story_event_boss_battle_quest.json";
 import worldStoryEventQuests from "../../assets/world_story_event_quest.json";
+import carnivalEventQuests from "../../assets/carnival_event_quest.json";
+import challengeDungeonEventQuests from "../../assets/challenge_dungeon_event_quest.json";
+import expertSingleEventQuests from "../../assets/expert_single_event_quest.json";
+import raidEventQuests from "../../assets/raid_event_quest.json";
+import rankingEventSingleQuests from "../../assets/ranking_event_single_quest.json";
+import rushEventQuests from "../../assets/rush_event_quest.json";
+import scoreAttackEventQuests from "../../assets/score_attack_event_quest.json";
+import soloTimeAttackEventQuests from "../../assets/solo_time_attack_event_quest.json";
+import storyEventSingleQuests from "../../assets/story_event_single_quest.json";
+import towerDungeonEventQuests from "../../assets/tower_dungeon_event_quest.json";
 import exAbility from "../../assets/ex_ability.json";
 import exBoost from "../../assets/ex_boost.json";
 import exQuests from "../../assets/ex_quest.json";
@@ -86,7 +96,7 @@ function getQuestSync(
     // return either a story quest or a battle quest depending on the keys present
     return 'manaReward' in quest ? {
         name: quest.name,
-        clearReward: getClearRewardSync(quest.clearRewardId),
+        clearReward: quest.clearRewardId === undefined ? undefined : getClearRewardSync(quest.clearRewardId),
         sPlusReward: quest.sPlusRewardId === undefined ? undefined : getClearRewardSync(quest.sPlusRewardId),
         scoreRewardGroupId: quest.scoreRewardGroup,
         scoreRewardGroup: quest.scoreRewardGroup === undefined ? undefined : getScoreRewardGroup(quest.scoreRewardGroup),
@@ -100,7 +110,7 @@ function getQuestSync(
         poolExpReward: quest.poolExpReward
     } as BattleQuest : {
         name: quest.name,
-        clearReward: getClearRewardSync(quest.clearRewardId)
+        clearReward: quest.clearRewardId === undefined ? undefined : getClearRewardSync(quest.clearRewardId),
     } as StoryQuest
 }
 
@@ -215,10 +225,30 @@ export function getQuestFromCategorySync(
         case QuestCategory.ADVENT_EVENT_SINGLE:
         case QuestCategory.ADVENT_EVENT_MULTI:
             return getAdventEventQuest(questId)
+        case QuestCategory.STORY_EVENT_SINGLE:
+            return getQuestSync((storyEventSingleQuests as RawQuests), questId)
+        case QuestCategory.RANKING_EVENT_SINGLE:
+            return getQuestSync((rankingEventSingleQuests as RawQuests), questId)
+        case QuestCategory.CHALLENGE_DUNGEON_EVENT:
+            return getQuestSync((challengeDungeonEventQuests as RawQuests), questId)
         case QuestCategory.DAILY_EXP_MANA_EVENT:
             return getQuestSync((dailyExpManaEventQuests as RawQuests), questId)
         case QuestCategory.DAILY_WEEK_EVENT:
             return getQuestSync((dailyWeekEventQuests as RawQuests), questId)
+        case QuestCategory.TOWER_DUNGEON_EVENT:
+            return getQuestSync((towerDungeonEventQuests as RawQuests), questId)
+        case QuestCategory.EXPERT_SINGLE_EVENT:
+            return getQuestSync((expertSingleEventQuests as RawQuests), questId)
+        case QuestCategory.CARNIVAL_EVENT:
+            return getQuestSync((carnivalEventQuests as RawQuests), questId)
+        case QuestCategory.RAID_EVENT:
+            return getQuestSync((raidEventQuests as RawQuests), questId)
+        case QuestCategory.RUSH_EVENT:
+            return getQuestSync((rushEventQuests as RawQuests), questId)
+        case QuestCategory.SOLO_TIME_ATTACK_EVENT:
+            return getQuestSync((soloTimeAttackEventQuests as RawQuests), questId)
+        case QuestCategory.SCORE_ATTACK_EVENT:
+            return getQuestSync((scoreAttackEventQuests as RawQuests), questId)
         default:
             return null
     }

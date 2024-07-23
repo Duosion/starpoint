@@ -18,7 +18,7 @@ Endpoint | Status
 [/active_mission/receive](./routes/active_mission_receive.md) | :no_entry:
 [/asset/get_path](./routes/asset_get_path.md) | :warning:
 [/asset/version_info](./routes/asset_version_info.md) | :warning:
-[/attention/check](./routes/attention_check.md) | :no_entry:
+[/attention/check](./routes/attention_check.md) | :white_check_mark:
 [/bonus/shown](./routes/bonus_shown.md) | :no_entry:
 ``/box_gacha/close`` | :white_check_mark:
 [/box_gacha/exec](./routes/box_gacha_exec.md) | :warning:
