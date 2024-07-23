@@ -745,20 +745,23 @@ export function deserializePlayerData(
 
         // deserialize multi special exchange campaign list
         const userMultiSpecialExchangeCampaignList = toDeserialize['multi_special_exchange_campaign_list']
-        if (userMultiSpecialExchangeCampaignList === undefined) throw new Error("Missing 'multi_special_exchange_campaign_list' field.");
 
-        const multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[] = userMultiSpecialExchangeCampaignList.map(campaign => {
-            const campaignId = campaign['campaign_id']
-            const status = campaign['status']
-
-            if (isNaN(campaignId) || isNaN(status))
-                throw new Error("Invalid or missing fields for 'multi_special_exchange_campaign_list' field.");
-
-            return {
-                campaignId: campaignId,
-                status: status
-            }
-        })
+        let multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[] = []
+        if (userMultiSpecialExchangeCampaignList !== undefined) {
+            multiSpecialExchangeCampaignList = userMultiSpecialExchangeCampaignList.map(campaign => {
+                const campaignId = campaign['campaign_id']
+                const status = campaign['status']
+    
+                if (isNaN(campaignId) || isNaN(status))
+                    throw new Error("Invalid or missing fields for 'multi_special_exchange_campaign_list' field.");
+    
+                return {
+                    campaignId: campaignId,
+                    status: status
+                }
+            })
+        }
+        
 
         return {
             player: player,
