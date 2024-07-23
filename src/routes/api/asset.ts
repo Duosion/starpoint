@@ -95,17 +95,17 @@ const routes = async (fastify: FastifyInstance) => {
                     case "ko":
                         return reply.send({
                             "data_headers": headers,
-                            "data": sendFull ? koAndroidFull : koAndroidShort
+                            "data": koAndroidFull
                         })
                     case "th":
                         return reply.send({
                             "data_headers": headers,
-                            "data": sendFull ? thAndroidFull : thAndroidShort
+                            "data": thAndroidFull
                         })
                     default:
                         return reply.send({
                             "data_headers": headers,
-                            "data": sendFull ? enAndroidFull : enAndroidShort
+                            "data": enAndroidFull
                         })
                 }
             case Platform.IOS:
