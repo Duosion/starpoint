@@ -6,20 +6,14 @@ Once the game servers close, this CDN will also close. Therefore, Starpoint offe
 In order to replicate the game's CDN, Starpoint requires a copy of the files that the game's CDN would normally serve. For the purpose of this, a CDN downloading script has been created.
 
 ### CDN Download Instructions (Windows)
-1. Ensure that you have [python](https://www.python.org/downloads/) downloaded and installed.
-2. Locate the ``download_cdn.bat`` file in the directory where you downloaded Starpoint.
-3. Double click the batch file and follow the instructions in the newly opened window.
+1. Locate the ``download_cdn.bat`` file in the directory where you downloaded Starpoint.
+2. Double click the batch file and follow the instructions in the newly opened window.
 
 ### CDN Download Instructions (Other)
-1. Ensure that you have [python](https://www.python.org/downloads/) downloaded and installed.
-2. Navigate to the directory where you downloaded Starpoint and open a terminal.
-3. Install the requirements for the download script by running:
+1. Navigate to the directory where you downloaded Starpoint and open a terminal.
+2. Run the CDN download script.
    ```
-   pip install -r scripts/requirements.txt
-   ```
-4. Run the download script:
-   ```
-   python scripts/cdn_download.py
+   npm run cdn
    ```
 
 ### Download Info

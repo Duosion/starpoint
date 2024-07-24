@@ -5,4 +5,4 @@ setlocal
 set "BASEPATH=%~dp0"
 
 :: Start the CDN download script.
-start cmd.exe /k "cd /d "%BASEPATH%" && pip install -r scripts/requirements.txt && python scripts/cdn_download.py"
+start cmd.exe /k "cd /d "%BASEPATH%" && npm install && npm run cdn"
