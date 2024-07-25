@@ -1,4 +1,5 @@
 from mitmproxy import http
+import logging
 
 API_HOST = "localhost"
 API_PORT = 8000
@@ -22,7 +23,8 @@ hosts = {
     "patch.wdfp.kakaogames.com": 3
 }
 
-def request(flow: http.HTTPFlow) -> None:
+def request(flow: http.HTTPFlow):
+    #logging.info(f"[INFO] {flow.request.url}")
     prefix_type = hosts.get(flow.request.pretty_host)
     if prefix_type != None:
         flow.request.host = API_HOST
