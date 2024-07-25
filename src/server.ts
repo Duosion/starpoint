@@ -132,19 +132,23 @@ fastify.register(fastifyStatic, {
 })
 
 // static CDN
-const cdn_dir = process.env.CDN_DIR || ".cdn"
+const cdnDir = process.env.CDN_DIR || ".cdn"
 fastify.register(fastifyStatic, {
-    root: path.isAbsolute(cdn_dir) ? cdn_dir : path.join(__dirname, "..", process.env.CDN_DIR || ".cdn"),
+    root: path.isAbsolute(cdnDir) ? cdnDir : path.join(__dirname, "..", process.env.CDN_DIR || ".cdn"),
     prefix: "/patch/Live/2.0.0",
     decorateReply: false
 })
 
 // listen
-fastify.listen({ port: 8000 }, (err, address) => {
+const listenHost = process.env.LISTEN_HOST ?? "localhost"
+
+const envListenPort = process.env.LISTEN_PORT === undefined ? 8000 : Number.parseInt(process.env.LISTEN_PORT)
+const listenPort = isNaN(envListenPort) ? 8000 : envListenPort
+fastify.listen({ port: listenPort, host: listenHost }, (err, address) => {
     if (err) {
         console.error(err)
         fastify.log.error(err)
         process.exit(1)
     }
-    console.log(`StarPoint is listening on http://localhost:8000`)
+    console.log(`StarPoint is listening on http://${listenHost}:${listenPort}`)
 })
