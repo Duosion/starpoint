@@ -23,7 +23,7 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
 For a more in-depth view of the progress completed, visit the [API routes document](/docs/routes.md).
 
 ## Installation
-1. Install the latest version of [Node.js](https://nodejs.org/en/download/package-manager).
+1. Install the latest version of [Node.js](https://nodejs.org/en/download/prebuilt-installer).
 2. Clone the repository from the command line.
    ```
    git clone https://github.com/Duosion/starpoint.git
@@ -57,3 +57,6 @@ In order to utilize Starpoint, you will have to redirect traffic from the game c
 
 ## Contribution
 Interested in contributing to Starpoint? Read the [contribution guide](/docs/contributing.md) to learn more!
+
+## Special Thanks
+Special thanks to [wdfp-extractor](https://github.com/ScripterSugar/wdfp-extractor) for providing the assets and knowledge required to create the ``converter.py`` script.

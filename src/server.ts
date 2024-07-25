@@ -132,9 +132,9 @@ fastify.register(fastifyStatic, {
 })
 
 // static CDN
-// english
+const cdn_dir = process.env.CDN_DIR || ".cdn"
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", ".cdn"),
+    root: path.isAbsolute(cdn_dir) ? cdn_dir : path.join(__dirname, "..", process.env.CDN_DIR || ".cdn"),
     prefix: "/patch/Live/2.0.0",
     decorateReply: false
 })

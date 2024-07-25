@@ -20,6 +20,3 @@ In order to replicate the game's CDN, Starpoint requires a copy of the files tha
 - The CDN files will be downloaded to a directory called ``.cdn`` under the main Starpoint directory.
 - A full copy of the CDN, including all languages and platforms, will be around ~30GB. Each language is around ~12GB.
 - Currently, only the English language CDN can be downloaded for the IOS platform.
-
-## Special Thanks
-Special thanks to [wdfp-extractor](https://github.com/ScripterSugar/wdfp-extractor) for providing the assets and knowledge required to create the ``converter.py`` script.
