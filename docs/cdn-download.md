@@ -1,3 +1,6 @@
+> [!WARNING]
+> As of July 25th, 2024. This tool no longer works due to the closure of the pinball game's servers.
+
 ## CDN Download Guide
 The game client requires more data than is included in the base APK, such as character assets, music, and more. It will download these extra files from the game's offical CDN (Content Delivery Network).
 
