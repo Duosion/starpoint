@@ -28,25 +28,25 @@ The following is a general guide for connecting the Android game client to Starp
      ```
 
 ## Starting the Server
-1. **In the following step, you may receive a Windows firwall popup. Hit "Allow".**
-   - This step is crucial, if you do not hit allow you will encounter connection problems.
+1. **In the following step, you may receive a Windows firewall popup. Hit "Allow".**
+   - This step is crucial. If you do not hit allow you will encounter connection problems.
    - If the popup does not appear, you can continue.
 2. In the directory where you installed Starpoint, locate and run the ``start.bat`` file.
    - **If you receive a Windows firewall popup, hit "Allow".**
    - For non-Windows users or manual setup, see the "Manual Server Start Method" section below.
 3. Three new windows should open up.
-  - One of the windows should eventually show ``StarPoint is listening on http://localhost:8000``. This may take a minute or two, give it some time.
-  - Another one of the windows should show ``.:53`` at the top.
-  - The other window should show ``Loading script mitm-redirect-traffic.py`` at the top.
+   - One of the windows should eventually show ``StarPoint is listening on http://localhost:8000``. This may take a minute or two, give it some time.
+   - Another one of the windows should show ``.:53`` at the top.
+   - The other window should show ``Loading script mitm-redirect-traffic.py`` at the top.
 4. A new tab will open in your web browser. Keep this open for later.
 
 ## Android Setup
 
-### Installing & Setting up WG tunnel
-1. Install the WG tunnel app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.zaneschepke.wireguardautotunnel) or [Github](https://github.com/zaneschepke/wgtunnel/releases/tag/3.4.7)
+### Installing & Setting up WG Tunnel
+1. Install the WG Tunnel app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.zaneschepke.wireguardautotunnel) or [Github](https://github.com/zaneschepke/wgtunnel/releases/tag/3.4.7)
 2. Ensure your Android device is on the same network as your computer.
-3. Open the WG tunnel app.
-   - If you do not have access to a camera, such as if you are using an emulator. Continue to the "(Optional) Manual WG tunnel setup" below.
+3. Open the WG Tunnel app.
+   - If you do not have access to a camera, such as if you are using an emulator. Continue to the "(Optional) Manual WG Tunnel setup" below.
 4. Tap the "+" button in the bottom right corner of the screen.
 5. Tap "WireGuard"
 6. Tap "Add from QR code"
@@ -64,11 +64,11 @@ The following is a general guide for connecting the Android game client to Starp
 18. Accept the VPN popup.
 19. Tap the round button to the right of these numbers again.
 
-### (Optional) Manual WG tunnel setup.
-If you have already turned on the WG tunnel vpn, you may skip the following steps and jump to "Pinball App Setup" below.
+### (Optional) Manual WG Tunnel setup.
+If you have already turned on the WG Tunnel VPN, you may skip the following steps and jump to "Pinball App Setup" below.
 
 1. Go to the tab that opened up in your browser.
-2. Make note of the values left of the QR code. They will look like below.
+2. Make note of the values to the left of the QR code. They will look like the below.
    ```
    [Interface]
    PrivateKey = <value>
