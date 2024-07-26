@@ -9,7 +9,7 @@ A work-in-progress server emulator for the global version of a mobile pinball ga
   - All main quests playable
   - Some event/boss quests playable
 * Gacha
-  - Rate-up Portals
+  - Unit Portals
   - Armament Portals
   - Unit/Armament Exchanges
 * Armaments
@@ -30,9 +30,15 @@ For a more in-depth view of the progress completed, visit the [API routes docume
    ```
    - If you do not have git installed, click the green "Code" button at the top of the page and select "Download ZIP" to download a ZIP of the repository instead.
 3. Navigate to the directory where the repository was cloned/unzipped to.
-4. Download a copy of the CDN by following the [CDN Installation guide](/docs/cdn-download.md).
-5. Follow the guide for your phone or emulator:
-   - [Android](/docs/connecting-android.md)
+4. Place your copy of the game's CDN into the Starpoint install directory.
+   - Should be named ``.cdn``.
+5. Install CoreDNS from their [GitHub releases page](https://github.com/coredns/coredns/releases/tag/v1.11.0). [[direct Windows download](https://github.com/coredns/coredns/releases/download/v1.11.0/coredns_1.11.0_windows_amd64.tgz)].
+   - Extract into the ``.coredns`` folder within the Starpoint install directory.
+6. Install mitmproxy from their [downloads page](https://mitmproxy.org/downloads/#10.4.0). [[direct Windows download](https://downloads.mitmproxy.org/10.4.0/mitmproxy-10.4.0-windows-x86_64.zip)]
+   - Extract into the ``.mitmproxy`` folder within the Starpoint install directory.
+7. Follow the guide for your phone or emulator:
+   - [Android (No Root)](/docs/connecting-android.md)
+   - [Android (Root)](/docs/connecting-android-root.md)
    - [iOS](/docs/connecting-ios.md)
 
 ## FAQ
@@ -52,7 +58,8 @@ For a more in-depth view of the progress completed, visit the [API routes docume
 
 ## Connecting
 In order to utilize Starpoint, you will have to redirect traffic from the game client, originally intended for the official servers, to an instance of Starpoint running on your computer.
-- [Android Connection Guide](/docs/connecting-android.md)
+- [Android Connection Guide (No Root)](/docs/connecting-android.md)
+- [Android Connection Guide (Root)](/docs/connecting-android-root.md)
 - [iOS Connection Guide](/docs/connecting-ios.md)
 
 ## Contribution

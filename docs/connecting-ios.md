@@ -4,9 +4,6 @@ The following is a general guide for connecting the iOS game client to Starpoint
 Credit for most of the steps goes to to [trickster.dev](https://www.trickster.dev/post/setting-up-mitmproxy-with-ios17.1/).
 **If you have any problems with the below steps, I recommend following the linked guide, which includes screenshots.
 
-## Install Mitmproxy
-1. Install [mitmproxy](https://mitmproxy.org) (follow their [installation instructions](https://docs.mitmproxy.org/stable/overview-installation/)).
-
 ## Starting the Server
 1. In the directory where you installed Starpoint, locate and run the ``start-ios.bat`` file.
    - **If you receive a Windows firewall popup, hit "Allow".**
