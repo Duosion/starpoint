@@ -4,19 +4,13 @@
  */
 
 import { randomInt } from "crypto";
-import { getPlayerCharacterSync, getPlayerSync, insertPlayerCharacterSync, updatePlayerGachaInfoSync, updatePlayerSync } from "../data/wdfpData"
-import { BoxGachaBox, BoxGachaIdReward, BoxGachaRewardTier, BoxGachaRewardType, BoxGachaDrawResult, Reward, EquipmentItemReward, RewardType, CharacterReward, CurrencyReward, PlayerRewardResult, Gacha, GachaType, GachaPoolItem, GachaDrawResult, GachaDraws, GachaMovieType, CharacterGacha, GachaMovieSeeds, GachaCharacterDraw, RewardPlayerGachaDrawResult, GachaEquipmentDraw } from "./types"
-import { PlayerBoxGachaDrawnReward } from "../data/types";
-import { givePlayerRewardsSync } from "./quest";
 import movieSeeds from "../../assets/gacha_movie_seeds.json";
+import rateUpMovieSeeds from "../../assets/gacha_rate_up_movie_seeds.json";
+import { PlayerBoxGachaDrawnReward } from "../data/types";
 import { givePlayerCharacterSync } from "./character";
 import { givePlayerEquipmentSync } from "./equipment";
-
-// list of gachas
-// [gacha_id] = (array of character ids)
-const gachas: Record<number, number[]> = {
-    [157]: [251001, 251002, 251003, 251004, 251005, 251006, 251007, 251008]
-}
+import { givePlayerRewardsSync } from "./quest";
+import { BoxGachaBox, BoxGachaDrawResult, BoxGachaIdReward, BoxGachaRewardTier, BoxGachaRewardType, CharacterGacha, CharacterReward, CurrencyReward, EquipmentItemReward, Gacha, GachaCharacterDraw, GachaDrawResult, GachaDraws, GachaMovieSeeds, GachaMovieType, GachaType, PlayerRewardResult, Reward, RewardPlayerGachaDrawResult, RewardType } from "./types";
 
 const characterGachaRankRates = {
     normal: [
@@ -28,6 +22,17 @@ const characterGachaRankRates = {
         75, // 5*
         925 // 4*
     ]
+}
+const rateUpCharacterGachaRates = {
+    normal: [
+        50, // 5*
+        250, // 4*,
+        700, // 3*
+    ],
+    multiGuarantee: [
+        50, // 5*
+        950 // 4*
+    ],
 }
 
 const equipmentGachaRankRates = {
@@ -70,106 +75,6 @@ export interface SummonResult {
 }
 
 /**
- * Performs a summoning session.
- * 
- * @param playerId The player's ID
- * @param gachaId The ID of the gacha to summon from.
- * @param pullCount The number of pulls to perform.
- * @returns An array of GachaResults outlining what the player received.
- */
-export function playerSummon(
-    playerId: number,
-    gachaId: number,
-    pullCount: number
-): SummonResult {
-    // get the player
-    const player = getPlayerSync(playerId)
-    if (!player) return {
-        freeVmoney: 0,
-        vmoney: 0,
-        pulls: []
-    }
-
-    // calculate the summoning cost
-    const cost = pullCount * 150
-    if (cost > player.freeVmoney) return {
-        freeVmoney: player.freeVmoney,
-        vmoney: player.vmoney,
-        pulls: []
-    }
-
-    // deduct the cost from the player
-    const vmoneyNow = player.freeVmoney - cost
-    updatePlayerSync({
-        id: playerId,
-        freeVmoney: vmoneyNow
-    })
-
-    // get the summoning pool
-    const pool = gachas[gachaId]
-    if (!pool) return {
-        freeVmoney: player.freeVmoney,
-        vmoney: player.vmoney,
-        pulls: []
-    }
-    const poolSize = pool.length
-
-    // begin summons
-    const pulls: GachaResult[] = []
-    for (let i = 0; i < pullCount; i++) {
-        const characterId = pool[randomInt(poolSize)]
-
-        // check if the player already owns the character
-        const character = getPlayerCharacterSync(playerId, characterId)
-        if (!character) {
-            insertPlayerCharacterSync(playerId, characterId, {
-                entryCount: 1,
-                evolutionLevel: 0,
-                overLimitStep: 0,
-                protection: false,
-                joinTime: new Date(),
-                updateTime: new Date(),
-                exp: 0,
-                stack: 0,
-                manaBoardIndex: 1,
-                bondTokenList: [
-                    {
-                        manaBoardIndex: 1,
-                        status: 0
-                    },
-                    {
-                        manaBoardIndex: 2,
-                        status: 0
-                    }
-                ]
-            })
-        } else {
-            // TODO: Handle duplicate characters
-        }
-
-        pulls.push({
-            characterId: characterId,
-            movieId: 'normal_guarantee',
-            seed: 0,
-            entryCount: 1
-        })
-    }
-
-    // update gacha
-    updatePlayerGachaInfoSync(playerId, {
-        gachaId: gachaId,
-        isDailyFirst: false,
-        isAccountFirst: false
-    })
-
-    return {
-        freeVmoney: vmoneyNow,
-        vmoney: player.vmoney,
-        pulls: pulls
-    }
-}
-
-/**
  * Selects a random index from a weighted pool.
  * 
  * @param min The minimum random value to pick.
@@ -177,7 +82,7 @@ export function playerSummon(
  * @param pool The pool to select the random index from.
  * @returns The index that was selected. null if nothing was selected.
  */
-function randomPoolItem(
+export function randomPoolItem(
     min: number,
     max: number,
     pool: number[]
@@ -198,12 +103,13 @@ export function drawGachaSync(
     gacha: Gacha,
     drawAmount: number
 ): GachaDrawResult {
-    const rankRates = gacha.type === GachaType.CHARACTER ? characterGachaRankRates : equipmentGachaRankRates
+    const isCharacterGacha = gacha.type === GachaType.CHARACTER
+    const isRateUp = isCharacterGacha ? (gacha as CharacterGacha).movieName !== "normal" : false
+    const rankRates = isCharacterGacha ? (isRateUp ? rateUpCharacterGachaRates : characterGachaRankRates) : equipmentGachaRankRates
 
     const pulls: Map<number, number> = new Map()
 
     for (let drawNumber = 0; drawNumber < drawAmount; drawNumber++) {
-
         const drawRankRates = (drawNumber !== 0) && ((drawNumber % 9) === 0) ? rankRates.multiGuarantee : rankRates.normal
         
         const ratePool = gacha.pool[(randomPoolItem(0, 1001, drawRankRates) ?? 0) + 1]
@@ -243,7 +149,8 @@ export function rewardPlayerGachaDrawResultSync(
                     const movieType = randomPoolItem(1, 101, rankMovieRates[rarity]) ?? GachaMovieType.NORMAL
 
                     // pick a seed
-                    const seeds = (movieSeeds as GachaMovieSeeds)[rarity + 1][movieType]
+                    const isRateUp = (gacha as CharacterGacha).movieName !== "normal"
+                    const seeds = ((isRateUp ? rateUpMovieSeeds : movieSeeds) as GachaMovieSeeds)[rarity + 1][movieType]
                     const seedIndex = randomInt(0, seeds.length + 1)
 
                     // build draw
@@ -460,83 +367,3 @@ export function rewardPlayerBoxGachaResultSync(
 
     return givePlayerRewardsSync(playerId, rewards)
 }
-
-// {
-//     "data_headers": {
-//         "force_update": false,
-//         "asset_update": false,
-//         "short_udid": 461173975,
-//         "viewer_id": 297417490,
-//         "servertime": 1718941108,
-//         "result_code": 1
-//     },
-//     "data": {
-//         "draw_equipment": [
-//             {
-//                 "equipment_id": 3060007,
-//                 "treasure_up_type": 0
-//             }
-//         ],
-//         "is_erupt": false,
-//         "gacha_info_list": [
-//             {
-//                 "gacha_id": 5033,
-//                 "is_account_first": false,
-//                 "gacha_exchange_point": 1
-//             }
-//         ],
-//         "equipment_list": [
-//             {
-//                 "null": 1,
-//                 "viewer_id": 297417490,
-//                 "equipment_id": 3060007,
-//                 "protection": false,
-//                 "level": 1,
-//                 "enhancement_level": 0,
-//                 "stack": 0
-//             }
-//         ],
-//         "item_list": {
-//             "999005": 0
-//         },
-//         "mail_arrived": false
-//     }
-// }
-
-// const output = [
-//     { // 5*
-      
-//     },
-//     { // 4*
-      
-//     },
-//     { // 3*
-      
-//     }
-//   ]
-  
-//   for (const entry of draw) {
-//     const rarityPool = Math.floor(entry['character_id'] / 100000) - 1
-    
-//     //output[rarityPool][entry['seed']] = entry['movie_id'] === "fes_guarantee" ? 1 : 0
-//     const movieId = entry['movie_id'] === "fes_guarantee" ? 1 : 0
-//     let bucket = output[rarityPool][movieId]
-//     if (bucket === undefined) {
-//       bucket = {}
-//       output[rarityPool][movieId] = bucket
-//     }
-    
-//     bucket[entry['seed']] = true
-//   }
-  
-//   for (const entry of output) {
-//     for (const [movieType, seeds] of Object.entries(entry)) {
-//       const newValue = []
-//       for (const [seed, _] of Object.entries(seeds)) {
-//         newValue.push(seed)
-//       }
-//       entry[movieType] = newValue
-//     }
-//   }
-  
-//   console.log(JSON.stringify(output, 2))

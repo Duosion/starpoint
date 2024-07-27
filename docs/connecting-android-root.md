@@ -74,7 +74,7 @@ This is a general guide. The process will vary depending on the version of Andro
 1. Navigate to the .mitmproxy folder in the Starpoint install directory.
 2. Open a command prompt in this folder and run the following line:
    ```
-   .\mitmweb.exe --mode wireguard --set connection_strategy=lazy -s ..\scripts\mitm-redirect-traffic.py
+   .\mitmproxy.exe --mode wireguard --set connection_strategy=lazy -s ..\scripts\mitm-redirect-traffic.py
    ```
    - **Note**: The ``path/to/starpoint/directory`` portion of the below command should be replaced with the path to the directory where you installed Starpoint, keep the ``/scripts/mitm-redirect-traffic.py`` portion.
 3. Go to the directory where you have Starpoint installed; open a new terminal, and start the server.

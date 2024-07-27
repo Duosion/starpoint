@@ -31,7 +31,7 @@ For a more in-depth view of the progress completed, visit the [API routes docume
    - If you do not have git installed, click the green "Code" button at the top of the page and select "Download ZIP" to download a ZIP of the repository instead.
 3. Navigate to the directory where the repository was cloned/unzipped to.
 4. Place your copy of the game's CDN into the Starpoint install directory.
-   - Should be named ``.cdn``.
+   - It should be named ``.cdn``.
 5. Install CoreDNS from their [GitHub releases page](https://github.com/coredns/coredns/releases/tag/v1.11.0). [[direct Windows download](https://github.com/coredns/coredns/releases/download/v1.11.0/coredns_1.11.0_windows_amd64.tgz)].
    - Extract into the ``.coredns`` folder within the Starpoint install directory.
 6. Install mitmproxy from their [downloads page](https://mitmproxy.org/downloads/#10.4.0). [[direct Windows download](https://downloads.mitmproxy.org/10.4.0/mitmproxy-10.4.0-windows-x86_64.zip)]
@@ -44,15 +44,9 @@ For a more in-depth view of the progress completed, visit the [API routes docume
 ## FAQ
 - **Do I have to host this on my own?**
   - Yes. I will not be hosting this server myself.
-- **Does this work for IOS devices?**
-  - Starpoint has support for IOS, but has not been tested for compatibility with the IOS game client.
-- **How do I connect the game to this server?**
-  - Read the "Connecting" section below.
 - **Can I import my save data?**
   - Yes. Once you have Starpoint installed & running, visit [http://localhost:8000](http://localhost:8000) in your browser and navigate to the players page.
   - Select a player from the page, select the save file you want to import, and click the "Upload Save" button.
-- **How can I download my save data?**
-  - You can download your save data **before EOS** by visting & following the instructions for the [wdfp-save-downloader repository](https://github.com/Duosion/wdfp-save-downloader).
 - **I am getting an 'H404' error**
   - Receiving this error means that the feature you are trying to interact with has not been implemented yet.
 

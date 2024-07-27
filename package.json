@@ -1,6 +1,6 @@
 {
   "name": "starpoint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A server reimplementation for the global version of World Flipper",
   "main": "server.ts",
   "scripts": {

@@ -126,7 +126,7 @@ export function givePlayerCharacterSync(
 
         // give the player the character
         const joinTime = new Date()
-        insertPlayerCharacterSync(1, characterId, {
+        insertPlayerCharacterSync(playerId, characterId, {
             entryCount: 1,
             evolutionLevel: 0,
             overLimitStep: 0,
