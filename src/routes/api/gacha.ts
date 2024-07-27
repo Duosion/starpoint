@@ -247,7 +247,7 @@ const routes = async (fastify: FastifyInstance) => {
 
         // get player gacha data
         let playerGachaData = getPlayerGachaInfoSync(playerId, gachaId)
-        const insertPlayerGachaData = playerGachaData === undefined
+        const insertPlayerGachaData = playerGachaData === null
         playerGachaData = playerGachaData ?? {
             gachaId: gachaId,
             isAccountFirst: true,

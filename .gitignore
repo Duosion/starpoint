@@ -9,3 +9,7 @@ web/public/tailwind.css
 scripts/__pycache__
 dist
 build
+.coredns/coredns.exe
+.mitmproxy/mitmproxy.exe
+.mitmproxy/mitmweb.exe
+.mitmproxy/mitmdump.exe

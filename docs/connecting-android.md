@@ -1,8 +1,5 @@
-# Android Connection Guide
+# Unrooted Android Connection Guide
 The following is a general guide for connecting the Android game client to Starpoint.
-
-## Install Mitmproxy
-1. Install [mitmproxy](https://mitmproxy.org) (follow their [installation instructions](https://docs.mitmproxy.org/stable/overview-installation/)).
 
 ## Discovering Local IP Address (Windows)
 1. On your keyboard press the Windows key + X.
@@ -34,13 +31,13 @@ The following is a general guide for connecting the Android game client to Starp
 2. In the directory where you installed Starpoint, locate and run the ``start.bat`` file.
    - **If you receive a Windows firewall popup, hit "Allow".**
    - For non-Windows users or manual setup, see the "Manual Server Start Method" section below.
-3. Three new windows should open up.
+3. Three windows should open.
    - One of the windows should eventually show ``StarPoint is listening on http://localhost:8000``. This may take a minute or two, give it some time.
    - Another one of the windows should show ``.:53`` at the top.
    - The other window should show ``Loading script mitm-redirect-traffic.py`` at the top.
 4. A new tab will open in your web browser. Keep this open for later.
 
-## Android Setup
+## Device/Emulator Setup
 
 ### Installing & Setting up WG Tunnel
 1. Install the WG Tunnel app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.zaneschepke.wireguardautotunnel) or [Github](https://github.com/zaneschepke/wgtunnel/releases/tag/3.4.7)
@@ -94,18 +91,24 @@ If you have already turned on the WG Tunnel VPN, you may skip the following step
 
 ### Pinball App Setup
 1. Clear all data for the pinball game via your device's settings.
+   - You only have to do this once, do not clear your data every time you connect to Starpoint.
 2. Open the pinball game, and **sign in as a Guest**.
 3. If prompted, click "Trust for this session" for the mitmproxy certificate.
 4. You will now be connected to Starpoint.
 
 ## (Optional) Manual Server Start Method
-1. Navigate to the mitmproxy Program Files directory, usually located at ``C:\Program Files\mitmproxy\bin``.
-2. Open a command prompt in this directory and run the following line:
+1. Navigate to the .mitmproxy folder in the Starpoint install directory.
+2. Open a command prompt in this folder and run the following line:
    ```
-   .\mitmweb --mode wireguard -s "path/to/starpoint/directory/scripts/mitm-redirect-traffic.py"
+   .\mitmweb.exe --mode wireguard --set connection_strategy=lazy -s ..\scripts\mitm-redirect-traffic.py
    ```
    - **Note**: The ``path/to/starpoint/directory`` portion of the below command should be replaced with the path to the directory where you installed Starpoint, keep the ``/scripts/mitm-redirect-traffic.py`` portion.
-3. Go to the directory where you have Starpoint installed; open a new terminal, and start the server.
+3. Navigate to the .coredns folder in the Starpoint install directory.
+4. Open a command prompt in this folder and run the following line:
+   ```
+   .\coredns.exe
+   ```
+5. Go to the directory where you have Starpoint installed; open a new terminal, and start the server.
    ```
    npm install
    npx tsc

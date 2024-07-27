@@ -1,8 +1,10 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { clientSerializeDate } from "../../data/utils";
 import { getAccountPlayers, getPlayerSync, getPlayerTriggeredTutorialsSync, getSession, insertDefaultPlayerCharacterSync, insertPlayerTriggeredTutorialSync, updatePlayerSync } from "../../data/wdfpData";
-import { playerSummon } from "../../lib/gacha";
 import { generateDataHeaders, getServerTime } from "../../utils";
+import { getGachaSync } from "../../lib/assets";
+import { randomPoolItem, rewardPlayerGachaDrawResultSync } from "../../lib/gacha";
+import { randomInt } from "crypto";
 
 interface UpdateStepBody {
     viewer_id: number
@@ -21,6 +23,8 @@ interface FinishTriggerBody {
 }
 
 const freeTutorialCharacterId = 243001
+
+const tutorialGachaCharacterIds = [251001, 251002, 251003, 251004, 251005, 251006, 251007, 251008]
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/finish_trigger", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -120,69 +124,51 @@ const routes = async (fastify: FastifyInstance) => {
             viewer_id: viewerId
         })
         if (nextStep === 15 && body.gacha_id !== undefined && !isNaN(body.gacha_id)) {
-
-            const summonResult = playerSummon(playerId, body.gacha_id, 1)
-            const pull = summonResult.pulls[0]
-
-            if (!pull) return reply.status(500).send({
-                "error": "Internal Server Error",
-                "message": "Error when summoning."
+            
+            const gachaId = body.gacha_id
+            const gachaData = getGachaSync(gachaId)
+            if (gachaData === null) return reply.status(400).send({
+                "error": "Bad Request",
+                "message": `Gacha with id '${body.gacha_id}' does not exist.`
             })
 
-            const serializedDate = clientSerializeDate(new Date())
-            reply.status(200).send({
+            // perform pull
+            const drawResult: Map<number, number> = new Map()
+            const randomCharacterIndex = randomInt(0, tutorialGachaCharacterIds.length)
+            const randomCharacterId = tutorialGachaCharacterIds[randomCharacterIndex]
+            drawResult.set(randomCharacterId, 1)
+
+            // reward pull
+            const rewardResult = rewardPlayerGachaDrawResultSync(playerId, gachaData, drawResult)
+
+            const newFreeVmoney = player.freeVmoney - gachaData.singleCost
+            updatePlayerSync({
+                id: playerId,
+                freeVmoney: newFreeVmoney
+            })
+
+            return reply.status(200).send({
                 "data_headers": headers,
                 "data": {
-                    "gacha": {
-                        "draw": [
-                            {
-                                "null": 1,
-                                "character_id": pull.characterId,
-                                "movie_id": pull.movieId,
-                                "seed": pull.seed,
-                                "entry_count": pull.entryCount
-                            }
-                        ],
-                        "gacha_info_list": [
-                            {
-                                "gacha_id": 157,
-                                "is_account_first": false
-                            }
-                        ]
-                    },
                     "step": nextStep,
                     "user_info": {
-                        "free_vmoney": summonResult.freeVmoney
+                        "free_vmoney": newFreeVmoney,
                     },
-                    "character_list": [
-                        {
-                            "viewer_id": viewerId,
-                            "character_id": pull.characterId,
-                            "entry_count": pull.entryCount,
-                            "exp": 0,
-                            "exp_total": 0,
-                            "bond_token_list": [
-                                {
-                                    "mana_board_index": 1,
-                                    "status": 0
-                                },
-                                {
-                                    "mana_board_index": 2,
-                                    "status": 0
-                                }
-                            ],
-                            "mana_board_index": 1,
-                            "create_time": serializedDate,
-                            "update_time": serializedDate,
-                            "join_time": serializedDate
-                        }
-                    ],
-                    "encyclopedia_info": {
-                        [`1${pull.characterId}01`]: {
-                            "read": false
-                        }
+                    "gacha": {
+                        
+                        "draw": rewardResult.draw,
+                        "gacha_info_list": [
+                            {
+                                "gacha_id": gachaId,
+                                "is_account_first": false,
+                                "is_daily_first": false,
+                            }
+                        ],
                     },
-                    "mail_arrived": true,
+                    "character_list": rewardResult.characters,
+                    "item_list": rewardResult.items,
+                    "encyclopedia_info": [],
+                    "mail_arrived": false,
                     "start_time": getServerTime()
                 }
             })
