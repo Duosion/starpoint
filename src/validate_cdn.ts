@@ -107,7 +107,7 @@ function checkHash(
                 if (existsSync(outputPath)) {
                     const file = readFileSync(outputPath)
                     const hash = hashes.get(location)
-                    if (createHash('sha256').update(file).digest('base64') !== hash) {
+                    if (!location.includes("/entities/") && createHash('sha256').update(file).digest('base64') !== hash) {
                         toInstall.push(location)
                     }
                 } else {
@@ -115,50 +115,22 @@ function checkHash(
                 }
                 bar.increment()
             } catch (error) {
-                reject(`Error when downloading asset '${location}'. Error: ${error}`)
+                reject(`Error when validating asset '${location}'. Error: ${error}`)
             }
         }
         resolve(toInstall)
     })
 }
 
-function downloadAssets(
-    start: number,
-    end: number,
-    locations: string[],
-    bar: SingleBar
-): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-        for (let i = start; i < end; i++) {
-            const location = locations[i]
-            try {
-                const outputPath = path.join(OUTPUT_DIR, location)
-                // check hash
-                const blob = await fetch(`${CDN_URL}${location}`)
-                    .then(response => response.blob())
-                    .then(blob => blob.arrayBuffer())
-
-                const buffer = Buffer.from(blob)
-                writeFileSync(outputPath, buffer)
-                bar.increment()
-
-            } catch (error) {
-                reject(`Error when downloading asset '${location}'. Error: ${error}`)
-            }
-        }
-        resolve()
-    })
-}
-
-async function downloadAssetsMultithread(
+async function validateAssetsMultithread(
     locations: string[],
     hashes: Map<string, string>,
-    threadCount: number = 6
+    threadCount: number = 8
 ) {
 
-    console.log("Validating files")
+    console.log("Validating CDN files...")
     const hashWork: Promise<any>[] = []
-    const toDownloadLocations: string[] = []
+    const invalidLocations: string[] = []
     const validateBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
     {
         const locationCount = locations.length
@@ -177,56 +149,22 @@ async function downloadAssetsMultithread(
                 locations,
                 hashes,
                 validateBar
-            ).then(res => toDownloadLocations.push(...res)))
+            ).then(res => invalidLocations.push(...res)))
         }
         
     }
     await Promise.all(hashWork)
     validateBar.stop()
 
-    // create bar
-    
-    const downloadBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
-    const threads: Promise<void>[] = []
-    {
-        const locationCount = toDownloadLocations.length
-        threadCount = Math.min(locationCount, threadCount)
-        const locationsPerThread = Math.floor(locationCount / threadCount)
-
-        console.log(`${locationCount} files need to be downloaded.`)
-        console.log("Downloading CDN")
-        downloadBar.start(locationCount, 0)
-
-        // create directories
-        for (const location of locations) {
-            const outputPath = path.join(OUTPUT_DIR, location)
-            const outputDir = path.dirname(outputPath)
-            if (!existsSync(outputDir)) {
-                mkdirSync(outputDir, {
-                    recursive: true
-                })
-            }
-        }
-
-
-        for (let i = 0; i < threadCount; i++) {
-            const start = locationsPerThread * i
-            const end = (i == (threadCount - 1)) ? locationCount : Math.min(locationCount, start + locationsPerThread)
-            threads.push(downloadAssets(
-                start,
-                end,
-                locations,
-                downloadBar
-            ))
-        }
-
+    const invalidCount = invalidLocations.length
+    const isCDNInvalid = invalidCount > 0
+    console.log(isCDNInvalid ? `Your copy of the CDN contains ${invalidCount} invalid and/or missing files.` : "Your copy of the CDN is valid.");
+    if (isCDNInvalid) {
+        console.log("Invalid and/or missing files: [", invalidLocations.join(", "), ']')
     }
-    await Promise.all(threads)
-
-    downloadBar.stop()
 }
 
-let platformChoice = readlineSync.question('Enter the platform to download the CDN for. \nPlatform [ALL/android/ios]: ')
+let platformChoice = readlineSync.question('Enter the platform you downloaded the CDN for. \nPlatform [ALL/android/ios]: ')
 switch (platformChoice.trim()) {
     case 'ios':
         platformChoice = 'ios'
@@ -239,7 +177,7 @@ switch (platformChoice.trim()) {
 }
 console.log(`Selected platform: "${platformChoice}".`)
 
-let langChoice = readlineSync.question('Enter the language code for the CDN you wish to download. \nLanguage Code [ALL/en/ko/th]: ')
+let langChoice = readlineSync.question('Enter the language code of the CDN you downloaded. \nLanguage Code [ALL/en/ko/th]: ')
 switch (langChoice.trim()) {
     case 'en':
         langChoice = 'en';
@@ -272,7 +210,4 @@ for (const [location, size] of Object.entries(locationsMap)) {
     total_size += size;
 }
 
-const choice = readlineSync.question(`The download will be ${Math.round((total_size / 1e+9) * 100) / 100} GB. Continue? \n[Y/n]:`)
-if (choice.trim() !== 'n') {
-    downloadAssetsMultithread(locations, hashes).then(_ => console.log("CDN downloaded successfully to '.cdn'."))
-}
+validateAssetsMultithread(locations, hashes)

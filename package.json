@@ -6,7 +6,7 @@
   "scripts": {
     "css": "npx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css",
     "dev": "npx tsc & npm run css && node --env-file=.env out/server.js",
-    "cdn": "npx tsc & node --env-file=.env out/download_cdn.js"
+    "cdn": "npx tsc & node --env-file=.env out/validate_cdn.js"
   },
   "author": "",
   "license": "ISC",
