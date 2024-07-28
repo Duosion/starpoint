@@ -2,10 +2,13 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import enAndroidFull from "../../../assets/asset_lists/en-android-full.json";
+import enAndroidShort from "../../../assets/asset_lists/en-android-short.json";
 import enIOSFull from "../../../assets/asset_lists/en-ios-full.json";
 import koAndroidFull from "../../../assets/asset_lists/ko-android-full.json";
+import koAndroidShort from "../../../assets/asset_lists/ko-android-short.json";
 import koIOSFull from "../../../assets/asset_lists/ko-ios-full.json";
 import thAndroidFull from "../../../assets/asset_lists/th-android-full.json";
+import thAndroidShort from "../../../assets/asset_lists/th-android-short.json";
 import thIOSFull from "../../../assets/asset_lists/th-ios-full.json";
 import { Platform, generateDataHeaders, getRequestPlatformSync } from "../../utils";
 
@@ -86,6 +89,7 @@ const routes = async (fastify: FastifyInstance) => {
     fastify.post("/get_path", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as GetPathBody
         const deviceLang = request.headers['device_lang']
+        const header = request.headers['asset_size']
         if (!deviceLang) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid headers provided."
@@ -93,6 +97,7 @@ const routes = async (fastify: FastifyInstance) => {
 
         // get the platform that this request originates from.
         const platform = getRequestPlatformSync(request)
+        const sendFull = header === 'fulfill'
 
         const headers = generateDataHeaders({
             viewer_id: body.viewer_id,
@@ -107,17 +112,17 @@ const routes = async (fastify: FastifyInstance) => {
                     case "ko":
                         return reply.send({
                             "data_headers": headers,
-                            "data": koAndroidFull
+                            "data": sendFull ? koAndroidFull : koAndroidShort
                         })
                     case "th":
                         return reply.send({
                             "data_headers": headers,
-                            "data": thAndroidFull
+                            "data": sendFull ? thAndroidFull : thAndroidShort
                         })
                     default:
                         return reply.send({
                             "data_headers": headers,
-                            "data": enAndroidFull
+                            "data": sendFull ? enAndroidFull : enAndroidShort
                         })
                 }
             case Platform.IOS:

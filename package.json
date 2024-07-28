@@ -6,7 +6,8 @@
   "scripts": {
     "css": "npx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css",
     "dev": "npx tsc & npm run css && node --env-file=.env out/server.js",
-    "cdn": "npx tsc & node --env-file=.env out/validate_cdn.js"
+    "cdn": "npx tsc & node --env-file=.env out/validate_cdn.js",
+    "unzip": "npx tsc & node --env-file=.env out/unzip_cdn.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "@types/cli-progress": "^3.11.6",
     "@types/node": "^20.14.2",
     "@types/readline-sync": "^1.4.8",
+    "@types/unzipper": "^0.10.9",
     "typescript": "^5.4.5"
   },
   "dependencies": {
@@ -25,7 +27,8 @@
     "fastify": "^4.27.0",
     "msgpackr": "^1.10.2",
     "readline-sync": "^1.4.10",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.4",
+    "unzipper": "^0.12.2"
   },
   "engines": {
     "node": ">=20.0.0"
