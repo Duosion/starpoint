@@ -2,12 +2,17 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import enAndroidFull from "../../../assets/asset_lists/en-android-full.json";
+import enAndroidShort from "../../../assets/asset_lists/en-android-short.json";
 import enIOSFull from "../../../assets/asset_lists/en-ios-full.json";
 import koAndroidFull from "../../../assets/asset_lists/ko-android-full.json";
+import koAndroidShort from "../../../assets/asset_lists/ko-android-short.json";
 import koIOSFull from "../../../assets/asset_lists/ko-ios-full.json";
 import thAndroidFull from "../../../assets/asset_lists/th-android-full.json";
+import thAndroidShort from "../../../assets/asset_lists/th-android-short.json";
 import thIOSFull from "../../../assets/asset_lists/th-ios-full.json";
 import { Platform, generateDataHeaders, getRequestPlatformSync } from "../../utils";
+import { existsSync } from "fs";
+import path from "path";
 
 interface GetPathBody {
     target_asset_version: string,
@@ -15,6 +20,13 @@ interface GetPathBody {
 }
 
 export const availableAssetVersion = "2.1.125";
+
+// check whether short CDNs are available.
+const env_cdn_dir = process.env.CDN_DIR || ".cdn"
+const cdn_dir = path.isAbsolute(env_cdn_dir) ? env_cdn_dir : path.join(__dirname, "..", "..", "..", env_cdn_dir)
+const enShortAvailable = existsSync(path.join(cdn_dir, "en", "entities", "files"))
+const koShortAvailable = existsSync(path.join(cdn_dir, "ko", "entities", "files"))
+const thShortAvailable = existsSync(path.join(cdn_dir, "th", "entities", "files"))
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/version_info", async(request: FastifyRequest, reply: FastifyReply) => {
@@ -86,6 +98,7 @@ const routes = async (fastify: FastifyInstance) => {
     fastify.post("/get_path", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as GetPathBody
         const deviceLang = request.headers['device_lang']
+        const header = request.headers['asset_size']
         if (!deviceLang) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid headers provided."
@@ -93,6 +106,7 @@ const routes = async (fastify: FastifyInstance) => {
 
         // get the platform that this request originates from.
         const platform = getRequestPlatformSync(request)
+        const sendFull = header === 'fulfill'
 
         const headers = generateDataHeaders({
             viewer_id: body.viewer_id,
@@ -107,17 +121,17 @@ const routes = async (fastify: FastifyInstance) => {
                     case "ko":
                         return reply.send({
                             "data_headers": headers,
-                            "data": koAndroidFull
+                            "data": sendFull || !koShortAvailable ? koAndroidFull : koAndroidShort
                         })
                     case "th":
                         return reply.send({
                             "data_headers": headers,
-                            "data": thAndroidFull
+                            "data": sendFull || !thShortAvailable ? thAndroidFull : thAndroidShort
                         })
                     default:
                         return reply.send({
                             "data_headers": headers,
-                            "data": enAndroidFull
+                            "data": sendFull || !enShortAvailable ? enAndroidFull : enAndroidShort
                         })
                 }
             case Platform.IOS:

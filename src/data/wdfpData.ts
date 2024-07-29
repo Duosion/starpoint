@@ -53,6 +53,26 @@ function getAccountSync(
 }
 
 /**
+ * Gets an account from their IdpId.
+ * 
+ * @param idpId The IdpId of the account.
+ * @returns An account or null.
+ */
+export function getAccountFromIdpIdSync(
+    idpId: string
+): Account | null {
+    const raw = db.prepare(`
+    SELECT id, app_id, first_login_time, idp_alias, idp_code, idp_id, reg_time, last_login_time, status
+    FROM accounts
+    WHERE idp_id = ?
+    `).get(idpId) as RawAccount | undefined
+
+    if (raw === undefined) return null
+
+    return buildAccount(raw)
+}
+
+/**
  * Gets an Account from their id.
  * 
  * @param accountId The ID of the Account to get.
@@ -2551,11 +2571,11 @@ export function updatePlayerBoxGachaSync(
         SET ${sets.join(', ')}
         WHERE player_id = ? AND id = ? AND box_id = ?
         `).run([
-            ...values,
-            playerId,
-            Number(gachaId),
-            boxGacha.boxId
-        ]);
+        ...values,
+        playerId,
+        Number(gachaId),
+        boxGacha.boxId
+    ]);
 }
 
 /**
@@ -3759,7 +3779,7 @@ export function dailyResetPlayerDataSync(
 ): boolean {
     const lastLoginTime = player.lastLoginTime
     const playerId = player.id
-    if ( (loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate()) ) {
+    if ((loginDate.getUTCFullYear() > lastLoginTime.getUTCFullYear()) || (loginDate.getUTCMonth() > lastLoginTime.getUTCMonth()) || (loginDate.getUTCDate() > lastLoginTime.getUTCDate())) {
         // TODO: daily reset logic.
         updatePlayerSync({
             id: playerId,

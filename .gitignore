@@ -13,3 +13,4 @@ build
 .mitmproxy/mitmproxy.exe
 .mitmproxy/mitmweb.exe
 .mitmproxy/mitmdump.exe
+.unzip-temp

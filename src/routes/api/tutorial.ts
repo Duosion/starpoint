@@ -5,6 +5,7 @@ import { generateDataHeaders, getServerTime } from "../../utils";
 import { getGachaSync } from "../../lib/assets";
 import { randomPoolItem, rewardPlayerGachaDrawResultSync } from "../../lib/gacha";
 import { randomInt } from "crypto";
+import { GachaCharacterDraw } from "../../lib/types";
 
 interface UpdateStepBody {
     viewer_id: number
@@ -147,6 +148,10 @@ const routes = async (fastify: FastifyInstance) => {
                 freeVmoney: newFreeVmoney
             })
 
+            const draw = rewardResult.draw[0] as GachaCharacterDraw
+            draw.movie_id = "normal_guarantee"
+            draw.seed = 10007656
+
             return reply.status(200).send({
                 "data_headers": headers,
                 "data": {
@@ -155,7 +160,6 @@ const routes = async (fastify: FastifyInstance) => {
                         "free_vmoney": newFreeVmoney,
                     },
                     "gacha": {
-                        
                         "draw": rewardResult.draw,
                         "gacha_info_list": [
                             {

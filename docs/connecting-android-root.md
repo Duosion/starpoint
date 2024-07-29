@@ -35,12 +35,12 @@ This guide expects your Android device or emulator to be rooted using Magisk.
    - For non-Windows users or manual setup, see the "Manual Server Start Method" section below.
 3. Two windows should open.
    - One of the windows should eventually show ``StarPoint is listening on http://localhost:8000``. This may take a minute or two, give it some time.
-   - The other window should show ``Flows`` in the top left.
+   - The other window should show ``Flows`` in its top left corner.
 
 ## Device/Emulator Setup
 
 ### Wi-Fi Proxy Setup
-This is a general guide. The process will vary depending on the version of Android and the OS's distributor.
+This is a general guide. The process will vary depending on your version of Android its distributor.
 
 1. Open your device's settings.
 2. Navigate to the Wi-Fi menu.
