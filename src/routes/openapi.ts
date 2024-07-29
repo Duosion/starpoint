@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SessionType } from "../data/types";
-import { deleteAccountSessionsOfType, deleteSession, getAccount, getAccountFromPlayerIdSync, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
+import { deleteAccountSessionsOfType, deleteSession, getAccount, getAccountFromIdpIdSync, getAccountFromPlayerIdSync, getSession, insertAccount, insertSession, updateAccount } from "../data/wdfpData";
 import { generateIdpAlias } from "../utils";
 
 interface CreateDeviceAccessTokenBody {
@@ -282,18 +282,20 @@ const routes = async (fastify: FastifyInstance) => {
         const rawAccountId = request.headers['playerid'] as string | undefined
         const accountId = rawAccountId ? Number.parseInt(rawAccountId) : undefined
 
-        const idpAlias = generateIdpAlias(appId, deviceId, serialNo)
+        //const idpAlias = generateIdpAlias(appId, deviceId, serialNo)
+        const idpId = body.whiteKey
 
         // create account
-        const account = accountId !== undefined ? await getAccount(accountId) : await insertAccount({
+        const existingAccount = accountId === undefined ? getAccountFromIdpIdSync(idpId) : await getAccount(accountId)
+        const account = existingAccount === null ? await insertAccount({
             appId: body.appId,
-            idpAlias: idpAlias,
+            idpAlias: generateIdpAlias(appId, deviceId, serialNo),
             idpCode: "zd3",
-            idpId: "6076018502",
+            idpId: idpId,
             status: "normal",
-        })
+        }) : existingAccount
 
-        if (account === null || account.idpAlias !== idpAlias) return reply.status(400).send({
+        if (account === null || account.idpId !== idpId) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid playerId provided."
         })

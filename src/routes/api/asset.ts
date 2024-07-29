@@ -11,6 +11,8 @@ import thAndroidFull from "../../../assets/asset_lists/th-android-full.json";
 import thAndroidShort from "../../../assets/asset_lists/th-android-short.json";
 import thIOSFull from "../../../assets/asset_lists/th-ios-full.json";
 import { Platform, generateDataHeaders, getRequestPlatformSync } from "../../utils";
+import { existsSync } from "fs";
+import path from "path";
 
 interface GetPathBody {
     target_asset_version: string,
@@ -18,6 +20,13 @@ interface GetPathBody {
 }
 
 export const availableAssetVersion = "2.1.125";
+
+// check whether short CDNs are available.
+const env_cdn_dir = process.env.CDN_DIR || ".cdn"
+const cdn_dir = path.isAbsolute(env_cdn_dir) ? env_cdn_dir : path.join(__dirname, "..", "..", "..", env_cdn_dir)
+const enShortAvailable = existsSync(path.join(cdn_dir, "en", "entities", "files"))
+const koShortAvailable = existsSync(path.join(cdn_dir, "ko", "entities", "files"))
+const thShortAvailable = existsSync(path.join(cdn_dir, "th", "entities", "files"))
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/version_info", async(request: FastifyRequest, reply: FastifyReply) => {
@@ -112,17 +121,17 @@ const routes = async (fastify: FastifyInstance) => {
                     case "ko":
                         return reply.send({
                             "data_headers": headers,
-                            "data": sendFull ? koAndroidFull : koAndroidShort
+                            "data": sendFull || !koShortAvailable ? koAndroidFull : koAndroidShort
                         })
                     case "th":
                         return reply.send({
                             "data_headers": headers,
-                            "data": sendFull ? thAndroidFull : thAndroidShort
+                            "data": sendFull || !thShortAvailable ? thAndroidFull : thAndroidShort
                         })
                     default:
                         return reply.send({
                             "data_headers": headers,
-                            "data": sendFull ? enAndroidFull : enAndroidShort
+                            "data": sendFull || !enShortAvailable ? enAndroidFull : enAndroidShort
                         })
                 }
             case Platform.IOS:

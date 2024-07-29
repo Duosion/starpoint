@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, renameSync, rmdirSync } from "fs";
 import { Open } from "unzipper";
 import path from "path";
+import cliProgress, { SingleBar } from "cli-progress";
 
 interface EntityData {
     zipPath: string,
@@ -10,14 +11,14 @@ interface EntityData {
     tag: string
 }
 
-type EntityMap = Map<string, EntityData> 
+type EntityMap = Map<string, EntityData>
 
-const concurrency: number = 6
+const concurrency: number = 8
 
 const validCDNFolders: Record<string, boolean> = {
     "en": true,
-    // "ko": true,
-    // "th": true
+    "ko": true,
+    "th": true
 }
 
 const tempDir = path.join(__dirname, "..", ".unzip-temp")
@@ -60,6 +61,73 @@ function parseEntityCSV(path: string, existing?: EntityMap): EntityMap {
     return entityMap
 }
 
+function unzipArchives(
+    start: number,
+    end: number,
+    zipPaths: string[],
+
+    // directory data
+    entitiesFilesPath: string,
+    entityMap: EntityMap,
+
+    // bar data
+    bar: SingleBar
+): Promise<void> {
+    return new Promise<void>(async (resolve, reject) => {
+        try {
+            for (let i = start; i < end; i++) {
+                const zipPath = zipPaths[i]
+                const tempPath = path.join(tempDir, zipPath)
+                if (!existsSync(tempPath)) {
+                    mkdirSync(tempPath, { recursive: true })
+                }
+
+                const open = await Open.file(zipPath)
+                await open.extract({ path: tempPath, concurrency: concurrency })
+
+                // iterate extracted files
+                for (const productionFile of readdirSync(tempPath)) {
+                    if (productionFile === "production") {
+                        const productionPath = path.join(tempPath, productionFile)
+                        const productionFiles = readdirSync(productionPath)
+                        const uploadFile = productionFiles[0]
+                        if (uploadFile !== undefined) {
+                            const uploadPath = path.join(productionPath, uploadFile)
+                            for (const hex of readdirSync(uploadPath)) {
+                                if (hex !== "hash") {
+                                    const hexPath = path.join(uploadPath, hex)
+                                    for (const hash of readdirSync(hexPath)) {
+                                        const hashDir = path.join(hexPath, hash)
+
+                                        const zipPath = `production/${uploadFile}/${hex}/${hash}`
+                                        const entityData = entityMap.get(zipPath)
+                                        if (entityData !== undefined) {
+                                            const newPath = path.join(entitiesFilesPath, entityData.hash)
+                                            if (!existsSync(newPath)) {
+                                                renameSync(hashDir, newPath)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // increment bar
+                bar.increment()
+
+                // remove temp folder
+                rmSync(tempPath, { recursive: true })
+            }
+
+            resolve()
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 /**
  * Unzips a language's files into its entities path for partial asset downloading
  * 
@@ -84,55 +152,45 @@ async function unzipLanguage(dirPath: string) {
         mkdirSync(entitiesFilesPath)
     }
 
-    // unzip each zip
+    // get individual zips
+    const zipPaths: string[] = []
     for (const archiveName of readdirSync(dirPath)) {
         if (archiveName !== "entities") {
             const archivePath = path.join(dirPath, archiveName)
             for (const zipName of readdirSync(archivePath)) {
-                const zipPath = path.join(archivePath, zipName)
-
-                const tempPath = path.join(tempDir, zipName)
-                if (!existsSync(tempPath)) {
-                    mkdirSync(tempPath)
-                }
-
-                const open = await Open.file(zipPath)
-                await open.extract({path: tempPath, concurrency: concurrency})
-
-                // iterate extracted files
-                for (const productionFile of readdirSync(tempPath)) {
-                    if ( productionFile === "production") {
-                        const productionPath = path.join(tempPath, productionFile)
-                        const productionFiles = readdirSync(productionPath)
-                        const uploadFile = productionFiles[0]
-                        if (uploadFile !== undefined) {
-                            const uploadPath = path.join(productionPath, uploadFile)
-                            for (const hex of readdirSync(uploadPath)) {
-                                if (hex !== "hash") {
-                                    const hexPath = path.join(uploadPath, hex)
-                                    for (const hash of readdirSync(hexPath)) {
-                                        const hashDir = path.join(hexPath, hash)
-    
-                                        const zipPath = `production/${uploadFile}/${hex}/${hash}`
-                                        const entityData = entityMap.get(zipPath)
-                                        if (entityData !== undefined) {
-                                            const newPath = path.join(entitiesFilesPath, entityData.hash)
-                                            if (!existsSync(newPath)) {  
-                                                renameSync(hashDir, newPath)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                // remove temp folder
-                rmSync(tempPath, { recursive: true })
+                zipPaths.push(path.join(archivePath, zipName))
             }
         }
     }
+
+    // prepare progress bar
+    const unzipBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
+
+    // unzip each zip
+    const zipCount = zipPaths.length
+    const threadCount = Math.min(zipCount, concurrency)
+    const zipsPerThread = Math.floor(zipCount / threadCount)
+
+    // start unzipping
+    const work: Promise<void>[] = []
+    console.log(`Unzipping '${dirPath}'...`)
+    unzipBar.start(zipCount, 0)
+
+    for (let i = 0; i < threadCount; i++) {
+        const start = zipsPerThread * i
+        const end = (i === (threadCount - 1)) ? zipCount : Math.min(zipCount, start + zipsPerThread)
+        work.push(unzipArchives(
+            start,
+            end,
+            zipPaths,
+            entitiesFilesPath,
+            entityMap,
+            unzipBar
+        ))
+    }
+
+    await Promise.all(work)
+    console.log(`Successfully unzipped '${dirPath}'.`)
 }
 
 async function unzip() {
