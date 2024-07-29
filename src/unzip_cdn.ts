@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, renameSync, rmdirSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, renameSync } from "fs";
 import { Open } from "unzipper";
 import path from "path";
 import cliProgress, { SingleBar } from "cli-progress";
@@ -201,7 +201,7 @@ async function unzip() {
         }
     }
     console.log("Successfully unzipped CDN.")
-    rmdirSync(tempDir)
+    rmSync(tempDir, { recursive: true })
 }
 
 unzip()
