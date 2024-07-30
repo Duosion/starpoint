@@ -51,8 +51,8 @@ Endpoint | Status
 [/mail/index](./routes/mail_index.md) | :warning:
 [/mail/receive](./routes/mail_receive.md) | :no_entry:
 [/mail/receive_all](./routes/mail_receive_all.md) | :no_entry:
-[/mission/get_mission_progress](./routes/mission_get_mission_progress.md) | :no_entry:
-[/mission/update_mission_progress](./routes/mission_update_mission_progress.md) | :no_entry:
+[/mission/get_mission_progress](./routes/mission_get_mission_progress.md) | :warning:
+[/mission/update_mission_progress](./routes/mission_update_mission_progress.md) | :warning:
 [/multi_battle_quest/abort](./routes/multi_battle_quest_abort.md) | :no_entry:
 [/multi_battle_quest/create_room](./routes/multi_battle_quest_create_room.md) | :no_entry:
 [/multi_battle_quest/disband_room](./routes/multi_battle_quest_disband_room.md) | :no_entry:
