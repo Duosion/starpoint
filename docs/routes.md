@@ -69,7 +69,7 @@ Endpoint | Status
 [/option/update_in_battle](./routes/option_update_in_battle.md) | :white_check_mark:
 [/party/edit](./routes/party_edit.md) | :white_check_mark:
 [/party_group/edit](./routes/party_group_edit.md) | :white_check_mark:
-[/payment/item_list](./routes/payment_item_list.md) | :no_entry:
+[/payment/item_list](./routes/payment_item_list.md) | :white_check_mark:
 [/profile/get_my_profile](./routes/profile_get_my_profile.md) | :no_entry:
 [/reproduce/post](./routes/reproduce_post.md) | :white_check_mark:
 [/shop/buy](./routes/shop_buy.md) | :white_check_mark:
