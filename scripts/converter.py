@@ -81,7 +81,7 @@ def convert_boss_quests(obj):
                     }
     return converted
 
-def convert_event_quest(obj):
+def convert_world_story_event_quest(obj):
     converted = {}
     for _, chapter_stages in obj.items():
         for _, chapter in chapter_stages.items():
@@ -109,6 +109,29 @@ def convert_event_quest(obj):
                 if chapter[71] != "(None)":
                     converted_chapter["scoreRewardGroup"] = int(chapter[71])
                 converted[chapter[0]] = converted_chapter
+
+    return converted
+
+def convert_world_story_event_boss_battle_quest(obj):
+    converted = {}
+    for _, chapter_stages in obj.items():
+        for _, chapter in chapter_stages.items():
+            converted_chapter = {
+                "name": "", #chapter[2],
+                "clearRewardId": int(chapter[4]),
+                "sPlusRewardId": 1,
+                "bRankTime": floor(float(chapter[84]) * 1000),
+                "aRankTime": floor(float(chapter[85]) * 1000),
+                "sRankTime": floor(float(chapter[86]) * 1000),
+                "sPlusRankTime":  floor(float(chapter[87]) * 1000),
+                "rankPointReward": int(chapter[93]),
+                "characterExpReward": int(chapter[94]),
+                "manaReward": int(chapter[95]),
+                "poolExpReward": int(chapter[97])
+            }
+            if chapter[70] != "(None)":
+                converted_chapter["scoreRewardGroup"] = int(chapter[70])
+            converted[chapter[0]] = converted_chapter
 
     return converted
 
@@ -933,8 +956,8 @@ to_convert_files = {
     "ex_boost": convert_ex_boost,
     "ex_status": convert_ex_status,
     "ex_ability": convert_ex_ability,
-    "world_story_event_boss_battle_quest": convert_event_quest,
-    "world_story_event_quest": convert_event_quest,
+    "world_story_event_boss_battle_quest": convert_world_story_event_boss_battle_quest,
+    "world_story_event_quest": convert_world_story_event_quest,
     "advent_event_quest": convert_advent_quest,
     "daily_exp_mana_event_quest": convert_daily_exp_mana_event_quest,
     "daily_week_event_quest": convert_daily_week_event_quest,
