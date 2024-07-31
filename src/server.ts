@@ -28,6 +28,7 @@ import mailApiPlugin from "./routes/api/mail"
 import rankingEventApiPlugin from "./routes/api/rankingEvent"
 import missionApiPlugin from "./routes/api/mission"
 import paymentApiPlugin from "./routes/api/payment"
+import newsApiPlugin from "./routes/api/news"
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -115,6 +116,7 @@ fastify.register(mailApiPlugin, { prefix: `${apiPrefix}/mail` })
 fastify.register(rankingEventApiPlugin, { prefix: `${apiPrefix}/ranking_event` })
 fastify.register(missionApiPlugin, { prefix: `${apiPrefix}/mission` })
 fastify.register(paymentApiPlugin, { prefix: `${apiPrefix}/payment` })
+fastify.register(newsApiPlugin, { prefix: `${apiPrefix}/news` })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
