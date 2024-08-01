@@ -76,7 +76,7 @@ Endpoint | Status
 [/shop/get_sales_list](./routes/shop_get_sales_list.md) | :warning:
 [/single_battle_quest/abort](./routes/single_battle_quest_abort.md) | :white_check_mark:
 [/single_battle_quest/finish](./routes/single_battle_quest_finish.md) | :white_check_mark:
-[/single_battle_quest/play_continue](./routes/single_battle_quest_play_continue.md) | :no_entry:
+[/single_battle_quest/play_continue](./routes/single_battle_quest_play_continue.md) | :white_check_mark:
 [/single_battle_quest/start](./routes/single_battle_quest_start.md) | :white_check_mark:
 [/sns/get](./routes/sns_get.md) | :no_entry:
 [/story_quest/finish](./routes/story_quest_finish.md) | :white_check_mark:
