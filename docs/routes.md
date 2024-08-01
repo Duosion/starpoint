@@ -72,6 +72,8 @@ Endpoint | Status
 [/payment/item_list](./routes/payment_item_list.md) | :white_check_mark:
 [/profile/get_my_profile](./routes/profile_get_my_profile.md) | :no_entry:
 [/reproduce/post](./routes/reproduce_post.md) | :white_check_mark:
+``/ranking_event/get_summary`` | :white_check_mark:
+``/ranking_event/receive_reward`` | :white_check_mark:
 [/shop/buy](./routes/shop_buy.md) | :white_check_mark:
 [/shop/get_sales_list](./routes/shop_get_sales_list.md) | :warning:
 [/single_battle_quest/abort](./routes/single_battle_quest_abort.md) | :white_check_mark:

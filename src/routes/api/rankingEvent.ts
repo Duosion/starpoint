@@ -27,11 +27,49 @@ const rankingEventIdQuestMap: Record<number, number> = {
 }
 
 const rankingEventTopTimesMs: Record<number, number> = {
-    [1]: 33830,
-    [2]: 33830,
-    [3]: 25143,
-    [4]: 40909,
-    [5]: 6987
+    [1]: 54410,
+    [2]: 25800,
+    [3]: 18880,
+    [4]: 31720,
+    [5]: 6540
+}
+
+/**
+ * Generates a ranking summary for a specific player & ranking event.
+ * 
+ * @param playerId 
+ * @param eventId 
+ * @returns 
+ */
+function getRankingSummary(
+    playerId: number,
+    eventId: number
+): Object | null {
+    // get quest
+    const questId = rankingEventIdQuestMap[eventId]
+    if (questId === undefined) return null;
+
+    const topTime = rankingEventTopTimesMs[eventId] ?? 0
+
+    // get data for the ranking quest
+    const playerQuestData = getPlayerSingleQuestProgressSync(playerId, QuestCategory.RANKING_EVENT_SINGLE, questId)
+    const isAccomplished = playerQuestData !== null && playerQuestData.bestElapsedTimeMs !== undefined && playerQuestData.bestElapsedTimeMs !== null
+
+    return {
+        "best_record": {
+            "elapsed_time_ms": isAccomplished ? playerQuestData.bestElapsedTimeMs ?? 0 : 0,
+            "is_accomplished": isAccomplished,
+            "score": isAccomplished ? playerQuestData.highScore ?? 0 : 0
+        },
+        "leader_character_evolution_img_level": 1,
+        "leader_character_id": 1,
+        "rank_border_top": {
+            "elapsed_time_ms": topTime,
+            "is_accomplished": true,
+            "score": 1110111
+        },
+        "rank_percentage": isAccomplished ? 1 - (topTime / (playerQuestData.bestElapsedTimeMs ?? 1)) : 100
+    }
 }
 
 const routes = async (fastify: FastifyInstance) => {
@@ -60,39 +98,19 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
-        // get quest
-        const questId = rankingEventIdQuestMap[eventId]
-        if (questId === undefined) return reply.status(400).send({
+        // get summary
+        const summary = getRankingSummary(playerId, eventId)
+        if (summary === null) return reply.status(400).send({
             "error": "Bad Request",
-            "message": `No quest found for ranking event with id '${eventId}'.`
+            "message": `Summary could not be generated for '${eventId}' and PlayerId '${playerId}'.`
         })
-
-        const topTime = rankingEventTopTimesMs[eventId] ?? 0
-
-        // get data for the ranking quest
-        const playerQuestData = getPlayerSingleQuestProgressSync(playerId, QuestCategory.RANKING_EVENT_SINGLE, questId)
-        const isAccomplished = playerQuestData !== null && playerQuestData.bestElapsedTimeMs !== undefined && playerQuestData.bestElapsedTimeMs !== null
 
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
                 viewer_id: viewerId
             }),
-            "data": {
-                "best_record": {
-                    "elapsed_time_ms": isAccomplished ? playerQuestData.bestElapsedTimeMs ?? 0 : 0,
-                    "is_accomplished": isAccomplished,
-                    "score": isAccomplished ? playerQuestData.highScore ?? 0 : 0
-                },
-                "leader_character_evolution_img_level": 1,
-                "leader_character_id": 1,
-                "rank_border_top": {
-                    "elapsed_time_ms": topTime,
-                    "is_accomplished": true,
-                    "score": 1110111
-                },
-                "rank_percentage": isAccomplished ? 1 - (topTime / (playerQuestData.bestElapsedTimeMs ?? 1)) : 100
-            }
+            "data": summary
         })
     })
 
@@ -100,7 +118,8 @@ const routes = async (fastify: FastifyInstance) => {
         const body = request.body as ReceiveRewardBody
 
         const viewerId = body.viewer_id
-        if (!viewerId || isNaN(viewerId)) return reply.status(400).send({
+        const eventId = body.ranking_event_id
+        if (isNaN(viewerId) || isNaN(eventId)) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Invalid request body."
         })
@@ -111,6 +130,22 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Invalid viewer id."
         })
 
+        // get player id
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No player bound to account."
+        })
+
+        // get summary
+        const summary = getRankingSummary(playerId, eventId)
+        if (summary === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": `Summary could not be generated for '${eventId}' and PlayerId '${playerId}'.`
+        })
+
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
@@ -118,19 +153,7 @@ const routes = async (fastify: FastifyInstance) => {
             }),
             "data": {
                 "status": 1,
-                "best_record": {
-                    "elapsed_time_ms": 0,
-                    "is_accomplished": false,
-                    "score": 0
-                },
-                "leader_character_evolution_img_level": 1,
-                "leader_character_id": 1,
-                "rank_border_top": {
-                    "elapsed_time_ms": 500.0,
-                    "is_accomplished": true,
-                    "score": 1.0
-                },
-                "rank_percentage": 100
+                ...summary
             }
         })
     })
