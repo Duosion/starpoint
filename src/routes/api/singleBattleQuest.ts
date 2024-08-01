@@ -145,12 +145,10 @@ const routes = async (fastify: FastifyInstance) => {
         // check current quest progress
         const questProgress = getPlayerSingleQuestProgressSync(playerId, questCategory, questId);
         const questPreviouslyCompleted = questProgress !== null
-        const finished = questProgress !== null ? questProgress.finished : false
-        const questAccomplished = !finished && body.is_accomplished
+        const questAccomplished = body.is_accomplished
 
         const clearReward = !questPreviouslyCompleted && questData.clearReward !== undefined ? givePlayerRewardSync(playerId, questData.clearReward) : null
         const sPlusClearReward = (clearRank === 5) && (questProgress?.clearRank !== 5) && (questData.sPlusReward !== undefined) ? givePlayerRewardSync(playerId, questData.sPlusReward) : null
-
         if (questAccomplished) {
             // update quest progress
             if (questPreviouslyCompleted) {
@@ -158,7 +156,7 @@ const routes = async (fastify: FastifyInstance) => {
                 updatePlayerQuestProgressSync(playerId, questCategory, {
                     questId: questId,
                     finished: true,
-                    bestElapsedTimeMs: questProgress.bestElapsedTimeMs === undefined ? clearTime : Math.min(clearTime, questProgress.bestElapsedTimeMs),
+                    bestElapsedTimeMs: questProgress.bestElapsedTimeMs === undefined || questProgress.bestElapsedTimeMs === null ? clearTime : Math.min(clearTime, questProgress.bestElapsedTimeMs),
                     clearRank: questProgress.clearRank === undefined ? clearRank : Math.max(clearRank, questProgress.clearRank),
                     highScore: questProgress.highScore === undefined ? body.score : Math.max(body.score, questProgress.highScore)
                 })
