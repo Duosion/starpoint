@@ -26,6 +26,9 @@ import shopApiPlugin from "./routes/api/shop"
 import encyclopediaApiPlugin from "./routes/api/encyclopedia"
 import mailApiPlugin from "./routes/api/mail"
 import rankingEventApiPlugin from "./routes/api/rankingEvent"
+import missionApiPlugin from "./routes/api/mission"
+import paymentApiPlugin from "./routes/api/payment"
+import newsApiPlugin from "./routes/api/news"
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -108,9 +111,12 @@ fastify.register(equipmentApiPlugin, { prefix: `${apiPrefix}/equipment` })
 fastify.register(exBoostApiPlugin, { prefix: `${apiPrefix}/ex_boost` })
 fastify.register(boxGachaApiPlugin, { prefix: `${apiPrefix}/box_gacha` })
 fastify.register(shopApiPlugin, { prefix: `${apiPrefix}/shop` })
-fastify.register(encyclopediaApiPlugin,  { prefix: `${apiPrefix}/encyclopedia` })
+fastify.register(encyclopediaApiPlugin, { prefix: `${apiPrefix}/encyclopedia` })
 fastify.register(mailApiPlugin, { prefix: `${apiPrefix}/mail` })
 fastify.register(rankingEventApiPlugin, { prefix: `${apiPrefix}/ranking_event` })
+fastify.register(missionApiPlugin, { prefix: `${apiPrefix}/mission` })
+fastify.register(paymentApiPlugin, { prefix: `${apiPrefix}/payment` })
+fastify.register(newsApiPlugin, { prefix: `${apiPrefix}/news` })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })
@@ -119,7 +125,7 @@ fastify.register(openapiPlugin, { prefix: "/openapi/service" })
 fastify.register(infodeskPlugin, { prefix: "/infodesk" })
 
 // web routes
-fastify.register(indexWebPlugin, { prefix: "/" }),
+fastify.register(indexWebPlugin, { prefix: "/" })
 
 // web api routes
 fastify.register(indexWebApiPlugin, { prefix: "/api" })

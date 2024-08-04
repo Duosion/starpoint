@@ -50,6 +50,9 @@ For a more in-depth view of the progress completed, visit the [API routes docume
 - **I am getting an 'H404' error**
   - Receiving this error means that the feature you are trying to interact with has not been implemented yet.
 
+## Modding
+Follow the [modding guide](/docs/modding.md) to learn more about installing & creating mods.
+
 ## Connecting
 In order to utilize Starpoint, you will have to redirect traffic from the game client, originally intended for the official servers, to an instance of Starpoint running on your computer.
 - [Android Connection Guide (No Root)](/docs/connecting-android.md)
