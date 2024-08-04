@@ -147,6 +147,7 @@ const routes = async (fastify: FastifyInstance) => {
             const idpAlias = generateIdpAlias(body.appId, body.deviceId, body.os)
             const accountId = Number.parseInt(body.playerId)
             const account = isNaN(accountId) ? null : await getAccount(accountId)
+            console.log(idpAlias, account?.idpAlias)
             if (account && account.idpAlias === idpAlias) {
                 // delete old session
                 await deleteAccountSessionsOfType(account.id, SessionType.ZAT)
