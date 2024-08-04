@@ -139,7 +139,7 @@ if (modsExist) {
         }
 
         if (update) {
-            console.log("Loading mods...")
+            console.log("Loading Mods...")
             const newLoadedMods: PathListArchive[] = []
             for (const modZipName of modZipNames) {
                 const modZipPath = path.join(modsDir, modZipName)
@@ -163,7 +163,7 @@ if (modsExist) {
             writeFileSync(cdnMetadataPath, toSave, { encoding: "utf-8" })
         }
 
-        console.log("Mods loaded.")
+        console.log(`${cdnMetadata.mods.length} Mods Loaded.`)
     } catch (error) {
         console.log(`Error when loading mods: ${error}`)
     }
