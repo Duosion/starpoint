@@ -130,11 +130,13 @@ if (modsExist) {
 
         // check if we need to update the asset version (load new mods)
         let update = loadedMods.length !== modZipNames.length
-        for (const mod of loadedMods) {
-            const modPath = path.join(modsDir, "..", mod.location.replace("{$cdnAddress}", ""))
-            update = existsSync(modPath) ? createHash('sha256').update(readFileSync(modPath)).digest('base64') !== mod.sha256 : true
-            if (update) {
-                break
+        if (!update) {
+            for (const mod of loadedMods) {
+                const modPath = path.join(modsDir, "..", mod.location.replace("{$cdnAddress}", ""))
+                update = existsSync(modPath) ? createHash('sha256').update(readFileSync(modPath)).digest('base64') !== mod.sha256 : true
+                if (update) {
+                    break
+                }
             }
         }
 
