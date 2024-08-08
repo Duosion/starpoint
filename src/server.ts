@@ -36,6 +36,12 @@ import indexWebApiPlugin from "./routes/web_api"
 // misc routes
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
+// CN routes
+import biligamePlugin from "./routes/leiting/biligame";
+import leitingCfgsdkPlugin from "./routes/leiting/cfgsdk";
+import leitingUpdatePlugin from "./routes/leiting/update";
+import leitingProphetPlugin from "./routes/leiting/prophet";
+import leitingOssskyeyePlugin from "./routes/leiting/ossskyeye";
 
 // gc-openapi-zinny3.kakaogames.com
 // gc-infodesk-zinny3.kakaogames.com
@@ -76,7 +82,7 @@ function jsonParser(_: FastifyRequest, body: string, done: ContentTypeParserDone
 fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (request: FastifyRequest, body: string, done) => {
     // on IOS, for some reason, requests to infodesk and openapi are JSON, but the content-type header is set as 'application/x-www-form-urlencoded'
     const routeUrl = request.routeOptions.url || ''
-    if (routeUrl.startsWith("/openapi") || routeUrl.startsWith("/infodesk"))
+    if (routeUrl.startsWith("/openapi") || routeUrl.startsWith("/infodesk") || routeUrl.startsWith("/biligame") || routeUrl.startsWith("/leiting"))
         return jsonParser(request, body, done);
 
     try {
@@ -129,6 +135,13 @@ fastify.register(indexWebPlugin, { prefix: "/" })
 
 // web api routes
 fastify.register(indexWebApiPlugin, { prefix: "/api" })
+
+// CN routes
+fastify.register(biligamePlugin, { prefix: "/biligame" })
+fastify.register(leitingCfgsdkPlugin, { prefix: "/leiting/cfgsdk" })
+fastify.register(leitingUpdatePlugin, { prefix: "/leiting/update" })
+fastify.register(leitingProphetPlugin, { prefix: "/leiting/prophet" })
+fastify.register(leitingOssskyeyePlugin, { prefix: "/leiting/ossskyeye" })
 
 // web static
 fastify.register(fastifyStatic, {
