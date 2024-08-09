@@ -1,0 +1,12 @@
+[req]
+default_bit = 4096
+distinguished_name = req_distinguished_name
+prompt = no
+default_keyfile = generated/starpoint_multiversal.key
+default_days	= 365
+
+[req_distinguished_name]
+countryName             = WF
+stateOrProvinceName     = MM
+localityName            = Dia
+organizationName        = Starpoint_SelfServe
