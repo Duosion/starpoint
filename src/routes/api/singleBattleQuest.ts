@@ -39,6 +39,15 @@ interface FinishBody {
     api_count: number
 }
 
+interface PlayContinueBody {
+    api_count: number,
+    payment_type: number,
+    quest_id: number,
+    viewer_id: number,
+    paly_id: string,
+    category: number
+}
+
 interface AbortBody {
     api_count: number,
     finish_kind: number,
@@ -63,6 +72,8 @@ interface ActiveQuest {
     useBoostPoint: boolean
     isAutoStartMode: boolean
 }
+
+const continueVmoneyCost = 50;
 
 const activeQuests: Record<number, ActiveQuest> = {}
 
@@ -134,12 +145,10 @@ const routes = async (fastify: FastifyInstance) => {
         // check current quest progress
         const questProgress = getPlayerSingleQuestProgressSync(playerId, questCategory, questId);
         const questPreviouslyCompleted = questProgress !== null
-        const finished = questProgress !== null ? questProgress.finished : false
-        const questAccomplished = !finished && body.is_accomplished
+        const questAccomplished = body.is_accomplished
 
         const clearReward = !questPreviouslyCompleted && questData.clearReward !== undefined ? givePlayerRewardSync(playerId, questData.clearReward) : null
         const sPlusClearReward = (clearRank === 5) && (questProgress?.clearRank !== 5) && (questData.sPlusReward !== undefined) ? givePlayerRewardSync(playerId, questData.sPlusReward) : null
-
         if (questAccomplished) {
             // update quest progress
             if (questPreviouslyCompleted) {
@@ -147,7 +156,7 @@ const routes = async (fastify: FastifyInstance) => {
                 updatePlayerQuestProgressSync(playerId, questCategory, {
                     questId: questId,
                     finished: true,
-                    bestElapsedTimeMs: questProgress.bestElapsedTimeMs === undefined ? clearTime : Math.min(clearTime, questProgress.bestElapsedTimeMs),
+                    bestElapsedTimeMs: questProgress.bestElapsedTimeMs === undefined || questProgress.bestElapsedTimeMs === null ? clearTime : Math.min(clearTime, questProgress.bestElapsedTimeMs),
                     clearRank: questProgress.clearRank === undefined ? clearRank : Math.max(clearRank, questProgress.clearRank),
                     highScore: questProgress.highScore === undefined ? body.score : Math.max(body.score, questProgress.highScore)
                 })
@@ -350,6 +359,71 @@ const routes = async (fastify: FastifyInstance) => {
                 "quest_name": ""
             }
         })
+    })
+
+    fastify.post("/play_continue", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as PlayContinueBody
+
+        const viewerId = body.viewer_id
+        if (isNaN(viewerId)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        const player = isNaN(playerId) ? null : getPlayerSync(playerId)
+
+        if (player === null) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No player bound to account."
+        })
+
+        // get active quest data
+        const activeQuestData = activeQuests[playerId]
+        if (activeQuestData === undefined) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "No active quest to continue."
+        })
+
+        const freeVmoney = player.freeVmoney
+        const newFreeVmoney = freeVmoney - continueVmoneyCost
+        const vmoney = player.vmoney
+        const newVmoney = 0 > newFreeVmoney ? vmoney - continueVmoneyCost : vmoney
+        if (0 > newFreeVmoney && 0 > newVmoney) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Not enough vmoney to continue"
+        })
+
+        // update the player's vmoney balances
+        const setNewFreeVmoney = 0 > newFreeVmoney ? freeVmoney : newFreeVmoney
+        updatePlayerSync({
+            id: playerId,
+            freeVmoney: setNewFreeVmoney,
+            vmoney: newVmoney
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "user_info": {
+                    "free_vmoney": setNewFreeVmoney,
+                    "vmoney": newVmoney
+                },
+                "mail_arrived": false
+            }
+        })
+
     })
 }
 

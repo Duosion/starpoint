@@ -282,14 +282,14 @@ const routes = async (fastify: FastifyInstance) => {
         const rawAccountId = request.headers['playerid'] as string | undefined
         const accountId = rawAccountId ? Number.parseInt(rawAccountId) : undefined
 
-        //const idpAlias = generateIdpAlias(appId, deviceId, serialNo)
+        const idpAlias = generateIdpAlias(appId, deviceId, serialNo)
         const idpId = body.whiteKey
 
         // create account
         const existingAccount = accountId === undefined ? getAccountFromIdpIdSync(idpId) : await getAccount(accountId)
         const account = existingAccount === null ? await insertAccount({
             appId: body.appId,
-            idpAlias: generateIdpAlias(appId, deviceId, serialNo),
+            idpAlias: idpAlias,
             idpCode: "zd3",
             idpId: idpId,
             status: "normal",
@@ -304,6 +304,13 @@ const routes = async (fastify: FastifyInstance) => {
             // delete all previous sessions
             await deleteAccountSessionsOfType(accountId, SessionType.ZAT)
             await deleteAccountSessionsOfType(accountId, SessionType.ZRT)
+        }
+
+        if (existingAccount === null) {
+            await updateAccount({
+                id: account.id,
+                idpAlias: idpAlias
+            })
         }
 
         const zatToken = await insertSession({
@@ -323,7 +330,7 @@ const routes = async (fastify: FastifyInstance) => {
             "player": {
                 "appId": account.appId,
                 "firstLoginTime": account.firstLoginTime.getTime(),
-                "idpAlias": account.idpAlias,
+                "idpAlias": idpAlias,
                 "idpCode": account.idpCode,
                 "idpId": account.idpId,
                 "playerId": account.id.toString(),

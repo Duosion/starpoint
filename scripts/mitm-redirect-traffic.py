@@ -5,7 +5,7 @@ API_HOST = "localhost"
 API_PORT = 8000
 API_SCHEME = 'http'
 
-prefixes = ["/openapi", "/infodesk", "", '/patch', "/"]
+prefixes = ["/openapi", "/infodesk", "", '/patch']
 
 # hostname: prefix_index
 hosts = {
