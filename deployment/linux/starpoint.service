@@ -1,0 +1,16 @@
+[Unit]
+Description=Starpoint: Server emulator for the global version of a mobile pinball game.
+Requires=network-online.target nss-lookup.target
+After=syslog.target network-online.target
+
+[Service]
+Type=exec
+#Sample location. Change to actual install directory before running. Assumes git repo is being used
+WorkingDirectory=/starpoint
+ExecStart=node --env-file=.env out/server.js
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
