@@ -472,7 +472,7 @@ export function deserializePlayerData(
         for (const [characterId, character] of Object.entries(userCharacterList)) {
             // get asset data
             const assetData = getCharacterDataSync(characterId)
-            if (assetData === null) throw new Error(`Character with id "${characterId}" does not exist.`);
+            //if (assetData === null) throw new Error(`Character with id "${characterId}" does not exist.`);
 
             const entryCount = character['entry_count']
             const evolutionLevel = character['evolution_level']

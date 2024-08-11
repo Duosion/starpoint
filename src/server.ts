@@ -70,29 +70,66 @@ fastify.addHook('onSend', (_, reply, payload, done) => {
 })
 
 // content-type parsers
-function jsonParser(_: FastifyRequest, body: string, done: ContentTypeParserDoneFunction) {
+function parseJson(body: string): Object | null {
     try {
-        var json = JSON.parse(body)
-        done(null, json)
+        const json = JSON.parse(body)
+        return json
     } catch (err) {
-        done(null, undefined)
+        return null
     }
 }
 
-fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (request: FastifyRequest, body: string, done) => {
-    // on IOS, for some reason, requests to infodesk and openapi are JSON, but the content-type header is set as 'application/x-www-form-urlencoded'
-    const routeUrl = request.routeOptions.url || ''
-    if (routeUrl.startsWith("/openapi") || routeUrl.startsWith("/infodesk") || routeUrl.startsWith("/biligame") || routeUrl.startsWith("/leiting"))
-        return jsonParser(request, body, done);
+function parseUrlEncoded(body: string): Object | null {
+    try {
+        const parsedBody: Record<string, string> = {}
+        const split = body.split("&")
 
+        for (const pair of split) {
+            const [key, value] = pair.split("=")
+            parsedBody[key] = value
+        }
+        
+        return parsedBody
+    } catch (error) {
+        return null
+    }
+}
+
+function parseMsgPack(body: string): Object | null {
     try {
         const unpacked = unpack(Buffer.from(body, "base64"))
-        done(null, unpacked)
+        return unpacked
+    } catch (err) {
+        return null
+    }
+}
+
+const parsers: ((body: string) => Object | null)[] = [
+    parseMsgPack,
+    parseJson,
+    parseUrlEncoded
+]
+
+fastify.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: 'string' }, (_: FastifyRequest, body: string, done) => {
+    try {
+        for (const parser of parsers) {
+            const result = parser(body)
+            if (result !== null) {
+                return done(null, result)
+            }
+        }
+        done(new Error("Could not parse application/x-www-form-urlencoded body."), undefined)
     } catch (err) {
         done(err as Error, undefined)
     }
 })
-fastify.addContentTypeParser('application/json', { parseAs: 'string' }, jsonParser)
+fastify.addContentTypeParser('application/json', { parseAs: 'string' }, (_: FastifyRequest, body: string, done) => {
+    try {
+        done(null, parseJson(body))
+    } catch (err) {
+        done(err as Error, undefined)
+    }
+})
 
 // register plugins
 
@@ -155,6 +192,13 @@ const cdnDir = process.env.CDN_DIR || ".cdn"
 fastify.register(fastifyStatic, {
     root: path.isAbsolute(cdnDir) ? cdnDir : path.join(__dirname, "..", process.env.CDN_DIR || ".cdn"),
     prefix: "/patch/Live/2.0.0",
+    decorateReply: false
+})
+
+// static CN cdn
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "..",  ".cn-cdn"),
+    prefix: "/cnpatch",
     decorateReply: false
 })
 

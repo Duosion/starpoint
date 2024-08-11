@@ -3,8 +3,9 @@
 // p.biligame.com
 // static.biligame.net
 // line1-log.biligame.net
+// line1-sdkcenter-login.bilibiligame
 
-import { FastifyInstance, FastifyReply } from "fastify";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getServerTime } from "../../utils";
 
 const routes = async (fastify: FastifyInstance) => {
@@ -154,7 +155,7 @@ const routes = async (fastify: FastifyInstance) => {
             "data": {
                 "agreement_switch": "OFF",
                 "cooperation_mode": 0,
-                "privacy_tips_switch": "ON"
+                "privacy_tips_switch": "OFF"
             },
             "message": "响应成功",
             "request_id": "81098bfa-6f3a-4a2d-86e5-06f08bf084ab",
@@ -257,8 +258,8 @@ const routes = async (fastify: FastifyInstance) => {
             "config_livestream_area_id": "",
             "config_livestream_switch": 0,
             "config_login_android_https": "1",
-            "config_login_http": "http://line1-sdkcenter-login.bilibiligame.net,http://line3-sdkcenter-login.bilibiligame.net,http://line3-login.biligame.net,http://line1-login.biligame.net",
-            "config_login_https": "https://line1-sdkcenter-login.bilibiligame.net,https://line3-sdkcenter-login.bilibiligame.net,https://line3-login.biligame.net,https://line1-login.biligame.net",
+            "config_login_http": "http://line1-sdkcenter-login.bilibiligame.net",
+            "config_login_https": "https://line1-sdkcenter-login.bilibiligame.net",
             "config_login_ios_https": "1",
             "config_login_realname": "1",
             "config_namepwd_register": "0",
@@ -273,14 +274,14 @@ const routes = async (fastify: FastifyInstance) => {
             "config_risk_verify_url": "https://game.bilibili.com/sdk/geetest/",
             "config_risk_verify_url_pay": "https://game.bilibili.com/sdk/gamepay",
             "config_tourist_register": "0",
-            "config_waterMark": 0,
+            "config_waterMark": 1,
             "cooperation_mode": 0,
             "crule": "TtYMFopYrl41lUdy1q71NHXn/5Ia8TVbm3cdGAfpqQFmFBqqxrng6Ide6D8iqd+T0TZHokgvWA81uSBisURY0xW8ry0uSMk4Dll/6dbp57OgLd2jfyE+zIVNOjxZydR371tQOsGPF9J1muGtLynF2E2e34eH7T7j7YNq38XQawCvB2kky66eUr0iXqqU5yhD1zI38Cpvpc1zwbNJth00CN1e45/j4Hrnw77cK8t7i1WfCawcmY7/ssuR4n/sDR7nJgDtHgfdPIkkvB492qoa7Nd/4MilFecp5A8KtHGzSzEv2xXj4GPeFsKt9ISifE+A5lhQfLtgm4P8LO+n86pPwQ==",
             "crule_ver": "1",
             "effective_agreement_version": "0.0.0",
             "gjoa_lasted_version": 109,
-            "http_list": "http://p.biligame.com,http://pinterface.biligame.net,http://pcloudedge.biligame.net",
-            "https_list": "https://p.biligame.com,https://pinterface.biligame.net,https://pcloudedge.biligame.net",
+            "http_list": "http://p.biligame.com",
+            "https_list": "https://p.biligame.com",
             "idc_pay_host": "line3-pay.biligame.net,line1-pay.biligame.net,line3-pay.biligame.net,line1-pay.biligame.net",
             "idc_pay_host_gz": "line3-sdk-svr-pay.biligame.net,line1-sdk-svr-pay.biligame.net",
             "idc_pay_host_sh": "line3-sdk-pay-sh.biligame.net,line1-sdk-pay-sh.biligame.net",
@@ -308,6 +309,49 @@ const routes = async (fastify: FastifyInstance) => {
             "countryList": "{\"ts\":1722559135,\"code\":0,\"list\":[{\"id\":1,\"cname\":\"中国大陆\",\"country_id\":\"86\"},{\"id\":5,\"cname\":\"中国香港特别行政区\",\"country_id\":\"852\"},{\"id\":2,\"cname\":\"中国澳门特别行政区\",\"country_id\":\"853\"},{\"id\":3,\"cname\":\"中国台湾\",\"country_id\":\"886\"},{\"id\":4,\"cname\":\"美国\",\"country_id\":\"1\"},{\"id\":6,\"cname\":\"比利时\",\"country_id\":\"32\"},{\"id\":7,\"cname\":\"澳大利亚\",\"country_id\":\"61\"},{\"id\":8,\"cname\":\"法国\",\"country_id\":\"33\"},{\"id\":9,\"cname\":\"加拿大\",\"country_id\":\"1\"},{\"id\":10,\"cname\":\"日本\",\"country_id\":\"81\"},{\"id\":11,\"cname\":\"新加坡\",\"country_id\":\"65\"},{\"id\":12,\"cname\":\"韩国\",\"country_id\":\"82\"},{\"id\":13,\"cname\":\"马来西亚\",\"country_id\":\"60\"},{\"id\":14,\"cname\":\"英国\",\"country_id\":\"44\"},{\"id\":15,\"cname\":\"意大利\",\"country_id\":\"39\"},{\"id\":16,\"cname\":\"德国\",\"country_id\":\"49\"},{\"id\":18,\"cname\":\"俄罗斯\",\"country_id\":\"7\"},{\"id\":19,\"cname\":\"新西兰\",\"country_id\":\"64\"}]}",
             "requestId": "039db1d3d1b84ca09fc48f05c4cd9b2d",
             "timestamp": "1722559196225"
+        })
+    })
+
+    fastify.post("/api/client/activate", (_, reply: FastifyReply) => {
+        reply.status(200).send({
+            "code": 0,
+            "requestId": "29e854f93a6045cfa00f430135abf278",
+            "server_message": "",
+            "timestamp": "1723082217198"
+        })
+    })
+
+    fastify.post("/api/client/get.key", (_, reply: FastifyReply) => {
+        reply.status(200).send({
+            "access_key": "d49b1be45a9017581c32685bf5878081", 
+            "auth_name": "冯**", 
+            "code": 0,
+            "expires": 2138654620000,
+            "face": "https://i0.hdslb.com/bfs/face/member/noface.jpg", 
+            "game_open_id": null, 
+            "game_open_id_enable": false,
+            "h5_paid_download": 1, 
+            "h5_paid_download_sign": "e28fc74137cea4d2cc9c73f407e86a15",
+            "nonce": "92928930",
+            "realname_verified": 1,
+            "remind_status": 0,
+            "requestId": "2f2019dc63ae42479fc3404450345327",
+            "s_face": "https://i0.hdslb.com/bfs/face/member/noface.jpg", 
+            "server_message": "Hello Starpoint!",
+            "timestamp": "1723102868931", 
+            "uid": 3546721778928183, 
+            "uname": "bili_45535670438"
+        })
+    })
+
+    fastify.post("/api/client/notice.list", (_, reply: FastifyReply) => {
+        reply.status(200).send({
+            "code": 0,
+            "has_notice": 0,
+            "open_login": 102,
+            "requestId": "0e2acd88da9a451db3fd288162feb730",
+            "server_message": "",
+            "timestamp": "1723082218089"
         })
     })
 
@@ -594,6 +638,45 @@ const routes = async (fastify: FastifyInstance) => {
             "requestId": "6ae49e7c-f358-45a6-9630-86217f47918c",
             "timestamp": getServerTime(),
             "traceId": "e4f582a4-7a15-4cd1-9b5d-9686c8a97b72"
+        })
+    })
+
+    // line1-sdkcenter-login
+    fastify.post("/api/external/otp/send/v3", (_, reply: FastifyReply) => {
+        reply.status(200).send({
+            "captcha_key": "07996852f7cfab91b1309918f52e5c11",
+            "code": 0,
+            "requestId": "5f409b39e71642bbb07352ce66aaefd2",
+            "server_message": "",
+            "timestamp": getServerTime() * 1000,
+            "verify_tkt": null,
+            "verify_tkt_type": null
+        })
+    })
+
+    fastify.post("/api/external/login/otp/v3", (request: FastifyRequest, reply: FastifyReply) => {
+        const nonceHeader = request.headers['x-nonce'] ?? ''
+
+        reply.header("x-sign", "ST6bNXZo0cF2/azqlc5EBJ0MfvzYyLv0dUA4XDDvTQ03zy4xtbhMOd/oUgYQ8UuB")
+        reply.status(200).send({
+            "access_key": "c5ad2ac6aa90c84a49091619502bc4a5_t1",
+            "auth_name": "",
+            "code": 0,
+            "expires": 1725832398000,
+            "face": "http://static.hdslb.com/images/member/noface.gif",
+            "game_open_id": null,
+            "game_open_id_enable": false,
+            "h5_paid_download": 1,
+            "h5_paid_download_sign": "198167727e381e30aef5aecd1d66e527",
+            "nonce": nonceHeader,
+            "realname_verified": 0,
+            "remind_status": 0,
+            "requestId": "8546f9b5e97b49eb83e3a858b8949479",
+            "s_face": null,
+            "server_message": "",
+            "timestamp": "1723240397977",
+            "uid": 3546740797999545,
+            "uname": "bili_43264016969"
         })
     })
 
