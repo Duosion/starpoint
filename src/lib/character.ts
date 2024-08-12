@@ -257,6 +257,13 @@ export function givePlayerCharactersExpSync(
                 before: bondTokenStatus,
                 after: bondTokenStatus
             }
+        } else {
+            addExpList.push({
+                character_id: characterId,
+                add_exp: 0,
+                after_exp: 153988,
+                add_exp_pool: 0
+            })
         }
     }
 

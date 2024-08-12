@@ -306,7 +306,7 @@ const routes = async (fastify: FastifyInstance) => {
             await deleteAccountSessionsOfType(accountId, SessionType.ZRT)
         }
 
-        if (existingAccount === null) {
+        if (existingAccount === null || existingAccount.idpAlias !== idpAlias) {
             await updateAccount({
                 id: account.id,
                 idpAlias: idpAlias
