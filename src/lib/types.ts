@@ -186,7 +186,8 @@ export interface RawQuest {
     rankPointReward?: number,
     characterExpReward?: number,
     manaReward?: number,
-    poolExpReward?: number
+    poolExpReward?: number,
+    fixedParty?: number
 }
 
 export interface StoryQuest {
@@ -207,7 +208,8 @@ export interface BattleQuest {
     rankPointReward: number,
     characterExpReward: number,
     manaReward: number,
-    poolExpReward: number
+    poolExpReward: number,
+    fixedParty?: number
 }
 
 export type RawQuests = Record<string, RawQuest>

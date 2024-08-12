@@ -196,7 +196,8 @@ const routes = async (fastify: FastifyInstance) => {
         const rewardCharacterExpResult = givePlayerCharactersExpSync(
             playerId,
             partyCharacterIdsArray,
-            addExpAmount
+            addExpAmount,
+            questData.fixedParty !== undefined
         )
 
         const dataHeaders = generateDataHeaders({
@@ -326,6 +327,14 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
+        // get quest data
+        const questData = getQuestFromCategorySync(category, questId) as BattleQuest | null
+        if (questData === null || !('rankPointReward' in questData)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Quest doesn't exist."
+        })
+
+
         // add to active quests table
         delete activeQuests[playerId]
         activeQuests[playerId] = {
@@ -337,10 +346,12 @@ const routes = async (fastify: FastifyInstance) => {
         }
 
         // update player last quest id
-        updatePlayerSync({
-            id: playerId,
-            partySlot: partyId
-        })
+        if (questData.fixedParty === undefined) {
+            updatePlayerSync({
+                id: playerId,
+                partySlot: partyId
+            })
+        }
 
         const dataHeaders = generateDataHeaders({
             viewer_id: viewerId

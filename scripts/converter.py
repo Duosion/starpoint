@@ -104,10 +104,12 @@ def convert_world_story_event_quest(obj):
                     "rankPointReward": int(chapter[94]),
                     "characterExpReward": int(chapter[95]),
                     "manaReward": int(chapter[96]),
-                    "poolExpReward": int(chapter[97])
+                    "poolExpReward": int(chapter[97]),
                 }
                 if chapter[71] != "(None)":
                     converted_chapter["scoreRewardGroup"] = int(chapter[71])
+                if chapter[119] != "(None)":
+                    converted_chapter["fixedParty"] = int(chapter[119])
                 converted[chapter[0]] = converted_chapter
 
     return converted

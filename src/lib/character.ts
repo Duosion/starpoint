@@ -1,7 +1,7 @@
 import { clientSerializeDate } from "../data/utils";
 import { getPlayerCharacterSync, getPlayerSync, givePlayerItemSync, insertPlayerCharacterSync, updatePlayerCharacterSync, updatePlayerSync } from "../data/wdfpData";
 import { getCharacterDataSync } from "./assets";
-import { AddExpList, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, GivePlayerCharacterResult, RewardPlayerCharacterExpResult } from "./types";
+import { AddExpList, AddExpListItem, ClientReturnBondTokenStatus, ClientReturnBondTokenStatusList, ClientReturnCharacter, Element, GivePlayerCharacterResult, RewardPlayerCharacterExpResult } from "./types";
 
 export const characterExpCaps: Record<number, number[]> = {
     [1]: [ // 1* max exp amounts for each uncap level 
@@ -202,7 +202,8 @@ export function givePlayerCharacterSync(
 export function givePlayerCharactersExpSync(
     playerId: number,
     characterIds: number[],
-    expAmount: number
+    expAmount: number,
+    ignoreUpdate: boolean
 ): RewardPlayerCharacterExpResult {
 
     const addExpList: AddExpList = []
@@ -215,7 +216,7 @@ export function givePlayerCharactersExpSync(
         const characterData = getPlayerCharacterSync(playerId, characterId)
         const assetData = getCharacterDataSync(characterId)
         
-        if ((characterData !== null) && (assetData !== null)) {
+        if ((characterData !== null) && (assetData !== null) && !ignoreUpdate) {
             const expCap = characterExpCaps[assetData.rarity][characterData.overLimitStep] || Number.MAX_SAFE_INTEGER
             const currentExp = characterData.exp
 
@@ -261,9 +262,9 @@ export function givePlayerCharactersExpSync(
             addExpList.push({
                 character_id: characterId,
                 add_exp: 0,
-                after_exp: 153988,
+                after_exp : 379988,
                 add_exp_pool: 0
-            })
+            } as AddExpListItem)
         }
     }
 

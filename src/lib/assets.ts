@@ -107,7 +107,8 @@ function getQuestSync(
         rankPointReward: quest.rankPointReward,
         characterExpReward: quest.characterExpReward,
         manaReward: quest.manaReward,
-        poolExpReward: quest.poolExpReward
+        poolExpReward: quest.poolExpReward,
+        fixedParty: quest.fixedParty
     } as BattleQuest : {
         name: quest.name,
         clearReward: quest.clearRewardId === undefined ? undefined : getClearRewardSync(quest.clearRewardId),
