@@ -37,11 +37,17 @@ import indexWebApiPlugin from "./routes/web_api"
 import openapiPlugin from "./routes/openapi";
 import infodeskPlugin from "./routes/infodesk";
 // CN routes
-import biligamePlugin from "./routes/leiting/biligame";
 import leitingCfgsdkPlugin from "./routes/leiting/cfgsdk";
 import leitingUpdatePlugin from "./routes/leiting/update";
 import leitingProphetPlugin from "./routes/leiting/prophet";
 import leitingOssskyeyePlugin from "./routes/leiting/ossskyeye";
+import leitingSdklogPlugin from "./routes/leiting/sdklog";
+import sobotPlugin from "./routes/leiting/sobot";
+import tencentPlugin from "./routes/leiting/tencent";
+import leitingMemberPlugin from "./routes/leiting/member";
+import leitingLogMonitorPlugin from "./routes/leiting/logmonitor";
+import leitingLoginWFPlugin from "./routes/leiting/loginwf";
+import leitingShuShuPlugin from "./routes/leiting/leitsdkshushu";
 
 // gc-openapi-zinny3.kakaogames.com
 // gc-infodesk-zinny3.kakaogames.com
@@ -174,11 +180,17 @@ fastify.register(indexWebPlugin, { prefix: "/" })
 fastify.register(indexWebApiPlugin, { prefix: "/api" })
 
 // CN routes
-fastify.register(biligamePlugin, { prefix: "/biligame" })
 fastify.register(leitingCfgsdkPlugin, { prefix: "/leiting/cfgsdk" })
 fastify.register(leitingUpdatePlugin, { prefix: "/leiting/update" })
 fastify.register(leitingProphetPlugin, { prefix: "/leiting/prophet" })
 fastify.register(leitingOssskyeyePlugin, { prefix: "/leiting/ossskyeye" })
+fastify.register(leitingSdklogPlugin, { prefix: "/leiting/sdklog" })
+fastify.register(sobotPlugin, { prefix: "/sobot" })
+fastify.register(tencentPlugin, { prefix: "/tencent" })
+fastify.register(leitingMemberPlugin, { prefix: "/leiting/member" })
+fastify.register(leitingLogMonitorPlugin, { prefix: "/leiting/logmonitor" })
+fastify.register(leitingLoginWFPlugin, { prefix: "/leiting/loginwf" })
+fastify.register(leitingShuShuPlugin, { prefix: "/leiting/leitsdkshushu" })
 
 // web static
 fastify.register(fastifyStatic, {

@@ -5,25 +5,27 @@ API_HOST = "localhost"
 API_PORT = 8000
 API_SCHEME = 'http'
 
-prefixes = ["/leiting/cfgsdk", "/biligame", "/leiting/update", '/leiting/prophet', '/leiting/ossskyeye', '/cnpatch']
+prefixes = [
+    "/leiting/cfgsdk", 
+    "/leiting/sdklog", 
+    "/leiting/update", 
+    '/leiting/prophet', 
+    '/leiting/ossskyeye', 
+    "/sobot",
+    "/tencent",
+    "/leiting/member",
+    "/leiting/logmonitor",
+    "/leiting/loginwf",
+    "/leiting/leitsdkshushu"
+]
 
 # hostname: prefix_index
 hosts = {
     # leiting cfg sdk
     "cfgsdk.leiting.com": 0,
 
-    # biligame
-    "api.biligame.net": 1,
-    "api.bilibili.com": 1,
-    "api.vc.bilibili.com": 1,
-    "grpc.biliapi.net": 1,
-    "app.bilibili.com": 1,
-    "line1-sdk-app-api.biligame.net": 1,
-    "p.biligame.com": 1,
-    "static.biligame.net": 1,
-    "line1-log.biligame.net": 1,
-    "line1-sdkcenter-login.bilibiligame": 1,
-    "line1-sdkcenter-login.bilibiligame.net": 1,
+    # sdklog
+    "sdklog.leiting.com": 1,
 
     # leiting update
     "update.leiting.com": 2,
@@ -34,9 +36,27 @@ hosts = {
     # leiting ossskyeye
     "ossskyeye.leiting.com": 4,
 
-    # CDN
-    "sdk-hot-deploy.biligame.net": 5,
-    "i0.hdslb.com": 5
+    # sobot
+    "api.sobot.com": 5,
+
+    # tencent
+    "nsv.tencentcloudapi.com": 6,
+
+    # member
+    "member.leiting.com": 7,
+    "account.leiting.com": 7,
+
+    # logmonitor
+    "logmonitor.leiting.com": 8,
+
+    # loginwf
+    "loginwf.leiting.com": 9,
+    "paywfauth.leiting.com": 9,
+    "loginali.leiting.com": 9,
+
+    # leitsdkshushu
+    "leitsdkshushu.leiting.com:19083": 10,
+    "leitsdkshushu.leiting.com": 10
 }
 
 def request(flow: http.HTTPFlow):
