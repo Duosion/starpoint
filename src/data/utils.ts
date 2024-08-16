@@ -92,6 +92,39 @@ export function serializeGachaCampaign(
 }
 
 /**
+ * Converts a record of PlayerPartyGroup objects into a record of UserPartyGroup objects.
+ * 
+ * @param partyGrouplist 
+ * @returns 
+ */
+export function serializePartyGroupList(
+    partyGrouplist: Record<string, PlayerPartyGroup>
+): Record<string, UserPartyGroup> {
+    const serialized: Record<string, UserPartyGroup> = {}
+    for (const [groupId, group] of Object.entries(partyGrouplist)) {
+        const list: Record<string, UserPartyGroupTeam> = {}
+        for (const [partyId, party] of Object.entries(group.list)) {
+            list[partyId] = {
+                "name": party.name,
+                "character_ids": party.characterIds,
+                "unison_character_ids": party.unisonCharacterIds,
+                "equipment_ids": party.equipmentIds,
+                "ability_soul_ids": party.abilitySoulIds,
+                "edited": party.edited,
+                "options": {
+                    "allow_other_players_to_heal_me": party.options.allowOtherPlayersToHealMe
+                }
+            }
+        }
+        serialized[groupId] = {
+            "list": list,
+            "color_id": group.colorId
+        }
+    }
+    return serialized
+}
+
+/**
  * Serializes a player data object in the way that the world flipper client expects it.
  * 
  * @param player The player data object to serialize.
@@ -135,27 +168,7 @@ export function serializePlayerData(
     }
 
     // convert parties
-    const userPartyGroupList: Record<string, UserPartyGroup> = {}
-    for (const [groupId, group] of Object.entries(toSerialize.partyGroupList)) {
-        const list: Record<string, UserPartyGroupTeam> = {}
-        for (const [partyId, party] of Object.entries(group.list)) {
-            list[partyId] = {
-                "name": party.name,
-                "character_ids": party.characterIds,
-                "unison_character_ids": party.unisonCharacterIds,
-                "equipment_ids": party.equipmentIds,
-                "ability_soul_ids": party.abilitySoulIds,
-                "edited": party.edited,
-                "options": {
-                    "allow_other_players_to_heal_me": party.options.allowOtherPlayersToHealMe
-                }
-            }
-        }
-        userPartyGroupList[groupId] = {
-            "list": list,
-            "color_id": group.colorId
-        }
-    }
+    const userPartyGroupList: Record<string, UserPartyGroup> = serializePartyGroupList(toSerialize.partyGroupList)
 
     // convert equipment list
     const userEquipmentList: Record<string, UserEquipment> = {}
