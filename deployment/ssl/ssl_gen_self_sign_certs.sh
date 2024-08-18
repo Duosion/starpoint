@@ -1,12 +1,12 @@
 #!/bin/sh
 #Purpose: Install self-signed certificates for starpoint hosting
+#Note: made to run in sh for portability reasons. This should work on most linux and unix-based shells as long as openssl is present, even if bash is not.
 
 #This is not done in the most secure fashion. Only use these certs for private services.
 
-#TODO: Investigate whether staying with sh is for the best
-
 if [ "$STARPOINT_ROOT" = '' ]; then
-    . ../starpoint_script_setup_env.sh || return $?
+    [ -x "../starpoint_script_setup_env.sh" ] && . ../starpoint_script_setup_env.sh && return $? || return $?
+    . $(cd -- "$( dirname -- "$0" )" 2>&1 1> /dev/null && pwd)/starpoint_script_setup_env.sh && return $? || return $?
 fi
 
 SCRIPT_DIR="$STARPOINT_ROOT/deployment/ssl"
@@ -15,6 +15,13 @@ SCRIPT_DIR="$STARPOINT_ROOT/deployment/ssl"
 
 delete_generated () {
     rm -rf $ssl_tempdir
+}
+
+copy_certs () {
+    ensure_root "Please run as root to allow automatically copying certificates"
+
+    cp -fv `find $ssl_tempdir -name *.crt` /etc/ssl/certs/
+    cp -fv `find $ssl_tempdir -name *.key` /etc/ssl/private/
 }
 
 print_syntax () {
@@ -36,12 +43,9 @@ EOF
     return 0
 }
 
-copy_certs () {
-    ensure_root "Please run as root to allow automatically copying certificates"
-
-    cp -fv `find $ssl_tempdir -name *.crt` /etc/ssl/certs/
-    cp -fv `find $ssl_tempdir -name *.key` /etc/ssl/private/
-}
+#******************************************************************************************
+# MAIN ROUTINE
+#******************************************************************************************
 
 while getopts "arch" opt; do
   case $opt in
@@ -53,14 +57,14 @@ while getopts "arch" opt; do
     ;;
     (h) print_help; return 0
     ;;
-    (\? ) echo "Unknown option: -$OPTARG" >&2; return 1;;
-    (:  ) echo "Missing option argument for -$OPTARG" >&2; return 1;;
-    (*  ) echo "Unimplemented option: -$option" >&2; return 1;;
+    (\? ) log -e "Unknown option: -$OPTARG" >&2; return 1;;
+    (:  ) log -e "Missing option argument for -$OPTARG" >&2; return 1;;
+    (*  ) log -e "Unimplemented option: -$option" >&2; return 1;;
   esac
 done
 shift "$(($OPTIND -1))"
 
-echo Quitting early or having an error will delete temporary folder with generated scripts
+log Quitting early or having an error will delete temporary folder with generated scripts
 trap "rm -rf $ssl_tempdir; exit" SIGHUP SIGINT SIGTERM ERR
 
 mkdir $ssl_tempdir
@@ -79,8 +83,8 @@ if [ "$do_copy" = true ]; then
     copy_certs
     default_delete_tempdir=true
 elif [ "$no_prompt" = true ]; then
-    echo "SSL certificates & key generated at $ssl_tempdir"
-    return 0
+    log -s "SSL certificates & key generated at $ssl_tempdir"
+    return 0 || exit 0
 elif prompt_yes_no 'Install ssl certificates to default locations?' = true ; then
     copy_certs
 fi
@@ -88,7 +92,7 @@ fi
 if [ "$del_gen_dir" = true ]; then
     delete_generated
 elif [ "$no_prompt" = true ]; then
-    return 0
-elif prompt_yes_no "Delete generated files? (Make sure they've been copied or installed!)" "$default_delete_tempdir" = true; then
+    return 0 || exit 0
+elif prompt_yes_no "Delete generated files? (Make sure they've been copied or installed!)" "$default_delete_tempdir"; then
     delete_generated
 fi
