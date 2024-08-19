@@ -174,7 +174,8 @@ export default function init(
         edited INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
         group_id INTEGER NOT NULL,
-        PRIMARY KEY (slot, player_id, group_id),
+        party_type INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY (slot, player_id, group_id, party_type),
         FOREIGN KEY (group_id, player_id) REFERENCES players_party_groups (id, player_id) ON DELETE CASCADE,
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();

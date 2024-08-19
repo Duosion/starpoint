@@ -77,6 +77,10 @@ const continueVmoneyCost = 50;
 
 const activeQuests: Record<number, ActiveQuest> = {}
 
+export function insertActiveQuest(playerId: number, quest: ActiveQuest) {
+    activeQuests[playerId] = quest
+}
+
 const routes = async (fastify: FastifyInstance) => {
 
     fastify.post("/finish", async (request: FastifyRequest, reply: FastifyReply) => {

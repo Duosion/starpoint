@@ -5,6 +5,9 @@ import { getAccountPlayers, getPlayerPartyGroupListSync, getSession } from "../.
 import { generateDataHeaders } from "../../utils";
 import { clientSerializeDate, serializePartyGroupList } from "../../data/utils";
 import { PlayerPartyOptions } from "../../data/types";
+import { getQuestFromCategorySync } from "../../lib/assets";
+import { BattleQuest, QuestCategory } from "../../lib/types";
+import { insertActiveQuest } from "./singleBattleQuest";
 
 interface SummaryBody {
     event_id: number,
@@ -290,6 +293,67 @@ const routes = async (fastify: FastifyInstance) => {
             }),
             "data": {
                 "user_party_group_list": userPartyGroupList
+            }
+        })
+    })
+
+    fastify.post("/battle/start", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as BattleStartBody
+
+        const viewerId = body.viewer_id
+        const isAutoStartMode = body.is_auto_start_mode
+        const partyId = body.party_id
+        const questId = body.quest_id
+        if (isNaN(viewerId) || isNaN(partyId) || isNaN(questId) || isAutoStartMode === undefined) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No player bound to account."
+        })
+
+        // get quest
+        const questData = getQuestFromCategorySync(QuestCategory.RUSH_EVENT, questId) as BattleQuest | null
+        if (questData === null || !('rankPointReward' in questData)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Quest doesn't exist."
+        })
+
+
+        // insert active quest for '/single_battle_quest/finish' endpoint
+        insertActiveQuest(playerId, {
+            questId: questId,
+            category: QuestCategory.RUSH_EVENT,
+            useBoostPoint: false,
+            useBossBoostPoint: false,
+            isAutoStartMode: isAutoStartMode
+        })
+
+        const headers = generateDataHeaders({
+            viewer_id: viewerId
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": headers,
+            "data": {
+                "user_info": {
+                    "last_main_quest_id": body.quest_id
+                },
+                "is_multi": "single",
+                "start_time": headers['servertime'],
+                "quest_name": ""
             }
         })
     })

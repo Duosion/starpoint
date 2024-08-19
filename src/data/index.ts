@@ -1,9 +1,12 @@
 import sqlite3, { Database as BetterSqlite3Database } from 'better-sqlite3';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import path from "path";
+import { updateBeforeInit as updateWdfpDataBefore, updateAfterInit as updateWdfpDataAfter} from "./updaters/wdfpData";
 import initWdfpData from "./initializers/wdfpData";
 
 const rootDir = process.cwd();
-const dataDir = rootDir + "/.database"
+const dataDir = path.join(rootDir,"/.database" )
+const versionFileExtension = ".version"
 if (!existsSync(dataDir)) {
     // make the data directory since it doesn't exist
     try {
@@ -17,10 +20,21 @@ export const enum Database {
     WDFP_DATA
 }
 
-const databaseMetadata = {
+interface DatabaseMetadata {
+    path: string
+    latestVersion: number
+    init?: (database: BetterSqlite3Database, exists: boolean) => void
+    updateBefore?: (database: BetterSqlite3Database) => void
+    updateAfter?: (database: BetterSqlite3Database) => void
+}
+
+const databasesMetadata: {[key in Database]: DatabaseMetadata} = {
     [Database.WDFP_DATA]: {
         path: "/wdfp_data.db",
-        init: initWdfpData
+        init: initWdfpData,
+        updateBefore: updateWdfpDataBefore,
+        updateAfter: updateWdfpDataAfter,
+        latestVersion: 1
     }
 }
 
@@ -36,24 +50,54 @@ export default function getDatabase(
     if (isLoaded) return isLoaded
 
     // get metadata
-    const metadata = databaseMetadata[database]
+    const metadata = databasesMetadata[database]
 
-    const fullPath = dataDir + metadata.path
+    const relativeDatabasePath = metadata.path
+    const absoluteDatabasePath = path.join(dataDir, relativeDatabasePath)
     // check if the db already exists
-    const dbExists = existsSync(fullPath)
+    const dbExists = existsSync(absoluteDatabasePath)
+
+    // get the database's version
+    let currentVersion: number = 0
+    const versionFilePath = path.join(dataDir, `${relativeDatabasePath}${versionFileExtension}`)
+    if (dbExists && existsSync(versionFilePath)) {
+        const fileContents = readFileSync(versionFilePath).toString('utf-8')
+        const versionNumber = Number(fileContents)
+        currentVersion = isNaN(versionNumber) ? currentVersion : versionNumber
+    }
 
     // create new db
-    const db = new sqlite3(fullPath)
+    const db = new sqlite3(absoluteDatabasePath)
 
     // set pragma
     db.pragma('journal_mode = WAL')
     db.pragma('foreign_keys = ON')
 
-    // call init function
+    // call init & update function
     const init = metadata.init
-    if (init) {
+    const updateBefore = metadata.updateBefore
+    const updateAfter = metadata.updateAfter
+    if (init !== undefined) {
         try {
+            // try to update before initialization
+            const latestVersion = metadata.latestVersion
+            const updateRequired = dbExists && metadata.latestVersion > currentVersion
+            if (updateRequired && updateBefore !== undefined) {
+                console.log("Updating wdfp_data.db...")
+                updateBefore(db)
+            }
+
+            // initialize
             init(db, dbExists)
+
+            // try to update after initialization
+            if (updateRequired && updateAfter !== undefined) {
+                updateAfter(db)
+                console.log("Successfully updated wdfp_data.db")
+            }
+
+            // write version file
+            writeFileSync(versionFilePath, latestVersion.toString(), { encoding: 'utf-8' })
         } catch (error) {
             console.log(error)
             console.log(`Initalization failed for module ${metadata.path}. Error: ${error}`)
