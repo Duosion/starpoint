@@ -5,7 +5,8 @@ After=syslog.target network-online.target
 
 [Service]
 Type=exec
-#Sample location. Change to actual install directory before running. Assumes git repo is being used
+#Sample location. Change to actual install directory before running.
+#If you're using the install script, this will be changed to the git repo's location when doing the deployment directory
 WorkingDirectory=/starpoint
 ExecStart=node --env-file=.env out/server.js
 Restart=on-failure

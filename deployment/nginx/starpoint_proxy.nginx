@@ -1,6 +1,7 @@
 #Sample nginx configuration for Starpoint. Change as needed per env.
 
 #TODO: Consider potentially making these environment variables.
+#TODO: Consider doing redirects to the same hosts that the coredns file does
 map $host $STARPOINT_REMOTE_URL {
     default "http://localhost:8000";
 }
@@ -40,7 +41,7 @@ server {
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_wdfp_global.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
-        location / {
+        location /latest/api/index.php {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
@@ -51,13 +52,15 @@ server {
 server {
         listen 80;
         listen [::]:80;
+        #While this endpoint SHOULDN'T require https ever according to present knowledge, I've included the config options for it below in case there's an instance where it's required. 
+        #It shouldn't attempt to auto-upgrade a connection, and currently this uses the same certificate as na does.
         listen 443 ssl;
         listen [::]:443 ssl;
 
+        server_name patch.wdfp.kakaogames.com;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_wdfp_global.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
-
-        server_name patch.wdfp.kakaogames.com;
 
         location / {
                 proxy_set_header Host $host;
@@ -73,9 +76,10 @@ server {
         listen 443 ssl;
         listen [::]:443 ssl;
 
+        server_name openapi-zinny3.game.kakaogames.com;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_zinny3_openapi.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
-        server_name openapi-zinny3.game.kakaogames.com;
 
         location / {
                 proxy_set_header Host $host;
@@ -90,12 +94,12 @@ server {
         listen [::]:80;
         listen 443 ssl;
         listen [::]:443 ssl;
+
+        server_name gc-openapi-zinny3.kakaogames.com;
 
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_zinny3_openapi_gc.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
-        server_name gc-openapi-zinny3.kakaogames.com;
-
         location / {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
@@ -110,10 +114,10 @@ server {
         listen 443 ssl;
         listen [::]:443 ssl;
 
+        server_name gc-infodesk-zinny3.kakaogames.com;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_zinny3_infodesk_gc.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
-
-        server_name gc-infodesk-zinny3.kakaogames.com;
 
         location / {
                 proxy_set_header Host $host;
