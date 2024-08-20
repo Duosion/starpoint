@@ -1,6 +1,6 @@
 import { getCharacterDataSync } from "../lib/assets"
 import { getDateFromServerTime, getServerTime } from "../utils"
-import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
+import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, PartyType, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
 
 import saveData from "../../assets/save_data.json"
 import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerGachaCampaignListSync } from "./wdfpData"
@@ -586,12 +586,14 @@ export function deserializePlayerData(
                     edited: edited,
                     options: {
                         allowOtherPlayersToHealMe: options?.allow_other_players_to_heal_me === undefined ? true : options.allow_other_players_to_heal_me
-                    }
+                    },
+                    type: PartyType.NORMAL
                 }
             }
             partyGroupList[groupId] = {
                 list: list,
-                colorId: colorId
+                colorId: colorId,
+                type: PartyType.NORMAL
             }
         }
 

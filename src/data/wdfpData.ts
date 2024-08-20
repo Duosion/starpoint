@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyType, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -1259,7 +1259,7 @@ export function getPlayerPartyGroupListSync(
 
     // get party groups
     const rawPartyGroups = db.prepare(`
-    SELECT id, color_id
+    SELECT id, color_id, type
     FROM players_party_groups
     WHERE player_id = ?
     `).all(playerId) as RawPlayerPartyGroup[]
@@ -1268,7 +1268,7 @@ export function getPlayerPartyGroupListSync(
     const rawParties = db.prepare(`
     SELECT slot, name, character_id_1, character_id_2, character_id_3, unison_character_1,
         unison_character_2, unison_character_3, equipment_1, equipment_2, equipment_3,
-        ability_soul_1, ability_soul_2, ability_soul_3, edited, group_id
+        ability_soul_1, ability_soul_2, ability_soul_3, edited, group_id, type
     FROM players_parties
     WHERE player_id = ?
     `).all(playerId) as RawPlayerParty[]
@@ -1291,7 +1291,8 @@ export function getPlayerPartyGroupListSync(
             edited: deserializeBoolean(rawParty.edited),
             options: {
                 allowOtherPlayersToHealMe: true
-            }
+            },
+            type: rawParty.type
         }
     }
 
@@ -1301,7 +1302,8 @@ export function getPlayerPartyGroupListSync(
         const id = rawPartyGroup.id.toString()
         final[id] = {
             list: groupLists[id] || [],
-            colorId: rawPartyGroup.color_id
+            colorId: rawPartyGroup.color_id,
+            type: rawPartyGroup.type
         }
     }
 
@@ -3091,6 +3093,50 @@ export function insertMergedPlayerDataSync(
     insertPlayerOptionsSync(playerId, toInsert.userOption)
 }
 
+export function getDefaultPlayerPartyGroupsSync(
+    characterIds: (number | null)[] = [1, null, null],
+    partyType: PartyType = PartyType.NORMAL
+): Record<string, PlayerPartyGroup> {
+    const partyGroups: Record<string, PlayerPartyGroup> = {}
+
+    const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    const groupCount = 6
+    let currentParty = 1
+
+    const character1 = characterIds[0]
+    const character2 = characterIds[1]
+    const character3 = characterIds[2]
+
+    for (let i = 0; i < groupCount; i++) {
+        const list: Record<string, PlayerParty> = {}
+        const group: PlayerPartyGroup = {
+            list: list,
+            colorId: 15,
+            type: partyType
+        }
+
+        for (const name of partyNames) {
+            list[currentParty.toString()] = {
+                name: `Party ${name}`,
+                characterIds: [character1, character2, character3],
+                unisonCharacterIds: [null, null, null],
+                equipmentIds: [null, null, null],
+                abilitySoulIds: [null, null, null],
+                edited: false,
+                options: {
+                    allowOtherPlayersToHealMe: true
+                },
+                type: partyType
+            }
+            currentParty += 1
+        }
+
+        partyGroups[(i + 1).toString()] = group
+    }
+
+    return partyGroups
+}
+
 /**
  * Inserts a default player data into the database, linked to a provided account id.
  * 
@@ -3172,39 +3218,8 @@ export function insertDefaultPlayerSync(
     // insert characterManaNodeList
     insertPlayerCharactersManaNodesSync(playerId, {})
 
-    // insert parties
-    const partyGroups: Record<string, PlayerPartyGroup> = {}
-    {
-        const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-        const groupCount = 6
-        let currentParty = 1
-
-        for (let i = 0; i < groupCount; i++) {
-            const list: Record<string, PlayerParty> = {}
-            const group: PlayerPartyGroup = {
-                list: list,
-                colorId: 15
-            }
-
-            for (const name of partyNames) {
-                list[currentParty.toString()] = {
-                    name: `Party ${name}`,
-                    characterIds: [1, null, null],
-                    unisonCharacterIds: [null, null, null],
-                    equipmentIds: [null, null, null],
-                    abilitySoulIds: [null, null, null],
-                    edited: false,
-                    options: {
-                        allowOtherPlayersToHealMe: true
-                    }
-                }
-                currentParty += 1
-            }
-
-            partyGroups[(i + 1).toString()] = group
-        }
-    }
-    insertPlayerPartyGroupListSync(playerId, partyGroups)
+    // insert default parties
+    insertPlayerPartyGroupListSync(playerId, getDefaultPlayerPartyGroupsSync())
 
     // insert items
     insertPlayerItemsSync(playerId, {})

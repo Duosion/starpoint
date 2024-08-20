@@ -133,6 +133,12 @@ export interface RawPlayerCharacterManaNode {
     character_id: number
 }
 
+// party
+export enum PartyType {
+    NORMAL,
+    EVENT
+}
+
 export interface RawPlayerPartyOptions {
     allow_other_players_to_heal_me: number
 }
@@ -158,6 +164,7 @@ export interface RawPlayerParty {
     ability_soul_3: number
     edited: number
     group_id: number
+    type: PartyType
 }
 
 export interface PlayerParty {
@@ -168,16 +175,19 @@ export interface PlayerParty {
     abilitySoulIds: (number | null)[]
     edited: boolean
     options: PlayerPartyOptions
+    type: PartyType
 }
 
 export interface RawPlayerPartyGroup {
     id: number
     color_id: number
+    type: PartyType
 }
 
 export interface PlayerPartyGroup {
     list: Record<string, PlayerParty>
     colorId: number
+    type: PartyType
 }
 
 export interface RawPlayerEquipment {
