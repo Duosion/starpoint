@@ -1251,18 +1251,20 @@ function insertPlayerCharactersManaNodesSync(
  * Fetches a player's party group layout.
  * 
  * @param playerId The ID of the player.
+ * @param partyType The type of parties to get.
  * @returns The data for each of the player's parties.
  */
 export function getPlayerPartyGroupListSync(
-    playerId: number
+    playerId: number,
+    partyType: PartyType = PartyType.NORMAL
 ): Record<string, PlayerPartyGroup> {
 
     // get party groups
     const rawPartyGroups = db.prepare(`
     SELECT id, color_id, type
     FROM players_party_groups
-    WHERE player_id = ?
-    `).all(playerId) as RawPlayerPartyGroup[]
+    WHERE player_id = ? AND type = ?
+    `).all(playerId, partyType) as RawPlayerPartyGroup[]
 
     // get raw parties
     const rawParties = db.prepare(`
@@ -1270,8 +1272,8 @@ export function getPlayerPartyGroupListSync(
         unison_character_2, unison_character_3, equipment_1, equipment_2, equipment_3,
         ability_soul_1, ability_soul_2, ability_soul_3, edited, group_id, type
     FROM players_parties
-    WHERE player_id = ?
-    `).all(playerId) as RawPlayerParty[]
+    WHERE player_id = ? AND type = ?
+    `).all(playerId, partyType) as RawPlayerParty[]
 
     const groupLists: Record<string, Record<string, PlayerParty>> = {}
 
@@ -1327,8 +1329,8 @@ function insertPlayerPartySync(
     db.prepare(`
     INSERT INTO players_parties (slot, name, character_id_1, character_id_2, character_id_3, 
         unison_character_1, unison_character_2, unison_character_3, equipment_1, equipment_2,
-        equipment_3, ability_soul_1, ability_soul_2, ability_soul_3, edited, player_id, group_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        equipment_3, ability_soul_1, ability_soul_2, ability_soul_3, edited, player_id, group_id, type)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
         Number(slot),
         party.name,
@@ -1346,7 +1348,8 @@ function insertPlayerPartySync(
         party.abilitySoulIds[2] || null,
         serializeBoolean(party.edited),
         playerId,
-        Number(groupId)
+        Number(groupId),
+        party.type
     )
 }
 
@@ -1364,12 +1367,13 @@ function insertPlayerPartyGroupSync(
 ) {
     // insert the group data
     db.prepare(`
-    INSERT INTO players_party_groups (id, color_id, player_id)
-    VALUES (?, ?, ?)
+    INSERT INTO players_party_groups (id, color_id, player_id, type)
+    VALUES (?, ?, ?, ?)
     `).run(
         Number(groupId),
         group.colorId,
-        playerId
+        playerId,
+        group.type
     )
 
     // insert the parties
@@ -1384,7 +1388,7 @@ function insertPlayerPartyGroupSync(
  * @param playerId The ID of the player.
  * @param groups The record of groups to insert.
  */
-function insertPlayerPartyGroupListSync(
+export function insertPlayerPartyGroupListSync(
     playerId: number,
     groups: Record<string, PlayerPartyGroup>
 ) {
@@ -3093,15 +3097,21 @@ export function insertMergedPlayerDataSync(
     insertPlayerOptionsSync(playerId, toInsert.userOption)
 }
 
+const partyTypeIdOffsets: {[key in PartyType]: number} = {
+    [PartyType.NORMAL]: 0,
+    [PartyType.EVENT]: 100
+}
+
 export function getDefaultPlayerPartyGroupsSync(
-    characterIds: (number | null)[] = [1, null, null],
-    partyType: PartyType = PartyType.NORMAL
+    partyType: PartyType = PartyType.NORMAL,
+    characterIds: (number | null)[] = [1, null, null]
 ): Record<string, PlayerPartyGroup> {
     const partyGroups: Record<string, PlayerPartyGroup> = {}
 
     const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     const groupCount = 6
     let currentParty = 1
+    const partyIdOffset = partyTypeIdOffsets[partyType] ?? 0
 
     const character1 = characterIds[0]
     const character2 = characterIds[1]
@@ -3116,7 +3126,7 @@ export function getDefaultPlayerPartyGroupsSync(
         }
 
         for (const name of partyNames) {
-            list[currentParty.toString()] = {
+            list[currentParty + partyIdOffset] = {
                 name: `Party ${name}`,
                 characterIds: [character1, character2, character3],
                 unisonCharacterIds: [null, null, null],
