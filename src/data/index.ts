@@ -24,8 +24,8 @@ interface DatabaseMetadata {
     path: string
     latestVersion: number
     init?: (database: BetterSqlite3Database, exists: boolean) => void
-    updateBefore?: (database: BetterSqlite3Database) => void
-    updateAfter?: (database: BetterSqlite3Database) => void
+    updateBefore?: (database: BetterSqlite3Database, currentVersion: number) => void
+    updateAfter?: (database: BetterSqlite3Database, currentVersion: number) => void
 }
 
 const databasesMetadata: {[key in Database]: DatabaseMetadata} = {
@@ -84,7 +84,7 @@ export default function getDatabase(
             const updateRequired = dbExists && metadata.latestVersion > currentVersion
             if (updateRequired && updateBefore !== undefined) {
                 console.log("Updating wdfp_data.db...")
-                updateBefore(db)
+                updateBefore(db, currentVersion)
             }
 
             // initialize
@@ -92,7 +92,7 @@ export default function getDatabase(
 
             // try to update after initialization
             if (updateRequired && updateAfter !== undefined) {
-                updateAfter(db)
+                updateAfter(db, currentVersion)
                 console.log("Successfully updated wdfp_data.db")
             }
 

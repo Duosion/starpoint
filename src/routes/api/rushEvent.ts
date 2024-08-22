@@ -1,10 +1,10 @@
 // Handles mail.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerPartyGroupListSync, getSession } from "../../data/wdfpData";
+import { getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerPartyGroupListSync, getSession, insertPlayerPartyGroupListSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 import { clientSerializeDate, serializePartyGroupList } from "../../data/utils";
-import { PlayerPartyOptions } from "../../data/types";
+import { PartyCategory, PlayerPartyOptions } from "../../data/types";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory } from "../../lib/types";
 import { insertActiveQuest } from "./singleBattleQuest";
@@ -255,7 +255,12 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         // get parties
-        const playerPartyGroups = getPlayerPartyGroupListSync(playerId)
+        let playerPartyGroups = getPlayerPartyGroupListSync(playerId, PartyCategory.EVENT)
+        // insert default parties if no parties already exist
+        if ( 0 >= Object.keys(playerPartyGroups).length) {
+            playerPartyGroups = getDefaultPlayerPartyGroupsSync(PartyCategory.EVENT)
+            insertPlayerPartyGroupListSync(playerId, playerPartyGroups)
+        }
 
         // convert to proper format
         const userPartyGroupList: RushPartyGroup[] = []

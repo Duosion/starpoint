@@ -134,8 +134,11 @@ export interface RawPlayerCharacterManaNode {
 }
 
 // party
-export enum PartyType {
+export enum PartyCategory {
+    EMPTY,
     NORMAL,
+    EMPTY2,
+    EMPTY3,
     EVENT
 }
 
@@ -164,7 +167,7 @@ export interface RawPlayerParty {
     ability_soul_3: number
     edited: number
     group_id: number
-    type: PartyType
+    category: PartyCategory
 }
 
 export interface PlayerParty {
@@ -175,19 +178,19 @@ export interface PlayerParty {
     abilitySoulIds: (number | null)[]
     edited: boolean
     options: PlayerPartyOptions
-    type: PartyType
+    category: PartyCategory
 }
 
 export interface RawPlayerPartyGroup {
     id: number
     color_id: number
-    type: PartyType
+    category: PartyCategory
 }
 
 export interface PlayerPartyGroup {
     list: Record<string, PlayerParty>
     colorId: number
-    type: PartyType
+    category: PartyCategory
 }
 
 export interface RawPlayerEquipment {

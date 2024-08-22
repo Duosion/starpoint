@@ -152,8 +152,8 @@ export default function init(
         id INTEGER NOT NULL,
         color_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
-        type INTEGER NOT NULL,
-        PRIMARY KEY (id, player_id, type),
+        category INTEGER NOT NULL,
+        PRIMARY KEY (id, player_id, category),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
@@ -175,9 +175,9 @@ export default function init(
         edited INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
         group_id INTEGER NOT NULL,
-        type INTEGER NOT NULL,
-        PRIMARY KEY (slot, player_id, group_id, type),
-        FOREIGN KEY (group_id, player_id, type) REFERENCES players_party_groups (id, player_id, type) ON DELETE CASCADE,
+        category INTEGER NOT NULL,
+        PRIMARY KEY (slot, player_id, group_id, category),
+        FOREIGN KEY (group_id, player_id, category) REFERENCES players_party_groups (id, player_id, category) ON DELETE CASCADE,
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 

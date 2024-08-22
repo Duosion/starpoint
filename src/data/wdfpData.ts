@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyType, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -1251,29 +1251,29 @@ function insertPlayerCharactersManaNodesSync(
  * Fetches a player's party group layout.
  * 
  * @param playerId The ID of the player.
- * @param partyType The type of parties to get.
+ * @param category The category of parties to get.
  * @returns The data for each of the player's parties.
  */
 export function getPlayerPartyGroupListSync(
     playerId: number,
-    partyType: PartyType = PartyType.NORMAL
+    category: PartyCategory = PartyCategory.NORMAL
 ): Record<string, PlayerPartyGroup> {
 
     // get party groups
     const rawPartyGroups = db.prepare(`
-    SELECT id, color_id, type
+    SELECT id, color_id, category
     FROM players_party_groups
-    WHERE player_id = ? AND type = ?
-    `).all(playerId, partyType) as RawPlayerPartyGroup[]
+    WHERE player_id = ? AND category = ?
+    `).all(playerId, category) as RawPlayerPartyGroup[]
 
     // get raw parties
     const rawParties = db.prepare(`
     SELECT slot, name, character_id_1, character_id_2, character_id_3, unison_character_1,
         unison_character_2, unison_character_3, equipment_1, equipment_2, equipment_3,
-        ability_soul_1, ability_soul_2, ability_soul_3, edited, group_id, type
+        ability_soul_1, ability_soul_2, ability_soul_3, edited, group_id, category
     FROM players_parties
-    WHERE player_id = ? AND type = ?
-    `).all(playerId, partyType) as RawPlayerParty[]
+    WHERE player_id = ? AND category = ?
+    `).all(playerId, category) as RawPlayerParty[]
 
     const groupLists: Record<string, Record<string, PlayerParty>> = {}
 
@@ -1294,7 +1294,7 @@ export function getPlayerPartyGroupListSync(
             options: {
                 allowOtherPlayersToHealMe: true
             },
-            type: rawParty.type
+            category: rawParty.category
         }
     }
 
@@ -1305,7 +1305,7 @@ export function getPlayerPartyGroupListSync(
         final[id] = {
             list: groupLists[id] || [],
             colorId: rawPartyGroup.color_id,
-            type: rawPartyGroup.type
+            category: rawPartyGroup.category
         }
     }
 
@@ -1329,7 +1329,7 @@ function insertPlayerPartySync(
     db.prepare(`
     INSERT INTO players_parties (slot, name, character_id_1, character_id_2, character_id_3, 
         unison_character_1, unison_character_2, unison_character_3, equipment_1, equipment_2,
-        equipment_3, ability_soul_1, ability_soul_2, ability_soul_3, edited, player_id, group_id, type)
+        equipment_3, ability_soul_1, ability_soul_2, ability_soul_3, edited, player_id, group_id, category)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
         Number(slot),
@@ -1349,7 +1349,7 @@ function insertPlayerPartySync(
         serializeBoolean(party.edited),
         playerId,
         Number(groupId),
-        party.type
+        party.category
     )
 }
 
@@ -1367,13 +1367,13 @@ function insertPlayerPartyGroupSync(
 ) {
     // insert the group data
     db.prepare(`
-    INSERT INTO players_party_groups (id, color_id, player_id, type)
+    INSERT INTO players_party_groups (id, color_id, player_id, category)
     VALUES (?, ?, ?, ?)
     `).run(
         Number(groupId),
         group.colorId,
         playerId,
-        group.type
+        group.category
     )
 
     // insert the parties
@@ -1427,7 +1427,7 @@ export function updatePlayerPartySync(
         ability_soul_2 = ?,
         ability_soul_3 = ?,
         edited = ?
-    WHERE slot = ? AND player_id = ?
+    WHERE slot = ? AND player_id = ? AND category = ?
     `).run(
         party.name,
         party.characterIds[0],
@@ -1444,23 +1444,26 @@ export function updatePlayerPartySync(
         party.abilitySoulIds[2],
         serializeBoolean(party.edited),
         slot,
-        playerId
+        playerId,
+        party.category
     )
 }
 
 export function updatePlayerPartyGroupSync(
     playerId: number,
     groupId: number,
-    colorId: number
+    colorId: number,
+    category: PartyCategory = PartyCategory.NORMAL
 ) {
     db.prepare(`
     UPDATE players_party_groups
     SET color_id = ?
-    WHERE id = ? AND player_id = ?
+    WHERE id = ? AND player_id = ? AND category = ?
     `).run(
         colorId,
         groupId,
-        playerId
+        playerId,
+        category
     )
 }
 
@@ -3097,13 +3100,8 @@ export function insertMergedPlayerDataSync(
     insertPlayerOptionsSync(playerId, toInsert.userOption)
 }
 
-const partyTypeIdOffsets: {[key in PartyType]: number} = {
-    [PartyType.NORMAL]: 0,
-    [PartyType.EVENT]: 100
-}
-
 export function getDefaultPlayerPartyGroupsSync(
-    partyType: PartyType = PartyType.NORMAL,
+    partyType: PartyCategory = PartyCategory.NORMAL,
     characterIds: (number | null)[] = [1, null, null]
 ): Record<string, PlayerPartyGroup> {
     const partyGroups: Record<string, PlayerPartyGroup> = {}
@@ -3111,7 +3109,6 @@ export function getDefaultPlayerPartyGroupsSync(
     const partyNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     const groupCount = 6
     let currentParty = 1
-    const partyIdOffset = partyTypeIdOffsets[partyType] ?? 0
 
     const character1 = characterIds[0]
     const character2 = characterIds[1]
@@ -3122,11 +3119,11 @@ export function getDefaultPlayerPartyGroupsSync(
         const group: PlayerPartyGroup = {
             list: list,
             colorId: 15,
-            type: partyType
+            category: partyType
         }
 
         for (const name of partyNames) {
-            list[currentParty + partyIdOffset] = {
+            list[currentParty] = {
                 name: `Party ${name}`,
                 characterIds: [character1, character2, character3],
                 unisonCharacterIds: [null, null, null],
@@ -3136,7 +3133,7 @@ export function getDefaultPlayerPartyGroupsSync(
                 options: {
                     allowOtherPlayersToHealMe: true
                 },
-                type: partyType
+                category: partyType
             }
             currentParty += 1
         }

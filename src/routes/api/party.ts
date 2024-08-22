@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getAccountPlayers, getPlayerSync, getSession, playerOwnsCharacterSync, playerOwnsEquipmentSync, updatePlayerPartySync, updatePlayerSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
-import { PartyType } from "../../data/types";
+import { PartyCategory } from "../../data/types";
 
 interface PartyInfoListItem {
     party_edited: boolean
@@ -96,7 +96,7 @@ const routes = async (fastify: FastifyInstance) => {
                     abilitySoulIds: updateInfo.ability_soul_ids,
                     options: { allowOtherPlayersToHealMe: updateInfo.options.allow_other_players_to_heal_me },
                     edited: updateInfo.party_edited,
-                    type: PartyType.NORMAL
+                    category: updateInfo.party_category
                 }
             )
         }

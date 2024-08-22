@@ -8,13 +8,17 @@ import { Database } from "better-sqlite3";
  * @param database A better-sqlite3 database.
  */
 export function updateBeforeInit(
-    database: Database
+    database: Database,
+    currentVersion: number
 ) {
-    // version 1; rush event; players_parties table
-    database.prepare(`ALTER TABLE players_parties RENAME TO players_parties_old`).run()
+    if (0 >= currentVersion) {
+        // update to version 1
 
-    // version 1; rush event; players_party_groups table
-    database.prepare(`ALTER TABLE players_party_groups RENAME TO players_party_groups_old`).run()
+        // rush event; players_parties table
+        database.prepare(`ALTER TABLE players_parties RENAME TO players_parties_old`).run()
+        // rush event; players_party_groups table
+        database.prepare(`ALTER TABLE players_party_groups RENAME TO players_party_groups_old`).run()
+    }
 }
 
 /**
@@ -23,19 +27,25 @@ export function updateBeforeInit(
  * @param database A better-sqlite3 database.
  */
 export function updateAfterInit(
-    database: Database
+    database: Database,
+    currentVersion: number
 ) {
-    // version 1; rush event; players_party_groups table
-    database.prepare(`
-    INSERT INTO players_party_groups
-    SELECT *, 0 FROM players_party_groups_old
-    `).run()
-    
-    // version 1; rush event; players_parties table
-    database.prepare(`
-    INSERT INTO players_parties
-    SELECT *, 0 FROM players_parties_old
-    `).run()
-    database.prepare(`DROP TABLE players_parties_old`).run()
-    database.prepare(`DROP TABLE players_party_groups_old`).run()
+    if (0 >= currentVersion) {
+        // update to version 1
+
+        // rush event; players_party_groups table
+        database.prepare(`
+        INSERT INTO players_party_groups
+        SELECT *, 1 FROM players_party_groups_old
+        `).run()
+
+        // rush event; players_parties table
+        database.prepare(`
+        INSERT INTO players_parties
+        SELECT *, 1 FROM players_parties_old
+        `).run()
+        database.prepare(`DROP TABLE players_parties_old`).run()
+        database.prepare(`DROP TABLE players_party_groups_old`).run()
+    }
+
 }
