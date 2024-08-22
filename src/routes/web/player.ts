@@ -28,7 +28,11 @@ const routes = async (fastify: FastifyInstance) => {
                 listContent += `<li class="w-full">
                     <a href="/player/${id}"
                         class="p-5 h-full text-on-surface hover:text-primary items-center flex gap-3 border-outline-variant transition-colors border rounded-3xl hover:bg-surface-container-low">
-                        <h4 class="text-xl font-bold text-inherit transition-colors flex-1">${player.name}</h4>
+                        <section class="flex flex-col gap-2 flex-1">
+                            <h4 class="text-xl font-bold text-inherit transition-colors">${player.name}</h4>
+                            <h4 class="text-base font-bold text-on-surface-variant">Last Login: ${player.lastLoginTime.toDateString()}</h4>
+                        </section>
+                        
                         <section class="flex gap-3 items-center">
                             <p class="text-xl text-on-surface-variant w-full">Player Id</p>
                             <h4 class="text-xl font-bold text-inherit transition-colors">${id}</h4>
