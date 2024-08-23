@@ -332,6 +332,60 @@ export interface PlayerMultiSpecialExchangeCampaign {
     status: number
 }
 
+// rush event
+export interface RawPlayerRushEvent {
+    player_id: number,
+    event_id: number,
+    endless_battle_next_round: number,
+    active_rush_battle_folder_id?: number,
+    endless_battle_max_round?: number
+}
+
+export interface PlayerRushEvent {
+    eventId: number,
+    endlessBattleNextRound: number,
+    activeRushBattleFolderId?: number,
+    endlessBattleMaxRound?: number
+}
+
+export interface RawPlayerRushEventClearedFolder {
+    player_id: number,
+    event_id: number,
+    folder_id: number
+}
+
+export type PlayerRushEventClearedFolders = number[]
+
+export enum RushEventBattleType {
+    RUSH,
+    ENDLESS
+}
+
+export interface RawPlayerRushEventPlayedParty {
+    character_id_1?: number,
+    character_id_2?: number,
+    character_id_3?: number,
+    unison_character_1?: number,
+    unison_character_2 ?: number,
+    unison_character_3 ?: number,
+    equipment_1 ?: number,
+    equipment_2 ?: number,
+    equipment_3 ?: number,
+    ability_soul_1 ?: number,
+    ability_soul_2 ?: number,
+    ability_soul_3 ?: number,
+    evolution_img_level_1 ?: number,
+    evolution_img_level_2 ?: number,
+    evolution_img_level_3 ?: number,
+    unison_evolution_img_level_1 ?: number,
+    unison_evolution_img_level_2 ?: number,
+    unison_evolution_img_level_3 ?: number,
+    player_id: number,
+    event_id: number,
+    round: number,
+    battle_type: RushEventBattleType,
+}
+
 export interface RawPlayerOption {
     key: string,
     value: number

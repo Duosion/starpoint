@@ -5,6 +5,7 @@ import { givePlayerCharactersExpSync } from "../../lib/character";
 import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
 import { BattleQuest, QuestCategory } from "../../lib/types";
 import { generateDataHeaders, getServerTime } from "../../utils";
+import { onRushEventBattleFinish } from "./rushEvent";
 
 interface StartBody {
     quest_id: number
@@ -18,7 +19,7 @@ interface StartBody {
     api_count: number
 }
 
-interface FinishBody {
+export interface FinishBody {
     is_restored: boolean
     continue_count: number
     elapsed_time_ms: number
@@ -65,7 +66,7 @@ interface AbortBody {
     category: number
 }
 
-interface ActiveQuest {
+export interface ActiveQuest {
     questId: number,
     category: QuestCategory,
     useBossBoostPoint: boolean
@@ -207,6 +208,10 @@ const routes = async (fastify: FastifyInstance) => {
         const dataHeaders = generateDataHeaders({
             viewer_id: viewerId
         })
+
+        if (questCategory === QuestCategory.RUSH_EVENT) {
+            onRushEventBattleFinish(playerId, activeQuestData, body)
+        }
 
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({

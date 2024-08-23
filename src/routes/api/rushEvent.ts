@@ -7,7 +7,7 @@ import { clientSerializeDate, serializePartyGroupList } from "../../data/utils";
 import { PartyCategory, PlayerPartyOptions } from "../../data/types";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory } from "../../lib/types";
-import { insertActiveQuest } from "./singleBattleQuest";
+import { ActiveQuest, FinishBody, insertActiveQuest } from "./singleBattleQuest";
 
 interface SummaryBody {
     event_id: number,
@@ -49,6 +49,21 @@ interface RushPartyGroup {
     party_group_color_id: number,
     party_group_id: number,
     party_list: RushParty[]
+}
+
+/**
+ * Called by singleBattleQuest.ts whenever a quest that is a rush event quest finishes successfully.
+ * 
+ * @param playerId The ID of the player that finished the quest.
+ * @param quest The data of the quest that was finished.
+ * @param body The body of the finish request.
+ */
+export function onRushEventBattleFinish(
+    playerId: number,
+    quest: ActiveQuest,
+    body: FinishBody
+) {
+    console.log("Rush Event Battle Finished")
 }
 
 const routes = async (fastify: FastifyInstance) => {
@@ -152,7 +167,17 @@ const routes = async (fastify: FastifyInstance) => {
                 viewer_id: viewerId
             }),
             "data": {
-                "endless_battle_next_round": 1
+                "endless_battle_next_round": 1,
+                // "rush_battle_played_party_list": {
+                //     "1": {
+                //         "character_id_1": 1,
+                //         "evolution_img_level_1": 1
+                //     },
+                //     "51": {
+                //         "character_id_1": 1,
+                //         "evolution_img_level_1": 1
+                //     }
+                // }
             }
         })
     })
@@ -257,7 +282,7 @@ const routes = async (fastify: FastifyInstance) => {
         // get parties
         let playerPartyGroups = getPlayerPartyGroupListSync(playerId, PartyCategory.EVENT)
         // insert default parties if no parties already exist
-        if ( 0 >= Object.keys(playerPartyGroups).length) {
+        if (0 >= Object.keys(playerPartyGroups).length) {
             playerPartyGroups = getDefaultPlayerPartyGroupsSync(PartyCategory.EVENT)
             insertPlayerPartyGroupListSync(playerId, playerPartyGroups)
         }
@@ -334,7 +359,6 @@ const routes = async (fastify: FastifyInstance) => {
             "error": "Bad Request",
             "message": "Quest doesn't exist."
         })
-
 
         // insert active quest for '/single_battle_quest/finish' endpoint
         insertActiveQuest(playerId, {
