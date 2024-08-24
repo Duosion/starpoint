@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventClearedFolders, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerRushEvent, RawPlayerRushEventClearedFolder, RawPlayerRushEventPlayedParty, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -2790,6 +2790,347 @@ function insertPlayerMultiSpecialExchangeCampaignsSync(
     })()
 }
 
+/**
+ * Gets the data for a player's rush event progress.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @returns The rush event data or null.
+ */
+export function getPlayerRushEventSync(
+    playerId: number,
+    eventId: number
+): PlayerRushEvent | null {
+
+    const rawData = db.prepare(`
+    SELECT player_id, event_id, endless_battle_next_round, active_rush_battle_folder_id,
+        endless_battle_max_round
+    FROM players_rush_events
+    WHERE player_id = ? AND event_id = ?
+    `).get(playerId, eventId) as RawPlayerRushEvent
+
+    if (rawData === undefined) return null;
+
+    return {
+        eventId: eventId,
+        endlessBattleNextRound: rawData.endless_battle_next_round,
+        activeRushBattleFolderId: rawData.active_rush_battle_folder_id,
+        endlessBattleMaxRound: rawData.endless_battle_max_round
+    }
+}
+
+/**
+ * Inserts the data for a player's rush event progress.
+ * 
+ * @param playerId The ID of the player.
+ * @param rushEvent The data of the rush event to insert.
+ */
+export function insertPlayerRushEventSync(
+    playerId: number,
+    rushEvent: PlayerRushEvent
+) {
+    db.prepare(`
+    INSERT INTO players_rush_events (player_id, event_id, endless_battle_next_round, active_rush_battle_folder_id,
+        endless_battle_max_round)
+    VALUES (?, ?, ?, ?, ?)
+    `).run(
+        playerId,
+        rushEvent.eventId,
+        rushEvent.endlessBattleNextRound,
+        rushEvent.activeRushBattleFolderId ?? null,
+        rushEvent.endlessBattleMaxRound ?? null
+    )
+}
+
+/**
+ * Updates the data for a player's rush event progress.
+ * 
+ * @param playerId The ID of the player.
+ * @param rushEvent The values to change.
+ */
+export function updatePlayerRushEventSync(
+    playerId: number,
+    rushEvent: Partial<PlayerRushEvent> & Pick<PlayerRushEvent, 'eventId'>
+) {
+    const fieldMap: Record<string, string> = {
+        'endlessBattleNextRound': 'endless_battle_next_round',
+        'activeRushBattleFolderId': 'active_rush_battle_folder_id',
+        'endlessBattleMaxRound': 'endless_battle_max_round'
+    }
+
+    const sets: string[] = []
+    const values: any[] = []
+    for (const key in rushEvent) {
+        const value = rushEvent[key as keyof PlayerRushEvent]
+        const mapped = fieldMap[key]
+        if (mapped && value !== undefined) {
+            sets.push(`${mapped} = ?`)
+            values.push(value)
+        }
+    }
+
+    if (sets.length > 0) db.prepare(`
+        UPDATE players_rush_events
+        SET ${sets.join(', ')}
+        WHERE player_id = ? AND event_id = ?
+        `).run([
+        ...values,
+        playerId,
+        rushEvent.eventId
+    ]);
+}
+
+/**
+ * Gets all of the folders that a player has cleared for a specific rush event.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @returns An array of cleared folder IDs.
+ */
+export function getPlayerRushEventClearedFoldersSync(
+    playerId: number,
+    eventId: number
+): PlayerRushEventClearedFolders {
+    const rawCleared = db.prepare(`
+    SELECT player_id, event_id, folder_id
+    FROM players_rush_events_cleared_folders
+    WHERE player_id = ? AND event_id = ?
+    `).all(playerId, eventId) as RawPlayerRushEventClearedFolder[]
+
+    return rawCleared.map(raw => raw.folder_id)
+}
+
+/**
+ * Marks a rush event's folder as cleared for a specific player.
+ * 
+ * @param playerId The ID of the player
+ * @param eventId The ID of the rush event.
+ * @param folderId The ID of the cleared folder.
+ */
+export function insertPlayerRushEventClearedFolderSync(
+    playerId: number,
+    eventId: number,
+    folderId: number
+) {
+    db.prepare(`
+    INSERT INTO players_rush_events_cleared_folders (player_id, event_id, folder_id)
+    VALUES (?, ?, ?)
+    `).run(playerId, eventId, folderId)
+}
+
+/**
+ * Converts a PlayerRushEventPlayedParty object from database format.
+ * 
+ * @param serialized The PlayerRushEventPlayedParty in database format.
+ * @returns 
+ */
+export function deserializePlayerRushEventPlayedParty(
+    serialized: RawPlayerRushEventPlayedParty
+): PlayerRushEventPlayedParty {
+    return {
+        characterIds: [
+            serialized.character_id_1 ?? null, 
+            serialized.character_id_2 ?? null,
+            serialized.character_id_3 ?? null
+        ],
+        unisonCharacterIds: [
+            serialized.unison_character_1 ?? null, 
+            serialized.unison_character_2 ?? null,
+            serialized.unison_character_3 ?? null
+        ],
+        abilitySoulIds: [
+            serialized.ability_soul_1 ?? null, 
+            serialized.ability_soul_2 ?? null,
+            serialized.ability_soul_3 ?? null
+        ],
+        equipmentIds: [
+            serialized.equipment_1 ?? null, 
+            serialized.equipment_2 ?? null,
+            serialized.equipment_3 ?? null
+        ],
+        evolutionImgLevels: [
+            serialized.evolution_img_level_1 ?? null, 
+            serialized.evolution_img_level_2 ?? null,
+            serialized.evolution_img_level_3 ?? null
+        ],
+        unisonEvolutionImgLevels: [
+            serialized.unison_evolution_img_level_1 ?? null, 
+            serialized.unison_evolution_img_level_2 ?? null,
+            serialized.unison_evolution_img_level_3 ?? null
+        ],
+        battleType: serialized.battle_type,
+        round: serialized.round
+    }
+}
+
+/**
+ * Converts a PlayerRushEventPlayedParty into database format.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @param deserialized The deserialized rush party to convert.
+ * @returns A RawPlayerRushEventPlayedParty
+ */
+export function serializePlayerRushEventPlayedParty(
+    playerId: number,
+    eventId: number,
+    deserialized: PlayerRushEventPlayedParty
+): RawPlayerRushEventPlayedParty {
+    return {
+        player_id: playerId,
+        event_id: eventId,
+        round: deserialized.round,
+        battle_type: deserialized.battleType,
+        character_id_1: deserialized.characterIds[0] ?? undefined,
+        character_id_2: deserialized.characterIds[1] ?? undefined,
+        character_id_3: deserialized.characterIds[2] ?? undefined,
+        unison_character_1: deserialized.unisonCharacterIds[0] ?? undefined,
+        unison_character_2: deserialized.unisonCharacterIds[1] ?? undefined,
+        unison_character_3: deserialized.unisonCharacterIds[2] ?? undefined,
+        ability_soul_1: deserialized.abilitySoulIds[0] ?? undefined,
+        ability_soul_2: deserialized.abilitySoulIds[1] ?? undefined,
+        ability_soul_3: deserialized.abilitySoulIds[2] ?? undefined,
+        equipment_1: deserialized.equipmentIds[0] ?? undefined,
+        equipment_2: deserialized.equipmentIds[1] ?? undefined,
+        equipment_3: deserialized.equipmentIds[2] ?? undefined,
+        evolution_img_level_1: deserialized.evolutionImgLevels[0] ?? undefined,
+        evolution_img_level_2: deserialized.evolutionImgLevels[1] ?? undefined,
+        evolution_img_level_3: deserialized.evolutionImgLevels[2] ?? undefined,
+        unison_evolution_img_level_1: deserialized.unisonEvolutionImgLevels[0] ?? undefined,
+        unison_evolution_img_level_2: deserialized.unisonEvolutionImgLevels[1] ?? undefined,
+        unison_evolution_img_level_3: deserialized.unisonEvolutionImgLevels[2] ?? undefined,
+    }
+}
+
+/**
+ * Gets an array of all of a player's parties that they have used to clear rush events.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The event ID
+ * @returns 
+ */
+export function getPlayerRushEventPlayedPartiesSync(
+    playerId: number,
+    eventId: number,
+): PlayerRushEventPlayedParty[] {
+    const rawParties = db.prepare(`
+    SELECT charcter_id_1, charcter_id_2, charcter_id_3,
+        unison_character_1, unison_character_2, unison_character_3,
+        equipment_1, equipment_2, equipment_3, ability_soul_1,
+        ability_soul_2, ability_soul_3, evolution_img_level_1,
+        evolution_img_level_2, evolution_img_level_3,
+        unison_evolution_img_level_1, unison_evolution_img_level_2,
+        unison_evolution_img_level_3, player_id, event_id, round,
+        battle_type
+    FROM players_rush_events_played_parties
+    WHERE player_id = ? AND event_id = ?
+    `).all(playerId, eventId) as RawPlayerRushEventPlayedParty[]
+
+    return rawParties.map(raw => deserializePlayerRushEventPlayedParty(raw))
+}
+
+/**
+ * Inserts a rush event played party for a specific player.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The rush event's ID.
+ * @param party The party data.
+ */
+export function insertPlayerRushEventPlayedPartySync(
+    playerId: number,
+    eventId: number,
+    party: PlayerRushEventPlayedParty
+) {
+    db.prepare(`
+    INSERT INTO players_rush_events_played_parties
+    VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    `).run(
+        party.characterIds[0] ?? null,
+        party.characterIds[1] ?? null,
+        party.characterIds[2] ?? null,
+        party.unisonCharacterIds[0] ?? null,
+        party.unisonCharacterIds[1] ?? null,
+        party.unisonCharacterIds[2] ?? null,
+        party.equipmentIds[0] ?? null,
+        party.equipmentIds[1] ?? null,
+        party.equipmentIds[2] ?? null,
+        party.abilitySoulIds[0] ?? null,
+        party.abilitySoulIds[1] ?? null,
+        party.abilitySoulIds[2] ?? null,
+        party.evolutionImgLevels[0] ?? null,
+        party.evolutionImgLevels[1] ?? null,
+        party.evolutionImgLevels[2] ?? null,
+        party.unisonEvolutionImgLevels[0] ?? null,
+        party.unisonEvolutionImgLevels[1] ?? null,
+        party.unisonEvolutionImgLevels[2] ?? null,
+        playerId,
+        eventId,
+        party.round,
+        party.battleType
+    )
+}
+
+/**
+ * Updates an existing rush event played party for a specific player & rush event.
+ * 
+ * @param playerId The player's ID.
+ * @param eventId The ID of the rush event.
+ * @param party The new party data.
+ */
+export function updatePlayerRushEventPlayedPartySync(
+    playerId: number,
+    eventId: number,
+    party: PlayerRushEventPlayedParty
+) {
+    db.prepare(`
+    UPDATE players_rush_events_played_parties
+    SET character_id_1 = ?,
+        character_id_2 = ?,
+        character_id_3 = ?,
+        unison_character_1 = ?,
+        unison_character_2 = ?,
+        unison_character_3 = ?,
+        equipment_1 = ?,
+        equipment_2 = ?,
+        equipment_3 = ?,
+        ability_soul_1 = ?,
+        ability_soul_2 = ?,
+        ability_soul_3 = ?,
+        evolution_img_level_1 = ?,
+        evolution_img_level_2 = ?,
+        evolution_img_level_3 = ?,
+        unison_evolution_img_level_1 = ?,
+        unison_evolution_img_level_2 = ?,
+        unison_evolution_img_level_3 = ?,
+        player_id,
+        event_id,
+        round,
+        battle_type
+    `).run(
+        party.characterIds[0] ?? null,
+        party.characterIds[1] ?? null,
+        party.characterIds[2] ?? null,
+        party.unisonCharacterIds[0] ?? null,
+        party.unisonCharacterIds[1] ?? null,
+        party.unisonCharacterIds[2] ?? null,
+        party.equipmentIds[0] ?? null,
+        party.equipmentIds[1] ?? null,
+        party.equipmentIds[2] ?? null,
+        party.abilitySoulIds[0] ?? null,
+        party.abilitySoulIds[1] ?? null,
+        party.abilitySoulIds[2] ?? null,
+        party.evolutionImgLevels[0] ?? null,
+        party.evolutionImgLevels[1] ?? null,
+        party.evolutionImgLevels[2] ?? null,
+        party.unisonEvolutionImgLevels[0] ?? null,
+        party.unisonEvolutionImgLevels[1] ?? null,
+        party.unisonEvolutionImgLevels[2] ?? null,
+        playerId,
+        eventId,
+        party.round,
+        party.battleType
+    )
+}
 
 /**
  * Inserts a player option into the database.

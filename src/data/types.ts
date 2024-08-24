@@ -386,6 +386,19 @@ export interface RawPlayerRushEventPlayedParty {
     battle_type: RushEventBattleType,
 }
 
+export interface PlayerRushEventPlayedParty {
+    characterIds: (number | null)[],
+    unisonCharacterIds: (number | null)[],
+    equipmentIds: (number | null)[],
+    abilitySoulIds: (number | null)[],
+    evolutionImgLevels: (number | null)[],
+    unisonEvolutionImgLevels: (number | null)[],
+    round: number,
+    battleType: RushEventBattleType
+}
+
+export type PlayerRushEventPlayedParties = PlayerRushEventPlayedParty[]
+
 export interface RawPlayerOption {
     key: string,
     value: number
