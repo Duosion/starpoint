@@ -1,10 +1,10 @@
 // Handles mail.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerPartyGroupListSync, getSession, insertPlayerPartyGroupListSync } from "../../data/wdfpData";
+import { getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventCurrentRound, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { generateDataHeaders } from "../../utils";
 import { clientSerializeDate, serializePartyGroupList } from "../../data/utils";
-import { PartyCategory, PlayerPartyOptions } from "../../data/types";
+import { PartyCategory, PlayerPartyOptions, PlayerRushEventPlayedParty, RawPlayerRushEventPlayedParty, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory } from "../../lib/types";
 import { ActiveQuest, FinishBody, insertActiveQuest } from "./singleBattleQuest";
@@ -52,18 +52,28 @@ interface RushPartyGroup {
 }
 
 /**
- * Called by singleBattleQuest.ts whenever a quest that is a rush event quest finishes successfully.
+ * Gets the current evolution image levels for an array of character ids for a player.
  * 
- * @param playerId The ID of the player that finished the quest.
- * @param quest The data of the quest that was finished.
- * @param body The body of the finish request.
+ * @param playerId The ID of the player.
+ * @param characterIds The array of character ids.
+ * @returns 
  */
-export function onRushEventBattleFinish(
+function getCharactersEvolutionImgLevels(
     playerId: number,
-    quest: ActiveQuest,
-    body: FinishBody
-) {
-    console.log("Rush Event Battle Finished")
+    characterIds: (number | null)[]
+): (number | null)[] {
+    const evolutionImgLevels: (number | null)[] = []
+    for (const id of characterIds) {
+        if (id !== null) {
+            const character = getPlayerCharacterSync(playerId, id)
+            const illustrationSettings = character?.illustrationSettings ?? [null]
+            const evolutionLevel = character?.evolutionLevel ?? 0
+            evolutionImgLevels.push(illustrationSettings[0] === null ? evolutionLevel : illustrationSettings[0])
+        } else {
+            evolutionImgLevels.push(null)
+        }
+    }
+    return evolutionImgLevels
 }
 
 const routes = async (fastify: FastifyInstance) => {
@@ -90,6 +100,35 @@ const routes = async (fastify: FastifyInstance) => {
             "error": "Internal Server Error",
             "message": "No player bound to account."
         })
+
+        // get rush event data
+        let rushEventData = getPlayerRushEventSync(playerId, eventId)
+        if (rushEventData === null) {
+            // insert default data
+            rushEventData = {
+                eventId: eventId,
+                endlessBattleNextRound: 1,
+                activeRushBattleFolderId: null,
+                endlessBattleMaxRound: null
+            }
+
+            insertPlayerRushEventSync(playerId, rushEventData)
+        }
+
+        // get cleared folder id list
+        const clearedFolderIdList = getPlayerRushEventClearedFoldersSync(playerId, eventId)
+
+        // get played parties
+        const playedParties = getPlayerRushEventPlayedPartiesSync(playerId, eventId)
+
+        // convert played parties to the expected client format
+        const rushBattlePlayedPartyList: Record<number, UserRushEventPlayedParty> = {}
+        const endlessBattlePlayedPartyList: Record<number, UserRushEventPlayedParty> = {}
+
+        for (const party of playedParties) {
+            const record = party.battleType === RushEventBattleType.RUSH ? rushBattlePlayedPartyList : endlessBattlePlayedPartyList;
+            record[party.round] = serializePlayerRushEventPlayedParty(party)
+        }
 
         /*{
             "active_rush_battle_folder_id": 1,
@@ -167,17 +206,12 @@ const routes = async (fastify: FastifyInstance) => {
                 viewer_id: viewerId
             }),
             "data": {
-                "endless_battle_next_round": 1,
-                // "rush_battle_played_party_list": {
-                //     "1": {
-                //         "character_id_1": 1,
-                //         "evolution_img_level_1": 1
-                //     },
-                //     "51": {
-                //         "character_id_1": 1,
-                //         "evolution_img_level_1": 1
-                //     }
-                // }
+                "endless_battle_next_round": rushEventData.endlessBattleNextRound,
+                "active_rush_battle_folder_id": rushEventData.activeRushBattleFolderId,
+                "endless_battle_played_max_round": rushEventData.endlessBattleMaxRound,
+                "cleared_folder_id_list": clearedFolderIdList,
+                "endless_battle_played_party_list": endlessBattlePlayedPartyList,
+                "rush_battle_played_party_list": rushBattlePlayedPartyList
             }
         })
     })
@@ -205,6 +239,25 @@ const routes = async (fastify: FastifyInstance) => {
         if (isNaN(playerId)) return reply.status(500).send({
             "error": "Internal Server Error",
             "message": "No player bound to account."
+        })
+
+        // get existing rush event data 
+        const rushEventData = getPlayerRushEventSync(playerId, eventId)
+        if (rushEventData === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": `No rush event data for rush event with id '${eventId}'`
+        });
+
+        // Error if a folder has already been selected
+        if (rushEventData.activeRushBattleFolderId !== null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Already selected a folder for this rush event."
+        });
+
+        // update folder
+        updatePlayerRushEventSync(playerId, {
+            eventId: eventId,
+            activeRushBattleFolderId: folderId
         })
 
         reply.header("content-type", "application/x-msgpack")
@@ -360,13 +413,49 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "Quest doesn't exist."
         })
 
+        // get the event id
+        const rushEventId = questData.rushEventId
+        if (rushEventId === undefined) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Quest is not a rush event quest."
+        })
+
         // insert active quest for '/single_battle_quest/finish' endpoint
         insertActiveQuest(playerId, {
             questId: questId,
             category: QuestCategory.RUSH_EVENT,
             useBoostPoint: false,
             useBossBoostPoint: false,
-            isAutoStartMode: isAutoStartMode
+            isAutoStartMode: isAutoStartMode,
+            finishCallback: (body: FinishBody) => {
+                // insert played party
+                const partyStatistics = body.statistics.party
+                if (partyStatistics !== undefined) {
+
+                    // map character ids
+                    const characterIds = partyStatistics.characters.map(val => val?.id ?? null)
+                    const unisonCharacterIds = partyStatistics.unison_characters.map(val => val?.id ?? null)
+
+                    // get evolution image levels
+                    const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
+                    const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
+
+                    // get round
+                    const lastRound = getPlayerRushEventCurrentRound(playerId, rushEventId, RushEventBattleType.RUSH) ?? 0
+
+                    // insert played party
+                    insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
+                        characterIds: characterIds,
+                        unisonCharacterIds: unisonCharacterIds,
+                        equipmentIds: partyStatistics.equipments.map(val => val?.id ?? null),
+                        abilitySoulIds: partyStatistics.ability_soul_ids,
+                        evolutionImgLevels: evolutionImgLevels,
+                        unisonEvolutionImgLevels: unisonEvolutionImgLevels,
+                        battleType: RushEventBattleType.RUSH,
+                        round: lastRound + 1
+                    })
+                }
+            }
         })
 
         const headers = generateDataHeaders({

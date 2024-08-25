@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventClearedFolders, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerRushEvent, RawPlayerRushEventClearedFolder, RawPlayerRushEventPlayedParty, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, Session, SessionType } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventClearedFolders, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerRushEvent, RawPlayerRushEventClearedFolder, RawPlayerRushEventPlayedParty, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, RushEventBattleType, Session, SessionType, UserRushEventPlayedParty } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
 
 const db = getDatabase(Database.WDFP_DATA)
@@ -2837,8 +2837,8 @@ export function insertPlayerRushEventSync(
         playerId,
         rushEvent.eventId,
         rushEvent.endlessBattleNextRound,
-        rushEvent.activeRushBattleFolderId ?? null,
-        rushEvent.endlessBattleMaxRound ?? null
+        rushEvent.activeRushBattleFolderId,
+        rushEvent.endlessBattleMaxRound
     )
 }
 
@@ -2929,34 +2929,34 @@ export function deserializePlayerRushEventPlayedParty(
 ): PlayerRushEventPlayedParty {
     return {
         characterIds: [
-            serialized.character_id_1 ?? null, 
-            serialized.character_id_2 ?? null,
-            serialized.character_id_3 ?? null
+            serialized.character_id_1,
+            serialized.character_id_2,
+            serialized.character_id_3
         ],
         unisonCharacterIds: [
-            serialized.unison_character_1 ?? null, 
-            serialized.unison_character_2 ?? null,
-            serialized.unison_character_3 ?? null
+            serialized.unison_character_id_1,
+            serialized.unison_character_id_2,
+            serialized.unison_character_id_3
         ],
         abilitySoulIds: [
-            serialized.ability_soul_1 ?? null, 
-            serialized.ability_soul_2 ?? null,
-            serialized.ability_soul_3 ?? null
+            serialized.ability_soul_id_1,
+            serialized.ability_soul_id_2,
+            serialized.ability_soul_id_3
         ],
         equipmentIds: [
-            serialized.equipment_1 ?? null, 
-            serialized.equipment_2 ?? null,
-            serialized.equipment_3 ?? null
+            serialized.equipment_id_1,
+            serialized.equipment_id_2,
+            serialized.equipment_id_3
         ],
         evolutionImgLevels: [
-            serialized.evolution_img_level_1 ?? null, 
-            serialized.evolution_img_level_2 ?? null,
-            serialized.evolution_img_level_3 ?? null
+            serialized.evolution_img_level_1,
+            serialized.evolution_img_level_2,
+            serialized.evolution_img_level_3
         ],
         unisonEvolutionImgLevels: [
-            serialized.unison_evolution_img_level_1 ?? null, 
-            serialized.unison_evolution_img_level_2 ?? null,
-            serialized.unison_evolution_img_level_3 ?? null
+            serialized.unison_evolution_img_level_1,
+            serialized.unison_evolution_img_level_2,
+            serialized.unison_evolution_img_level_3
         ],
         battleType: serialized.battle_type,
         round: serialized.round
@@ -2972,33 +2972,27 @@ export function deserializePlayerRushEventPlayedParty(
  * @returns A RawPlayerRushEventPlayedParty
  */
 export function serializePlayerRushEventPlayedParty(
-    playerId: number,
-    eventId: number,
     deserialized: PlayerRushEventPlayedParty
-): RawPlayerRushEventPlayedParty {
+): UserRushEventPlayedParty {
     return {
-        player_id: playerId,
-        event_id: eventId,
-        round: deserialized.round,
-        battle_type: deserialized.battleType,
-        character_id_1: deserialized.characterIds[0] ?? undefined,
-        character_id_2: deserialized.characterIds[1] ?? undefined,
-        character_id_3: deserialized.characterIds[2] ?? undefined,
-        unison_character_1: deserialized.unisonCharacterIds[0] ?? undefined,
-        unison_character_2: deserialized.unisonCharacterIds[1] ?? undefined,
-        unison_character_3: deserialized.unisonCharacterIds[2] ?? undefined,
-        ability_soul_1: deserialized.abilitySoulIds[0] ?? undefined,
-        ability_soul_2: deserialized.abilitySoulIds[1] ?? undefined,
-        ability_soul_3: deserialized.abilitySoulIds[2] ?? undefined,
-        equipment_1: deserialized.equipmentIds[0] ?? undefined,
-        equipment_2: deserialized.equipmentIds[1] ?? undefined,
-        equipment_3: deserialized.equipmentIds[2] ?? undefined,
-        evolution_img_level_1: deserialized.evolutionImgLevels[0] ?? undefined,
-        evolution_img_level_2: deserialized.evolutionImgLevels[1] ?? undefined,
-        evolution_img_level_3: deserialized.evolutionImgLevels[2] ?? undefined,
-        unison_evolution_img_level_1: deserialized.unisonEvolutionImgLevels[0] ?? undefined,
-        unison_evolution_img_level_2: deserialized.unisonEvolutionImgLevels[1] ?? undefined,
-        unison_evolution_img_level_3: deserialized.unisonEvolutionImgLevels[2] ?? undefined,
+        character_id_1: deserialized.characterIds[0],
+        character_id_2: deserialized.characterIds[1],
+        character_id_3: deserialized.characterIds[2],
+        unison_character_id_1: deserialized.unisonCharacterIds[0],
+        unison_character_id_2: deserialized.unisonCharacterIds[1],
+        unison_character_id_3: deserialized.unisonCharacterIds[2],
+        equipment_id_1: deserialized.equipmentIds[0],
+        equipment_id_2: deserialized.equipmentIds[1],
+        equipment_id_3: deserialized.equipmentIds[2],
+        ability_soul_id_1: deserialized.abilitySoulIds[0],
+        ability_soul_id_2: deserialized.abilitySoulIds[1],
+        ability_soul_id_3: deserialized.abilitySoulIds[2],
+        evolution_img_level_1: deserialized.evolutionImgLevels[0],
+        evolution_img_level_2: deserialized.evolutionImgLevels[1],
+        evolution_img_level_3: deserialized.evolutionImgLevels[2],
+        unison_evolution_img_level_1: deserialized.unisonEvolutionImgLevels[0],
+        unison_evolution_img_level_2: deserialized.unisonEvolutionImgLevels[1],
+        unison_evolution_img_level_3: deserialized.unisonEvolutionImgLevels[2],
     }
 }
 
@@ -3014,10 +3008,10 @@ export function getPlayerRushEventPlayedPartiesSync(
     eventId: number,
 ): PlayerRushEventPlayedParty[] {
     const rawParties = db.prepare(`
-    SELECT charcter_id_1, charcter_id_2, charcter_id_3,
-        unison_character_1, unison_character_2, unison_character_3,
-        equipment_1, equipment_2, equipment_3, ability_soul_1,
-        ability_soul_2, ability_soul_3, evolution_img_level_1,
+    SELECT character_id_1, character_id_2, character_id_3,
+        unison_character_id_1, unison_character_id_2, unison_character_id_3,
+        equipment_id_1, equipment_id_2, equipment_id_3, ability_soul_id_1,
+        ability_soul_id_2, ability_soul_id_3, evolution_img_level_1,
         evolution_img_level_2, evolution_img_level_3,
         unison_evolution_img_level_1, unison_evolution_img_level_2,
         unison_evolution_img_level_3, player_id, event_id, round,
@@ -3027,6 +3021,29 @@ export function getPlayerRushEventPlayedPartiesSync(
     `).all(playerId, eventId) as RawPlayerRushEventPlayedParty[]
 
     return rawParties.map(raw => deserializePlayerRushEventPlayedParty(raw))
+}
+
+/**
+ * Gets the most current round the player has cleared in a rush event.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID ofthe rush event.
+ * @param battleType The rush event battle type.
+ * @returns A round number or null.
+ */
+export function getPlayerRushEventCurrentRound(
+    playerId: number,
+    eventId: number,
+    battleType: RushEventBattleType
+): number | null {
+    const round = db.prepare(`
+    SELECT MAX(round)
+    FROM players_rush_events_played_parties
+    WHERE player_id = ? AND event_id = ? AND battle_type = ?
+    LIMIT 1
+    `).get(playerId, eventId, battleType) as { round: number } | undefined
+
+    return round?.round ?? null
 }
 
 /**
@@ -3043,26 +3060,26 @@ export function insertPlayerRushEventPlayedPartySync(
 ) {
     db.prepare(`
     INSERT INTO players_rush_events_played_parties
-    VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
-        party.characterIds[0] ?? null,
-        party.characterIds[1] ?? null,
-        party.characterIds[2] ?? null,
-        party.unisonCharacterIds[0] ?? null,
-        party.unisonCharacterIds[1] ?? null,
-        party.unisonCharacterIds[2] ?? null,
-        party.equipmentIds[0] ?? null,
-        party.equipmentIds[1] ?? null,
-        party.equipmentIds[2] ?? null,
-        party.abilitySoulIds[0] ?? null,
-        party.abilitySoulIds[1] ?? null,
-        party.abilitySoulIds[2] ?? null,
-        party.evolutionImgLevels[0] ?? null,
-        party.evolutionImgLevels[1] ?? null,
-        party.evolutionImgLevels[2] ?? null,
-        party.unisonEvolutionImgLevels[0] ?? null,
-        party.unisonEvolutionImgLevels[1] ?? null,
-        party.unisonEvolutionImgLevels[2] ?? null,
+        party.characterIds[0],
+        party.characterIds[1],
+        party.characterIds[2],
+        party.unisonCharacterIds[0],
+        party.unisonCharacterIds[1],
+        party.unisonCharacterIds[2],
+        party.equipmentIds[0],
+        party.equipmentIds[1],
+        party.equipmentIds[2],
+        party.abilitySoulIds[0],
+        party.abilitySoulIds[1],
+        party.abilitySoulIds[2],
+        party.evolutionImgLevels[0],
+        party.evolutionImgLevels[1],
+        party.evolutionImgLevels[2],
+        party.unisonEvolutionImgLevels[0],
+        party.unisonEvolutionImgLevels[1],
+        party.unisonEvolutionImgLevels[2],
         playerId,
         eventId,
         party.round,
@@ -3087,15 +3104,15 @@ export function updatePlayerRushEventPlayedPartySync(
     SET character_id_1 = ?,
         character_id_2 = ?,
         character_id_3 = ?,
-        unison_character_1 = ?,
-        unison_character_2 = ?,
-        unison_character_3 = ?,
-        equipment_1 = ?,
-        equipment_2 = ?,
-        equipment_3 = ?,
-        ability_soul_1 = ?,
-        ability_soul_2 = ?,
-        ability_soul_3 = ?,
+        unison_character_id_1 = ?,
+        unison_character_id_2 = ?,
+        unison_character_id_3 = ?,
+        equipment_id_1 = ?,
+        equipment_id_2 = ?,
+        equipment_id_3 = ?,
+        ability_soul_id_1 = ?,
+        ability_soul_id_2 = ?,
+        ability_soul_id_3 = ?,
         evolution_img_level_1 = ?,
         evolution_img_level_2 = ?,
         evolution_img_level_3 = ?,
@@ -4081,6 +4098,7 @@ export function replacePlayerDataSync(
         // insert new
         insertMergedPlayerDataSync(account.id, replaceWith)
     } catch (error: Error | any) {
+        console.error(error)
         throw error
     }
 }

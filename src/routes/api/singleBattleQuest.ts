@@ -5,7 +5,6 @@ import { givePlayerCharactersExpSync } from "../../lib/character";
 import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
 import { BattleQuest, QuestCategory } from "../../lib/types";
 import { generateDataHeaders, getServerTime } from "../../utils";
-import { onRushEventBattleFinish } from "./rushEvent";
 
 interface StartBody {
     quest_id: number
@@ -19,6 +18,15 @@ interface StartBody {
     api_count: number
 }
 
+interface QuestStatistics {
+    party: {
+        unison_characters: ({ id: (number | null) } | null)[],
+        characters: ({ id: (number | null) } | null)[],
+        equipments: ({ id: (number | null) } | null)[],
+        ability_soul_ids: (number | null)[]
+    }
+}
+
 export interface FinishBody {
     is_restored: boolean
     continue_count: number
@@ -29,14 +37,7 @@ export interface FinishBody {
     viewer_id: number
     add_mana: number
     is_accomplished: boolean
-    statistics: {
-        party: {
-            unison_characters: { id: (number | null) }[],
-            characters: { id: (number | null) }[],
-            equipments: (number | null)[],
-            ability_soul_ids: (number | null)[]
-        }
-    }
+    statistics: QuestStatistics
     api_count: number
 }
 
@@ -52,14 +53,7 @@ interface PlayContinueBody {
 interface AbortBody {
     api_count: number,
     finish_kind: number,
-    statistics: {
-        party: {
-            unison_characters: (number | null)[],
-            characters: { id: (number | null) }[],
-            equipments: (number | null)[],
-            ability_soul_ids: (number | null)[]
-        }
-    },
+    statistics: QuestStatistics,
     viewer_id: number,
     quest_id: number,
     play_id: string,
@@ -72,6 +66,7 @@ export interface ActiveQuest {
     useBossBoostPoint: boolean
     useBoostPoint: boolean
     isAutoStartMode: boolean
+    finishCallback?: (finishBody: FinishBody) => void
 }
 
 const continueVmoneyCost = 50;
@@ -209,8 +204,8 @@ const routes = async (fastify: FastifyInstance) => {
             viewer_id: viewerId
         })
 
-        if (questCategory === QuestCategory.RUSH_EVENT) {
-            onRushEventBattleFinish(playerId, activeQuestData, body)
+        if (activeQuestData.finishCallback !== undefined) {
+            activeQuestData.finishCallback(body)
         }
 
         reply.header("content-type", "application/x-msgpack")

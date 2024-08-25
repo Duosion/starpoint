@@ -44,8 +44,8 @@ export function updateAfterInit(
         INSERT INTO players_parties
         SELECT *, 1 FROM players_parties_old
         `).run()
-        database.prepare(`DROP TABLE players_parties_old`).run()
-        database.prepare(`DROP TABLE players_party_groups_old`).run()
+        database.prepare(`DELETE FROM players_parties_old`).run()
+        database.prepare(`DELETE FROM players_party_groups_old`).run()
     }
 
 }

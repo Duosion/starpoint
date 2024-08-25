@@ -337,15 +337,15 @@ export interface RawPlayerRushEvent {
     player_id: number,
     event_id: number,
     endless_battle_next_round: number,
-    active_rush_battle_folder_id?: number,
-    endless_battle_max_round?: number
+    active_rush_battle_folder_id: number | null,
+    endless_battle_max_round: number | null
 }
 
 export interface PlayerRushEvent {
     eventId: number,
     endlessBattleNextRound: number,
-    activeRushBattleFolderId?: number,
-    endlessBattleMaxRound?: number
+    activeRushBattleFolderId: number | null,
+    endlessBattleMaxRound: number | null
 }
 
 export interface RawPlayerRushEventClearedFolder {
@@ -361,25 +361,28 @@ export enum RushEventBattleType {
     ENDLESS
 }
 
-export interface RawPlayerRushEventPlayedParty {
-    character_id_1?: number,
-    character_id_2?: number,
-    character_id_3?: number,
-    unison_character_1?: number,
-    unison_character_2 ?: number,
-    unison_character_3 ?: number,
-    equipment_1 ?: number,
-    equipment_2 ?: number,
-    equipment_3 ?: number,
-    ability_soul_1 ?: number,
-    ability_soul_2 ?: number,
-    ability_soul_3 ?: number,
-    evolution_img_level_1 ?: number,
-    evolution_img_level_2 ?: number,
-    evolution_img_level_3 ?: number,
-    unison_evolution_img_level_1 ?: number,
-    unison_evolution_img_level_2 ?: number,
-    unison_evolution_img_level_3 ?: number,
+export interface UserRushEventPlayedParty {
+    character_id_1: number | null,
+    character_id_2: number | null,
+    character_id_3: number | null,
+    unison_character_id_1: number | null,
+    unison_character_id_2: number | null,
+    unison_character_id_3: number | null,
+    equipment_id_1: number | null,
+    equipment_id_2: number | null,
+    equipment_id_3: number | null,
+    ability_soul_id_1: number | null,
+    ability_soul_id_2: number | null,
+    ability_soul_id_3: number | null,
+    evolution_img_level_1: number | null,
+    evolution_img_level_2: number | null,
+    evolution_img_level_3: number | null,
+    unison_evolution_img_level_1: number | null,
+    unison_evolution_img_level_2: number | null,
+    unison_evolution_img_level_3: number | null,
+}
+
+export interface RawPlayerRushEventPlayedParty extends UserRushEventPlayedParty {
     player_id: number,
     event_id: number,
     round: number,

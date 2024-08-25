@@ -370,7 +370,8 @@ def convert_raid_event_quest(obj):
 
 def convert_rush_event_quest(obj):
     converted = {}
-    for _, quests in obj.items():
+    for rush_event_id_str, quests in obj.items():
+        rush_event_id = int(rush_event_id_str)
         for _, quest in quests.items():
             converted[quest[0]] = {
                 "name": "",
@@ -381,7 +382,8 @@ def convert_rush_event_quest(obj):
                 "rankPointReward": int(quest[82]),
                 "characterExpReward": int(quest[83]),
                 "manaReward": int(quest[84]),
-                "poolExpReward": int(quest[85])
+                "poolExpReward": int(quest[85]),
+                "rushEventId": rush_event_id
             }
     return converted 
 
