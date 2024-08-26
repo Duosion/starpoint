@@ -2959,7 +2959,7 @@ export function deserializePlayerRushEventPlayedParty(
             serialized.unison_evolution_img_level_3
         ],
         battleType: serialized.battle_type,
-        round: serialized.round
+        questId: serialized.quest_id
     }
 }
 
@@ -3014,36 +3014,13 @@ export function getPlayerRushEventPlayedPartiesSync(
         ability_soul_id_2, ability_soul_id_3, evolution_img_level_1,
         evolution_img_level_2, evolution_img_level_3,
         unison_evolution_img_level_1, unison_evolution_img_level_2,
-        unison_evolution_img_level_3, player_id, event_id, round,
+        unison_evolution_img_level_3, player_id, event_id, quest_id,
         battle_type
     FROM players_rush_events_played_parties
     WHERE player_id = ? AND event_id = ?
     `).all(playerId, eventId) as RawPlayerRushEventPlayedParty[]
 
     return rawParties.map(raw => deserializePlayerRushEventPlayedParty(raw))
-}
-
-/**
- * Gets the most current round the player has cleared in a rush event.
- * 
- * @param playerId The ID of the player.
- * @param eventId The ID ofthe rush event.
- * @param battleType The rush event battle type.
- * @returns A round number or null.
- */
-export function getPlayerRushEventCurrentRound(
-    playerId: number,
-    eventId: number,
-    battleType: RushEventBattleType
-): number | null {
-    const round = db.prepare(`
-    SELECT MAX(round)
-    FROM players_rush_events_played_parties
-    WHERE player_id = ? AND event_id = ? AND battle_type = ?
-    LIMIT 1
-    `).get(playerId, eventId, battleType) as { round: number } | undefined
-
-    return round?.round ?? null
 }
 
 /**
@@ -3082,7 +3059,7 @@ export function insertPlayerRushEventPlayedPartySync(
         party.unisonEvolutionImgLevels[2],
         playerId,
         eventId,
-        party.round,
+        party.questId,
         party.battleType
     )
 }
@@ -3119,10 +3096,7 @@ export function updatePlayerRushEventPlayedPartySync(
         unison_evolution_img_level_1 = ?,
         unison_evolution_img_level_2 = ?,
         unison_evolution_img_level_3 = ?,
-        player_id,
-        event_id,
-        round,
-        battle_type
+    WHERE player_id = ? AND event_id = ? AND quest_id = ? AND battle_type = ?
     `).run(
         party.characterIds[0] ?? null,
         party.characterIds[1] ?? null,
@@ -3144,7 +3118,7 @@ export function updatePlayerRushEventPlayedPartySync(
         party.unisonEvolutionImgLevels[2] ?? null,
         playerId,
         eventId,
-        party.round,
+        party.questId,
         party.battleType
     )
 }

@@ -383,7 +383,9 @@ def convert_rush_event_quest(obj):
                 "characterExpReward": int(quest[83]),
                 "manaReward": int(quest[84]),
                 "poolExpReward": int(quest[85]),
-                "rushEventId": rush_event_id
+                "rushEventId": rush_event_id,
+                "rushEventFolderId": int(quest[1]),
+                "rushEventRound": int(quest[2])
             }
     return converted 
 

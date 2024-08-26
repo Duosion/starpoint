@@ -1,13 +1,12 @@
 // Handles mail.
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventCurrentRound, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
-import { generateDataHeaders } from "../../utils";
-import { clientSerializeDate, serializePartyGroupList } from "../../data/utils";
-import { PartyCategory, PlayerPartyOptions, PlayerRushEventPlayedParty, RawPlayerRushEventPlayedParty, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
+import { PartyCategory, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
+import { getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
-import { BattleQuest, QuestCategory } from "../../lib/types";
-import { ActiveQuest, FinishBody, insertActiveQuest } from "./singleBattleQuest";
+import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
+import { generateDataHeaders } from "../../utils";
+import { FinishBody, insertActiveQuest } from "./singleBattleQuest";
 
 interface SummaryBody {
     event_id: number,
@@ -49,6 +48,12 @@ interface RushPartyGroup {
     party_group_color_id: number,
     party_group_id: number,
     party_list: RushParty[]
+}
+
+const rushEventFolderMaxRounds: { [key in RushEventFolder]?: number } = {
+    [RushEventFolder.INTERMEDIATE]: 2,
+    [RushEventFolder.ADVANCED]: 2,
+    [RushEventFolder.GODLY]: 3
 }
 
 /**
@@ -127,7 +132,7 @@ const routes = async (fastify: FastifyInstance) => {
 
         for (const party of playedParties) {
             const record = party.battleType === RushEventBattleType.RUSH ? rushBattlePlayedPartyList : endlessBattlePlayedPartyList;
-            record[party.round] = serializePlayerRushEventPlayedParty(party)
+            record[party.questId] = serializePlayerRushEventPlayedParty(party)
         }
 
         /*{
@@ -415,7 +420,9 @@ const routes = async (fastify: FastifyInstance) => {
 
         // get the event id
         const rushEventId = questData.rushEventId
-        if (rushEventId === undefined) return reply.status(400).send({
+        const rushEventFolderId = questData.rushEventFolderId
+        const rushEventRound = questData.rushEventRound
+        if (rushEventId === undefined || rushEventFolderId === undefined || rushEventRound === undefined) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Quest is not a rush event quest."
         })
@@ -440,9 +447,6 @@ const routes = async (fastify: FastifyInstance) => {
                     const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
                     const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
 
-                    // get round
-                    const lastRound = getPlayerRushEventCurrentRound(playerId, rushEventId, RushEventBattleType.RUSH) ?? 0
-
                     // insert played party
                     insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
                         characterIds: characterIds,
@@ -452,8 +456,19 @@ const routes = async (fastify: FastifyInstance) => {
                         evolutionImgLevels: evolutionImgLevels,
                         unisonEvolutionImgLevels: unisonEvolutionImgLevels,
                         battleType: RushEventBattleType.RUSH,
-                        round: lastRound + 1
+                        questId: questId
                     })
+
+                    // mark folder as complete if final round
+                    const maxRounds = rushEventFolderMaxRounds[rushEventFolderId] ?? 0
+                    if (rushEventRound >= maxRounds) {
+                        insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
+                        // update the active folder value
+                        updatePlayerRushEventSync(playerId, {
+                            eventId: rushEventId,
+                            activeRushBattleFolderId: null
+                        })
+                    }
                 }
             }
         })

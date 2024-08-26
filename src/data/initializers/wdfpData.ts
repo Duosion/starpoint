@@ -349,9 +349,9 @@ export default function init(
         unison_evolution_img_level_3 INTEGER,
         player_id INTEGER NOT NULL,
         event_id INTEGER NOT NULL,
-        round INTEGER NOT NULL,
+        quest_id INTEGER NOT NULL,
         battle_type INTEGER NOT NULL,
-        PRIMARY KEY (player_id, event_id, round, battle_type),
+        PRIMARY KEY (player_id, event_id, quest_id, battle_type),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run()
 }

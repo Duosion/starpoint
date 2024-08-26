@@ -385,7 +385,7 @@ export interface UserRushEventPlayedParty {
 export interface RawPlayerRushEventPlayedParty extends UserRushEventPlayedParty {
     player_id: number,
     event_id: number,
-    round: number,
+    quest_id: number,
     battle_type: RushEventBattleType,
 }
 
@@ -396,7 +396,7 @@ export interface PlayerRushEventPlayedParty {
     abilitySoulIds: (number | null)[],
     evolutionImgLevels: (number | null)[],
     unisonEvolutionImgLevels: (number | null)[],
-    round: number,
+    questId: number,
     battleType: RushEventBattleType
 }
 

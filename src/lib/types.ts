@@ -101,6 +101,14 @@ export enum ShopType {
     STAR_GRAIN
 }
 
+export enum RushEventFolder {
+    NONE,
+    INTERMEDIATE,
+    ADVANCED,
+    GODLY,
+    ENDLESS
+}
+
 // clear rewards
 export interface Reward {
     name: string,
@@ -189,6 +197,8 @@ export interface RawQuest {
     poolExpReward?: number,
     fixedParty?: number,
     rushEventId?: number
+    rushEventFolderId?: number
+    rushEventRound?: number
 }
 
 export interface StoryQuest {
@@ -212,6 +222,8 @@ export interface BattleQuest {
     poolExpReward: number,
     fixedParty?: number,
     rushEventId?: number
+    rushEventFolderId?: RushEventFolder
+    rushEventRound?: number
 }
 
 export type RawQuests = Record<string, RawQuest>

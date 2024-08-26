@@ -109,7 +109,9 @@ function getQuestSync(
         manaReward: quest.manaReward,
         poolExpReward: quest.poolExpReward,
         fixedParty: quest.fixedParty,
-        rushEventId: quest.rushEventId
+        rushEventId: quest.rushEventId,
+        rushEventFolderId: quest.rushEventFolderId,
+        rushEventRound: quest.rushEventRound
     } as BattleQuest : {
         name: quest.name,
         clearReward: quest.clearRewardId === undefined ? undefined : getClearRewardSync(quest.clearRewardId),
