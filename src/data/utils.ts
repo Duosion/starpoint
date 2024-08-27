@@ -1,9 +1,9 @@
 import { getCharacterDataSync } from "../lib/assets"
 import { getDateFromServerTime, getServerTime } from "../utils"
-import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
+import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
 
 import saveData from "../../assets/save_data.json"
-import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerGachaCampaignListSync } from "./wdfpData"
+import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerGachaCampaignListSync, serializePlayerRushEventPlayedParty, deserializePlayerRushEventPlayedParty } from "./wdfpData"
 import { availableAssetVersion } from "../routes/api/asset"
 
 /**
@@ -777,6 +777,45 @@ export function deserializePlayerData(
             })
         }
         
+        // deserialize rush event data
+        const userRushEventList = toDeserialize['user_rush_event_list']
+        const rushEventList: PlayerRushEvent[] = []
+        if (userRushEventList !== undefined) {
+            for (const [eventId, rushEvent] of Object.entries(userRushEventList)) {
+                const endlessBattleNextRound = rushEvent['endless_battle_next_round']
+                if (isNaN(endlessBattleNextRound))
+                    throw new Error("Invalid or missing 'endless_battle_next_round' for 'user_rush_event_list' field.");
+
+                rushEventList.push({
+                    eventId: Number(eventId),
+                    endlessBattleNextRound: rushEvent.endless_battle_next_round,
+                    activeRushBattleFolderId: rushEvent.active_rush_battle_folder_id ?? null,
+                    endlessBattleMaxRound: rushEvent.active_rush_battle_folder_id ?? null
+                })
+            }
+        }
+        
+        // deserialize rush event played party group list data
+        const userRushEventPlayedPartyList = toDeserialize['user_rush_event_played_party_list']
+        let rushEventPlayedPartyList: Record<string, PlayerRushEventPlayedParty[]> | undefined = undefined
+        if (userRushEventPlayedPartyList !== undefined) {
+            rushEventPlayedPartyList = {}
+
+            for (const [eventId, parties] of Object.entries(userRushEventPlayedPartyList)) {
+                const mappedParties: PlayerRushEventPlayedParty[] = []
+
+                for (const [questId, party] of Object.entries(parties)) {
+                    mappedParties.push(deserializePlayerRushEventPlayedParty({
+                        player_id: 0,
+                        event_id: 0,
+                        quest_id: Number(questId),
+                        ...party
+                    }))
+                }
+                rushEventPlayedPartyList[eventId] = mappedParties
+            }
+        }
+
 
         return {
             player: player,
@@ -798,7 +837,10 @@ export function deserializePlayerData(
             purchasedTimesList: {},
             startDashExchangeCampaignList: startDashExchangeCampaignList,
             multiSpecialExchangeCampaignList: multiSpecialExchangeCampaignList,
-            userOption: userOption
+            userOption: userOption,
+            rushEventList: rushEventList.length === 0 ? undefined : rushEventList,
+            rushEventClearedFolderList: toDeserialize['user_rush_event_cleared_folder_list'],
+            rushEventPlayedPartyList: rushEventPlayedPartyList
         }
 
     } catch (error: Error | any) {

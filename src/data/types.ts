@@ -333,12 +333,15 @@ export interface PlayerMultiSpecialExchangeCampaign {
 }
 
 // rush event
-export interface RawPlayerRushEvent {
-    player_id: number,
-    event_id: number,
+export interface UserRushEvent {
     endless_battle_next_round: number,
     active_rush_battle_folder_id: number | null,
     endless_battle_max_round: number | null
+}
+
+export interface RawPlayerRushEvent extends UserRushEvent {
+    player_id: number,
+    event_id: number,
 }
 
 export interface PlayerRushEvent {
@@ -382,11 +385,14 @@ export interface UserRushEventPlayedParty {
     unison_evolution_img_level_3: number | null,
 }
 
+export interface SaveRushEventPlayedParty extends UserRushEventPlayedParty {
+    battle_type: RushEventBattleType
+}
+
 export interface RawPlayerRushEventPlayedParty extends UserRushEventPlayedParty {
     player_id: number,
     event_id: number,
     quest_id: number,
-    battle_type: RushEventBattleType,
 }
 
 export interface PlayerRushEventPlayedParty {
@@ -647,7 +653,11 @@ export interface ClientPlayerData {
     start_dash_exchange_campaign_list: UserStartDashCampaignList[]
     multi_special_exchange_campaign_list: UserMultiSpecialExchangeCampaignList[]
     associate_token: string
-    config: Object
+    config: Object,
+    // rush event data
+    user_rush_event_list?: Record<string, UserRushEvent> // { [eventId]: PlayerRushEvent}
+    user_rush_event_cleared_folder_list?: Record<string, number[]> // { [eventId]: [folderId] }
+    user_rush_event_played_party_list?: Record<string, Record<string, SaveRushEventPlayedParty>> // { [eventId]: { [questId]: UserRushEventPlayedParty } }
 }
 
 export interface MergedPlayerData {
@@ -671,4 +681,8 @@ export interface MergedPlayerData {
     startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[],
     multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[],
     userOption: Record<string, boolean>,
+    // rush event data
+    rushEventList?: PlayerRushEvent[],
+    rushEventClearedFolderList?: Record<string, number[]>,
+    rushEventPlayedPartyList?: Record<string, PlayerRushEventPlayedParty[]>
 }

@@ -462,12 +462,12 @@ const routes = async (fastify: FastifyInstance) => {
                     // mark folder as complete if final round
                     const maxRounds = rushEventFolderMaxRounds[rushEventFolderId] ?? 0
                     if (rushEventRound >= maxRounds) {
-                        insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
-                        // update the active folder value
-                        updatePlayerRushEventSync(playerId, {
-                            eventId: rushEventId,
-                            activeRushBattleFolderId: null
-                        })
+                        // insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
+                        // // update the active folder value
+                        // updatePlayerRushEventSync(playerId, {
+                        //     eventId: rushEventId,
+                        //     activeRushBattleFolderId: null
+                        // })
                     }
                 }
             }
