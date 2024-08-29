@@ -13,23 +13,59 @@ set "COREDNSFOLDER=%BASEPATH%.coredns"
 :: Set the path to the mitmproxy directory
 set "MITMPROXYFOLDER=%BASEPATH%.mitmproxy"
 
+set "CANRUN=true"
+
+::Find node install in path with npm
+set FOUND_NODE=
+for %%e in (%PATHEXT%) do (
+  for %%X in (npm%%e) do (
+    if not defined FOUND_NODE (
+      set FOUND_NODE=%%~$PATH:X
+    )
+  )
+)
+
+if not defined FOUND_NODE (
+    echo "Node is missing! Opening the download page for you to install it...."
+    explorer "https://nodejs.org/en/download/prebuilt-installer/current"
+    set "CANRUN="
+)
+
+::Find mitmproxy with several methods
+set "MITMPROXYCOMMAND="
+if exist "%MITMPROXYFOLDER%\mitmweb.exe" (
+    set "MITMPROXYCOMMAND=cd /d "%MITMPROXYFOLDER%" && .\mitmweb.exe --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s ..\scripts\mitm-redirect-traffic.py"
+) else (
+    if exist "C:\Program Files\mitmproxy\bin\mitmweb.exe" (
+        set "MITMPROXYCOMMAND=cd /d "%MITMPROXYSCRIPTFOLDER%" && echo Using existing mitmproxy install... && "C:\Program Files\mitmproxy\bin\mitmweb.exe" --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s mitm-redirect-traffic.py"
+    ) else (
+        set FOUND_MITMPROXY=
+        for %%e in (%PATHEXT%) do (
+            for %%X in (mitmweb%%e) do (
+                if not defined FOUND_MITMPROXY (
+                set FOUND_MITMPROXY=%%~$PATH:X
+                )
+            )
+        )
+        if defined FOUND_MITMPROXY (
+            set "MITMPROXYCOMMAND=cd /d "%MITMPROXYSCRIPTFOLDER%" && echo Using existing mitmproxy install in path... && mitmweb --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s mitm-redirect-traffic.py"
+        ) else (
+            echo "mitmproxy is not installed in the '.mitmproxy' folder. Opening download page at https://mitmproxy.org/downloads..."
+            explorer "https://mitmproxy.org/downloads"
+            echo "Please add mitmweb.exe to the .mitmproxy folder or install it via the installer. If you have Python installed, you may try 'pip install mitmproxy'"
+            set "CANRUN="
+        )
+    )
+)
+
+if not "%CANRUN%" == "true" (
+    echo Couldn't find stuff needed to run Starpoint! Please check errors above and use the web pages opened to download missing utilities. After you are done, close this window and try again.
+    PAUSE
+    exit \B
+)
+
 :: Start Node.js
 start cmd.exe /k "cd /d "%BASEPATH%" && npm install && npx tsc && npm run dev"
 
-:: Start the CoreDNS server
-if exist "%COREDNSFOLDER%\coredns.exe" (
-    start cmd.exe /k "cd /d "%COREDNSFOLDER%" && .\coredns.exe"
-) else (
-    start cmd.exe /k "cd /d "%MITMPROXYSCRIPTFOLDER%" && echo CoreDNS is not installed in the '.coredns' folder. Install from https://github.com/coredns/coredns/releases."
-)
-
-:: Check if mitmproxy is installed in the install directory
-if exist "%MITMPROXYFOLDER%\mitmweb.exe" (
-    start cmd.exe /k "cd /d "%MITMPROXYFOLDER%" && .\mitmweb.exe --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s ..\scripts\mitm-redirect-traffic.py"
-) else (
-    if exist "C:\Program Files\mitmproxy\bin\mitmweb.exe" (
-        start cmd.exe /k "cd /d "%MITMPROXYSCRIPTFOLDER%" && echo Using existing mitmproxy install... && "C:\Program Files\mitmproxy\bin\mitmweb.exe" --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s mitm-redirect-traffic.py"
-    ) else (
-        start cmd.exe /k "cd /d "%MITMPROXYSCRIPTFOLDER%" && echo mitmproxy is not installed in the '.mitmproxy' folder. Install from https://mitmproxy.org/downloads."
-    )
-)
+:: Start MITMproxy
+start cmd.exe /k "%MITMPROXYCOMMAND%"
