@@ -26,6 +26,7 @@ server {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass_request_headers on;
                 proxy_pass ${STARPOINT_REMOTE_URL}$request_uri;
         }
 }
@@ -38,6 +39,8 @@ server {
 
         server_name na.wdfp.kakaogames.com;
 
+        underscores_in_headers on;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_wdfp_global.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
@@ -45,6 +48,7 @@ server {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass_request_headers on;
                 proxy_pass ${STARPOINT_REMOTE_URL}$request_uri;
         }
 }
@@ -59,6 +63,8 @@ server {
 
         server_name patch.wdfp.kakaogames.com;
 
+        underscores_in_headers on;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_wdfp_global.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
@@ -66,6 +72,7 @@ server {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass_request_headers on;
                 proxy_pass ${STARPOINT_REMOTE_URL}/patch$request_uri;
         }
 }
@@ -78,6 +85,8 @@ server {
 
         server_name openapi-zinny3.game.kakaogames.com;
 
+        underscores_in_headers on;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_zinny3_openapi.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
@@ -85,6 +94,7 @@ server {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass_request_headers on;
                 proxy_pass ${STARPOINT_REMOTE_URL}/openapi$request_uri;
         }
 }
@@ -97,6 +107,8 @@ server {
 
         server_name gc-openapi-zinny3.kakaogames.com;
 
+        underscores_in_headers on;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_zinny3_openapi_gc.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
@@ -104,6 +116,7 @@ server {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass_request_headers on;
                 proxy_pass ${STARPOINT_REMOTE_URL}/openapi$request_uri;
         }
 }
@@ -116,6 +129,8 @@ server {
 
         server_name gc-infodesk-zinny3.kakaogames.com;
 
+        underscores_in_headers on;
+
         ssl_certificate ${STARPOINT_PUBKEY_PREFIX}_zinny3_infodesk_gc.crt;
         ssl_certificate_key $STARPOINT_PRIVATEKEY;
 
@@ -123,6 +138,7 @@ server {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $remote_addr;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass_request_headers on;
                 proxy_pass ${STARPOINT_REMOTE_URL}/infodesk$request_uri;
         }
 }
