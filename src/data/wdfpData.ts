@@ -2791,6 +2791,22 @@ function insertPlayerMultiSpecialExchangeCampaignsSync(
 }
 
 /**
+ * Deserializes a RawPlayerRushEvent into a PlayerRushEvent
+ * 
+ * @param raw 
+ */
+function deserializeRushEvent(
+    raw: RawPlayerRushEvent
+): PlayerRushEvent {
+    return {
+        eventId: raw.event_id,
+        endlessBattleNextRound: raw.endless_battle_next_round,
+        activeRushBattleFolderId: raw.active_rush_battle_folder_id,
+        endlessBattleMaxRound: raw.endless_battle_max_round
+    }
+}
+
+/**
  * Gets the data for a player's rush event progress.
  * 
  * @param playerId The ID of the player.
@@ -2809,14 +2825,26 @@ export function getPlayerRushEventSync(
     WHERE player_id = ? AND event_id = ?
     `).get(playerId, eventId) as RawPlayerRushEvent
 
-    if (rawData === undefined) return null;
+    return rawData === undefined ? null : deserializeRushEvent(rawData)
+}
 
-    return {
-        eventId: eventId,
-        endlessBattleNextRound: rawData.endless_battle_next_round,
-        activeRushBattleFolderId: rawData.active_rush_battle_folder_id,
-        endlessBattleMaxRound: rawData.endless_battle_max_round
-    }
+/**
+ * Batch gets the data for every rush event a player has participated in.
+ * 
+ * @param playerId The ID of the player.
+ * @returns An array of PlayerRushEvent objects.
+ */
+export function getPlayerRushEventListSync(
+    playerId: number
+): PlayerRushEvent[] {
+    console.log("get rush event list")
+    const rawData = db.prepare(`
+    SELECT *
+    FROM players_rush_events
+    WHERE player_id = ?
+    `).all(playerId) as RawPlayerRushEvent[]
+
+    return rawData.map(raw => deserializeRushEvent(raw))
 }
 
 /**
@@ -2898,6 +2926,34 @@ export function getPlayerRushEventClearedFoldersSync(
     `).all(playerId, eventId) as RawPlayerRushEventClearedFolder[]
 
     return rawCleared.map(raw => raw.folder_id)
+}
+
+/**
+ * Gets all of the cleared folders for every rush event.
+ * 
+ * @param playerId The ID of the player.
+ * @returns A record where the key is the event ID and the value is an array of cleared folder IDs.
+ */
+export function getPlayerRushEventListClearedFoldersSync(
+    playerId: number
+): Record<string, PlayerRushEventClearedFolders> {
+    const rawCleared = db.prepare(`
+    SELECT player_id, event_id, folder_id
+    FROM players_rush_events_cleared_folders
+    WHERE player_id = ?
+    `).all(playerId) as RawPlayerRushEventClearedFolder[]
+
+    const eventFolderBuckets: Record<string, PlayerRushEventClearedFolders> = {}
+    for (const clearedFolder of rawCleared) {
+        let bucket: PlayerRushEventClearedFolders | undefined = eventFolderBuckets[clearedFolder.event_id]
+        if (bucket === undefined) {
+            bucket = []
+            eventFolderBuckets[clearedFolder.event_id] = bucket
+        }
+        bucket.push(clearedFolder.folder_id)
+    }
+
+    return eventFolderBuckets
 }
 
 /**
@@ -3021,6 +3077,35 @@ export function getPlayerRushEventPlayedPartiesSync(
     `).all(playerId, eventId) as RawPlayerRushEventPlayedParty[]
 
     return rawParties.map(raw => deserializePlayerRushEventPlayedParty(raw))
+}
+
+/**
+ * Batch gets a list of every played party for every rush event for a specific player.
+ * 
+ * @param playerId The ID of the player.
+ * @returns A record where the key is an EventID and the value is an array of PlayerRushEventPlayedParty.
+ */
+export function getPlayerRushEventListPlayedPartiesSync(
+    playerId: number
+): Record<string, PlayerRushEventPlayedParty[]> {
+
+    const rawParties = db.prepare(`
+    SELECT *
+    FROM players_rush_events_played_parties
+    WHERE player_id = ?
+    `).all(playerId) as RawPlayerRushEventPlayedParty[]
+
+    const eventPartyBuckets: Record<string, PlayerRushEventPlayedParty[]> = {}
+    for (const rawParty of rawParties) {
+        let bucket: PlayerRushEventPlayedParty[] | undefined = eventPartyBuckets[rawParty.event_id]
+        if (bucket === undefined) {
+            bucket = []
+            eventPartyBuckets[rawParty.event_id] = bucket
+        }
+        bucket.push(deserializePlayerRushEventPlayedParty(rawParty))
+    }
+
+    return eventPartyBuckets
 }
 
 /**

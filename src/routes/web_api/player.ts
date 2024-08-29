@@ -39,7 +39,7 @@ const routes = async (fastify: FastifyInstance) => {
         if (isNaN(playerId)) return reply.redirect("/player");
 
         // get player
-        const data = getClientSerializedData(playerId, 0)
+        const data = getClientSerializedData(playerId, { serializeRushEventData: true })
         if (data === null) return reply.redirect("/player");
 
         // otherwise, send

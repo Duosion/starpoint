@@ -385,14 +385,11 @@ export interface UserRushEventPlayedParty {
     unison_evolution_img_level_3: number | null,
 }
 
-export interface SaveRushEventPlayedParty extends UserRushEventPlayedParty {
-    battle_type: RushEventBattleType
-}
-
 export interface RawPlayerRushEventPlayedParty extends UserRushEventPlayedParty {
     player_id: number,
     event_id: number,
     quest_id: number,
+    battle_type: number
 }
 
 export interface PlayerRushEventPlayedParty {
@@ -617,6 +614,8 @@ export interface UserMultiSpecialExchangeCampaignList {
     status: number
 }
 
+export type UserRushEventPlayedPartyList = Record<string, Record<RushEventBattleType, Record<string, UserRushEventPlayedParty>>>
+
 export interface ClientPlayerData {
     user_info: ClientUserInfo
     premium_bonus_list: unknown[]
@@ -656,8 +655,8 @@ export interface ClientPlayerData {
     config: Object,
     // rush event data
     user_rush_event_list?: Record<string, UserRushEvent> // { [eventId]: PlayerRushEvent}
-    user_rush_event_cleared_folder_list?: Record<string, number[]> // { [eventId]: [folderId] }
-    user_rush_event_played_party_list?: Record<string, Record<string, SaveRushEventPlayedParty>> // { [eventId]: { [questId]: UserRushEventPlayedParty } }
+    user_rush_event_cleared_folder_list?: Record<string, PlayerRushEventClearedFolders> // { [eventId]: [folderId] }
+    user_rush_event_played_party_list?: UserRushEventPlayedPartyList // { [eventId]: { [RushEventBattleType]: { [questId]: UserRushEventPlayedParty } } }
 }
 
 export interface MergedPlayerData {
@@ -683,6 +682,6 @@ export interface MergedPlayerData {
     userOption: Record<string, boolean>,
     // rush event data
     rushEventList?: PlayerRushEvent[],
-    rushEventClearedFolderList?: Record<string, number[]>,
+    rushEventClearedFolderList?: Record<string, PlayerRushEventClearedFolders>,
     rushEventPlayedPartyList?: Record<string, PlayerRushEventPlayedParty[]>
 }
