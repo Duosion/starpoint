@@ -230,47 +230,7 @@ export function serializePlayerData(
         }
     }
 
-    // serialize rush event data
-    const doSerializeRushEventData = options?.serializeRushEventData ?? false
-    let userRushEventList: Record<string, UserRushEvent> | undefined = undefined
-    let userRushEventPlayedPartyList: UserRushEventPlayedPartyList | undefined = undefined 
-
-    if (doSerializeRushEventData) {
-        // rush event list
-        if (toSerialize.rushEventList !== undefined) {
-            userRushEventList = {}
-            for (const rushEvent of toSerialize.rushEventList) {
-                userRushEventList[rushEvent.eventId] = {
-                    "endless_battle_next_round": rushEvent.endlessBattleNextRound,
-                    "active_rush_battle_folder_id": rushEvent.activeRushBattleFolderId,
-                    "endless_battle_max_round": rushEvent.endlessBattleMaxRound
-                }
-            }
-        }
-
-        // rush event played party list
-        if (toSerialize.rushEventPlayedPartyList !== undefined) {
-            userRushEventPlayedPartyList = {}
-
-            for (const [eventId, parties] of Object.entries(toSerialize.rushEventPlayedPartyList)) {
-                const battleTypeBuckets: Record<RushEventBattleType, Record<string, UserRushEventPlayedParty> | undefined> = {
-                    [RushEventBattleType.RUSH]: undefined,
-                    [RushEventBattleType.ENDLESS]: undefined
-                }
-                for (const party of parties) {
-                    let bucket = battleTypeBuckets[party.battleType]
-                    if (bucket === undefined) {
-                        bucket = {}
-                        battleTypeBuckets[party.battleType] = bucket
-                    }
-                    bucket[party.questId] = serializePlayerRushEventPlayedParty(party)
-                }
-                userRushEventPlayedPartyList[eventId] = battleTypeBuckets as Record<RushEventBattleType, Record<string, UserRushEventPlayedParty>>
-            }
-        }
-    }
-
-    return {
+    const clientData: ClientPlayerData = {
         "user_info": {
             "stamina": playerData.stamina,
             "stamina_heal_time": getServerTime(playerData.staminaHealTime),
@@ -402,11 +362,53 @@ export function serializePlayerData(
             "polling_delay_battle_seconds_range_min": 1,
             "polling_delay_battle_seconds_range_max": 15,
             "return_attention_max_num": 3
-        },
-        "user_rush_event_list": userRushEventList,
-        "user_rush_event_cleared_folder_list": doSerializeRushEventData ? toSerialize.rushEventClearedFolderList : undefined,
-        "user_rush_event_played_party_list": userRushEventPlayedPartyList
+        }
     }
+
+    // add optional values
+
+    // serialize rush event data
+    if (options?.serializeRushEventData ?? false) {
+        // rush event list
+        if (toSerialize.rushEventList !== undefined) {
+            const userRushEventList: Record<string, UserRushEvent> = {}
+            for (const rushEvent of toSerialize.rushEventList) {
+                userRushEventList[rushEvent.eventId] = {
+                    "endless_battle_next_round": rushEvent.endlessBattleNextRound,
+                    "active_rush_battle_folder_id": rushEvent.activeRushBattleFolderId,
+                    "endless_battle_max_round": rushEvent.endlessBattleMaxRound
+                }
+            }
+            clientData.user_rush_event_list = userRushEventList
+        }
+
+        // cleared folder list
+        clientData.user_rush_event_cleared_folder_list = toSerialize.rushEventClearedFolderList
+
+        // rush event played party list
+        if (toSerialize.rushEventPlayedPartyList !== undefined) {
+            const userRushEventPlayedPartyList: UserRushEventPlayedPartyList = {}
+
+            for (const [eventId, parties] of Object.entries(toSerialize.rushEventPlayedPartyList)) {
+                const battleTypeBuckets: Record<RushEventBattleType, Record<string, UserRushEventPlayedParty> | undefined> = {
+                    [RushEventBattleType.RUSH]: undefined,
+                    [RushEventBattleType.ENDLESS]: undefined
+                }
+                for (const party of parties) {
+                    let bucket = battleTypeBuckets[party.battleType]
+                    if (bucket === undefined) {
+                        bucket = {}
+                        battleTypeBuckets[party.battleType] = bucket
+                    }
+                    bucket[party.questId] = serializePlayerRushEventPlayedParty(party)
+                }
+                userRushEventPlayedPartyList[eventId] = battleTypeBuckets as Record<RushEventBattleType, Record<string, UserRushEventPlayedParty>>
+            }
+            clientData.user_rush_event_played_party_list = userRushEventPlayedPartyList
+        }
+    }
+
+    return clientData
 }
 
 /**
