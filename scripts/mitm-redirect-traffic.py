@@ -1,6 +1,6 @@
 from mitmproxy import http, dns
 import ipaddress
-#import logging
+import logging
 
 API_HOST = "localhost"
 # 198.51.100.0/24 subnet reserved for documentation, so it will never be used for anything else
@@ -9,6 +9,7 @@ API_DNS_REDIRECT_HOST = ipaddress.IPv4Address("198.51.100.140")
 DNS_TTL= 600
 API_PORT = 8000
 API_SCHEME = 'http'
+MAGIC_DOMAIN_SUFFIX = ".mitm.it"
 
 prefixes = ["/openapi", "/infodesk", "", '/patch']
 
@@ -28,17 +29,16 @@ hosts = {
     "patch.wdfp.kakaogames.com": 3
 }
 
-#Magic domain taken from MITMproxy documentation
-host_redirects = dict([(hostname, f"{hostname}.mitm.it") for hostname in hosts.keys()])
-
 def dns_request(flow: dns.DNSFlow):
     if not flow.request.query or flow.request.questions is None: return
     #logging.info(f"[INFO] DNS request for {flow.request.questions}")
     for question in flow.request.questions:
-        if question.type == 1 and (question.name in hosts or question.name in host_redirects): #Type is 1 when asking for an A record
+        name = question.name
+        prefix_type = hosts.get(name) if question.type == 1 else None
+        if prefix_type != None: #Type is 1 when asking for an A record
             #logging.info(f"[INFO] Matched DNS request for {question.name}")
             flow.response.answers = [answer for answer in flow.response.answers if answer.name != question.name]
-            domain_redirect = host_redirects.get(question.name)
+            domain_redirect = f'{question.name}{MAGIC_DOMAIN_SUFFIX}'
             #TODO: Are the CNAME records still useful in this configuration? Might be better to remove them and the host_redirects altogether....
             cname_rec = dns.ResourceRecord.CNAME(question.name, domain_redirect, ttl=DNS_TTL)
             a_rec = dns.ResourceRecord.A(domain_redirect, API_DNS_REDIRECT_HOST, ttl=DNS_TTL)
