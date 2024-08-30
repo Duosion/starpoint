@@ -7,9 +7,6 @@ set "BASEPATH=%~dp0"
 :: Save the path to the scripts directory
 set "MITMPROXYSCRIPTFOLDER=%BASEPATH%scripts"
 
-:: Set the path to the coreDNS directory
-set "COREDNSFOLDER=%BASEPATH%.coredns"
-
 :: Set the path to the mitmproxy directory
 set "MITMPROXYFOLDER=%BASEPATH%.mitmproxy"
 
