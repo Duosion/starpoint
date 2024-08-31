@@ -2871,6 +2871,23 @@ export function insertPlayerRushEventSync(
 }
 
 /**
+ * Batch inserts a player's data for multiple rush events into the database.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventList An array of rush event data entries.
+ */
+export function insertPlayerRushEventListSync(
+    playerId: number,
+    eventList: PlayerRushEvent[]
+) {
+    db.transaction(() => {
+        for (const event of eventList) {
+            insertPlayerRushEventSync(playerId, event)
+        }
+    })()
+}
+
+/**
  * Updates the data for a player's rush event progress.
  * 
  * @param playerId The ID of the player.
@@ -2972,6 +2989,26 @@ export function insertPlayerRushEventClearedFolderSync(
     INSERT INTO players_rush_events_cleared_folders (player_id, event_id, folder_id)
     VALUES (?, ?, ?)
     `).run(playerId, eventId, folderId)
+}
+
+/**
+ * Batch inserts multiple cleared folder IDs into the database.
+ * 
+ * @param playerId The ID of the player.
+ * @param folderList A record where the key is the ID of a rush event and the value is an array of folder IDs.
+ */
+export function insertPlayerRushEventClearedFolderListSync(
+    playerId: number,
+    folderList: Record<string, PlayerRushEventClearedFolders>
+) {
+    db.transaction(() => {
+        for (const [rawEventId, folders] of Object.entries(folderList)) {
+            const eventId = Number(rawEventId)
+            for (const folderId of folders) {
+                insertPlayerRushEventClearedFolderSync(playerId, eventId, folderId)
+            }
+        }
+    })()
 }
 
 /**
@@ -3147,6 +3184,26 @@ export function insertPlayerRushEventPlayedPartySync(
         party.questId,
         party.battleType
     )
+}
+
+/**
+ * Batch inserts PlayerRushEventPlayedParty values into the database.
+ * 
+ * @param playerId The ID of the player.
+ * @param partyList A record where the key is an event ID, and the value is an array of rush event played parties.
+ */
+export function insertPlayerRushEventPlayedPartyListSync(
+    playerId: number,
+    partyList: Record<string, PlayerRushEventPlayedParty[]>
+) {
+    db.transaction(() => {
+        for (const [rawEventId, parties] of Object.entries(partyList)) {
+            const eventId = Number(rawEventId)
+            for (const party of parties) {
+                insertPlayerRushEventPlayedPartySync(playerId, eventId, party)
+            }
+        }
+    })()
 }
 
 /**
@@ -3515,6 +3572,22 @@ export function insertMergedPlayerDataSync(
     insertPlayerStartDashExchangeCampaignsSync(playerId, toInsert.startDashExchangeCampaignList)
     insertPlayerMultiSpecialExchangeCampaignsSync(playerId, toInsert.multiSpecialExchangeCampaignList)
     insertPlayerOptionsSync(playerId, toInsert.userOption)
+    
+    // insert data that could be undefined.
+    const rushEventList = toInsert.rushEventList
+    if (rushEventList !== undefined) {
+        insertPlayerRushEventListSync(playerId, rushEventList)
+    }
+
+    const rushEventClearedFolderList = toInsert.rushEventClearedFolderList
+    if (rushEventClearedFolderList !== undefined) {
+        insertPlayerRushEventClearedFolderListSync(playerId, rushEventClearedFolderList)
+    }
+
+    const rushEventPlayedPartyList = toInsert.rushEventPlayedPartyList
+    if (rushEventPlayedPartyList !== undefined) {
+        insertPlayerRushEventPlayedPartyListSync(playerId, rushEventPlayedPartyList)
+    }
 }
 
 export function getDefaultPlayerPartyGroupsSync(
