@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "mitmweb with wireguard",
+            "type": "shell",
+            //TODO: Replace this with platform-specific commands (eventually) to remove repetition
+            //TODO: Maybe a mitmproxy option would be better, to keep it in the terminal just in case? This would not allow QR code generation, though. Consider things.
+            "command": "mitmweb --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s scripts/mitm-redirect-traffic.py",
+            "promptOnClose": true,
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": {
+                "owner": "mitmweb",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "source": "script",
+                "pattern": [
+                  {
+                    //TODO: This isn't really working yet, even though the pattern works in Javascript testing sites. Investigate/fix that later.
+                    //For now, this at least prevents warnings getting thrown up
+                    "regexp": ".*(error) in script (.+)",
+                    // "line": 1,
+                    // "column": 2,
+                    "file": 2,
+                    "severity": 1,
+                    "kind": "file"
+                    // "code": 5
+                  },
+                  {
+                    "regexp": "^(.+)$",
+                    "message": 1,
+                    "loop": true
+                  }
+                ]
+              }
+        }
+    ]
+}
