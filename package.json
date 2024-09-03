@@ -4,8 +4,9 @@
   "description": "A server reimplementation for the global version of World Flipper",
   "main": "server.ts",
   "scripts": {
+    "build": "npx tsc & npm run css",
     "css": "npx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css",
-    "dev": "npx tsc & npm run css && node --env-file=.env out/server.js",
+    "dev": "npm run build && node --env-file=.env out/server.js",
     "cdn": "npx tsc & node --env-file=.env out/validate_cdn.js",
     "unzip": "npx tsc & node --env-file=.env out/unzip_cdn.js"
   },
