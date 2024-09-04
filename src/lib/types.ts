@@ -64,16 +64,6 @@ export enum ScoreRewardType {
     RARE_POOL
 }
 
-/**
- * export enum RewardType {
-    ITEM,
-    EQUIPMENT,
-    CHARACTER,
-    BEADS,
-    MANA,
-    EXP
-}
- */
 export enum ShopItemRewardType {
     ITEM,
     EXP,
@@ -111,7 +101,7 @@ export enum RushEventFolder {
 
 // clear rewards
 export interface Reward {
-    name: string,
+    name?: string,
     type: RewardType,
 }
 
@@ -471,3 +461,6 @@ export interface EventItemShopIdMapItem {
 export type ShopItems = Record<string, ShopItem>
 export type BossCoinShopItems = Record<string, ShopItems>
 export type EventShopItems = Record<string, BossCoinShopItems>
+
+// rush event
+export type RushEventFolders = Record<string, Record<string, Reward[]>>

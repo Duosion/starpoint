@@ -50,7 +50,7 @@ interface RushPartyGroup {
     party_list: RushParty[]
 }
 
-const rushEventFolderMaxRounds: { [key in RushEventFolder]?: number } = {
+export const rushEventFolderMaxRounds: { [key in RushEventFolder]?: number } = {
     [RushEventFolder.INTERMEDIATE]: 2,
     [RushEventFolder.ADVANCED]: 2,
     [RushEventFolder.GODLY]: 3
@@ -341,7 +341,16 @@ const routes = async (fastify: FastifyInstance) => {
         let playerPartyGroups = getPlayerPartyGroupListSync(playerId, PartyCategory.EVENT)
         // insert default parties if no parties already exist
         if (0 >= Object.keys(playerPartyGroups).length) {
-            playerPartyGroups = getDefaultPlayerPartyGroupsSync(PartyCategory.EVENT)
+            playerPartyGroups = getPlayerPartyGroupListSync(playerId, PartyCategory.NORMAL)
+
+            // convert party categories
+            for (const group of Object.values(playerPartyGroups)) {
+                for (const party of Object.values(group.list)) {
+                    party.category = PartyCategory.EVENT
+                }
+                group.category = PartyCategory.EVENT
+            }
+
             insertPlayerPartyGroupListSync(playerId, playerPartyGroups)
         }
 

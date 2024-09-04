@@ -36,7 +36,8 @@ import eventItemShopIdMap from "../../assets/event_item_shop_id_map.json";
 import generalShopItems from "../../assets/general_shop.json";
 import starGrainShopItems from "../../assets/star_grain_shop.json";
 import treasureShopItems from "../../assets/treasure_shop.json";
-import { AssetCharacter, BattleQuest, BossCoinShopItems, BoxGacha, ClearRewards, EventItemShopIdMapItem, EventShopItems, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, Gacha, Gachas, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, ScoreReward, ScoreRewardGroups, ShopItem, ShopItems, ShopType, StoryQuest } from "./types";
+import rushEventQuestFolders from "../../assets/rush_event_quest_folder.json"
+import { AssetCharacter, BattleQuest, BossCoinShopItems, BoxGacha, ClearRewards, EventItemShopIdMapItem, EventShopItems, ExAbilities, ExBoostItem, ExBoostItems, ExStatus, Gacha, Gachas, ManaNode, ManaNodes, QuestCategory, RareScoreReward, RareScoreRewardGroups, RawAssetCharacters, RawBoxGachas, RawBoxRewards, RawQuests, Reward, RushEventFolders, ScoreReward, ScoreRewardGroups, ShopItem, ShopItems, ShopType, StoryQuest } from "./types";
 
 /**
  * Gets a clear reward from its ID.
@@ -480,4 +481,21 @@ export function getShopItemSync(
         default:
             return null
     }
+}
+
+/**
+ * Gets the rewards that should be given when clearing a given folder.
+ * 
+ * @param rushEventId The ID of the rush event.
+ * @param folderId The ID of the folder.
+ * @returns 
+ */
+export function getRushEventFolderClearRewards(
+    rushEventId: number,
+    folderId: number
+): Reward[] | null {
+    const folders = (rushEventQuestFolders as RushEventFolders)[rushEventId]
+    if (folders === undefined) return null;
+
+    return folders[folderId] ?? null
 }
