@@ -2,7 +2,7 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { PartyCategory, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
-import { getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
+import { deletePlayerRushEventPlayedPartyListSync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
 import { generateDataHeaders } from "../../utils";
@@ -53,7 +53,7 @@ interface RushPartyGroup {
 export const rushEventFolderMaxRounds: { [key in RushEventFolder]?: number } = {
     [RushEventFolder.INTERMEDIATE]: 2,
     [RushEventFolder.ADVANCED]: 2,
-    [RushEventFolder.GODLY]: 3
+    [RushEventFolder.GODLY]: 2
 }
 
 /**
@@ -456,27 +456,29 @@ const routes = async (fastify: FastifyInstance) => {
                     const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
                     const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
 
-                    // insert played party
-                    insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
-                        characterIds: characterIds,
-                        unisonCharacterIds: unisonCharacterIds,
-                        equipmentIds: partyStatistics.equipments.map(val => val?.id ?? null),
-                        abilitySoulIds: partyStatistics.ability_soul_ids,
-                        evolutionImgLevels: evolutionImgLevels,
-                        unisonEvolutionImgLevels: unisonEvolutionImgLevels,
-                        battleType: RushEventBattleType.RUSH,
-                        questId: questId
-                    })
-
                     // mark folder as complete if final round
                     const maxRounds = rushEventFolderMaxRounds[rushEventFolderId] ?? 0
                     if (rushEventRound >= maxRounds) {
-                        // insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
-                        // // update the active folder value
-                        // updatePlayerRushEventSync(playerId, {
-                        //     eventId: rushEventId,
-                        //     activeRushBattleFolderId: null
-                        // })
+                        insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
+                        // update the active folder value
+                        updatePlayerRushEventSync(playerId, {
+                            eventId: rushEventId,
+                            activeRushBattleFolderId: null
+                        })
+                        // delete played parties
+                        deletePlayerRushEventPlayedPartyListSync(playerId, rushEventId, RushEventBattleType.RUSH)
+                    } else {
+                        // insert played party
+                        insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
+                            characterIds: characterIds,
+                            unisonCharacterIds: unisonCharacterIds,
+                            equipmentIds: partyStatistics.equipments.map(val => val?.id ?? null),
+                            abilitySoulIds: partyStatistics.ability_soul_ids,
+                            evolutionImgLevels: evolutionImgLevels,
+                            unisonEvolutionImgLevels: unisonEvolutionImgLevels,
+                            battleType: RushEventBattleType.RUSH,
+                            questId: questId
+                        })
                     }
                 }
             }

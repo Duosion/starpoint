@@ -2986,7 +2986,7 @@ export function insertPlayerRushEventClearedFolderSync(
     folderId: number
 ) {
     db.prepare(`
-    INSERT INTO players_rush_events_cleared_folders (player_id, event_id, folder_id)
+    INSERT OR IGNORE INTO players_rush_events_cleared_folders (player_id, event_id, folder_id)
     VALUES (?, ?, ?)
     `).run(playerId, eventId, folderId)
 }
@@ -3204,6 +3204,28 @@ export function insertPlayerRushEventPlayedPartyListSync(
             }
         }
     })()
+}
+
+/**
+ * Deletes all of a player's rush event played parties for a specific event & battle type.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @param battleType The type of rush event battle.
+ */
+export function deletePlayerRushEventPlayedPartyListSync(
+    playerId: number,
+    eventId: number,
+    battleType: RushEventBattleType
+) {
+    db.prepare(`
+    DELETE FROM players_rush_events_played_parties
+    WHERE player_id = ? AND event_id = ? AND battle_type = ?
+    `).run(
+        playerId,
+        eventId,
+        battleType
+    )
 }
 
 /**

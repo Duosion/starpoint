@@ -1,10 +1,11 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
-import { getQuestFromCategorySync } from "../../lib/assets";
+import { getQuestFromCategorySync, getRushEventFolderClearRewards } from "../../lib/assets";
 import { givePlayerCharactersExpSync } from "../../lib/character";
-import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
-import { BattleQuest, QuestCategory } from "../../lib/types";
+import { givePlayerRewardsSync, givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
+import { BattleQuest, EquipmentItemReward, PlayerRewardResult, QuestCategory } from "../../lib/types";
 import { generateDataHeaders, getServerTime } from "../../utils";
+import { rushEventFolderMaxRounds } from "./rushEvent";
 
 interface StartBody {
     quest_id: number
@@ -58,6 +59,17 @@ interface AbortBody {
     quest_id: number,
     play_id: string,
     category: number
+}
+
+interface ReturnRushEvent {
+    rush_battle_reward_list: {
+        kind: number,
+        kind_id: number,
+        number: number
+    }[],
+    rush_battle_played_party_list: null,
+    endless_battle_played_party_list: null,
+    is_out_of_period: boolean
 }
 
 export interface ActiveQuest {
@@ -208,6 +220,35 @@ const routes = async (fastify: FastifyInstance) => {
             activeQuestData.finishCallback(body)
         }
 
+        // handle quest-specific rewards
+        let rushEventData: ReturnRushEvent | null = null
+        let rushEventRewardsResult: PlayerRewardResult | null = null
+        if (questCategory === QuestCategory.RUSH_EVENT && questData.rushEventRound !== undefined) {
+
+            const folderId = questData.rushEventFolderId
+            const round = questData.rushEventRound
+            const rushEventId = questData.rushEventId
+
+            if (folderId !== undefined && round !== undefined && rushEventId !== undefined && questData.rushEventRound >= (rushEventFolderMaxRounds[folderId] ?? 0)) {
+                const rewards = getRushEventFolderClearRewards(rushEventId, folderId) ?? []
+                rushEventRewardsResult = givePlayerRewardsSync(playerId, rewards)
+
+                rushEventData = {
+                    "rush_battle_reward_list": rewards.map(reward => {
+                        const itemReward = reward as EquipmentItemReward
+                        return {
+                            "kind": 1,
+                            "kind_id": itemReward.id,
+                            "number": itemReward.count
+                        }
+                    }),
+                    "rush_battle_played_party_list": null,
+                    "endless_battle_played_party_list": null,
+                    "is_out_of_period": false
+                }
+            }
+        }
+
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": dataHeaders,
@@ -255,7 +296,11 @@ const routes = async (fastify: FastifyInstance) => {
                 "start_time": dataHeaders['servertime'],
                 "is_multi": "single",
                 "quest_name": "",
-                "item_list": scoreRewardsResult.items,
+                "item_list": {
+                    ...scoreRewardsResult.items,
+                    ...(rushEventRewardsResult?.items ?? {})
+                },
+                "rush_event": rushEventData
             }
         })
     })
