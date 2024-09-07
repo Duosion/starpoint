@@ -3052,7 +3052,7 @@ export function deserializePlayerRushEventPlayedParty(
             serialized.unison_evolution_img_level_3
         ],
         battleType: serialized.battle_type,
-        questId: serialized.quest_id
+        round: serialized.round
     }
 }
 
@@ -3107,7 +3107,7 @@ export function getPlayerRushEventPlayedPartiesSync(
         ability_soul_id_2, ability_soul_id_3, evolution_img_level_1,
         evolution_img_level_2, evolution_img_level_3,
         unison_evolution_img_level_1, unison_evolution_img_level_2,
-        unison_evolution_img_level_3, player_id, event_id, quest_id,
+        unison_evolution_img_level_3, player_id, event_id, round,
         battle_type
     FROM players_rush_events_played_parties
     WHERE player_id = ? AND event_id = ?
@@ -3181,7 +3181,7 @@ export function insertPlayerRushEventPlayedPartySync(
         party.unisonEvolutionImgLevels[2],
         playerId,
         eventId,
-        party.questId,
+        party.round,
         party.battleType
     )
 }
@@ -3260,7 +3260,7 @@ export function updatePlayerRushEventPlayedPartySync(
         unison_evolution_img_level_1 = ?,
         unison_evolution_img_level_2 = ?,
         unison_evolution_img_level_3 = ?,
-    WHERE player_id = ? AND event_id = ? AND quest_id = ? AND battle_type = ?
+    WHERE player_id = ? AND event_id = ? AND round = ? AND battle_type = ?
     `).run(
         party.characterIds[0] ?? null,
         party.characterIds[1] ?? null,
@@ -3282,7 +3282,7 @@ export function updatePlayerRushEventPlayedPartySync(
         party.unisonEvolutionImgLevels[2] ?? null,
         playerId,
         eventId,
-        party.questId,
+        party.round,
         party.battleType
     )
 }

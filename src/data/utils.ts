@@ -400,7 +400,7 @@ export function serializePlayerData(
                         bucket = {}
                         battleTypeBuckets[party.battleType] = bucket
                     }
-                    bucket[party.questId] = serializePlayerRushEventPlayedParty(party)
+                    bucket[party.round] = serializePlayerRushEventPlayedParty(party)
                 }
                 userRushEventPlayedPartyList[eventId] = battleTypeBuckets as Record<RushEventBattleType, Record<string, UserRushEventPlayedParty>>
             }
@@ -854,11 +854,11 @@ export function deserializePlayerData(
                 const mappedParties: PlayerRushEventPlayedParty[] = []
 
                 for (const [battleType, parties] of Object.entries(battleTypeParties)) {
-                    for (const [questId, party] of Object.entries(parties)) {
+                    for (const [round, party] of Object.entries(parties)) {
                         mappedParties.push(deserializePlayerRushEventPlayedParty({
                             player_id: 0,
                             event_id: 0,
-                            quest_id: Number(questId),
+                            round: Number(round),
                             battle_type: Number(battleType),
                             ...party
                         }))

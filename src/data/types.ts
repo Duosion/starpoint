@@ -388,7 +388,7 @@ export interface UserRushEventPlayedParty {
 export interface RawPlayerRushEventPlayedParty extends UserRushEventPlayedParty {
     player_id: number,
     event_id: number,
-    quest_id: number,
+    round: number,
     battle_type: number
 }
 
@@ -399,7 +399,7 @@ export interface PlayerRushEventPlayedParty {
     abilitySoulIds: (number | null)[],
     evolutionImgLevels: (number | null)[],
     unisonEvolutionImgLevels: (number | null)[],
-    questId: number,
+    round: number,
     battleType: RushEventBattleType
 }
 
@@ -656,7 +656,7 @@ export interface ClientPlayerData {
     // rush event data
     user_rush_event_list?: Record<string, UserRushEvent> // { [eventId]: PlayerRushEvent}
     user_rush_event_cleared_folder_list?: Record<string, PlayerRushEventClearedFolders> // { [eventId]: [folderId] }
-    user_rush_event_played_party_list?: UserRushEventPlayedPartyList // { [eventId]: { [RushEventBattleType]: { [questId]: UserRushEventPlayedParty } } }
+    user_rush_event_played_party_list?: UserRushEventPlayedPartyList // { [eventId]: { [RushEventBattleType]: { [round]: UserRushEventPlayedParty } } }
 }
 
 export interface MergedPlayerData {
