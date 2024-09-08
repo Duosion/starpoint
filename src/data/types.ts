@@ -360,7 +360,7 @@ export interface RawPlayerRushEventClearedFolder {
 export type PlayerRushEventClearedFolders = number[]
 
 export enum RushEventBattleType {
-    RUSH,
+    FOLDER,
     ENDLESS
 }
 

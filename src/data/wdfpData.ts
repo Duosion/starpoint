@@ -3229,6 +3229,32 @@ export function deletePlayerRushEventPlayedPartyListSync(
 }
 
 /**
+ * Deletes a player's rush event played parties while their round number is greater than or equal to the provided value.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @param battleType The type of rush event battle.
+ * @param untilRound Delete parties until this round.
+ */
+export function deletePlayerRushEventPlayedPartiesUntilSync(
+    playerId: number,
+    eventId: number,
+    battleType: RushEventBattleType,
+    untilRound: number
+) {
+    db.prepare(`
+    DELETE FROM players_rush_events_played_parties
+    WHERE player_id = ? AND event_id = ? AND battle_type = ?
+        AND round >= ?
+    `).run(
+        playerId,
+        eventId,
+        battleType,
+        untilRound
+    )
+}
+
+/**
  * Updates an existing rush event played party for a specific player & rush event.
  * 
  * @param playerId The player's ID.

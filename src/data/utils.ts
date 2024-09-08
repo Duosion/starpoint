@@ -391,7 +391,7 @@ export function serializePlayerData(
 
             for (const [eventId, parties] of Object.entries(toSerialize.rushEventPlayedPartyList)) {
                 const battleTypeBuckets: Record<RushEventBattleType, Record<string, UserRushEventPlayedParty> | undefined> = {
-                    [RushEventBattleType.RUSH]: undefined,
+                    [RushEventBattleType.FOLDER]: undefined,
                     [RushEventBattleType.ENDLESS]: undefined
                 }
                 for (const party of parties) {
