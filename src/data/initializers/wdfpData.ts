@@ -313,7 +313,6 @@ export default function init(
     database.prepare(`CREATE TABLE IF NOT EXISTS players_rush_events (
         player_id INTEGER NOT NULL,
         event_id INTEGER NOT NULL,
-        endless_battle_next_round INTEGER NOT NULL,
         active_rush_battle_folder_id INTEGER,
         endless_battle_max_round INTEGER,
         PRIMARY KEY (player_id, event_id),

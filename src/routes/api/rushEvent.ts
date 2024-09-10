@@ -2,7 +2,7 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { PartyCategory, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
-import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
+import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, deletePlayerRushEventPlayedPartySync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventNextEndlessBattleRoundSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
 import { generateDataHeaders } from "../../utils";
@@ -227,7 +227,7 @@ const routes = async (fastify: FastifyInstance) => {
             "data": {
                 "endless_battle_next_round": rushEventData.endlessBattleNextRound,
                 "active_rush_battle_folder_id": rushEventData.activeRushBattleFolderId,
-                "endless_battle_played_max_round": rushEventData.endlessBattleMaxRound,
+                "endless_battle_played_max_round": rushEventData.endlessBattleNextRound,
                 "cleared_folder_id_list": clearedFolderIdList,
                 "endless_battle_played_party_list": endlessBattlePlayedPartyList,
                 "rush_battle_played_party_list": rushBattlePlayedPartyList
@@ -487,7 +487,6 @@ const routes = async (fastify: FastifyInstance) => {
                         
                         updatePlayerRushEventSync(playerId, {
                             eventId: rushEventId,
-                            endlessBattleNextRound: nextRound,
                             endlessBattleMaxRound: Math.max(nextRound, rushEventData.endlessBattleMaxRound ?? 1)
                         })
                     } else if (rushEventBattleType === RushEventBattleType.FOLDER && (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0))) {
@@ -579,17 +578,14 @@ const routes = async (fastify: FastifyInstance) => {
                 deletePlayerRushEventPlayedPartyListSync(playerId, eventId, RushEventBattleType.FOLDER)
             }
 
-        } else {
+        } else if (resetTargetId !== undefined) {
             // endless battle resetting
-            if (isResetAfterTargetRound && resetTargetId !== undefined) {
+            if (isResetAfterTargetRound) {
                 // "reset up until here"
                 deletePlayerRushEventPlayedPartiesUntilSync(playerId, eventId, RushEventBattleType.ENDLESS, resetTargetId)
-                updatePlayerRushEventSync(playerId, {
-                    eventId: eventId,
-                    endlessBattleNextRound: Math.max(1, resetTargetId),
-                })
             } else {
                 // "reset only here"
+                deletePlayerRushEventPlayedPartySync(playerId, eventId, resetTargetId, RushEventBattleType.ENDLESS)
             }
         }
         

@@ -2794,13 +2794,15 @@ function insertPlayerMultiSpecialExchangeCampaignsSync(
  * Deserializes a RawPlayerRushEvent into a PlayerRushEvent
  * 
  * @param raw 
+ * @param endlessBattleNextRound The next endless battle round for this event.
  */
 function deserializeRushEvent(
-    raw: RawPlayerRushEvent
+    raw: RawPlayerRushEvent,
+    endlessBattleNextRound: number
 ): PlayerRushEvent {
     return {
         eventId: raw.event_id,
-        endlessBattleNextRound: raw.endless_battle_next_round,
+        endlessBattleNextRound: endlessBattleNextRound,
         activeRushBattleFolderId: raw.active_rush_battle_folder_id,
         endlessBattleMaxRound: raw.endless_battle_max_round
     }
@@ -2819,13 +2821,16 @@ export function getPlayerRushEventSync(
 ): PlayerRushEvent | null {
 
     const rawData = db.prepare(`
-    SELECT player_id, event_id, endless_battle_next_round, active_rush_battle_folder_id,
+    SELECT player_id, event_id, active_rush_battle_folder_id,
         endless_battle_max_round
     FROM players_rush_events
     WHERE player_id = ? AND event_id = ?
     `).get(playerId, eventId) as RawPlayerRushEvent
 
-    return rawData === undefined ? null : deserializeRushEvent(rawData)
+    // get next endless round
+    const nextEndlessBattleRound = getPlayerRushEventNextEndlessBattleRoundSync(playerId, eventId)
+
+    return rawData === undefined ? null : deserializeRushEvent(rawData, nextEndlessBattleRound)
 }
 
 /**
@@ -2844,7 +2849,7 @@ export function getPlayerRushEventListSync(
     WHERE player_id = ?
     `).all(playerId) as RawPlayerRushEvent[]
 
-    return rawData.map(raw => deserializeRushEvent(raw))
+    return rawData.map(raw => deserializeRushEvent(raw, 1))
 }
 
 /**
@@ -2858,13 +2863,12 @@ export function insertPlayerRushEventSync(
     rushEvent: PlayerRushEvent
 ) {
     db.prepare(`
-    INSERT INTO players_rush_events (player_id, event_id, endless_battle_next_round, active_rush_battle_folder_id,
+    INSERT INTO players_rush_events (player_id, event_id, active_rush_battle_folder_id,
         endless_battle_max_round)
-    VALUES (?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?)
     `).run(
         playerId,
         rushEvent.eventId,
-        rushEvent.endlessBattleNextRound,
         rushEvent.activeRushBattleFolderId,
         rushEvent.endlessBattleMaxRound
     )
@@ -2898,7 +2902,6 @@ export function updatePlayerRushEventSync(
     rushEvent: Partial<PlayerRushEvent> & Pick<PlayerRushEvent, 'eventId'>
 ) {
     const fieldMap: Record<string, string> = {
-        'endlessBattleNextRound': 'endless_battle_next_round',
         'activeRushBattleFolderId': 'active_rush_battle_folder_id',
         'endlessBattleMaxRound': 'endless_battle_max_round'
     }
@@ -3146,6 +3149,35 @@ export function getPlayerRushEventListPlayedPartiesSync(
 }
 
 /**
+ * Gets the next endless battle round that a player should complete for a specific rush event.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @returns The next round that the player should complete.
+ */
+export function getPlayerRushEventNextEndlessBattleRoundSync(
+    playerId: number,
+    eventId: number
+): number {
+    const rawRounds = db.prepare(`
+    SELECT round
+    FROM players_rush_events_played_parties
+    WHERE player_id = ? AND event_id = ? AND battle_type = ?
+    `).all(
+        playerId,
+        eventId,
+        RushEventBattleType.ENDLESS
+    ) as { round: number }[]
+
+    let nextRound: number = 1
+    for (const rawRound of rawRounds) {
+        if (rawRound.round !== nextRound) break;
+        nextRound += 1
+    }
+    return nextRound
+}
+
+/**
  * Inserts a rush event played party for a specific player.
  * 
  * @param playerId The ID of the player.
@@ -3224,6 +3256,31 @@ export function deletePlayerRushEventPlayedPartyListSync(
     `).run(
         playerId,
         eventId,
+        battleType
+    )
+}
+
+/**
+ * Deletes a single rush event played party for a specific player & rush event.
+ * 
+ * @param playerId The ID of the player.
+ * @param eventId The ID of the rush event.
+ * @param round The round to delete.
+ * @param battleType The type of rush event battle.
+ */
+export function deletePlayerRushEventPlayedPartySync(
+    playerId: number,
+    eventId: number,
+    round: number,
+    battleType: RushEventBattleType,
+) {
+    db.prepare(`
+    DELETE FROM players_rush_events_played_parties
+    WHERE player_id = ? AND event_id = ? AND round = ? AND battle_type = ?
+    `).run(
+        playerId,
+        eventId,
+        round,
         battleType
     )
 }

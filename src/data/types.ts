@@ -339,9 +339,11 @@ export interface UserRushEvent {
     endless_battle_max_round: number | null
 }
 
-export interface RawPlayerRushEvent extends UserRushEvent {
+export interface RawPlayerRushEvent {
     player_id: number,
     event_id: number,
+    active_rush_battle_folder_id: number | null,
+    endless_battle_max_round: number | null
 }
 
 export interface PlayerRushEvent {
