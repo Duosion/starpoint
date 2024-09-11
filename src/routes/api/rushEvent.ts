@@ -7,6 +7,7 @@ import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
 import { generateDataHeaders } from "../../utils";
 import { FinishBody, insertActiveQuest } from "./singleBattleQuest";
+import { getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
 
 interface SummaryBody {
     event_id: number,
@@ -70,30 +71,7 @@ export const rushEventFolderMaxRounds: { [key in RushEventFolder]?: number } = {
     [RushEventFolder.GODLY]: 2
 }
 
-/**
- * Gets the current evolution image levels for an array of character ids for a player.
- * 
- * @param playerId The ID of the player.
- * @param characterIds The array of character ids.
- * @returns 
- */
-function getCharactersEvolutionImgLevels(
-    playerId: number,
-    characterIds: (number | null)[]
-): (number | null)[] {
-    const evolutionImgLevels: (number | null)[] = []
-    for (const id of characterIds) {
-        if (id !== null) {
-            const character = getPlayerCharacterSync(playerId, id)
-            const illustrationSettings = character?.illustrationSettings ?? [null]
-            const evolutionLevel = character?.evolutionLevel ?? 0
-            evolutionImgLevels.push(illustrationSettings[0] === null ? evolutionLevel : illustrationSettings[0])
-        } else {
-            evolutionImgLevels.push(null)
-        }
-    }
-    return evolutionImgLevels
-}
+
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/summary", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -137,17 +115,8 @@ const routes = async (fastify: FastifyInstance) => {
         // get cleared folder id list
         const clearedFolderIdList = getPlayerRushEventClearedFoldersSync(playerId, eventId)
 
-        // get played parties
-        const playedParties = getPlayerRushEventPlayedPartiesSync(playerId, eventId)
-
-        // convert played parties to the expected client format
-        const rushBattlePlayedPartyList: Record<number, UserRushEventPlayedParty> = {}
-        const endlessBattlePlayedPartyList: Record<number, UserRushEventPlayedParty> = {}
-
-        for (const party of playedParties) {
-            const record = party.battleType === RushEventBattleType.FOLDER ? rushBattlePlayedPartyList : endlessBattlePlayedPartyList;
-            record[party.round] = serializePlayerRushEventPlayedParty(party)
-        }
+        // get serialized parties
+        const serializedPlayedParties = getSerializedPlayerRushEventPlayedPartiesSync(playerId, eventId)
 
         /*{
             "active_rush_battle_folder_id": 1,
@@ -229,8 +198,8 @@ const routes = async (fastify: FastifyInstance) => {
                 "active_rush_battle_folder_id": rushEventData.activeRushBattleFolderId,
                 "endless_battle_played_max_round": rushEventData.endlessBattleNextRound,
                 "cleared_folder_id_list": clearedFolderIdList,
-                "endless_battle_played_party_list": endlessBattlePlayedPartyList,
-                "rush_battle_played_party_list": rushBattlePlayedPartyList
+                "endless_battle_played_party_list": serializedPlayedParties.endlessParties,
+                "rush_battle_played_party_list": serializedPlayedParties.folderParties
             }
         })
     })
@@ -436,28 +405,10 @@ const routes = async (fastify: FastifyInstance) => {
 
         // get quest
         const questData = getQuestFromCategorySync(QuestCategory.RUSH_EVENT, questId) as BattleQuest | null
-        if (questData === null || !('rankPointReward' in questData)) return reply.status(400).send({
+        if (questData === null || !('rankPointReward' in questData) || questData.rushEventId === undefined) return reply.status(400).send({
             "error": "Bad Request",
             "message": "Quest doesn't exist."
         })
-
-        // get the event id
-        const rushEventId = questData.rushEventId
-        const rushEventFolderId = questData.rushEventFolderId
-        const rushEventRound = questData.rushEventRound
-        if (rushEventId === undefined || rushEventFolderId === undefined || rushEventRound === undefined) return reply.status(400).send({
-            "error": "Bad Request",
-            "message": "Quest is not a rush event quest."
-        })
-
-        const rushEventBattleType = rushEventRound === 0 ? RushEventBattleType.ENDLESS : RushEventBattleType.FOLDER
-
-        // get the data for the rush event
-        const rushEventData = getPlayerRushEventSync(playerId, rushEventId)
-        if (rushEventData === null) return reply.status(400).send({
-            "error": "Bad Request",
-            "message": `No rush event data for rush event with id '${rushEventId}'`
-        });
 
         // insert active quest for '/single_battle_quest/finish' endpoint
         insertActiveQuest(playerId, {
@@ -465,56 +416,7 @@ const routes = async (fastify: FastifyInstance) => {
             category: QuestCategory.RUSH_EVENT,
             useBoostPoint: false,
             useBossBoostPoint: false,
-            isAutoStartMode: isAutoStartMode,
-            finishCallback: (body: FinishBody) => {
-                // insert played party
-                const partyStatistics = body.statistics.party
-                if (partyStatistics !== undefined) {
-                    // map character ids
-                    const characterIds = partyStatistics.characters.map(val => val?.id ?? null)
-                    const unisonCharacterIds = partyStatistics.unison_characters.map(val => val?.id ?? null)
-
-                    // get evolution image levels
-                    const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
-                    const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
-
-                    let currentRound: number = questId
-
-                    // update endless battle stats
-                    if (rushEventBattleType === RushEventBattleType.ENDLESS) {
-                        currentRound = rushEventData.endlessBattleNextRound ?? 1
-                        const nextRound = currentRound + 1
-                        
-                        updatePlayerRushEventSync(playerId, {
-                            eventId: rushEventId,
-                            endlessBattleMaxRound: Math.max(nextRound, rushEventData.endlessBattleMaxRound ?? 1)
-                        })
-                    } else if (rushEventBattleType === RushEventBattleType.FOLDER && (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0))) {
-                        // mark folder as complete since this is the final round
-                        insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
-                        // update the active folder value
-                        updatePlayerRushEventSync(playerId, {
-                            eventId: rushEventId,
-                            activeRushBattleFolderId: null
-                        })
-                        // delete played parties
-                        deletePlayerRushEventPlayedPartyListSync(playerId, rushEventId, rushEventBattleType)
-                        return
-                    }
-
-                    // insert played party
-                    insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
-                        characterIds: characterIds,
-                        unisonCharacterIds: unisonCharacterIds,
-                        equipmentIds: partyStatistics.equipments.map(val => val?.id ?? null),
-                        abilitySoulIds: partyStatistics.ability_soul_ids,
-                        evolutionImgLevels: evolutionImgLevels,
-                        unisonEvolutionImgLevels: unisonEvolutionImgLevels,
-                        battleType: rushEventBattleType,
-                        round: currentRound
-                    })
-                }
-            }
+            isAutoStartMode: isAutoStartMode
         })
 
         const headers = generateDataHeaders({

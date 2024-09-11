@@ -1,4 +1,4 @@
-import { PlayerBoxGachaDrawnReward } from "../data/types"
+import { PlayerBoxGachaDrawnReward, UserRushEventPlayedParty } from "../data/types"
 
 // enums
 export enum RewardType {
@@ -464,3 +464,8 @@ export type EventShopItems = Record<string, BossCoinShopItems>
 
 // rush event
 export type RushEventFolders = Record<string, Record<string, Reward[]>>
+export type SerializedPlayerRushEventPlayedParty = Record<number, UserRushEventPlayedParty>
+export interface SerializedPlayerRushEventPlayedParties {
+    folderParties: SerializedPlayerRushEventPlayedParty
+    endlessParties: SerializedPlayerRushEventPlayedParty
+}

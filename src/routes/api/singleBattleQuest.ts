@@ -1,11 +1,13 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
+import { deletePlayerRushEventPlayedPartyListSync, getAccountPlayers, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, updatePlayerQuestProgressSync, updatePlayerRushEventSync, updatePlayerSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync, getRushEventFolderClearRewards } from "../../lib/assets";
-import { givePlayerCharactersExpSync } from "../../lib/character";
+import { getCharactersEvolutionImgLevels, givePlayerCharactersExpSync } from "../../lib/character";
 import { givePlayerRewardsSync, givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
 import { BattleQuest, EquipmentItemReward, PlayerRewardResult, QuestCategory } from "../../lib/types";
 import { generateDataHeaders, getServerTime } from "../../utils";
 import { rushEventFolderMaxRounds } from "./rushEvent";
+import { RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
+import { getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
 
 interface StartBody {
     quest_id: number
@@ -67,8 +69,8 @@ interface ReturnRushEvent {
         kind_id: number,
         number: number
     }[],
-    rush_battle_played_party_list: null,
-    endless_battle_played_party_list: null,
+    rush_battle_played_party_list: Record<number, UserRushEventPlayedParty> | null,
+    endless_battle_played_party_list: Record<number, UserRushEventPlayedParty> | null,
     is_out_of_period: boolean
 }
 
@@ -77,8 +79,7 @@ export interface ActiveQuest {
     category: QuestCategory,
     useBossBoostPoint: boolean
     useBoostPoint: boolean
-    isAutoStartMode: boolean
-    finishCallback?: (finishBody: FinishBody) => void
+    isAutoStartMode: Boolean
 }
 
 const continueVmoneyCost = 50;
@@ -198,7 +199,8 @@ const routes = async (fastify: FastifyInstance) => {
         const scoreRewardsResult = givePlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup, useBoostPoint)
 
         // reward character exp
-        const partyCharacterIds = [...body.statistics.party.characters, ...body.statistics.party.unison_characters]
+        const bodyPartyStatistics = body.statistics.party
+        const partyCharacterIds = [...bodyPartyStatistics.characters, ...bodyPartyStatistics.unison_characters]
         const partyCharacterIdsArray: number[] = []
         for (const value of partyCharacterIds.values()) {
             if (value !== null && value.id !== null) partyCharacterIdsArray.push(value.id);
@@ -216,35 +218,91 @@ const routes = async (fastify: FastifyInstance) => {
             viewer_id: viewerId
         })
 
-        if (activeQuestData.finishCallback !== undefined) {
-            activeQuestData.finishCallback(body)
-        }
-
-        // handle quest-specific rewards
+        // handle event quest-specific data & rewards
         let rushEventData: ReturnRushEvent | null = null
         let rushEventRewardsResult: PlayerRewardResult | null = null
-        if (questCategory === QuestCategory.RUSH_EVENT && questData.rushEventRound !== undefined) {
 
-            const folderId = questData.rushEventFolderId
-            const round = questData.rushEventRound
+        if (questCategory === QuestCategory.RUSH_EVENT) {
+            // rush event
+
             const rushEventId = questData.rushEventId
+            const rushEventFolderId = questData.rushEventFolderId
+            const rushEventRound = questData.rushEventRound
 
-            if (folderId !== undefined && round !== undefined && rushEventId !== undefined && questData.rushEventRound >= (rushEventFolderMaxRounds[folderId] ?? 0)) {
-                const rewards = getRushEventFolderClearRewards(rushEventId, folderId) ?? []
-                rushEventRewardsResult = givePlayerRewardsSync(playerId, rewards)
+            if (rushEventFolderId !== undefined && rushEventRound !== undefined && rushEventId !== undefined) {
+                // update rush event data
+                const rushEventBattleType = rushEventRound === 0 ? RushEventBattleType.ENDLESS : RushEventBattleType.FOLDER
 
+                // map character ids
+                const characterIds = bodyPartyStatistics.characters.map(val => val?.id ?? null)
+                const unisonCharacterIds = bodyPartyStatistics.unison_characters.map(val => val?.id ?? null)
+
+                // get evolution image levels
+                const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
+                const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
+
+                let currentRound: number = questId
+
+                // update endless battle stats
+                if (rushEventBattleType === RushEventBattleType.ENDLESS) {
+                    // get player rush event data
+                    const playerRushEventData = getPlayerRushEventSync(playerId, rushEventId)
+
+                    currentRound = playerRushEventData?.endlessBattleNextRound ?? 1
+                    const nextRound = currentRound + 1
+
+                    updatePlayerRushEventSync(playerId, {
+                        eventId: rushEventId,
+                        endlessBattleMaxRound: Math.max(nextRound, playerRushEventData?.endlessBattleMaxRound ?? 1)
+                    })
+                } else if (rushEventBattleType === RushEventBattleType.FOLDER && (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0))) {
+                    // mark folder as complete since this is the final round
+                    insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
+                    // update the active folder value
+                    updatePlayerRushEventSync(playerId, {
+                        eventId: rushEventId,
+                        activeRushBattleFolderId: null
+                    })
+                    // delete played parties
+                    deletePlayerRushEventPlayedPartyListSync(playerId, rushEventId, rushEventBattleType)
+                }
+
+                // insert played party
+                insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
+                    characterIds: characterIds,
+                    unisonCharacterIds: unisonCharacterIds,
+                    equipmentIds: bodyPartyStatistics.equipments.map(val => val?.id ?? null),
+                    abilitySoulIds: bodyPartyStatistics.ability_soul_ids,
+                    evolutionImgLevels: evolutionImgLevels,
+                    unisonEvolutionImgLevels: unisonEvolutionImgLevels,
+                    battleType: rushEventBattleType,
+                    round: currentRound
+                })
+
+                // get serialized parties
+                const serializedPlayedParties = getSerializedPlayerRushEventPlayedPartiesSync(playerId, rushEventId)
+
+                // set rush event data
                 rushEventData = {
-                    "rush_battle_reward_list": rewards.map(reward => {
+                    "rush_battle_reward_list": [],
+                    "rush_battle_played_party_list": serializedPlayedParties.folderParties,
+                    "endless_battle_played_party_list": serializedPlayedParties.endlessParties,
+                    "is_out_of_period": false
+                }
+
+                // give rewards if allowed
+                if (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0)) {
+                    const rewards = getRushEventFolderClearRewards(rushEventId, rushEventFolderId) ?? []
+                    rushEventRewardsResult = givePlayerRewardsSync(playerId, rewards)
+
+                    rushEventData.rush_battle_reward_list = rewards.map(reward => {
                         const itemReward = reward as EquipmentItemReward
                         return {
                             "kind": 1,
                             "kind_id": itemReward.id,
                             "number": itemReward.count
                         }
-                    }),
-                    "rush_battle_played_party_list": null,
-                    "endless_battle_played_party_list": null,
-                    "is_out_of_period": false
+                    })
                 }
             }
         }

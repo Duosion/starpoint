@@ -287,3 +287,28 @@ export function givePlayerCharactersExpSync(
         exp_pool: afterExpPool === null ? 0 : afterExpPool
     }
 }
+
+/**
+ * Gets the current evolution image levels for an array of character ids for a player.
+ * 
+ * @param playerId The ID of the player.
+ * @param characterIds The array of character ids.
+ * @returns 
+ */
+export function getCharactersEvolutionImgLevels(
+    playerId: number,
+    characterIds: (number | null)[]
+): (number | null)[] {
+    const evolutionImgLevels: (number | null)[] = []
+    for (const id of characterIds) {
+        if (id !== null) {
+            const character = getPlayerCharacterSync(playerId, id)
+            const illustrationSettings = character?.illustrationSettings ?? [null]
+            const evolutionLevel = character?.evolutionLevel ?? 0
+            evolutionImgLevels.push(illustrationSettings[0] === null ? evolutionLevel : illustrationSettings[0])
+        } else {
+            evolutionImgLevels.push(null)
+        }
+    }
+    return evolutionImgLevels
+}
