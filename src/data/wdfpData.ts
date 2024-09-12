@@ -2796,7 +2796,7 @@ function insertPlayerMultiSpecialExchangeCampaignsSync(
  * @param raw 
  * @param endlessBattleNextRound The next endless battle round for this event.
  */
-function deserializeRushEvent(
+export function deserializeRushEvent(
     raw: RawPlayerRushEvent,
     endlessBattleNextRound: number
 ): PlayerRushEvent {
@@ -2804,7 +2804,38 @@ function deserializeRushEvent(
         eventId: raw.event_id,
         endlessBattleNextRound: endlessBattleNextRound,
         activeRushBattleFolderId: raw.active_rush_battle_folder_id,
-        endlessBattleMaxRound: raw.endless_battle_max_round
+        endlessBattleMaxRound: raw.endless_battle_max_round,
+        endlessBattleMaxRoundTime: raw.endless_battle_max_round_time,
+        endlessBattleMaxRoundCharacterIds: [
+            raw.endless_battle_max_round_character_id_1,
+            raw.endless_battle_max_round_character_id_2,
+            raw.endless_battle_max_round_character_id_3
+        ],
+        endlessBattleMaxRoundCharacterEvolutionImgLvls: [
+            raw.endless_battle_max_round_character_evolution_img_lvl_1,
+            raw.endless_battle_max_round_character_evolution_img_lvl_2,
+            raw.endless_battle_max_round_character_evolution_img_lvl_3,
+        ]
+    }
+}
+
+/**
+ * Returns a default PlayerRushEvent.
+ * 
+ * @param eventId The ID of the event to get the default PlayerRushEvent of.
+ * @returns A default PlayerRushEvent
+ */
+export function getDefaultPlayerRushEventSync(
+    eventId: number
+): PlayerRushEvent {
+    return {
+        eventId: eventId,
+        endlessBattleNextRound: 1,
+        activeRushBattleFolderId: null,
+        endlessBattleMaxRound: null,
+        endlessBattleMaxRoundTime: null,
+        endlessBattleMaxRoundCharacterIds: [null, null, null],
+        endlessBattleMaxRoundCharacterEvolutionImgLvls: [null, null, null]
     }
 }
 
@@ -2821,8 +2852,7 @@ export function getPlayerRushEventSync(
 ): PlayerRushEvent | null {
 
     const rawData = db.prepare(`
-    SELECT player_id, event_id, active_rush_battle_folder_id,
-        endless_battle_max_round
+    SELECT *
     FROM players_rush_events
     WHERE player_id = ? AND event_id = ?
     `).get(playerId, eventId) as RawPlayerRushEvent
@@ -2842,7 +2872,6 @@ export function getPlayerRushEventSync(
 export function getPlayerRushEventListSync(
     playerId: number
 ): PlayerRushEvent[] {
-    console.log("get rush event list")
     const rawData = db.prepare(`
     SELECT *
     FROM players_rush_events
@@ -2863,14 +2892,16 @@ export function insertPlayerRushEventSync(
     rushEvent: PlayerRushEvent
 ) {
     db.prepare(`
-    INSERT INTO players_rush_events (player_id, event_id, active_rush_battle_folder_id,
-        endless_battle_max_round)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO players_rush_events
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
         playerId,
         rushEvent.eventId,
         rushEvent.activeRushBattleFolderId,
-        rushEvent.endlessBattleMaxRound
+        rushEvent.endlessBattleMaxRound,
+        rushEvent.endlessBattleMaxRoundTime,
+        ...rushEvent.endlessBattleMaxRoundCharacterIds,
+        ...rushEvent.endlessBattleMaxRoundCharacterEvolutionImgLvls
     )
 }
 
@@ -2901,18 +2932,27 @@ export function updatePlayerRushEventSync(
     playerId: number,
     rushEvent: Partial<PlayerRushEvent> & Pick<PlayerRushEvent, 'eventId'>
 ) {
-    const fieldMap: Record<string, string> = {
-        'activeRushBattleFolderId': 'active_rush_battle_folder_id',
-        'endlessBattleMaxRound': 'endless_battle_max_round'
+
+    const characterIds = rushEvent.endlessBattleMaxRoundCharacterIds
+    const characterEvolutionImgLevels = rushEvent.endlessBattleMaxRoundCharacterEvolutionImgLvls
+
+    const fields: Record<string, any> = {
+        'active_rush_battle_folder_id': rushEvent.activeRushBattleFolderId,
+        'endless_battle_max_round': rushEvent.endlessBattleMaxRound,
+        'endless_battle_max_round_time': rushEvent.endlessBattleMaxRoundTime,
+        'endless_battle_max_round_character_id_1': characterIds?.[0],
+        'endless_battle_max_round_character_id_2': characterIds?.[1],
+        'endless_battle_max_round_character_id_3': characterIds?.[2],
+        'endless_battle_max_round_character_evolution_img_lvl_1': characterEvolutionImgLevels?.[0],
+        'endless_battle_max_round_character_evolution_img_lvl_2': characterEvolutionImgLevels?.[1],
+        'endless_battle_max_round_character_evolution_img_lvl_3': characterEvolutionImgLevels?.[2],
     }
 
     const sets: string[] = []
     const values: any[] = []
-    for (const key in rushEvent) {
-        const value = rushEvent[key as keyof PlayerRushEvent]
-        const mapped = fieldMap[key]
-        if (mapped && value !== undefined) {
-            sets.push(`${mapped} = ?`)
+    for (const [field, value] of Object.entries(fields)) {
+        if (value !== undefined) {
+            sets.push(`${field} = ?`)
             values.push(value)
         }
     }
@@ -3677,7 +3717,7 @@ export function insertMergedPlayerDataSync(
     insertPlayerStartDashExchangeCampaignsSync(playerId, toInsert.startDashExchangeCampaignList)
     insertPlayerMultiSpecialExchangeCampaignsSync(playerId, toInsert.multiSpecialExchangeCampaignList)
     insertPlayerOptionsSync(playerId, toInsert.userOption)
-    
+
     // insert data that could be undefined.
     const rushEventList = toInsert.rushEventList
     if (rushEventList !== undefined) {

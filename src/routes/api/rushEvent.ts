@@ -2,12 +2,12 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { PartyCategory, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
-import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, deletePlayerRushEventPlayedPartySync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventNextEndlessBattleRoundSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
+import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, deletePlayerRushEventPlayedPartySync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getDefaultPlayerRushEventSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventNextEndlessBattleRoundSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
 import { generateDataHeaders } from "../../utils";
 import { FinishBody, insertActiveQuest } from "./singleBattleQuest";
-import { getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
+import { getPlayerRushEventEndlessBattleRanking, getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
 
 interface SummaryBody {
     event_id: number,
@@ -71,8 +71,6 @@ export const rushEventFolderMaxRounds: { [key in RushEventFolder]?: number } = {
     [RushEventFolder.GODLY]: 2
 }
 
-
-
 const routes = async (fastify: FastifyInstance) => {
     fastify.post("/summary", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as SummaryBody
@@ -101,14 +99,7 @@ const routes = async (fastify: FastifyInstance) => {
         // get rush event data
         let rushEventData = getPlayerRushEventSync(playerId, eventId)
         if (rushEventData === null) {
-            // insert default data
-            rushEventData = {
-                eventId: eventId,
-                endlessBattleNextRound: 1,
-                activeRushBattleFolderId: null,
-                endlessBattleMaxRound: null
-            }
-
+            rushEventData = getDefaultPlayerRushEventSync(eventId)
             insertPlayerRushEventSync(playerId, rushEventData)
         }
 
@@ -181,7 +172,7 @@ const routes = async (fastify: FastifyInstance) => {
                     "unison_character_id_1": 901,
                     "unison_character_id_2": 902,
                     "unison_character_id_3": 903,
-                    "unison_evolution_img_level_1": 1,
+                    "unison_evolution_img_level_1": 1, 
                     "unison_evolution_img_level_2": 2,
                     "unison_evolution_img_level_3": 3
                 }
@@ -199,7 +190,10 @@ const routes = async (fastify: FastifyInstance) => {
                 "endless_battle_played_max_round": rushEventData.endlessBattleNextRound,
                 "cleared_folder_id_list": clearedFolderIdList,
                 "endless_battle_played_party_list": serializedPlayedParties.endlessParties,
-                "rush_battle_played_party_list": serializedPlayedParties.folderParties
+                "rush_battle_played_party_list": serializedPlayedParties.folderParties,
+                "endless_battle_my_ranking": getPlayerRushEventEndlessBattleRanking(playerId, eventId, {
+                    rushEventData: rushEventData
+                })
             }
         })
     })

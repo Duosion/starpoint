@@ -3,7 +3,7 @@ import { getDateFromServerTime, getServerTime } from "../utils"
 import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RushEventBattleType, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserRushEvent, UserRushEventPlayedParty, UserRushEventPlayedPartyList, UserTutorial } from "./types"
 
 import { availableAssetVersion } from "../routes/api/asset"
-import { deserializePlayerRushEventPlayedParty, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaCampaignListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerRushEventListClearedFoldersSync, getPlayerRushEventListPlayedPartiesSync, getPlayerRushEventListSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, serializePlayerRushEventPlayedParty } from "./wdfpData"
+import { deserializePlayerRushEventPlayedParty, deserializeRushEvent, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaCampaignListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerRushEventListClearedFoldersSync, getPlayerRushEventListPlayedPartiesSync, getPlayerRushEventListSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, serializePlayerRushEventPlayedParty } from "./wdfpData"
 
 export interface SerializePlayerDataOptions {
     viewerId?: number
@@ -126,6 +126,29 @@ export function serializePartyGroupList(
         }
     }
     return serialized
+}
+
+/**
+ * Serializes a PlayerRushEvent into a UserRushEvent.
+ * 
+ * @param rushEvent The data for the rush event.
+ */
+export function serializeRushEvent(
+    rushEvent: PlayerRushEvent
+): UserRushEvent {
+    const characterIds = rushEvent.endlessBattleMaxRoundCharacterIds
+    const characterEvolutionImgLevels = rushEvent.endlessBattleMaxRoundCharacterEvolutionImgLvls
+    return {
+        active_rush_battle_folder_id: rushEvent.activeRushBattleFolderId,
+        endless_battle_max_round: rushEvent.endlessBattleMaxRound,
+        endless_battle_max_round_time: rushEvent.endlessBattleMaxRoundTime,
+        endless_battle_max_round_character_id_1: characterIds?.[0],
+        endless_battle_max_round_character_id_2: characterIds?.[1],
+        endless_battle_max_round_character_id_3: characterIds?.[2],
+        endless_battle_max_round_character_evolution_img_lvl_1: characterEvolutionImgLevels?.[0],
+        endless_battle_max_round_character_evolution_img_lvl_2: characterEvolutionImgLevels?.[1],
+        endless_battle_max_round_character_evolution_img_lvl_3: characterEvolutionImgLevels?.[2],
+    }
 }
 
 /**
@@ -373,11 +396,7 @@ export function serializePlayerData(
         if (toSerialize.rushEventList !== undefined) {
             const userRushEventList: Record<string, UserRushEvent> = {}
             for (const rushEvent of toSerialize.rushEventList) {
-                userRushEventList[rushEvent.eventId] = {
-                    "endless_battle_next_round": rushEvent.endlessBattleNextRound,
-                    "active_rush_battle_folder_id": rushEvent.activeRushBattleFolderId,
-                    "endless_battle_max_round": rushEvent.endlessBattleMaxRound
-                }
+                userRushEventList[rushEvent.eventId] = serializeRushEvent(rushEvent)
             }
             clientData.user_rush_event_list = userRushEventList
         }
@@ -831,16 +850,11 @@ export function deserializePlayerData(
         const rushEventList: PlayerRushEvent[] = []
         if (userRushEventList !== undefined) {
             for (const [eventId, rushEvent] of Object.entries(userRushEventList)) {
-                const endlessBattleNextRound = rushEvent['endless_battle_next_round']
-                if (isNaN(endlessBattleNextRound))
-                    throw new Error("Invalid or missing 'endless_battle_next_round' for 'user_rush_event_list' field.");
-
-                rushEventList.push({
-                    eventId: Number(eventId),
-                    endlessBattleNextRound: rushEvent.endless_battle_next_round,
-                    activeRushBattleFolderId: rushEvent.active_rush_battle_folder_id ?? null,
-                    endlessBattleMaxRound: rushEvent.active_rush_battle_folder_id ?? null
-                })
+                rushEventList.push(deserializeRushEvent({
+                    event_id: Number(eventId),
+                    player_id: playerId,
+                    ...rushEvent
+                }, 0))
             }
         }
         

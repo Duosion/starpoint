@@ -315,6 +315,13 @@ export default function init(
         event_id INTEGER NOT NULL,
         active_rush_battle_folder_id INTEGER,
         endless_battle_max_round INTEGER,
+        endless_battle_max_round_time INTEGER,
+        endless_battle_max_round_character_id_1 INTEGER,
+        endless_battle_max_round_character_id_2 INTEGER,
+        endless_battle_max_round_character_id_3 INTEGER,
+        endless_battle_max_round_character_evolution_img_lvl_1 INTEGER,
+        endless_battle_max_round_character_evolution_img_lvl_2 INTEGER,
+        endless_battle_max_round_character_evolution_img_lvl_3 INTEGER,
         PRIMARY KEY (player_id, event_id),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run()

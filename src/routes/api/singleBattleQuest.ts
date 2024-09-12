@@ -22,6 +22,7 @@ interface StartBody {
 }
 
 interface QuestStatistics {
+    clear_phase: number,
     party: {
         unison_characters: ({ id: (number | null) } | null)[],
         characters: ({ id: (number | null) } | null)[],
@@ -241,20 +242,28 @@ const routes = async (fastify: FastifyInstance) => {
                 const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
                 const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
 
-                let currentRound: number = questId
+                let round: number = questId
 
                 // update endless battle stats
                 if (rushEventBattleType === RushEventBattleType.ENDLESS) {
                     // get player rush event data
                     const playerRushEventData = getPlayerRushEventSync(playerId, rushEventId)
 
-                    currentRound = playerRushEventData?.endlessBattleNextRound ?? 1
-                    const nextRound = currentRound + 1
+                    const playerNextRound = playerRushEventData?.endlessBattleNextRound ?? 1
+                    const playerMaxRound = playerRushEventData?.endlessBattleMaxRound ?? 1
+                    const playerBestClearTime = playerRushEventData?.endlessBattleMaxRoundTime ?? Number.MAX_SAFE_INTEGER
+                    round = playerNextRound
 
-                    updatePlayerRushEventSync(playerId, {
-                        eventId: rushEventId,
-                        endlessBattleMaxRound: Math.max(nextRound, playerRushEventData?.endlessBattleMaxRound ?? 1)
-                    })
+                    if ((playerNextRound >= playerMaxRound && playerBestClearTime >= clearTime) || (playerNextRound > playerMaxRound)) {
+                        updatePlayerRushEventSync(playerId, {
+                            eventId: rushEventId,
+                            endlessBattleMaxRound: playerNextRound,
+                            endlessBattleMaxRoundTime: clearTime,
+                            endlessBattleMaxRoundCharacterIds: characterIds,
+                            endlessBattleMaxRoundCharacterEvolutionImgLvls: evolutionImgLevels
+                        })
+                    }
+                    
                 } else if (rushEventBattleType === RushEventBattleType.FOLDER && (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0))) {
                     // mark folder as complete since this is the final round
                     insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
@@ -276,7 +285,7 @@ const routes = async (fastify: FastifyInstance) => {
                     evolutionImgLevels: evolutionImgLevels,
                     unisonEvolutionImgLevels: unisonEvolutionImgLevels,
                     battleType: rushEventBattleType,
-                    round: currentRound
+                    round: round
                 })
 
                 // get serialized parties
