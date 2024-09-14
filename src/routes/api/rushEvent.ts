@@ -2,12 +2,13 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { PartyCategory, RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
-import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, deletePlayerRushEventPlayedPartySync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getDefaultPlayerRushEventSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventNextEndlessBattleRoundSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
+import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, deletePlayerRushEventPlayedPartySync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getDefaultPlayerRushEventSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventNextEndlessBattleRoundSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getRushEventEndlessRankingListSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
-import { generateDataHeaders } from "../../utils";
+import { generateDataHeaders, getServerTime } from "../../utils";
 import { FinishBody, insertActiveQuest } from "./singleBattleQuest";
 import { getPlayerRushEventEndlessBattleRanking, getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
+import { clientSerializeDate } from "../../data/utils";
 
 interface SummaryBody {
     event_id: number,
@@ -38,6 +39,13 @@ interface ResetBody {
     viewer_id: number,
     reset_target_id?: number,
     is_reset_after_target_round?: boolean
+}
+
+interface RankingBody {
+    viewer_id: number,
+    event_id: number,
+    page?: number,
+    aggregated_time?: string
 }
 
 enum ResetQuestType {
@@ -193,7 +201,8 @@ const routes = async (fastify: FastifyInstance) => {
                 "rush_battle_played_party_list": serializedPlayedParties.folderParties,
                 "endless_battle_my_ranking": getPlayerRushEventEndlessBattleRanking(playerId, eventId, {
                     rushEventData: rushEventData
-                })
+                }),
+                "aggregated_time": clientSerializeDate(new Date())
             }
         })
     })
@@ -250,6 +259,52 @@ const routes = async (fastify: FastifyInstance) => {
             "data": {
                 "folder_id": folderId,
                 "event_id": eventId
+            }
+        })
+    })
+
+    fastify.post("/ranking", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as RankingBody
+
+        const viewerId = body.viewer_id
+        const eventId = body.event_id
+        const page = body.page ?? 0
+        if (isNaN(viewerId) || isNaN(eventId)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid request body."
+        })
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No player bound to account."
+        })
+
+        // get player endless rank
+        const endlessRanking = getPlayerRushEventEndlessBattleRanking(playerId, eventId)
+
+        // get all rankings for page
+        const rankings = getRushEventEndlessRankingListSync(eventId, page);
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "aggregated_time": clientSerializeDate(new Date()),
+                "current_page": page + 1,
+                "page_max": rankings.pageMax,
+                "my_data": endlessRanking,
+                "ranking_list": rankings.list
             }
         })
     })

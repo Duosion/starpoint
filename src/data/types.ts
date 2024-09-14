@@ -350,6 +350,10 @@ export interface RawPlayerRushEvent extends UserRushEvent{
     event_id: number
 }
 
+export interface RawPlayerRushEventRanking extends RawPlayerRushEvent {
+    total_count: number
+}
+
 export interface PlayerRushEvent {
     eventId: number
     endlessBattleNextRound: number
@@ -426,6 +430,11 @@ export interface UserRushEventEndlessBattleRanking {
     name: string,
     party_member_list: UserRushEventEndlessBattleMyRankingPartyMemberListItem[],
     user_rank: number
+}
+
+export interface GetRushEventEndlessRankingListResult {
+    pageMax: number,
+    list: UserRushEventEndlessBattleRanking[]
 }
 
 // Player

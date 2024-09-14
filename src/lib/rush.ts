@@ -45,7 +45,8 @@ export function getPlayerRushEventEndlessBattleRanking(
     eventId: number,
     useData?: {
         playerData?: Player,
-        rushEventData?: PlayerRushEvent
+        rushEventData?: PlayerRushEvent,
+        rankNumber?: number
     }
 ): UserRushEventEndlessBattleRanking | null {
 
@@ -79,7 +80,7 @@ export function getPlayerRushEventEndlessBattleRanking(
         elapsed_time_ms: bestTime,
         name: playerData.name,
         party_member_list: partyMemberList,
-        rank_number: 1,
+        rank_number: useData?.rankNumber ?? 0,
         user_rank: 215
     }
 }

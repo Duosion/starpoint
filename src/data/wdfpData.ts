@@ -1,8 +1,9 @@
 import { randomBytes } from "crypto";
 import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
-import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventClearedFolders, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerRushEvent, RawPlayerRushEventClearedFolder, RawPlayerRushEventPlayedParty, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, RushEventBattleType, Session, SessionType, UserRushEventPlayedParty } from "./types";
+import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventClearedFolders, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerRushEvent, RawPlayerRushEventClearedFolder, RawPlayerRushEventPlayedParty, RawPlayerRushEventRanking, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, RushEventBattleType, GetRushEventEndlessRankingListResult, Session, SessionType, UserRushEventEndlessBattleRanking, UserRushEventPlayedParty } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
+import { getPlayerRushEventEndlessBattleRanking } from "../lib/rush";
 
 const db = getDatabase(Database.WDFP_DATA)
 const expPoolMax = 100000 // the maximum amount of exp that can be pooled
@@ -2879,6 +2880,57 @@ export function getPlayerRushEventListSync(
     `).all(playerId) as RawPlayerRushEvent[]
 
     return rawData.map(raw => deserializeRushEvent(raw, 1))
+}
+
+/**
+ * Gets rush event endless battle rankings for a specific rush event.
+ * 
+ * @param eventId The rush event's ID.
+ * @param page The current page.
+ * @param pageSize The size of each page.
+ * @returns The ranking list result.
+ */
+export function getRushEventEndlessRankingListSync(
+    eventId: number,
+    page: number,
+    pageSize: number = 100
+): GetRushEventEndlessRankingListResult {
+    const offset = page * pageSize
+
+    const results = db.prepare(`
+    SELECT *,
+        COUNT(*) OVER() as total_count
+    FROM players_rush_events
+    WHERE event_id = ?
+    ORDER BY endless_battle_max_round,
+        endless_battle_max_round_time
+    LIMIT ?
+    OFFSET ?
+    `).all(
+        eventId,
+        pageSize,
+        offset
+    ) as RawPlayerRushEventRanking[]
+
+    const totalCount = results[0]?.total_count ?? 0;
+
+    const mappedResults: UserRushEventEndlessBattleRanking[] = []
+    let rankNumber = 1;
+
+    for (const raw of results) {
+        const ranking = getPlayerRushEventEndlessBattleRanking(raw.player_id, eventId, {
+            rankNumber: rankNumber + offset
+        })
+        if (ranking !== null) {
+            mappedResults.push(ranking)
+            rankNumber += 1;
+        }
+    }
+    
+    return {
+        pageMax: Math.ceil(totalCount / pageSize),
+        list: mappedResults
+    }
 }
 
 /**
