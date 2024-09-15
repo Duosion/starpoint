@@ -6,10 +6,12 @@
   "scripts": {
     "build": "npx tsc & npm run css",
     "css": "npx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css",
+    "css:watch": "npx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css --watch --poll",
     "dev": "npm run build && node --env-file=.env out/server.js",
     "cdn": "npx tsc & node --env-file=.env out/validate_cdn.js",
     "unzip": "npx tsc & node --env-file=.env out/unzip_cdn.js",
-    "debug": "npm run css && tsnd --inspect -- src/server.ts"
+    "debug": "npm run css && npm run css:watch & npm run debug:ts-only",
+    "debug:ts-only": "tsnd --inspect -- src/server.ts"
   },
   "author": "",
   "license": "ISC",

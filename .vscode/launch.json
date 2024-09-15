@@ -9,22 +9,27 @@
             "request": "launch",
             "runtimeArgs": [
                 "run",
-                "debug"
+                "debug:ts-only"
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "node",
-            "autoAttachChildProcesses": true,
+            "autoAttachChildProcesses": true
         }
     ],
 
     "compounds": [
         {
-            "name": "Starpoint with mitmweb",
+            "name": "Debug All w/ Wireguard",
             "configurations": ["Launch via NPM"],
-            "preLaunchTask": "mitmweb with wireguard"
+            "preLaunchTask": "Debug Wireguard background tasks",
+        },
+        {
+            "name": "Debug All",
+            "configurations": ["Launch via NPM"],
+            "preLaunchTask": "Debug background tasks",
         }
     ]
 }
