@@ -464,8 +464,8 @@ export type EventShopItems = Record<string, BossCoinShopItems>
 
 // rush event
 export type RushEventFolders = Record<string, Record<string, Reward[]>>
-export type SerializedPlayerRushEventPlayedParty = Record<number, UserRushEventPlayedParty>
+export type SerializedPlayerRushEventPlayedPartyList = Record<number, UserRushEventPlayedParty>
 export interface SerializedPlayerRushEventPlayedParties {
-    folderParties: SerializedPlayerRushEventPlayedParty
-    endlessParties: SerializedPlayerRushEventPlayedParty
+    folderParties: SerializedPlayerRushEventPlayedPartyList
+    endlessParties: SerializedPlayerRushEventPlayedPartyList
 }

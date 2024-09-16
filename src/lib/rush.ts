@@ -1,6 +1,6 @@
-import { Player, PlayerRushEvent, RushEventBattleType, UserRushEventEndlessBattleMyRankingPartyMemberListItem, UserRushEventEndlessBattleRanking } from "../data/types";
-import { getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getPlayerSync, serializePlayerRushEventPlayedParty } from "../data/wdfpData";
-import { SerializedPlayerRushEventPlayedParty, SerializedPlayerRushEventPlayedParties } from "./types";
+import { Player, PlayerRushEvent, RushEventBattleType, UserRushEventEndlessBattleMyRankingPartyMemberListItem, UserRushEventEndlessBattleRanking, UserRushEventPlayedPartyList } from "../data/types";
+import { getPlayerIdFromRushEventEndlessRankSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getPlayerSync, serializePlayerRushEventPlayedParty } from "../data/wdfpData";
+import { SerializedPlayerRushEventPlayedPartyList, SerializedPlayerRushEventPlayedParties } from "./types";
 
 /**
  * Gets all of a player's played parties, serializes them into client formant, and organizes them by their RushEventBattleType.
@@ -17,8 +17,8 @@ export function getSerializedPlayerRushEventPlayedPartiesSync(
     const playedParties = getPlayerRushEventPlayedPartiesSync(playerId, eventId)
 
     // convert played parties to the expected client format
-    const rushBattlePlayedPartyList: SerializedPlayerRushEventPlayedParty = {}
-    const endlessBattlePlayedPartyList: SerializedPlayerRushEventPlayedParty = {}
+    const rushBattlePlayedPartyList: SerializedPlayerRushEventPlayedPartyList = {}
+    const endlessBattlePlayedPartyList: SerializedPlayerRushEventPlayedPartyList = {}
 
     for (const party of playedParties) {
         const record = party.battleType === RushEventBattleType.FOLDER ? rushBattlePlayedPartyList : endlessBattlePlayedPartyList;
@@ -40,7 +40,7 @@ export function getSerializedPlayerRushEventPlayedPartiesSync(
  * @param playerData Existing data to use instead of fetching brand new data.
  * @returns A UserRushEventEndlessBattleRanking object or null.
  */
-export function getPlayerRushEventEndlessBattleRanking(
+export function getPlayerRushEventEndlessBattleRankingSync(
     playerId: number,
     eventId: number,
     useData?: {
@@ -83,4 +83,25 @@ export function getPlayerRushEventEndlessBattleRanking(
         rank_number: useData?.rankNumber ?? 0,
         user_rank: 215
     }
+}
+
+/**
+ * Gets the played party list for the player currently at a rank in an endless battle leaderboard for a rush event.
+ * 
+ * @param rank The rank of the player.
+ * @param eventId The ID of the rush event.
+ * @returns A serialized player rush event played party list or null.
+ */
+export function getRushEventEndlessBattleRankPlayedPartyListSync(
+    rank: number,
+    eventId: number
+): SerializedPlayerRushEventPlayedPartyList | null {
+    // Get the ID of the player who is currently at rank [rank].
+    const playerId = getPlayerIdFromRushEventEndlessRankSync(rank, eventId);
+    if (playerId === null) return null;
+
+    // get the played party list
+    const parties = getSerializedPlayerRushEventPlayedPartiesSync(playerId, eventId);
+
+    return parties.endlessParties;
 }

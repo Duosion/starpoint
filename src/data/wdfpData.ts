@@ -3,7 +3,7 @@ import getDatabase, { Database } from ".";
 import { generateViewerId, getServerTime } from "../utils";
 import { Account, DailyChallengePointListCampaign, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerActiveMission, PlayerBoxGacha, PlayerBoxGachaDrawnReward, PlayerCharacter, PlayerCharacterBondToken, PlayerCharacterExBoost, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventClearedFolders, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RawAccount, RawDailyChallengePointListCampaign, RawDailyChallengePointListEntry, RawPlayer, RawPlayerActiveMission, RawPlayerActiveMissionStage, RawPlayerBoxGacha, RawPlayerCharacter, RawPlayerCharacterBondToken, RawPlayerCharacterManaNode, RawPlayerClearedRegularMission, RawPlayerDrawnQuest, RawPlayerEquipment, RawPlayerGachaCampaign, RawPlayerGachaInfo, RawPlayerItem, RawPlayerMultiSpecialExchangeCampaign, RawPlayerOption, RawPlayerParty, RawPlayerPartyGroup, RawPlayerQuestProgress, RawPlayerRushEvent, RawPlayerRushEventClearedFolder, RawPlayerRushEventPlayedParty, RawPlayerRushEventRanking, RawPlayerStartDashExchangeCampaign, RawPlayerTriggeredTutorial, RawSession, RushEventBattleType, GetRushEventEndlessRankingListResult, Session, SessionType, UserRushEventEndlessBattleRanking, UserRushEventPlayedParty } from "./types";
 import { deserializeBoolean, deserializeNumberList, getDefaultPlayerData, serializeBoolean, serializeNumberList } from "./utils";
-import { getPlayerRushEventEndlessBattleRanking } from "../lib/rush";
+import { getPlayerRushEventEndlessBattleRankingSync } from "../lib/rush";
 
 const db = getDatabase(Database.WDFP_DATA)
 const expPoolMax = 100000 // the maximum amount of exp that can be pooled
@@ -2902,8 +2902,8 @@ export function getRushEventEndlessRankingListSync(
         COUNT(*) OVER() as total_count
     FROM players_rush_events
     WHERE event_id = ?
-    ORDER BY endless_battle_max_round,
-        endless_battle_max_round_time
+    ORDER BY endless_battle_max_round DESC,
+        endless_battle_max_round_time ASC
     LIMIT ?
     OFFSET ?
     `).all(
@@ -2918,7 +2918,7 @@ export function getRushEventEndlessRankingListSync(
     let rankNumber = 1;
 
     for (const raw of results) {
-        const ranking = getPlayerRushEventEndlessBattleRanking(raw.player_id, eventId, {
+        const ranking = getPlayerRushEventEndlessBattleRankingSync(raw.player_id, eventId, {
             rankNumber: rankNumber + offset
         })
         if (ranking !== null) {
@@ -2931,6 +2931,33 @@ export function getRushEventEndlessRankingListSync(
         pageMax: Math.ceil(totalCount / pageSize),
         list: mappedResults
     }
+}
+
+/**
+ * Gets the player ID who is at a specific rank for the endless battle leaderboard for a raid event.
+ * 
+ * @param rank The rank to get the player ID of.
+ * @param eventId The ID of the rush event.
+ * @returns A player ID or null.
+ */
+export function getPlayerIdFromRushEventEndlessRankSync(
+    rank: number,
+    eventId: number
+): number | null {
+    const result = db.prepare(`
+    SELECT player_id
+    FROM players_rush_events
+    WHERE event_id = ?
+    ORDER BY endless_battle_max_round DESC,
+        endless_battle_max_round_time ASC
+    LIMIT 1
+    OFFSET ?
+    `).get(
+        eventId,
+        rank - 1
+    ) as { player_id: number } | undefined
+
+    return result?.player_id ?? null
 }
 
 /**
