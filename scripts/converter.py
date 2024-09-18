@@ -807,7 +807,7 @@ def convert_event_item_shop(obj):
                 rewards.append(reward)
             reward_offset += 3
         
-        event_type = int(item[0])
+        event_type = int(item[2])
         event_id = int(item[1])
 
         converted_item = {

@@ -16,6 +16,15 @@ export function getServerTime(
     return Math.floor((serverTime ?? date).getTime() / 1000) //1710116388//
 }
 
+/**
+ * Gets the current server time as a Date.
+ * 
+ * @returns The current server time as a date.
+ */
+export function getServerDate(): Date {
+    return serverTime ?? new Date()
+}
+
 export function setServerTime(date: Date | null) {
     serverTime = date;
 }
