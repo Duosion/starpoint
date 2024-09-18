@@ -20,7 +20,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        server_name starpoint.local;
+        server_name starpoint.internal;
 
         location / {
                 proxy_set_header Host $host;

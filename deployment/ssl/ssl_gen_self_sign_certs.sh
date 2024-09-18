@@ -20,8 +20,10 @@ delete_generated () {
 copy_certs () {
     ensure_root "Please run as root to allow automatically copying certificates"
 
-    cp -fv `find $ssl_tempdir -name *.crt` /etc/ssl/certs/
-    cp -fv `find $ssl_tempdir -name *.key` /etc/ssl/private/
+    # shellcheck disable=SC2046
+    cp -fv $(find "$ssl_tempdir" -name "*.crt") /etc/ssl/certs/
+    # shellcheck disable=SC2046
+    cp -fv $(find "$ssl_tempdir" -name "*.key") /etc/ssl/private/
 }
 
 print_syntax () {
@@ -78,7 +80,7 @@ openssl req -x509 -new -subj "/CN=gc-infodesk-zinny3.kakaogames.com" -config $SC
 set +e
 
 #This should not normally be necessary, but included in case it is for your environment
-#openssl req -x509 -new -subj "/CN=starpoint.local" -config $SCRIPT_DIR/starpoint.cnf -key generated/starpoint_multiversal.key -out generated/starpoint_local.crt
+#openssl req -x509 -new -subj "/CN=starpoint.internal" -config $SCRIPT_DIR/starpoint.cnf -key generated/starpoint_multiversal.key -out generated/starpoint_local.crt
 if [ "$do_copy" = true ]; then
     copy_certs
     default_delete_tempdir=true
