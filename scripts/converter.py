@@ -36,7 +36,7 @@ def convert_main_ex_quests(obj):
                         "clearRewardId": int(chapter[3])
                     }
                 else:
-                    converted[chapter[0]] = {
+                    converted_chapter = {
                         "name": "", #chapter[1],
                         "clearRewardId": int(chapter[3]),
                         "sPlusRewardId": 1,
@@ -50,6 +50,9 @@ def convert_main_ex_quests(obj):
                         "manaReward": int(chapter[95]),
                         "poolExpReward": int(chapter[96])
                     }
+                    if chapter[118] != "(None)":
+                        converted_chapter["fixedParty"] = int(chapter[118])
+                    converted[chapter[0]] = converted_chapter
     return converted
 
 def convert_boss_quests(obj):

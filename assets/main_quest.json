@@ -3177,7 +3177,8 @@
         "rankPointReward": 103,
         "characterExpReward": 200,
         "manaReward": 210,
-        "poolExpReward": 200
+        "poolExpReward": 200,
+        "fixedParty": 7
     },
     "10002003": {
         "name": "",
@@ -3461,7 +3462,8 @@
         "rankPointReward": 195,
         "characterExpReward": 310,
         "manaReward": 745,
-        "poolExpReward": 310
+        "poolExpReward": 310,
+        "fixedParty": 11
     },
     "10012003": {
         "name": "",
@@ -3653,7 +3655,8 @@
         "rankPointReward": 112,
         "characterExpReward": 230,
         "manaReward": 210,
-        "poolExpReward": 230
+        "poolExpReward": 230,
+        "fixedParty": 16
     },
     "11006001": {
         "name": "",
@@ -3671,7 +3674,8 @@
         "rankPointReward": 359,
         "characterExpReward": 1410,
         "manaReward": 380,
-        "poolExpReward": 1410
+        "poolExpReward": 1410,
+        "fixedParty": 22
     },
     "11007001": {
         "name": "",
@@ -3689,7 +3693,8 @@
         "rankPointReward": 195,
         "characterExpReward": 745,
         "manaReward": 310,
-        "poolExpReward": 745
+        "poolExpReward": 745,
+        "fixedParty": 18
     },
     "11008001": {
         "name": "",
@@ -3707,7 +3712,8 @@
         "rankPointReward": 195,
         "characterExpReward": 745,
         "manaReward": 310,
-        "poolExpReward": 745
+        "poolExpReward": 745,
+        "fixedParty": 19
     },
     "11009001": {
         "name": "",
@@ -3725,7 +3731,8 @@
         "rankPointReward": 195,
         "characterExpReward": 745,
         "manaReward": 310,
-        "poolExpReward": 745
+        "poolExpReward": 745,
+        "fixedParty": 20
     },
     "11010001": {
         "name": "",
@@ -3743,7 +3750,8 @@
         "rankPointReward": 359,
         "characterExpReward": 1410,
         "manaReward": 380,
-        "poolExpReward": 1410
+        "poolExpReward": 1410,
+        "fixedParty": 21
     },
     "11010003": {
         "name": "",
@@ -3765,7 +3773,8 @@
         "rankPointReward": 195,
         "characterExpReward": 745,
         "manaReward": 310,
-        "poolExpReward": 745
+        "poolExpReward": 745,
+        "fixedParty": 23
     },
     "12002001": {
         "name": "",
@@ -3799,7 +3808,8 @@
         "rankPointReward": 359,
         "characterExpReward": 1410,
         "manaReward": 380,
-        "poolExpReward": 1410
+        "poolExpReward": 1410,
+        "fixedParty": 26
     },
     "12005001": {
         "name": "",
@@ -3837,7 +3847,8 @@
         "rankPointReward": 195,
         "characterExpReward": 310,
         "manaReward": 745,
-        "poolExpReward": 310
+        "poolExpReward": 310,
+        "fixedParty": 25
     },
     "12008003": {
         "name": "",
@@ -3851,7 +3862,8 @@
         "rankPointReward": 195,
         "characterExpReward": 310,
         "manaReward": 745,
-        "poolExpReward": 310
+        "poolExpReward": 310,
+        "fixedParty": 24
     },
     "12009001": {
         "name": "",
