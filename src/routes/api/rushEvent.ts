@@ -5,7 +5,7 @@ import { PartyCategory, RushEventBattleType, UserRushEventPlayedParty } from "..
 import { deletePlayerRushEventPlayedPartiesUntilSync, deletePlayerRushEventPlayedPartyListSync, deletePlayerRushEventPlayedPartySync, getAccountPlayers, getDefaultPlayerPartyGroupsSync, getDefaultPlayerRushEventSync, getPlayerCharacterSync, getPlayerPartyGroupListSync, getPlayerRushEventClearedFoldersSync, getPlayerRushEventNextEndlessBattleRoundSync, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getRushEventEndlessRankingListSync, getSession, insertPlayerPartyGroupListSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, insertPlayerRushEventSync, serializePlayerRushEventPlayedParty, updatePlayerRushEventSync } from "../../data/wdfpData";
 import { getQuestFromCategorySync } from "../../lib/assets";
 import { BattleQuest, QuestCategory, RushEventFolder } from "../../lib/types";
-import { generateDataHeaders, getServerTime } from "../../utils";
+import { generateDataHeaders, getServerDate, getServerTime } from "../../utils";
 import { FinishBody, insertActiveQuest } from "./singleBattleQuest";
 import { getPlayerRushEventEndlessBattleRankingSync, getRushEventEndlessBattleRankPlayedPartyListSync, getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
 import { clientSerializeDate } from "../../data/utils";
@@ -124,76 +124,6 @@ const routes = async (fastify: FastifyInstance) => {
         // get serialized parties
         const serializedPlayedParties = getSerializedPlayerRushEventPlayedPartiesSync(playerId, eventId)
 
-        /*{
-            "active_rush_battle_folder_id": 1,
-            "aggregated_time": "2023-05-24T12:00:00Z",
-            "cleared_folder_id_list": [1, 2, 3],
-            "endless_battle_max_round": 10,
-            "endless_battle_my_ranking": {
-                "best_round": 8,
-                "elapsed_time_ms": 300000,
-                "name": "Player1",
-                "party_member_list": [
-                    {
-                        "character_id": 101,
-                        "evolution_img_level": 2
-                    },
-                    {
-                        "character_id": 102,
-                        "evolution_img_level": 3
-                    }
-                ],
-                "rank_number": 5,
-                "user_rank": 50
-            },
-            "endless_battle_next_round": 11,
-            "endless_battle_played_max_round": 9,
-            "endless_battle_played_party_list": {
-                "1": {
-                    "ability_soul_id_1": 201,
-                    "ability_soul_id_2": 202,
-                    "ability_soul_id_3": 203,
-                    "character_id_1": 301,
-                    "character_id_2": 302,
-                    "character_id_3": 303,
-                    "equipment_id_1": 401,
-                    "equipment_id_2": 402,
-                    "equipment_id_3": 403,
-                    "evolution_img_level_1": 2,
-                    "evolution_img_level_2": 3,
-                    "evolution_img_level_3": 1,
-                    "unison_character_id_1": 501,
-                    "unison_character_id_2": 502,
-                    "unison_character_id_3": 503,
-                    "unison_evolution_img_level_1": 1,
-                    "unison_evolution_img_level_2": 2,
-                    "unison_evolution_img_level_3": 3
-                }
-            },
-            "rush_battle_played_party_list": {
-                "1": {
-                    "ability_soul_id_1": 601,
-                    "ability_soul_id_2": 602,
-                    "ability_soul_id_3": 603,
-                    "character_id_1": 701,
-                    "character_id_2": 702,
-                    "character_id_3": 703,
-                    "equipment_id_1": 801,
-                    "equipment_id_2": 802,
-                    "equipment_id_3": 803,
-                    "evolution_img_level_1": 2,
-                    "evolution_img_level_2": 3,
-                    "evolution_img_level_3": 1,
-                    "unison_character_id_1": 901,
-                    "unison_character_id_2": 902,
-                    "unison_character_id_3": 903,
-                    "unison_evolution_img_level_1": 1, 
-                    "unison_evolution_img_level_2": 2,
-                    "unison_evolution_img_level_3": 3
-                }
-            }
-        }*/
-
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
@@ -209,7 +139,7 @@ const routes = async (fastify: FastifyInstance) => {
                 "endless_battle_my_ranking": getPlayerRushEventEndlessBattleRankingSync(playerId, eventId, {
                     rushEventData: rushEventData
                 }),
-                "aggregated_time": clientSerializeDate(new Date())
+                "aggregated_time": clientSerializeDate(getServerDate()),
             }
         })
     })
@@ -307,7 +237,7 @@ const routes = async (fastify: FastifyInstance) => {
                 viewer_id: viewerId
             }),
             "data": {
-                "aggregated_time": clientSerializeDate(new Date()),
+                "aggregated_time": clientSerializeDate(getServerDate()),
                 "current_page": page + 1,
                 "page_max": rankings.pageMax,
                 "my_data": endlessRanking,
@@ -378,16 +308,14 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
-        /*{
-            "aggregated_time": clientSerializeDate(new Date())
-        }*/
-
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
             "data_headers": generateDataHeaders({
                 viewer_id: viewerId
             }),
-            "data": []
+            "data": {
+                "aggregated_time": clientSerializeDate(getServerDate())
+            }
         })
     })
 

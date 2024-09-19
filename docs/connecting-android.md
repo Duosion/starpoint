@@ -44,24 +44,25 @@ The following is a general guide for connecting the Android game client to Starp
 
 ## Device/Emulator Setup
 
-### Installing & Setting up WG Tunnel
+### Installing & Setting up WireGuard
 
-1. Install the WG Tunnel app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.zaneschepke.wireguardautotunnel) or [Github](https://github.com/zaneschepke/wgtunnel/releases/tag/3.4.7)
+1. Install the WireGuard app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.wireguard.android) or build from [Github](https://github.com/WireGuard/wireguard-android)
 2. Ensure your Android device is on the same network as your computer.
-3. Open the WG Tunnel app.
-   - If you do not have access to a camera, such as if you are using an emulator. Continue to the "(Optional) Manual WG Tunnel setup" below.
+3. Open the WireGuard app.
+   - If you do not have access to a camera, like if you are using an emulator. Continue to the "(Optional) Manual WG Tunnel setup" section below.
 4. Tap the "+" button in the bottom right corner of the screen.
-5. Tap "WireGuard"
-6. Tap "Add from QR code"
-7. Scan the QR code that is visible in the tab that opened up in your browser.
-8. At the top of the screen, there will be some numbers; i.e. 10.0.0.167.
-9. Tap the round button to the right of these numbers.
-10. Accept the VPN popup.
-11. Tap the round button to the right of these numbers again.
+5. Tap "Scan from QR code"
+6. Scan the QR code that is visible in the tab that opened up in your browser.
+8. On your Android device, an "Import Tunnel from QR Code" popup appears.
+9. In the "Tunnel Name" field, type "Starpoint".
+10. Tap "Create Tunnel".
+11. At the top of the screen you should see "Starpoint".
+12. Tap the round button to the right of these numbers.
+13. Accept the VPN popup or connection request.
 
-### (Optional) Manual WG Tunnel setup
+### (Optional) Manual WireGuard setup
 
-If you have already turned on the WG Tunnel VPN, you may skip the following steps and jump to "Pinball App Setup" below.
+If you have already enabled the WireGuard connection, you may skip the following steps and jump to "Pinball App Setup" below.
 
 1. Go to the tab that opened up in your browser.
 2. Make note of the values to the left of the QR code. They will look like the below.
@@ -78,17 +79,22 @@ If you have already turned on the WG Tunnel VPN, you may skip the following step
    Endpoint = 10.0.0.167:51820
    ```
 
-3. In the WG tunnel app, tap the "+" button in the bottom right corner of the screen.
-4. Tap "WireGuard".
-5. Tap "Create from scratch".
-6. In the top field, "Name", put "Pinball".
-7. In the next field, "Private key", put the ``PrivateKey`` value you noted earlier.
-8. In the "Addresses" field, put the ``Address`` value you noted earlier.
-9. In the "DNS servers" field, put ``10.0.0.53``.
-   - Do not put the value under the ``[Interface]`` section of the values you noted earlier.
-10. In the "Public key" field, put the ``PublicKey`` value you noted earlier.
-11. In the "Endpoint" field, put the ``Endpoint`` value you noted earlier.
-12. In the "Allowed IPs" field, put the ``AllowedIPs`` value you noted earlier.
+3. In the WireGuard app, tap the "+" button in the bottom right corner of the screen.
+4. Tap "Create from scratch".
+5. In the "Interface" field type ``Starpoint``.
+6. In the next field, "Private key", put the ``PrivateKey`` value you noted earlier.
+7. In the "Addresses" field, put the ``Address`` value you noted earlier.
+8. In the "DNS servers" field, put ``10.0.0.53``.
+9. Towards the bottom the screen, there should text that says ``Add peer``.
+10. Tap the ``Add peer`` text.
+11. In the "Public key" field, put the ``PublicKey`` value you noted earlier.
+12. In the "Endpoint" field, put the ``Endpoint`` value you noted earlier.
+13. In the "Allowed IPs" field, put the ``AllowedIPs`` value you noted earlier.
+14. At the very top of the screen next to the text "Create WireGuard Tunnel", there should be a save/floppy disk icon.
+15. Tap the icon.
+16. At the top of the screen you should see "Starpoint".
+17. Tap the round button to the right of these numbers.
+18. Accept the VPN popup or connection request.
 
 ### Pinball App Setup
 

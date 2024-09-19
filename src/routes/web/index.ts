@@ -8,7 +8,7 @@ export const staticPagesDir = "../../../web/pages"
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.get("/", async (_: FastifyRequest, reply: FastifyReply) => {
-        const currentServerTime = getServerDate().toISOString().replace(".000Z", "")
+        const currentServerTime = getServerDate().toISOString().replace(/\.\d\d\dZ/, "")
         let html = readFileSync(path.join(__dirname, staticPagesDir, "index.html")).toString("utf-8")
 
         // replace values

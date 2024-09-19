@@ -48,17 +48,12 @@ For a more in-depth view of the progress completed, visit the [API routes docume
 - **I am getting an 'H404' error**
   - Receiving this error means that the feature you are trying to interact with has not been implemented yet.
 
-## Modding
+## Mods
 Follow the [modding guide](/docs/modding.md) to learn more about installing & creating mods.
-
-## Connecting
-In order to utilize Starpoint, you will have to redirect traffic from the game client, originally intended for the official servers, to an instance of Starpoint running on your computer.
-- [Android Connection Guide (No Root)](/docs/connecting-android.md)
-- [Android Connection Guide (Root)](/docs/connecting-android-root.md)
-- [iOS Connection Guide](/docs/connecting-ios.md)
 
 ## Contribution
 Interested in contributing to Starpoint? Read the [contribution guide](/docs/contributing.md) to learn more!
 
 ## Special Thanks
-Special thanks to [wdfp-extractor](https://github.com/ScripterSugar/wdfp-extractor) for providing the assets and knowledge required to create the ``converter.py`` script.
+- Special thanks to [wdfp-extractor](https://github.com/ScripterSugar/wdfp-extractor) for providing the assets and knowledge required to create the ``converter.py`` script.
+- Special thanks to the [wfax tool](https://github.com/blead/wfax) for making modding possible.
