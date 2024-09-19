@@ -57,7 +57,7 @@ const routes = async (fastify: FastifyInstance) => {
         // collect the player's pooled exp
         collectPlayerDataPooledExpSync(player)
 
-        const clientData = getClientSerializedData(playerId, viewerId)
+        const clientData = getClientSerializedData(playerId, { viewerId: viewerId })
         if (clientData === null) return reply.status(500).send({
             "error": "Internal Server Error",
             "message": "No player data."

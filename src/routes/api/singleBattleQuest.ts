@@ -1,10 +1,13 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { getAccountPlayers, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, updatePlayerQuestProgressSync, updatePlayerSync } from "../../data/wdfpData";
-import { getQuestFromCategorySync } from "../../lib/assets";
-import { givePlayerCharactersExpSync } from "../../lib/character";
-import { givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
-import { BattleQuest, QuestCategory } from "../../lib/types";
+import { deletePlayerRushEventPlayedPartyListSync, getAccountPlayers, getPlayerRushEventPlayedPartiesSync, getPlayerRushEventSync, getPlayerSingleQuestProgressSync, getPlayerSync, getSession, insertPlayerQuestProgressSync, insertPlayerRushEventClearedFolderSync, insertPlayerRushEventPlayedPartySync, updatePlayerQuestProgressSync, updatePlayerRushEventSync, updatePlayerSync } from "../../data/wdfpData";
+import { getQuestFromCategorySync, getRushEventFolderClearRewards } from "../../lib/assets";
+import { getCharactersEvolutionImgLevels, givePlayerCharactersExpSync } from "../../lib/character";
+import { givePlayerRewardsSync, givePlayerRewardSync, givePlayerScoreRewardsSync } from "../../lib/quest";
+import { BattleQuest, EquipmentItemReward, PlayerRewardResult, QuestCategory } from "../../lib/types";
 import { generateDataHeaders, getServerTime } from "../../utils";
+import { rushEventFolderMaxRounds } from "./rushEvent";
+import { RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
+import { getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
 
 interface StartBody {
     quest_id: number
@@ -18,7 +21,17 @@ interface StartBody {
     api_count: number
 }
 
-interface FinishBody {
+interface QuestStatistics {
+    clear_phase: number,
+    party: {
+        unison_characters: ({ id: (number | null) } | null)[],
+        characters: ({ id: (number | null) } | null)[],
+        equipments: ({ id: (number | null) } | null)[],
+        ability_soul_ids: (number | null)[]
+    }
+}
+
+export interface FinishBody {
     is_restored: boolean
     continue_count: number
     elapsed_time_ms: number
@@ -28,14 +41,7 @@ interface FinishBody {
     viewer_id: number
     add_mana: number
     is_accomplished: boolean
-    statistics: {
-        party: {
-            unison_characters: { id: (number | null) }[],
-            characters: { id: (number | null) }[],
-            equipments: (number | null)[],
-            ability_soul_ids: (number | null)[]
-        }
-    }
+    statistics: QuestStatistics
     api_count: number
 }
 
@@ -51,31 +57,39 @@ interface PlayContinueBody {
 interface AbortBody {
     api_count: number,
     finish_kind: number,
-    statistics: {
-        party: {
-            unison_characters: (number | null)[],
-            characters: { id: (number | null) }[],
-            equipments: (number | null)[],
-            ability_soul_ids: (number | null)[]
-        }
-    },
+    statistics: QuestStatistics,
     viewer_id: number,
     quest_id: number,
     play_id: string,
     category: number
 }
 
-interface ActiveQuest {
+interface ReturnRushEvent {
+    rush_battle_reward_list: {
+        kind: number,
+        kind_id: number,
+        number: number
+    }[],
+    rush_battle_played_party_list: Record<number, UserRushEventPlayedParty> | null,
+    endless_battle_played_party_list: Record<number, UserRushEventPlayedParty> | null,
+    is_out_of_period: boolean
+}
+
+export interface ActiveQuest {
     questId: number,
     category: QuestCategory,
     useBossBoostPoint: boolean
     useBoostPoint: boolean
-    isAutoStartMode: boolean
+    isAutoStartMode: Boolean
 }
 
 const continueVmoneyCost = 50;
 
 const activeQuests: Record<number, ActiveQuest> = {}
+
+export function insertActiveQuest(playerId: number, quest: ActiveQuest) {
+    activeQuests[playerId] = quest
+}
 
 const routes = async (fastify: FastifyInstance) => {
 
@@ -186,7 +200,8 @@ const routes = async (fastify: FastifyInstance) => {
         const scoreRewardsResult = givePlayerScoreRewardsSync(playerId, questData.scoreRewardGroupId, questData.scoreRewardGroup, useBoostPoint)
 
         // reward character exp
-        const partyCharacterIds = [...body.statistics.party.characters, ...body.statistics.party.unison_characters]
+        const bodyPartyStatistics = body.statistics.party
+        const partyCharacterIds = [...bodyPartyStatistics.characters, ...bodyPartyStatistics.unison_characters]
         const partyCharacterIdsArray: number[] = []
         for (const value of partyCharacterIds.values()) {
             if (value !== null && value.id !== null) partyCharacterIdsArray.push(value.id);
@@ -196,12 +211,110 @@ const routes = async (fastify: FastifyInstance) => {
         const rewardCharacterExpResult = givePlayerCharactersExpSync(
             playerId,
             partyCharacterIdsArray,
-            addExpAmount
+            addExpAmount,
+            questData.fixedParty !== undefined
         )
 
         const dataHeaders = generateDataHeaders({
             viewer_id: viewerId
         })
+
+        // handle event quest-specific data & rewards
+        let rushEventData: ReturnRushEvent | null = null
+        let rushEventRewardsResult: PlayerRewardResult | null = null
+
+        if (questCategory === QuestCategory.RUSH_EVENT) {
+            // rush event
+
+            const rushEventId = questData.rushEventId
+            const rushEventFolderId = questData.rushEventFolderId
+            const rushEventRound = questData.rushEventRound
+
+            if (rushEventFolderId !== undefined && rushEventRound !== undefined && rushEventId !== undefined) {
+                // update rush event data
+                const rushEventBattleType = rushEventRound === 0 ? RushEventBattleType.ENDLESS : RushEventBattleType.FOLDER
+
+                // map character ids
+                const characterIds = bodyPartyStatistics.characters.map(val => val?.id ?? null)
+                const unisonCharacterIds = bodyPartyStatistics.unison_characters.map(val => val?.id ?? null)
+
+                // get evolution image levels
+                const evolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, characterIds)
+                const unisonEvolutionImgLevels: (number | null)[] = getCharactersEvolutionImgLevels(playerId, unisonCharacterIds)
+
+                let round: number = questId
+
+                // update endless battle stats
+                if (rushEventBattleType === RushEventBattleType.ENDLESS) {
+                    // get player rush event data
+                    const playerRushEventData = getPlayerRushEventSync(playerId, rushEventId)
+
+                    const playerNextRound = playerRushEventData?.endlessBattleNextRound ?? 1
+                    const playerMaxRound = playerRushEventData?.endlessBattleMaxRound ?? 1
+                    const playerBestClearTime = playerRushEventData?.endlessBattleMaxRoundTime ?? Number.MAX_SAFE_INTEGER
+                    round = playerNextRound
+
+                    if ((playerNextRound >= playerMaxRound && playerBestClearTime >= clearTime) || (playerNextRound > playerMaxRound)) {
+                        updatePlayerRushEventSync(playerId, {
+                            eventId: rushEventId,
+                            endlessBattleMaxRound: playerNextRound,
+                            endlessBattleMaxRoundTime: clearTime,
+                            endlessBattleMaxRoundCharacterIds: characterIds,
+                            endlessBattleMaxRoundCharacterEvolutionImgLvls: evolutionImgLevels
+                        })
+                    }
+                    
+                } else if (rushEventBattleType === RushEventBattleType.FOLDER && (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0))) {
+                    // mark folder as complete since this is the final round
+                    insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
+                    // update the active folder value
+                    updatePlayerRushEventSync(playerId, {
+                        eventId: rushEventId,
+                        activeRushBattleFolderId: null
+                    })
+                    // delete played parties
+                    deletePlayerRushEventPlayedPartyListSync(playerId, rushEventId, rushEventBattleType)
+                }
+
+                // insert played party
+                insertPlayerRushEventPlayedPartySync(playerId, rushEventId, {
+                    characterIds: characterIds,
+                    unisonCharacterIds: unisonCharacterIds,
+                    equipmentIds: bodyPartyStatistics.equipments.map(val => val?.id ?? null),
+                    abilitySoulIds: bodyPartyStatistics.ability_soul_ids,
+                    evolutionImgLevels: evolutionImgLevels,
+                    unisonEvolutionImgLevels: unisonEvolutionImgLevels,
+                    battleType: rushEventBattleType,
+                    round: round
+                })
+
+                // get serialized parties
+                const serializedPlayedParties = getSerializedPlayerRushEventPlayedPartiesSync(playerId, rushEventId)
+
+                // set rush event data
+                rushEventData = {
+                    "rush_battle_reward_list": [],
+                    "rush_battle_played_party_list": serializedPlayedParties.folderParties,
+                    "endless_battle_played_party_list": serializedPlayedParties.endlessParties,
+                    "is_out_of_period": false
+                }
+
+                // give rewards if allowed
+                if (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0)) {
+                    const rewards = getRushEventFolderClearRewards(rushEventId, rushEventFolderId) ?? []
+                    rushEventRewardsResult = givePlayerRewardsSync(playerId, rewards)
+
+                    rushEventData.rush_battle_reward_list = rewards.map(reward => {
+                        const itemReward = reward as EquipmentItemReward
+                        return {
+                            "kind": 1,
+                            "kind_id": itemReward.id,
+                            "number": itemReward.count
+                        }
+                    })
+                }
+            }
+        }
 
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
@@ -250,7 +363,11 @@ const routes = async (fastify: FastifyInstance) => {
                 "start_time": dataHeaders['servertime'],
                 "is_multi": "single",
                 "quest_name": "",
-                "item_list": scoreRewardsResult.items,
+                "item_list": {
+                    ...scoreRewardsResult.items,
+                    ...(rushEventRewardsResult?.items ?? {})
+                },
+                "rush_event": rushEventData
             }
         })
     })
@@ -326,6 +443,14 @@ const routes = async (fastify: FastifyInstance) => {
             "message": "No player bound to account."
         })
 
+        // get quest data
+        const questData = getQuestFromCategorySync(category, questId) as BattleQuest | null
+        if (questData === null || !('rankPointReward' in questData)) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Quest doesn't exist."
+        })
+
+
         // add to active quests table
         delete activeQuests[playerId]
         activeQuests[playerId] = {
@@ -337,10 +462,12 @@ const routes = async (fastify: FastifyInstance) => {
         }
 
         // update player last quest id
-        updatePlayerSync({
-            id: playerId,
-            partySlot: partyId
-        })
+        if (questData.fixedParty === undefined) {
+            updatePlayerSync({
+                id: playerId,
+                partySlot: partyId
+            })
+        }
 
         const dataHeaders = generateDataHeaders({
             viewer_id: viewerId

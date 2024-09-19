@@ -1,4 +1,4 @@
-import { PlayerBoxGachaDrawnReward } from "../data/types"
+import { PlayerBoxGachaDrawnReward, UserRushEventPlayedParty } from "../data/types"
 
 // enums
 export enum RewardType {
@@ -64,16 +64,6 @@ export enum ScoreRewardType {
     RARE_POOL
 }
 
-/**
- * export enum RewardType {
-    ITEM,
-    EQUIPMENT,
-    CHARACTER,
-    BEADS,
-    MANA,
-    EXP
-}
- */
 export enum ShopItemRewardType {
     ITEM,
     EXP,
@@ -101,9 +91,17 @@ export enum ShopType {
     STAR_GRAIN
 }
 
+export enum RushEventFolder {
+    NONE,
+    INTERMEDIATE,
+    ADVANCED,
+    GODLY,
+    ENDLESS
+}
+
 // clear rewards
 export interface Reward {
-    name: string,
+    name?: string,
     type: RewardType,
 }
 
@@ -186,7 +184,11 @@ export interface RawQuest {
     rankPointReward?: number,
     characterExpReward?: number,
     manaReward?: number,
-    poolExpReward?: number
+    poolExpReward?: number,
+    fixedParty?: number,
+    rushEventId?: number
+    rushEventFolderId?: number
+    rushEventRound?: number
 }
 
 export interface StoryQuest {
@@ -207,7 +209,11 @@ export interface BattleQuest {
     rankPointReward: number,
     characterExpReward: number,
     manaReward: number,
-    poolExpReward: number
+    poolExpReward: number,
+    fixedParty?: number,
+    rushEventId?: number
+    rushEventFolderId?: RushEventFolder
+    rushEventRound?: number
 }
 
 export type RawQuests = Record<string, RawQuest>
@@ -455,3 +461,11 @@ export interface EventItemShopIdMapItem {
 export type ShopItems = Record<string, ShopItem>
 export type BossCoinShopItems = Record<string, ShopItems>
 export type EventShopItems = Record<string, BossCoinShopItems>
+
+// rush event
+export type RushEventFolders = Record<string, Record<string, Reward[]>>
+export type SerializedPlayerRushEventPlayedPartyList = Record<number, UserRushEventPlayedParty>
+export interface SerializedPlayerRushEventPlayedParties {
+    folderParties: SerializedPlayerRushEventPlayedPartyList
+    endlessParties: SerializedPlayerRushEventPlayedPartyList
+}

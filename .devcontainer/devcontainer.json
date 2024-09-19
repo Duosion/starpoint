@@ -1,0 +1,112 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Starpoint Dev with MITMproxy",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {
+			"installTools": true,
+			"version": "os-provided"
+		},
+		"ghcr.io/lukewiwa/features/shellcheck:0": {
+			"version": "stable"
+		},
+		"ghcr.io/warrenbuckley/codespace-features/sqlite": {}
+		// BUG:Install via the features method found to have infrequent success. Using pipx method instead to install system-wide.
+		// "ghcr.io/joshspicer/features/mitm-proxy": {
+		// 	"installRootCerts": true
+		// }
+	},
+	
+	//Make absolutely sure these are the exact ports forwarded here. We need to change the IP in the app's config anyway, but at least it would forward consistently.
+	//TODO: Does it matter if the port is consistent, or is it better to make it more likely to work and bind properly to the correct external ports?
+	//If this becomes more of a hassle, this can be changed, but outgoing ports will no longer be guaranteed to have the same ports as expected.
+	//51820: Wireguard
+	//8080: MITMproxy's actual proxy port
+	//8000: Starpoint UI
+	"appPort": [ "51820:51820/udp", 8080, 8000 ],
+	
+	// MITMproxy's Web UI
+	"forwardPorts": [ 8081 ],
+	
+	"onCreateCommand": "tempHoldEdit=\"$(tr -d '\\r' < deployment/devenv/starpoint-devcontainer-setup.sh)\"; printf \"%s\" \"$tempHoldEdit\" > deployment/devenv/starpoint-devcontainer-setup.sh; dash deployment/devenv/starpoint-devcontainer-setup.sh",
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postStartCommand": "dash deployment/devenv/starpoint-devcontainer-setup.sh --fix-file-escapes-only",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"python.defaultInterpreterPath": "~/starpoint-venv",
+				"python.terminal.activateEnvInCurrentTerminal": false,
+				"python.terminal.activateEnvironment": false,
+				//Required for phone connection. Should work regardless of local instance setting
+				"remote.localPortHost":"allInterfaces",
+				"files.associations": {
+					//Since we are never not using tailwind, allow all CSS files to be linted with the tailwind extension
+					"css":"tailwindcss"
+				},
+				"[css]": {
+					"editor.quickSuggestions": {
+						//TODO: Turn this off if determined to be too annoying.
+						//TODO: Turn on for HTML if determined to be useful enough there? (Unlikely to be that while not also being annoying.)
+						"strings": "on"
+					}
+				},
+				"explorer.fileNesting.enabled":true,
+				"explorer.fileNesting.patterns": {
+					"*.ts": "${capture}.js",
+					"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+					"*.jsx": "${capture}.js",
+					"*.tsx": "${capture}.ts",
+					"tsconfig.json": "tsconfig.*.json",
+					"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+					"*.sqlite": "${capture}.${extname}-*",
+					"*.db": "${capture}.${extname}.*,${capture}.${extname}-*",
+					"*.sqlite3": "${capture}.${extname}-*",
+					"*.db3": "${capture}.${extname}-*",
+					"*.sdb": "${capture}.${extname}-*",
+					"*.s3db": "${capture}.${extname}-*"
+				},
+				"sqltools.connectionExplorer.groupConnected": true,
+				//TODO: Determine whether to move the two below into .vscode/settings.json or not.
+				//They were originally placed there by the extension to begin with and probably should continue to be there,
+				//but not everyone would use their associated extension. Shouldn't cause any issues, but keeping it here until future decisions have been made.
+				"sqltools.useNodeRuntime": true,
+				"sqltools.connections": [
+					{
+						"previewLimit": 50,
+						"driver": "SQLite",
+						"name": "wdfp_data",
+						"group": "wdfp",
+						"database": "${workspaceFolder:starpoint}/.database/wdfp_data.db"
+					}
+				]
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.debugpy",
+				"yzhang.markdown-all-in-one",
+				"DavidAnson.vscode-markdownlint",
+				"bradlc.vscode-tailwindcss",
+				"mikestead.dotenv",
+				"eamodio.gitlens",
+				"christian-kohler.npm-intellisense",
+				"coolbear.systemd-unit-file",
+				"dbaeumer.vscode-eslint",
+				"william-voyek.vscode-nginx",
+				"geeksharp.openssl-configuration-file",
+				"qwtel.sqlite-viewer",
+				"mtxr.sqltools-driver-sqlite"
+			]
+	  	}
+	}
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

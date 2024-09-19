@@ -5,7 +5,7 @@ import { deserializeClientDate } from "../../data/utils";
 import { getAccountPlayers, getPlayerItemSync, getPlayerSync, getSession, updatePlayerItemSync, updatePlayerSync } from "../../data/wdfpData";
 import { getBossCoinShopItemsSync, getEventShopItemsSync, getGenericShopItemsSync, getShopItemSync } from "../../lib/assets";
 import { CharacterReward, CharacterShopItemReward, CurrencyReward, CurrencyShopItemReward, EquipmentItemReward, EquipmentItemShopItemReward, Reward, RewardType, ShopItemRewardType, ShopItems, ShopItemUserCostType, ShopType } from "../../lib/types";
-import { generateDataHeaders, getServerTime } from "../../utils";
+import { generateDataHeaders, getServerDate, getServerTime } from "../../utils";
 import { givePlayerRewardsSync } from "../../lib/quest";
 
 interface GetSalesListBody {
@@ -267,7 +267,7 @@ const routes = async (fastify: FastifyInstance) => {
         // parse shop items
         const salesList: Object[] = []
 
-        const now = new Date().getTime()
+        const now: number = getServerDate().getTime()
         for (const [shopType, items] of Object.entries(toParseShopItems)) {
             for (const [itemId, item] of Object.entries(items)) {
                 const from = deserializeClientDate(item.availableFrom)

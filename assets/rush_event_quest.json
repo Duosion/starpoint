@@ -8,7 +8,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700001,
+        "rushEventFolderId": 1,
+        "rushEventRound": 1
     },
     "700001002": {
         "name": "",
@@ -19,7 +22,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700001,
+        "rushEventFolderId": 1,
+        "rushEventRound": 2
     },
     "700001003": {
         "name": "",
@@ -30,7 +36,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700001,
+        "rushEventFolderId": 2,
+        "rushEventRound": 1
     },
     "700001004": {
         "name": "",
@@ -41,7 +50,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700001,
+        "rushEventFolderId": 2,
+        "rushEventRound": 2
     },
     "700001005": {
         "name": "",
@@ -52,7 +64,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700001,
+        "rushEventFolderId": 3,
+        "rushEventRound": 1
     },
     "700001006": {
         "name": "",
@@ -63,7 +78,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700001,
+        "rushEventFolderId": 3,
+        "rushEventRound": 2
     },
     "700001007": {
         "name": "",
@@ -74,7 +92,10 @@
         "rankPointReward": 10,
         "characterExpReward": 10,
         "manaReward": 10,
-        "poolExpReward": 10
+        "poolExpReward": 10,
+        "rushEventId": 700001,
+        "rushEventFolderId": 4,
+        "rushEventRound": 0
     },
     "700002001": {
         "name": "",
@@ -85,7 +106,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700002,
+        "rushEventFolderId": 1,
+        "rushEventRound": 1
     },
     "700002002": {
         "name": "",
@@ -96,7 +120,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700002,
+        "rushEventFolderId": 1,
+        "rushEventRound": 2
     },
     "700002003": {
         "name": "",
@@ -107,7 +134,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700002,
+        "rushEventFolderId": 2,
+        "rushEventRound": 1
     },
     "700002004": {
         "name": "",
@@ -118,7 +148,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700002,
+        "rushEventFolderId": 2,
+        "rushEventRound": 2
     },
     "700002005": {
         "name": "",
@@ -129,7 +162,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700002,
+        "rushEventFolderId": 3,
+        "rushEventRound": 1
     },
     "700002006": {
         "name": "",
@@ -140,7 +176,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700002,
+        "rushEventFolderId": 3,
+        "rushEventRound": 2
     },
     "700002007": {
         "name": "",
@@ -151,7 +190,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700002,
+        "rushEventFolderId": 3,
+        "rushEventRound": 3
     },
     "700002008": {
         "name": "",
@@ -162,7 +204,10 @@
         "rankPointReward": 10,
         "characterExpReward": 10,
         "manaReward": 10,
-        "poolExpReward": 10
+        "poolExpReward": 10,
+        "rushEventId": 700002,
+        "rushEventFolderId": 4,
+        "rushEventRound": 0
     },
     "700003001": {
         "name": "",
@@ -173,7 +218,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700003,
+        "rushEventFolderId": 1,
+        "rushEventRound": 1
     },
     "700003002": {
         "name": "",
@@ -184,7 +232,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700003,
+        "rushEventFolderId": 1,
+        "rushEventRound": 2
     },
     "700003003": {
         "name": "",
@@ -195,7 +246,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700003,
+        "rushEventFolderId": 2,
+        "rushEventRound": 1
     },
     "700003004": {
         "name": "",
@@ -206,7 +260,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700003,
+        "rushEventFolderId": 2,
+        "rushEventRound": 2
     },
     "700003005": {
         "name": "",
@@ -217,7 +274,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700003,
+        "rushEventFolderId": 3,
+        "rushEventRound": 1
     },
     "700003006": {
         "name": "",
@@ -228,7 +288,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700003,
+        "rushEventFolderId": 3,
+        "rushEventRound": 2
     },
     "700003007": {
         "name": "",
@@ -239,7 +302,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700003,
+        "rushEventFolderId": 3,
+        "rushEventRound": 3
     },
     "700003008": {
         "name": "",
@@ -250,7 +316,10 @@
         "rankPointReward": 10,
         "characterExpReward": 10,
         "manaReward": 10,
-        "poolExpReward": 10
+        "poolExpReward": 10,
+        "rushEventId": 700003,
+        "rushEventFolderId": 4,
+        "rushEventRound": 0
     },
     "700004001": {
         "name": "",
@@ -261,7 +330,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700004,
+        "rushEventFolderId": 1,
+        "rushEventRound": 1
     },
     "700004002": {
         "name": "",
@@ -272,7 +344,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700004,
+        "rushEventFolderId": 1,
+        "rushEventRound": 2
     },
     "700004003": {
         "name": "",
@@ -283,7 +358,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700004,
+        "rushEventFolderId": 2,
+        "rushEventRound": 1
     },
     "700004004": {
         "name": "",
@@ -294,7 +372,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700004,
+        "rushEventFolderId": 2,
+        "rushEventRound": 2
     },
     "700004005": {
         "name": "",
@@ -305,7 +386,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700004,
+        "rushEventFolderId": 3,
+        "rushEventRound": 1
     },
     "700004006": {
         "name": "",
@@ -316,7 +400,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700004,
+        "rushEventFolderId": 3,
+        "rushEventRound": 2
     },
     "700004007": {
         "name": "",
@@ -327,7 +414,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700004,
+        "rushEventFolderId": 3,
+        "rushEventRound": 3
     },
     "700004008": {
         "name": "",
@@ -338,7 +428,10 @@
         "rankPointReward": 10,
         "characterExpReward": 10,
         "manaReward": 10,
-        "poolExpReward": 10
+        "poolExpReward": 10,
+        "rushEventId": 700004,
+        "rushEventFolderId": 4,
+        "rushEventRound": 0
     },
     "700005001": {
         "name": "",
@@ -349,7 +442,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700005,
+        "rushEventFolderId": 1,
+        "rushEventRound": 1
     },
     "700005002": {
         "name": "",
@@ -360,7 +456,10 @@
         "rankPointReward": 23,
         "characterExpReward": 58,
         "manaReward": 195,
-        "poolExpReward": 58
+        "poolExpReward": 58,
+        "rushEventId": 700005,
+        "rushEventFolderId": 1,
+        "rushEventRound": 2
     },
     "700005003": {
         "name": "",
@@ -371,7 +470,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700005,
+        "rushEventFolderId": 2,
+        "rushEventRound": 1
     },
     "700005004": {
         "name": "",
@@ -382,7 +484,10 @@
         "rankPointReward": 111,
         "characterExpReward": 225,
         "manaReward": 480,
-        "poolExpReward": 225
+        "poolExpReward": 225,
+        "rushEventId": 700005,
+        "rushEventFolderId": 2,
+        "rushEventRound": 2
     },
     "700005005": {
         "name": "",
@@ -393,7 +498,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700005,
+        "rushEventFolderId": 3,
+        "rushEventRound": 1
     },
     "700005006": {
         "name": "",
@@ -404,7 +512,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700005,
+        "rushEventFolderId": 3,
+        "rushEventRound": 2
     },
     "700005007": {
         "name": "",
@@ -415,7 +526,10 @@
         "rankPointReward": 234,
         "characterExpReward": 810,
         "manaReward": 780,
-        "poolExpReward": 810
+        "poolExpReward": 810,
+        "rushEventId": 700005,
+        "rushEventFolderId": 3,
+        "rushEventRound": 3
     },
     "700005008": {
         "name": "",
@@ -426,6 +540,9 @@
         "rankPointReward": 10,
         "characterExpReward": 10,
         "manaReward": 10,
-        "poolExpReward": 10
+        "poolExpReward": 10,
+        "rushEventId": 700005,
+        "rushEventFolderId": 4,
+        "rushEventRound": 0
     }
 }

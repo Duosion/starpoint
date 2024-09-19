@@ -133,6 +133,15 @@ export interface RawPlayerCharacterManaNode {
     character_id: number
 }
 
+// party
+export enum PartyCategory {
+    EMPTY,
+    NORMAL,
+    EMPTY2,
+    EMPTY3,
+    EVENT
+}
+
 export interface RawPlayerPartyOptions {
     allow_other_players_to_heal_me: number
 }
@@ -158,6 +167,7 @@ export interface RawPlayerParty {
     ability_soul_3: number
     edited: number
     group_id: number
+    category: PartyCategory
 }
 
 export interface PlayerParty {
@@ -168,16 +178,19 @@ export interface PlayerParty {
     abilitySoulIds: (number | null)[]
     edited: boolean
     options: PlayerPartyOptions
+    category: PartyCategory
 }
 
 export interface RawPlayerPartyGroup {
     id: number
     color_id: number
+    category: PartyCategory
 }
 
 export interface PlayerPartyGroup {
     list: Record<string, PlayerParty>
     colorId: number
+    category: PartyCategory
 }
 
 export interface RawPlayerEquipment {
@@ -319,6 +332,112 @@ export interface PlayerMultiSpecialExchangeCampaign {
     status: number
 }
 
+// rush event
+export interface UserRushEvent {
+    active_rush_battle_folder_id: number | null
+    endless_battle_max_round: number | null
+    endless_battle_max_round_time: number | null
+    endless_battle_max_round_character_id_1: number | null
+    endless_battle_max_round_character_id_2: number | null
+    endless_battle_max_round_character_id_3: number | null
+    endless_battle_max_round_character_evolution_img_lvl_1: number | null
+    endless_battle_max_round_character_evolution_img_lvl_2: number | null
+    endless_battle_max_round_character_evolution_img_lvl_3: number | null
+}
+
+export interface RawPlayerRushEvent extends UserRushEvent{
+    player_id: number
+    event_id: number
+}
+
+export interface RawPlayerRushEventRanking extends RawPlayerRushEvent {
+    total_count: number
+}
+
+export interface PlayerRushEvent {
+    eventId: number
+    endlessBattleNextRound: number
+    activeRushBattleFolderId: number | null
+    endlessBattleMaxRound: number | null
+    endlessBattleMaxRoundTime: number | null
+    endlessBattleMaxRoundCharacterIds: (number | null)[]
+    endlessBattleMaxRoundCharacterEvolutionImgLvls: (number | null)[]
+}
+
+export interface RawPlayerRushEventClearedFolder {
+    player_id: number
+    event_id: number
+    folder_id: number
+}
+
+export type PlayerRushEventClearedFolders = number[]
+
+export enum RushEventBattleType {
+    FOLDER,
+    ENDLESS
+}
+
+export interface UserRushEventPlayedParty {
+    character_id_1: number | null,
+    character_id_2: number | null,
+    character_id_3: number | null,
+    unison_character_id_1: number | null,
+    unison_character_id_2: number | null,
+    unison_character_id_3: number | null,
+    equipment_id_1: number | null,
+    equipment_id_2: number | null,
+    equipment_id_3: number | null,
+    ability_soul_id_1: number | null,
+    ability_soul_id_2: number | null,
+    ability_soul_id_3: number | null,
+    evolution_img_level_1: number | null,
+    evolution_img_level_2: number | null,
+    evolution_img_level_3: number | null,
+    unison_evolution_img_level_1: number | null,
+    unison_evolution_img_level_2: number | null,
+    unison_evolution_img_level_3: number | null,
+}
+
+export interface RawPlayerRushEventPlayedParty extends UserRushEventPlayedParty {
+    player_id: number,
+    event_id: number,
+    round: number,
+    battle_type: number
+}
+
+export interface PlayerRushEventPlayedParty {
+    characterIds: (number | null)[],
+    unisonCharacterIds: (number | null)[],
+    equipmentIds: (number | null)[],
+    abilitySoulIds: (number | null)[],
+    evolutionImgLevels: (number | null)[],
+    unisonEvolutionImgLevels: (number | null)[],
+    round: number,
+    battleType: RushEventBattleType
+}
+
+export type PlayerRushEventPlayedParties = PlayerRushEventPlayedParty[]
+
+export interface UserRushEventEndlessBattleMyRankingPartyMemberListItem {
+    character_id: number
+    evolution_img_level: number
+}
+
+export interface UserRushEventEndlessBattleRanking {
+    rank_number: number
+    best_round: number
+    elapsed_time_ms: number
+    name: string,
+    party_member_list: UserRushEventEndlessBattleMyRankingPartyMemberListItem[],
+    user_rank: number
+}
+
+export interface GetRushEventEndlessRankingListResult {
+    pageMax: number,
+    list: UserRushEventEndlessBattleRanking[]
+}
+
+// Player
 export interface RawPlayerOption {
     key: string,
     value: number
@@ -528,6 +647,8 @@ export interface UserMultiSpecialExchangeCampaignList {
     status: number
 }
 
+export type UserRushEventPlayedPartyList = Record<string, Record<RushEventBattleType, Record<string, UserRushEventPlayedParty>>>
+
 export interface ClientPlayerData {
     user_info: ClientUserInfo
     premium_bonus_list: unknown[]
@@ -564,7 +685,11 @@ export interface ClientPlayerData {
     start_dash_exchange_campaign_list: UserStartDashCampaignList[]
     multi_special_exchange_campaign_list: UserMultiSpecialExchangeCampaignList[]
     associate_token: string
-    config: Object
+    config: Object,
+    // rush event data
+    user_rush_event_list?: Record<string, UserRushEvent> // { [eventId]: PlayerRushEvent}
+    user_rush_event_cleared_folder_list?: Record<string, PlayerRushEventClearedFolders> // { [eventId]: [folderId] }
+    user_rush_event_played_party_list?: UserRushEventPlayedPartyList // { [eventId]: { [RushEventBattleType]: { [round]: UserRushEventPlayedParty } } }
 }
 
 export interface MergedPlayerData {
@@ -588,4 +713,8 @@ export interface MergedPlayerData {
     startDashExchangeCampaignList: PlayerStartDashExchangeCampaign[],
     multiSpecialExchangeCampaignList: PlayerMultiSpecialExchangeCampaign[],
     userOption: Record<string, boolean>,
+    // rush event data
+    rushEventList?: PlayerRushEvent[],
+    rushEventClearedFolderList?: Record<string, PlayerRushEventClearedFolders>,
+    rushEventPlayedPartyList?: Record<string, PlayerRushEventPlayedParty[]>
 }

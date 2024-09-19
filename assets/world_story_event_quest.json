@@ -1593,7 +1593,8 @@
         "characterExpReward": 117,
         "manaReward": 120,
         "poolExpReward": 117,
-        "scoreRewardGroup": 10040013
+        "scoreRewardGroup": 10040013,
+        "fixedParty": 1
     },
     "100402004": {
         "name": "",
@@ -1619,7 +1620,8 @@
         "characterExpReward": 242,
         "manaReward": 210,
         "poolExpReward": 242,
-        "scoreRewardGroup": 10040014
+        "scoreRewardGroup": 10040014,
+        "fixedParty": 2
     },
     "100402008": {
         "name": "",
@@ -1667,7 +1669,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10040019
+        "scoreRewardGroup": 10040019,
+        "fixedParty": 3
     },
     "100402015": {
         "name": "",
@@ -2577,7 +2580,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 10040601
+        "scoreRewardGroup": 10040601,
+        "fixedParty": 5
     },
     "100406004": {
         "name": "",
@@ -2595,7 +2599,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 10040601
+        "scoreRewardGroup": 10040601,
+        "fixedParty": 5
     },
     "100406006": {
         "name": "",
@@ -2617,7 +2622,8 @@
         "characterExpReward": 242,
         "manaReward": 210,
         "poolExpReward": 242,
-        "scoreRewardGroup": 10040602
+        "scoreRewardGroup": 10040602,
+        "fixedParty": 5
     },
     "100406009": {
         "name": "",
@@ -2661,7 +2667,8 @@
         "characterExpReward": 134,
         "manaReward": 140,
         "poolExpReward": 134,
-        "scoreRewardGroup": 10040606
+        "scoreRewardGroup": 10040606,
+        "fixedParty": 5
     },
     "100406015": {
         "name": "",
@@ -2679,7 +2686,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10040607
+        "scoreRewardGroup": 10040607,
+        "fixedParty": 6
     },
     "100406017": {
         "name": "",
@@ -3129,7 +3137,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 10040905
+        "scoreRewardGroup": 10040905,
+        "fixedParty": 8
     },
     "100409004": {
         "name": "",
@@ -3169,7 +3178,8 @@
         "characterExpReward": 120,
         "manaReward": 140,
         "poolExpReward": 120,
-        "scoreRewardGroup": 10040906
+        "scoreRewardGroup": 10040906,
+        "fixedParty": 9
     },
     "100409009": {
         "name": "",
@@ -3191,7 +3201,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10040901
+        "scoreRewardGroup": 10040901,
+        "fixedParty": 10
     },
     "100409012": {
         "name": "",
@@ -3231,7 +3242,8 @@
         "characterExpReward": 117,
         "manaReward": 120,
         "poolExpReward": 117,
-        "scoreRewardGroup": 10041001
+        "scoreRewardGroup": 10041001,
+        "fixedParty": 1
     },
     "100410004": {
         "name": "",
@@ -3257,7 +3269,8 @@
         "characterExpReward": 242,
         "manaReward": 210,
         "poolExpReward": 242,
-        "scoreRewardGroup": 10041002
+        "scoreRewardGroup": 10041002,
+        "fixedParty": 2
     },
     "100410008": {
         "name": "",
@@ -3305,7 +3318,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10041006
+        "scoreRewardGroup": 10041006,
+        "fixedParty": 3
     },
     "100410015": {
         "name": "",
@@ -3345,7 +3359,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 10041105
+        "scoreRewardGroup": 10041105,
+        "fixedParty": 12
     },
     "100411004": {
         "name": "",
@@ -3363,7 +3378,8 @@
         "characterExpReward": 120,
         "manaReward": 140,
         "poolExpReward": 120,
-        "scoreRewardGroup": 10041106
+        "scoreRewardGroup": 10041106,
+        "fixedParty": 13
     },
     "100411006": {
         "name": "",
@@ -3397,7 +3413,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10041101
+        "scoreRewardGroup": 10041101,
+        "fixedParty": 14
     },
     "100411012": {
         "name": "",
@@ -3725,7 +3742,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10042001
+        "scoreRewardGroup": 10042001,
+        "fixedParty": 15
     },
     "100420009": {
         "name": "",
@@ -3765,7 +3783,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 10040700
+        "scoreRewardGroup": 10040700,
+        "fixedParty": 5
     },
     "100421004": {
         "name": "",
@@ -3783,7 +3802,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 10040700
+        "scoreRewardGroup": 10040700,
+        "fixedParty": 5
     },
     "100421006": {
         "name": "",
@@ -3805,7 +3825,8 @@
         "characterExpReward": 242,
         "manaReward": 210,
         "poolExpReward": 242,
-        "scoreRewardGroup": 10040701
+        "scoreRewardGroup": 10040701,
+        "fixedParty": 5
     },
     "100421009": {
         "name": "",
@@ -3849,7 +3870,8 @@
         "characterExpReward": 134,
         "manaReward": 140,
         "poolExpReward": 134,
-        "scoreRewardGroup": 10040705
+        "scoreRewardGroup": 10040705,
+        "fixedParty": 5
     },
     "100421015": {
         "name": "",
@@ -3867,7 +3889,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 10040706
+        "scoreRewardGroup": 10040706,
+        "fixedParty": 6
     },
     "100421017": {
         "name": "",
@@ -5523,7 +5546,8 @@
         "characterExpReward": 117,
         "manaReward": 120,
         "poolExpReward": 117,
-        "scoreRewardGroup": 40000501
+        "scoreRewardGroup": 40000501,
+        "fixedParty": 1
     },
     "400005004": {
         "name": "",
@@ -5549,7 +5573,8 @@
         "characterExpReward": 242,
         "manaReward": 210,
         "poolExpReward": 242,
-        "scoreRewardGroup": 40000501
+        "scoreRewardGroup": 40000501,
+        "fixedParty": 2
     },
     "400005009": {
         "name": "",
@@ -5583,7 +5608,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 40000501
+        "scoreRewardGroup": 40000501,
+        "fixedParty": 3
     },
     "400005015": {
         "name": "",
@@ -6121,7 +6147,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 40000801
+        "scoreRewardGroup": 40000801,
+        "fixedParty": 5
     },
     "400008004": {
         "name": "",
@@ -6139,7 +6166,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 40000801
+        "scoreRewardGroup": 40000801,
+        "fixedParty": 5
     },
     "400008006": {
         "name": "",
@@ -6161,7 +6189,8 @@
         "characterExpReward": 242,
         "manaReward": 210,
         "poolExpReward": 242,
-        "scoreRewardGroup": 40000801
+        "scoreRewardGroup": 40000801,
+        "fixedParty": 5
     },
     "400008009": {
         "name": "",
@@ -6205,7 +6234,8 @@
         "characterExpReward": 134,
         "manaReward": 140,
         "poolExpReward": 134,
-        "scoreRewardGroup": 40000801
+        "scoreRewardGroup": 40000801,
+        "fixedParty": 5
     },
     "400008015": {
         "name": "",
@@ -6223,7 +6253,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 40000801
+        "scoreRewardGroup": 40000801,
+        "fixedParty": 6
     },
     "400008017": {
         "name": "",
@@ -6429,7 +6460,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 40001001
+        "scoreRewardGroup": 40001001,
+        "fixedParty": 8
     },
     "400010004": {
         "name": "",
@@ -6469,7 +6501,8 @@
         "characterExpReward": 120,
         "manaReward": 140,
         "poolExpReward": 120,
-        "scoreRewardGroup": 40001001
+        "scoreRewardGroup": 40001001,
+        "fixedParty": 9
     },
     "400010009": {
         "name": "",
@@ -6491,7 +6524,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 40001001
+        "scoreRewardGroup": 40001001,
+        "fixedParty": 10
     },
     "400010012": {
         "name": "",
@@ -6544,7 +6578,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 40001011
+        "scoreRewardGroup": 40001011,
+        "fixedParty": 12
     },
     "400011004": {
         "name": "",
@@ -6562,7 +6597,8 @@
         "characterExpReward": 120,
         "manaReward": 140,
         "poolExpReward": 120,
-        "scoreRewardGroup": 40001011
+        "scoreRewardGroup": 40001011,
+        "fixedParty": 13
     },
     "400011006": {
         "name": "",
@@ -6596,7 +6632,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 40001011
+        "scoreRewardGroup": 40001011,
+        "fixedParty": 14
     },
     "400011012": {
         "name": "",
@@ -6649,7 +6686,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 11000047
+        "scoreRewardGroup": 11000047,
+        "fixedParty": 8
     },
     "500002004": {
         "name": "",
@@ -6689,7 +6727,8 @@
         "characterExpReward": 120,
         "manaReward": 140,
         "poolExpReward": 120,
-        "scoreRewardGroup": 11000048
+        "scoreRewardGroup": 11000048,
+        "fixedParty": 9
     },
     "500002009": {
         "name": "",
@@ -6711,7 +6750,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 11000043
+        "scoreRewardGroup": 11000043,
+        "fixedParty": 10
     },
     "500002012": {
         "name": "",
@@ -6815,7 +6855,8 @@
         "characterExpReward": 94,
         "manaReward": 100,
         "poolExpReward": 94,
-        "scoreRewardGroup": 11000079
+        "scoreRewardGroup": 11000079,
+        "fixedParty": 12
     },
     "500006004": {
         "name": "",
@@ -6833,7 +6874,8 @@
         "characterExpReward": 120,
         "manaReward": 140,
         "poolExpReward": 120,
-        "scoreRewardGroup": 11000080
+        "scoreRewardGroup": 11000080,
+        "fixedParty": 13
     },
     "500006006": {
         "name": "",
@@ -6867,7 +6909,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 11000075
+        "scoreRewardGroup": 11000075,
+        "fixedParty": 14
     },
     "500006012": {
         "name": "",
@@ -6927,7 +6970,8 @@
         "characterExpReward": 301,
         "manaReward": 240,
         "poolExpReward": 301,
-        "scoreRewardGroup": 11000165
+        "scoreRewardGroup": 11000165,
+        "fixedParty": 15
     },
     "500008009": {
         "name": "",

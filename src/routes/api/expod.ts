@@ -185,7 +185,7 @@ const routes = async (fastify: FastifyInstance) => {
         })
 
         // add exp to the character
-        const rewardResult = givePlayerCharactersExpSync(playerId, [characterId], addExp)
+        const rewardResult = givePlayerCharactersExpSync(playerId, [characterId], addExp, false)
 
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({

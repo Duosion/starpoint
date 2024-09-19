@@ -1,0 +1,187 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "mitmweb with wireguard",
+        "type": "shell",
+        "command": "mitmweb --mode wireguard --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s scripts/mitm-redirect-traffic.py",
+        "promptOnClose": true,
+        "isBackground": true,
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": false
+        },
+        "runOptions": {
+          "instanceLimit": 1
+        },
+        "problemMatcher": {
+          "owner": "mitmweb",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}"
+          ],
+          "source": "script",
+          //TODO: This pattern works on the actual message text copied over. Determine why it does not work here.
+          "pattern": [
+            {
+              "regexp": ".*(error) in script (.+)",
+              "file": 2,
+              "severity": 1,
+              "kind": "file"
+            },
+            {
+              "regexp": "^(.+)$",
+              "message": 1,
+              "loop": true
+            }
+          ],
+          "background": {
+            "activeOnStart": false,
+            "beginsPattern": "------------------------------------------------------------",
+            "endsPattern": ".*listening at.*"
+          }
+        }
+      },
+      {
+        "label": "mitmweb",
+        "type": "shell",
+        "command": "mitmweb --set connection_strategy=lazy --allow-hosts gc-openapi-zinny3.kakaogames.com --allow-hosts gc-infodesk-zinny3.kakaogames.com --allow-hosts na.wdfp.kakaogames.com --allow-hosts patch.wdfp.kakaogames.com -s scripts/mitm-redirect-traffic.py",
+        "promptOnClose": true,
+        "isBackground": true,
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": false
+        },
+        "runOptions": {
+          "instanceLimit": 1
+        },
+        "problemMatcher": {
+          "owner": "mitmweb",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}"
+          ],
+          "source": "script",
+          //TODO: This pattern works on the actual message text copied over. Determine why it does not work here.
+          "pattern": [
+            {
+              "regexp": ".*(error) in script (.+)",
+              "file": 2,
+              "severity": 1,
+              "kind": "file"
+            },
+            {
+              "regexp": "^(.+)$",
+              "message": 1,
+              "loop": true
+            }
+          ],
+          "background": {
+            "activeOnStart": false,
+            "beginsPattern": ".*HTTP\\(S\\) proxy listening.*",
+            "endsPattern": ".*listening at.*"
+          }
+        }
+      },
+      {
+        "label": "Build CSS",
+        "type": "shell",
+        "command": "npm run css",
+        "promptOnClose": true,
+        "runOptions": {
+          "instanceLimit": 1
+        },
+        "problemMatcher": {
+          "source": "Tailwind CSS",
+          "applyTo": "allDocuments",
+          "owner": "tailwindcss",
+          "pattern": [
+            {
+              "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ]
+        }
+      },
+
+      {
+        //Note: This one stops running at the first sign of trouble and needs to be manually restarted when it fails to run right
+        "label": "CSS watch",
+        "type": "shell",
+        "command": "npm run css:watch",
+        "promptOnClose": true,
+        "isBackground": true,
+        "runOptions": {
+          "instanceLimit": 1
+        },
+        "problemMatcher": {
+          "source": "Tailwind CSS watch",
+          "applyTo": "allDocuments",
+          "owner": "tailwindcss",
+          "pattern": [
+            {
+              "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": {
+              "regexp": "Rebuilding.*"
+            },
+            "endsPattern": {
+              "regexp": "Done.*"
+            }
+          }
+        }
+      },
+      {
+        "label": "Build starpoint",
+        "type": "shell",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "command": "npm run build",
+        "problemMatcher": "$tsc"
+      },
+      {
+        "label": "Debug Wireguard background tasks",
+        "type": "shell",
+        "isBackground": false,
+        "dependsOn": [
+          "CSS watch",
+          "mitmweb with wireguard"
+        ],
+        "group": "none",
+        "dependsOrder": "parallel",
+        "problemMatcher": []
+      },
+      {
+        "label": "Debug background tasks",
+        "type": "shell",
+        "isBackground": false,
+        "dependsOn": [
+          "CSS watch",
+          "mitmweb"
+        ],
+        "group": "none",
+        "dependsOrder": "parallel",
+        "problemMatcher": []
+      }
+    ]
+}

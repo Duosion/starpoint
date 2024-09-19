@@ -36,7 +36,7 @@ def convert_main_ex_quests(obj):
                         "clearRewardId": int(chapter[3])
                     }
                 else:
-                    converted[chapter[0]] = {
+                    converted_chapter = {
                         "name": "", #chapter[1],
                         "clearRewardId": int(chapter[3]),
                         "sPlusRewardId": 1,
@@ -50,6 +50,9 @@ def convert_main_ex_quests(obj):
                         "manaReward": int(chapter[95]),
                         "poolExpReward": int(chapter[96])
                     }
+                    if chapter[118] != "(None)":
+                        converted_chapter["fixedParty"] = int(chapter[118])
+                    converted[chapter[0]] = converted_chapter
     return converted
 
 def convert_boss_quests(obj):
@@ -104,10 +107,12 @@ def convert_world_story_event_quest(obj):
                     "rankPointReward": int(chapter[94]),
                     "characterExpReward": int(chapter[95]),
                     "manaReward": int(chapter[96]),
-                    "poolExpReward": int(chapter[97])
+                    "poolExpReward": int(chapter[97]),
                 }
                 if chapter[71] != "(None)":
                     converted_chapter["scoreRewardGroup"] = int(chapter[71])
+                if chapter[119] != "(None)":
+                    converted_chapter["fixedParty"] = int(chapter[119])
                 converted[chapter[0]] = converted_chapter
 
     return converted
@@ -368,7 +373,8 @@ def convert_raid_event_quest(obj):
 
 def convert_rush_event_quest(obj):
     converted = {}
-    for _, quests in obj.items():
+    for rush_event_id_str, quests in obj.items():
+        rush_event_id = int(rush_event_id_str)
         for _, quest in quests.items():
             converted[quest[0]] = {
                 "name": "",
@@ -379,7 +385,10 @@ def convert_rush_event_quest(obj):
                 "rankPointReward": int(quest[82]),
                 "characterExpReward": int(quest[83]),
                 "manaReward": int(quest[84]),
-                "poolExpReward": int(quest[85])
+                "poolExpReward": int(quest[85]),
+                "rushEventId": rush_event_id,
+                "rushEventFolderId": int(quest[1]),
+                "rushEventRound": int(quest[2])
             }
     return converted 
 
@@ -798,7 +807,7 @@ def convert_event_item_shop(obj):
                 rewards.append(reward)
             reward_offset += 3
         
-        event_type = int(item[0])
+        event_type = int(item[2])
         event_id = int(item[1])
 
         converted_item = {
@@ -924,6 +933,30 @@ def convert_encyclopedia(obj):
             }
     return converted
 
+def convert_rush_event_quest_folder(obj):
+    converted = {}
+    for rush_event_id, folders in obj.items():
+        converted_folders = {}
+        for folder_id, folder in folders.items():
+
+            rewards = []
+            reward_offset = 7
+            for _ in range (10):
+                if folder[reward_offset] != "(None)":
+                    reward = {
+                        "type": int(folder[reward_offset])
+                    }
+                    if folder[reward_offset + 1] != "":
+                        reward['id'] = int(folder[reward_offset + 1])
+                    if folder[reward_offset + 2] != "":
+                        reward['count'] = int(folder[reward_offset + 2])
+                    rewards.append(reward)
+                reward_offset += 3
+
+            converted_folders[folder_id] = rewards
+
+        converted[rush_event_id] = converted_folders
+    return converted
 # def convert_mana_nodes_save_data(obj):
 #     converted = {}
 
@@ -980,7 +1013,8 @@ to_convert_files = {
     "event_item_shop": convert_event_item_shop,
     "treasure_shop": convert_treasure_shop,
     "star_grain_shop": convert_star_grain_shop,
-    "encyclopedia": convert_encyclopedia
+    "encyclopedia": convert_encyclopedia,
+    "rush_event_quest_folder": convert_rush_event_quest_folder
 }
 
 for file_name, converter in to_convert_files.items():

@@ -152,7 +152,8 @@ export default function init(
         id INTEGER NOT NULL,
         color_id INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
-        PRIMARY KEY (id, player_id),
+        category INTEGER NOT NULL,
+        PRIMARY KEY (id, player_id, category),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
@@ -174,8 +175,9 @@ export default function init(
         edited INTEGER NOT NULL,
         player_id INTEGER NOT NULL,
         group_id INTEGER NOT NULL,
-        PRIMARY KEY (slot, player_id, group_id),
-        FOREIGN KEY (group_id, player_id) REFERENCES players_party_groups (id, player_id) ON DELETE CASCADE,
+        category INTEGER NOT NULL,
+        PRIMARY KEY (slot, player_id, group_id, category),
+        FOREIGN KEY (group_id, player_id, category) REFERENCES players_party_groups (id, player_id, category) ON DELETE CASCADE,
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
@@ -307,4 +309,55 @@ export default function init(
         PRIMARY KEY (campaign_id, player_id),
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_rush_events (
+        player_id INTEGER NOT NULL,
+        event_id INTEGER NOT NULL,
+        active_rush_battle_folder_id INTEGER,
+        endless_battle_max_round INTEGER,
+        endless_battle_max_round_time INTEGER,
+        endless_battle_max_round_character_id_1 INTEGER,
+        endless_battle_max_round_character_id_2 INTEGER,
+        endless_battle_max_round_character_id_3 INTEGER,
+        endless_battle_max_round_character_evolution_img_lvl_1 INTEGER,
+        endless_battle_max_round_character_evolution_img_lvl_2 INTEGER,
+        endless_battle_max_round_character_evolution_img_lvl_3 INTEGER,
+        PRIMARY KEY (player_id, event_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run()
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_rush_events_cleared_folders (
+        player_id INTEGER NOT NULL,
+        event_id INTEGER NOT NULL,
+        folder_id INTEGER NOT NULL,
+        PRIMARY KEY (player_id, event_id, folder_id),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run()
+
+    database.prepare(`CREATE TABLE IF NOT EXISTS players_rush_events_played_parties (
+        character_id_1 INTEGER,
+        character_id_2 INTEGER,
+        character_id_3 INTEGER,
+        unison_character_id_1 INTEGER,
+        unison_character_id_2 INTEGER,
+        unison_character_id_3 INTEGER,
+        equipment_id_1 INTEGER,
+        equipment_id_2 INTEGER,
+        equipment_id_3 INTEGER,
+        ability_soul_id_1 INTEGER,
+        ability_soul_id_2 INTEGER,
+        ability_soul_id_3 INTEGER,
+        evolution_img_level_1 INTEGER,
+        evolution_img_level_2 INTEGER,
+        evolution_img_level_3 INTEGER,
+        unison_evolution_img_level_1 INTEGER,
+        unison_evolution_img_level_2 INTEGER,
+        unison_evolution_img_level_3 INTEGER,
+        player_id INTEGER NOT NULL,
+        event_id INTEGER NOT NULL,
+        round INTEGER NOT NULL,
+        battle_type INTEGER NOT NULL,
+        PRIMARY KEY (player_id, event_id, round, battle_type),
+        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    )`).run()
 }

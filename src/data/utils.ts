@@ -1,10 +1,14 @@
 import { getCharacterDataSync } from "../lib/assets"
 import { getDateFromServerTime, getServerTime } from "../utils"
-import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, Player, PlayerActiveMission, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerPeriodicRewardPoint, PlayerQuestProgress, PlayerStartDashExchangeCampaign, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserTutorial } from "./types"
+import { ClientPlayerData, DailyChallengePointListEntry, MergedPlayerData, PartyCategory, Player, PlayerBoxGacha, PlayerCharacter, PlayerCharacterBondToken, PlayerDrawnQuest, PlayerEquipment, PlayerGachaCampaign, PlayerGachaInfo, PlayerMultiSpecialExchangeCampaign, PlayerParty, PlayerPartyGroup, PlayerQuestProgress, PlayerRushEvent, PlayerRushEventPlayedParty, PlayerStartDashExchangeCampaign, RushEventBattleType, UserBoxGacha, UserCharacter, UserCharacterBondTokenStatus, UserEquipment, UserGachaCampaign, UserPartyGroup, UserPartyGroupTeam, UserQuestProgress, UserRushEvent, UserRushEventPlayedParty, UserRushEventPlayedPartyList, UserTutorial } from "./types"
 
-import saveData from "../../assets/save_data.json"
-import { getPlayerSync, getPlayerTriggeredTutorialsSync, getAccountPlayers, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerStartDashExchangeCampaignsSync, getPlayerGachaCampaignListSync } from "./wdfpData"
 import { availableAssetVersion } from "../routes/api/asset"
+import { deserializePlayerRushEventPlayedParty, deserializeRushEvent, getPlayerActiveMissionsSync, getPlayerBoxGachasSync, getPlayerCharactersManaNodesSync, getPlayerCharactersSync, getPlayerClearedRegularMissionListSync, getPlayerDailyChallengePointListSync, getPlayerDrawnQuestsSync, getPlayerEquipmentListSync, getPlayerGachaCampaignListSync, getPlayerGachaInfoListSync, getPlayerItemsSync, getPlayerMultiSpecialExchangeCampaignsSync, getPlayerOptionsSync, getPlayerPartyGroupListSync, getPlayerPeriodicRewardPointsSync, getPlayerQuestProgressSync, getPlayerRushEventListClearedFoldersSync, getPlayerRushEventListPlayedPartiesSync, getPlayerRushEventListSync, getPlayerStartDashExchangeCampaignsSync, getPlayerSync, getPlayerTriggeredTutorialsSync, serializePlayerRushEventPlayedParty } from "./wdfpData"
+
+export interface SerializePlayerDataOptions {
+    viewerId?: number
+    serializeRushEventData?: boolean // should rush event data be serialized?
+}
 
 /**
  * Serializes a boolean into a number, which is storable by the database.
@@ -92,6 +96,62 @@ export function serializeGachaCampaign(
 }
 
 /**
+ * Converts a record of PlayerPartyGroup objects into a record of UserPartyGroup objects.
+ * 
+ * @param partyGrouplist 
+ * @returns 
+ */
+export function serializePartyGroupList(
+    partyGrouplist: Record<string, PlayerPartyGroup>
+): Record<string, UserPartyGroup> {
+    const serialized: Record<string, UserPartyGroup> = {}
+    for (const [groupId, group] of Object.entries(partyGrouplist)) {
+        const list: Record<string, UserPartyGroupTeam> = {}
+        for (const [partyId, party] of Object.entries(group.list)) {
+            list[partyId] = {
+                "name": party.name,
+                "character_ids": party.characterIds,
+                "unison_character_ids": party.unisonCharacterIds,
+                "equipment_ids": party.equipmentIds,
+                "ability_soul_ids": party.abilitySoulIds,
+                "edited": party.edited,
+                "options": {
+                    "allow_other_players_to_heal_me": party.options.allowOtherPlayersToHealMe
+                }
+            }
+        }
+        serialized[groupId] = {
+            "list": list,
+            "color_id": group.colorId
+        }
+    }
+    return serialized
+}
+
+/**
+ * Serializes a PlayerRushEvent into a UserRushEvent.
+ * 
+ * @param rushEvent The data for the rush event.
+ */
+export function serializeRushEvent(
+    rushEvent: PlayerRushEvent
+): UserRushEvent {
+    const characterIds = rushEvent.endlessBattleMaxRoundCharacterIds
+    const characterEvolutionImgLevels = rushEvent.endlessBattleMaxRoundCharacterEvolutionImgLvls
+    return {
+        active_rush_battle_folder_id: rushEvent.activeRushBattleFolderId,
+        endless_battle_max_round: rushEvent.endlessBattleMaxRound,
+        endless_battle_max_round_time: rushEvent.endlessBattleMaxRoundTime,
+        endless_battle_max_round_character_id_1: characterIds?.[0],
+        endless_battle_max_round_character_id_2: characterIds?.[1],
+        endless_battle_max_round_character_id_3: characterIds?.[2],
+        endless_battle_max_round_character_evolution_img_lvl_1: characterEvolutionImgLevels?.[0],
+        endless_battle_max_round_character_evolution_img_lvl_2: characterEvolutionImgLevels?.[1],
+        endless_battle_max_round_character_evolution_img_lvl_3: characterEvolutionImgLevels?.[2],
+    }
+}
+
+/**
  * Serializes a player data object in the way that the world flipper client expects it.
  * 
  * @param player The player data object to serialize.
@@ -99,7 +159,7 @@ export function serializeGachaCampaign(
  */
 export function serializePlayerData(
     toSerialize: MergedPlayerData,
-    viewerId?: number,
+    options?: SerializePlayerDataOptions
 ): ClientPlayerData {
 
     // convert userCharacterList
@@ -135,27 +195,7 @@ export function serializePlayerData(
     }
 
     // convert parties
-    const userPartyGroupList: Record<string, UserPartyGroup> = {}
-    for (const [groupId, group] of Object.entries(toSerialize.partyGroupList)) {
-        const list: Record<string, UserPartyGroupTeam> = {}
-        for (const [partyId, party] of Object.entries(group.list)) {
-            list[partyId] = {
-                "name": party.name,
-                "character_ids": party.characterIds,
-                "unison_character_ids": party.unisonCharacterIds,
-                "equipment_ids": party.equipmentIds,
-                "ability_soul_ids": party.abilitySoulIds,
-                "edited": party.edited,
-                "options": {
-                    "allow_other_players_to_heal_me": party.options.allowOtherPlayersToHealMe
-                }
-            }
-        }
-        userPartyGroupList[groupId] = {
-            "list": list,
-            "color_id": group.colorId
-        }
-    }
+    const userPartyGroupList: Record<string, UserPartyGroup> = serializePartyGroupList(toSerialize.partyGroupList)
 
     // convert equipment list
     const userEquipmentList: Record<string, UserEquipment> = {}
@@ -203,7 +243,7 @@ export function serializePlayerData(
     const tutorialStep = playerData.tutorialStep
     if (tutorialStep !== null && toSerialize.triggeredTutorial.find((value: number) => value === 12) === undefined) {
         userTutorial = {
-            "viewer_id": viewerId || 0,
+            "viewer_id": options?.viewerId ?? 0,
             "tutorial_step": tutorialStep,
             "skip_flag": playerData.tutorialSkipFlag
         }
@@ -213,7 +253,7 @@ export function serializePlayerData(
         }
     }
 
-    return {
+    const clientData: ClientPlayerData = {
         "user_info": {
             "stamina": playerData.stamina,
             "stamina_heal_time": getServerTime(playerData.staminaHealTime),
@@ -347,6 +387,47 @@ export function serializePlayerData(
             "return_attention_max_num": 3
         }
     }
+
+    // add optional values
+
+    // serialize rush event data
+    if (options?.serializeRushEventData ?? false) {
+        // rush event list
+        if (toSerialize.rushEventList !== undefined) {
+            const userRushEventList: Record<string, UserRushEvent> = {}
+            for (const rushEvent of toSerialize.rushEventList) {
+                userRushEventList[rushEvent.eventId] = serializeRushEvent(rushEvent)
+            }
+            clientData.user_rush_event_list = userRushEventList
+        }
+
+        // cleared folder list
+        clientData.user_rush_event_cleared_folder_list = toSerialize.rushEventClearedFolderList
+
+        // rush event played party list
+        if (toSerialize.rushEventPlayedPartyList !== undefined) {
+            const userRushEventPlayedPartyList: UserRushEventPlayedPartyList = {}
+
+            for (const [eventId, parties] of Object.entries(toSerialize.rushEventPlayedPartyList)) {
+                const battleTypeBuckets: Record<RushEventBattleType, Record<string, UserRushEventPlayedParty> | undefined> = {
+                    [RushEventBattleType.FOLDER]: undefined,
+                    [RushEventBattleType.ENDLESS]: undefined
+                }
+                for (const party of parties) {
+                    let bucket = battleTypeBuckets[party.battleType]
+                    if (bucket === undefined) {
+                        bucket = {}
+                        battleTypeBuckets[party.battleType] = bucket
+                    }
+                    bucket[party.round] = serializePlayerRushEventPlayedParty(party)
+                }
+                userRushEventPlayedPartyList[eventId] = battleTypeBuckets as Record<RushEventBattleType, Record<string, UserRushEventPlayedParty>>
+            }
+            clientData.user_rush_event_played_party_list = userRushEventPlayedPartyList
+        }
+    }
+
+    return clientData
 }
 
 /**
@@ -573,12 +654,14 @@ export function deserializePlayerData(
                     edited: edited,
                     options: {
                         allowOtherPlayersToHealMe: options?.allow_other_players_to_heal_me === undefined ? true : options.allow_other_players_to_heal_me
-                    }
+                    },
+                    category: PartyCategory.NORMAL
                 }
             }
             partyGroupList[groupId] = {
                 list: list,
-                colorId: colorId
+                colorId: colorId,
+                category: PartyCategory.NORMAL
             }
         }
 
@@ -762,6 +845,42 @@ export function deserializePlayerData(
             })
         }
         
+        // deserialize rush event data
+        const userRushEventList = toDeserialize['user_rush_event_list']
+        const rushEventList: PlayerRushEvent[] = []
+        if (userRushEventList !== undefined) {
+            for (const [eventId, rushEvent] of Object.entries(userRushEventList)) {
+                rushEventList.push(deserializeRushEvent({
+                    event_id: Number(eventId),
+                    player_id: playerId,
+                    ...rushEvent
+                }, 0))
+            }
+        }
+        
+        // deserialize rush event played party group list data
+        const userRushEventPlayedPartyList = toDeserialize['user_rush_event_played_party_list']
+        let rushEventPlayedPartyList: Record<string, PlayerRushEventPlayedParty[]> | undefined = undefined
+        if (userRushEventPlayedPartyList !== undefined) {
+            rushEventPlayedPartyList = {}
+
+            for (const [eventId, battleTypeParties] of Object.entries(userRushEventPlayedPartyList)) {
+                const mappedParties: PlayerRushEventPlayedParty[] = []
+
+                for (const [battleType, parties] of Object.entries(battleTypeParties)) {
+                    for (const [round, party] of Object.entries(parties)) {
+                        mappedParties.push(deserializePlayerRushEventPlayedParty({
+                            player_id: 0,
+                            event_id: 0,
+                            round: Number(round),
+                            battle_type: Number(battleType),
+                            ...party
+                        }))
+                    }
+                }
+                rushEventPlayedPartyList[eventId] = mappedParties
+            }
+        }
 
         return {
             player: player,
@@ -783,7 +902,10 @@ export function deserializePlayerData(
             purchasedTimesList: {},
             startDashExchangeCampaignList: startDashExchangeCampaignList,
             multiSpecialExchangeCampaignList: multiSpecialExchangeCampaignList,
-            userOption: userOption
+            userOption: userOption,
+            rushEventList: rushEventList.length === 0 ? undefined : rushEventList,
+            rushEventClearedFolderList: toDeserialize['user_rush_event_cleared_folder_list'],
+            rushEventPlayedPartyList: rushEventPlayedPartyList
         }
 
     } catch (error: Error | any) {
@@ -826,11 +948,13 @@ export function deserializeClientDate(
  */
 export function getClientSerializedData(
     playerId: number,
-    viewerId: number
+    options: SerializePlayerDataOptions
 ): ClientPlayerData | null {
 
     const playerData = getPlayerSync(playerId)
     if (playerData === null) return null
+
+    const doSerializeRushEventData = options.serializeRushEventData ?? false
 
     return serializePlayerData({
         player: playerData,
@@ -852,6 +976,9 @@ export function getClientSerializedData(
         purchasedTimesList: {},
         startDashExchangeCampaignList: getPlayerStartDashExchangeCampaignsSync(playerId),
         multiSpecialExchangeCampaignList: getPlayerMultiSpecialExchangeCampaignsSync(playerId),
-        userOption: getPlayerOptionsSync(playerId)
-    }, viewerId)
+        userOption: getPlayerOptionsSync(playerId),
+        rushEventList: doSerializeRushEventData ? getPlayerRushEventListSync(playerId) : undefined,
+        rushEventClearedFolderList: doSerializeRushEventData ? getPlayerRushEventListClearedFoldersSync(playerId) : undefined,
+        rushEventPlayedPartyList: doSerializeRushEventData ? getPlayerRushEventListPlayedPartiesSync(playerId) : undefined
+    }, options)
 }
