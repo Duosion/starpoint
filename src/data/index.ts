@@ -34,7 +34,7 @@ const databasesMetadata: {[key in Database]: DatabaseMetadata} = {
         init: initWdfpData,
         updateBefore: updateWdfpDataBefore,
         updateAfter: updateWdfpDataAfter,
-        latestVersion: 1
+        latestVersion: 2
     }
 }
 

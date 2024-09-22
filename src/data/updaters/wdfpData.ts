@@ -19,6 +19,17 @@ export function updateBeforeInit(
         // rush event; players_party_groups table
         database.prepare(`ALTER TABLE players_party_groups RENAME TO players_party_groups_old`).run()
     }
+
+    if (1 >= currentVersion) {
+
+        // update to version 2
+
+        // delete players_party_options table
+        database.prepare(`
+        DROP TABLE players_party_options
+        `).run()
+
+    }
 }
 
 /**
@@ -47,5 +58,4 @@ export function updateAfterInit(
         database.prepare(`DELETE FROM players_parties_old`).run()
         database.prepare(`DELETE FROM players_party_groups_old`).run()
     }
-
 }
