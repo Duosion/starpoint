@@ -181,16 +181,16 @@ export default function init(
         FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
     )`).run();
 
-    database.prepare(`CREATE TABLE IF NOT EXISTS players_party_options (
-        allow_other_players_to_heal_me INTEGER NOT NULL,
-        slot INTEGER NOT NULL,
-        player_id INTEGER NOT NULL,
-        group_id INTEGER NOT NULL,
-        category INTEGER NOT NULL,
-        PRIMARY KEY (slot, player_id, group_id, category),
-        FOREIGN KEY (slot, player_id, group_id, category) REFERENCES players_parties (slot, player_id, group_id, category) ON DELETE CASCADE,
-        FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
-    )`).run();
+    // database.prepare(`CREATE TABLE IF NOT EXISTS players_party_options (
+    //     allow_other_players_to_heal_me INTEGER NOT NULL,
+    //     slot INTEGER NOT NULL,
+    //     player_id INTEGER NOT NULL,
+    //     group_id INTEGER NOT NULL,
+    //     category INTEGER NOT NULL,
+    //     PRIMARY KEY (slot, player_id, group_id, category),
+    //     FOREIGN KEY (slot, player_id, group_id, category) REFERENCES players_parties (slot, player_id, group_id, category) ON DELETE CASCADE,
+    //     FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE
+    // )`).run();
 
     database.prepare(`CREATE TABLE IF NOT EXISTS players_equipment (
         id INTEGER NOT NULL,
