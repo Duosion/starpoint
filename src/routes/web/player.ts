@@ -14,7 +14,7 @@ interface GetPlayerQuery {
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
-        let html = readFileSync(path.join(__dirname, staticPagesDir, "players.html")).toString("utf-8")
+        let html = readFileSync(path.join(process.cwd(), staticPagesDir, "players.html")).toString("utf-8")
 
         const players = getAllPlayersSync()
         
@@ -57,7 +57,7 @@ const routes = async (fastify: FastifyInstance) => {
         const player = getPlayerSync(parsedPlayerId)
         if (player === null) return reply.redirect("/player");
 
-        let html = readFileSync(path.join(__dirname, staticPagesDir, "player.html")).toString("utf-8")
+        let html = readFileSync(path.join(process.cwd(), staticPagesDir, "player.html")).toString("utf-8")
 
         html = html.replace("{{playerName}}", player.name)
             .replace("{{playerComment}}", player.comment)

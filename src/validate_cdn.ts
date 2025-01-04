@@ -6,7 +6,7 @@ import { createHash } from "crypto";
 
 const CDN_URL = "http://patch.wdfp.kakaogames.com/Live/2.0.0"
 
-const ROOT = __dirname
+const ROOT = process.cwd()
 const cdn_dir = process.env.CDN_DIR || ".cdn"
 const OUTPUT_DIR = path.isAbsolute(cdn_dir) ? cdn_dir : path.join(ROOT, "..", cdn_dir)
 if (!existsSync(OUTPUT_DIR)) {
