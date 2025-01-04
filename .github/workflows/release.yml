@@ -17,14 +17,16 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: starpoint
-            asset_name: starpoint_Linux_x86_64
+            asset_name: starpoint_linux_x86_64
             archive_type: tar.gz
             script_files: "./*.sh"
+            mitmproxy_url: "https://downloads.mitmproxy.org/11.0.2/mitmproxy-11.0.2-linux-x86_64.tar.gz"
           - os: windows-latest
             artifact_name: starpoint.exe
             asset_name: starpoint_windows_x86_64
             archive_type: zip
             script_files: "./*.bat"
+            mitmproxy_url: "https://downloads.mitmproxy.org/11.0.2/mitmproxy-11.0.2-windows-x86_64.zip"
 
     steps:
       - uses: actions/checkout@v2
@@ -51,13 +53,32 @@ jobs:
       - name: Copy files to the release folder
         shell: bash
         run: |
+          # copy web folder
           mkdir ${{ matrix.asset_name }}/web
           cp -r web/* ${{ matrix.asset_name }}/web
-          cp .env ${{ matrix.asset_name }}/
+
+          # copy .env
+          cp ".env" ${{ matrix.asset_name }}/
+
+          # copy mitmproxy redirect script
           mkdir ${{ matrix.asset_name }}/scripts
           cp scripts/mitm-redirect-traffic.py ${{ matrix.asset_name }}/scripts/
+
+          # copy OS-specific scripts
           cp ${{ matrix.script_files }} ${{ matrix.asset_name }}/
 
+        - name: Download and extract mitmproxy
+          shell: bash
+          run: |
+            mkdir ${{ matrix.asset_name }}/.mitmproxy
+
+            if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
+              curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.tar.gz"
+              tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/.mitmproxy
+            else
+              curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.zip"
+              7z x mitmproxy.zip -o${{ matrix.asset_name }}/.mitmproxy
+            fi
 
       - name: ZIP release folder
         shell: bash
