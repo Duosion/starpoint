@@ -50,5 +50,11 @@ jobs:
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
             tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}
           else
-            zip -r ${{ matrix.asset_name }}.${{ matrix.archive_type }}
+            7z a -r ${{ matrix.asset_name }}.${{ matrix.archive_type }} ./${{ matrix.asset_name }}/*
           fi
+
+      - name: Create ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: ${{ matrix.asset_name }}.${{ matrix.archive_type }}
