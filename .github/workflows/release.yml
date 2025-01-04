@@ -34,7 +34,9 @@ jobs:
       
       - name: Build
         shell: bash
-        run: bun build src/server.ts --compile --outfile ${{ matrix.artifact_name }}
+        run: |
+          bun run css
+          bun build src/server.ts --compile --outfile ${{ matrix.artifact_name }}
 
       - name: Create release folder
         shell: bash
