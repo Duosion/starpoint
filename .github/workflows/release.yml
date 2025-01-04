@@ -56,5 +56,5 @@ jobs:
       - name: Create ZIP artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release
+          name: release-${{ matrix.os }}
           path: ${{ matrix.asset_name }}.${{ matrix.archive_type }}
