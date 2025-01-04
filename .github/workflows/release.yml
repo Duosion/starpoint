@@ -43,12 +43,18 @@ jobs:
       - name: Copy binary to release folder
         shell: bash
         run: cp ${{ matrix.artifact_name }} ${{ matrix.asset_name }}/${{ matrix.artifact_name }}
+      
+      - name: Copy web files to release folder
+        shell: bash
+        run: |
+          mkdir ${{ matrix.asset_name }}/web
+          cp -r web/* ${{ matrix.asset_name }}/web
 
       - name: ZIP release folder
         shell: bash
         run: |
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
-            tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}
+            tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ./${{ matrix.asset_name }}/*
           else
             7z a -r ${{ matrix.asset_name }}.${{ matrix.archive_type }} ./${{ matrix.asset_name }}/*
           fi
