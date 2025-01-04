@@ -1,0 +1,54 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*" # Trigger on version tags
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_name: starpoint
+            asset_name: starpoint_Linux_x86_64
+            archive_type: tar.gz
+          - os: windows-latest
+            artifact_name: starpoint.exe
+            asset_name: starpoint_windows_x86_64
+            archive_type: zip
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install Packages
+        shell: bash
+        run: bun install
+      
+      - name: Build
+        shell: bash
+        run: bun build src/server.ts --compile --outfile ${{ matrix.artifact_name }}
+
+      - name: Create release folder
+        shell: bash
+        run: mkdir ${{ matrix.asset_name }}
+
+      - name: Copy binary to release folder
+        shell: bash
+        run: cp ${{ matrix.artifact_name }} ${{ matrix.asset_name }}/${{ matrix.artifact_name }}
+
+      - name: ZIP release folder
+        shell: bash
+        run: |
+          if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
+            tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}
+          else
+            zip -r ${{ matrix.asset_name }}.${{ matrix.archive_type }}
+          fi
