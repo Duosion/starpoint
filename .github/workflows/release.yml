@@ -58,7 +58,7 @@ jobs:
           cp -r web/* ${{ matrix.asset_name }}/web
 
           # copy .env
-          cp .\*env ${{ matrix.asset_name }}/
+          cp /*env ${{ matrix.asset_name }}/
 
           # copy mitmproxy redirect script
           mkdir ${{ matrix.asset_name }}/scripts
