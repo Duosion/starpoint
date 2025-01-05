@@ -70,16 +70,15 @@ jobs:
       - name: Download and extract mitmproxy
         shell: bash
         run: |
-          cd ${{ matrix.asset_name }}
-          mkdir ".mitmproxy"
-          cd ../
+          strdot="."
+          mkdir "${{ matrix.asset_name }}/$strdotmitmproxy"
 
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.tar.gz"
-            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/.mitmproxy/
+            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/$strdotmitmproxy/
           else
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.zip"
-            7z x mitmproxy.zip -o${{ matrix.asset_name }}/.mitmproxy/
+            7z x mitmproxy.zip -o${{ matrix.asset_name }}/$strdotmitmproxy/
           fi
 
       - name: ZIP release folder
