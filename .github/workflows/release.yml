@@ -58,7 +58,7 @@ jobs:
           cp -r web/* ${{ matrix.asset_name }}/web
 
           # copy .env
-          cp ".env" ${{ matrix.asset_name }}/.env
+          cp .env ${{ matrix.asset_name }}/
 
           # copy mitmproxy redirect script
           mkdir ${{ matrix.asset_name }}/scripts
@@ -70,9 +70,9 @@ jobs:
       - name: Download and extract mitmproxy
         shell: bash
         run: |
-          mkdir "${{ matrix.asset_name }}/.mitmproxy"
-          mkdir "${{ matrix.asset_name }}/\.mitmproxy"
-          mkdir "${{ matrix.asset_name }}/mitmproxy"
+          cd ${{ matrix.asset_name }}
+          mkdir ".mitmproxy"
+          cd ../
 
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.tar.gz"
