@@ -5,6 +5,11 @@ on:
     branches:
       - "development"
 
+env:
+  CDN_DIR: .cdn
+  LISTEN_HOST: localhost
+  LISTEN_PORT: 8000
+
 jobs:
   build-and-release:
     name: Build and Release
@@ -58,7 +63,10 @@ jobs:
           cp -r web/* ${{ matrix.asset_name }}/web
 
           # copy .env
-          cp ./.env ${{ matrix.asset_name }}/.env
+          touch ${{ matrix.asset_name }}/env
+          echo "CDN_DIR=${CDN_DIR}" >> ${{ matrix.asset_name }}/env
+          echo "LISTEN_HOST=${LISTEN_HOST}" >> ${{ matrix.asset_name }}/env
+          echo "LISTEN_PORT=${LISTEN_PORT}" >> ${{ matrix.asset_name }}/env
 
           # copy mitmproxy redirect script
           mkdir ${{ matrix.asset_name }}/scripts
@@ -70,14 +78,14 @@ jobs:
       - name: Download and extract mitmproxy
         shell: bash
         run: |
-          mkdir -p ./${{ matrix.asset_name }}/.mitmproxy
+          mkdir -p ./${{ matrix.asset_name }}/mitmproxy
 
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.tar.gz"
-            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/.mitmproxy/
+            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/mitmproxy/
           else
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.zip"
-            7z x mitmproxy.zip -o${{ matrix.asset_name }}/.mitmproxy/
+            7z x mitmproxy.zip -o${{ matrix.asset_name }}/mitmproxy/
           fi
 
       - name: ZIP release folder
