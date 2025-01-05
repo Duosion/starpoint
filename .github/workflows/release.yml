@@ -71,14 +71,14 @@ jobs:
         shell: bash
         run: |
           strdot="."
-          mkdir "${{ matrix.asset_name }}/$strdotmitmproxy"
+          mkdir "${{ matrix.asset_name }}/${strdot}mitmproxy"
 
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.tar.gz"
-            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/$strdotmitmproxy/
+            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/${strdot}mitmproxy/
           else
             curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.zip"
-            7z x mitmproxy.zip -o${{ matrix.asset_name }}/$strdotmitmproxy/
+            7z x mitmproxy.zip -o${{ matrix.asset_name }}/${strdot}mitmproxy/
           fi
 
       - name: ZIP release folder
