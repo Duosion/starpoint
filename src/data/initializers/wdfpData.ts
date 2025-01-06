@@ -1,5 +1,4 @@
-import { Database } from "better-sqlite3";
-
+import { Database } from "bun:sqlite";
 
 export default function init(
     database: Database,

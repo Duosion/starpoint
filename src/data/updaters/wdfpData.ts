@@ -1,11 +1,11 @@
 // Updates an outdated wdfp_data database
 
-import { Database } from "better-sqlite3";
+import { Database } from "bun:sqlite";
 
 /**
  * Updates a database before its initialization function has been called.
  * 
- * @param database A better-sqlite3 database.
+ * @param database A bun:sqlite database.
  */
 export function updateBeforeInit(
     database: Database,
@@ -35,7 +35,7 @@ export function updateBeforeInit(
 /**
  * Updates a database after its initialization function has been called.
  * 
- * @param database A better-sqlite3 database.
+ * @param database A bun:sqlite database.
  */
 export function updateAfterInit(
     database: Database,

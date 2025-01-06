@@ -5,28 +5,25 @@
   "main": "server.ts",
   "scripts": {
     "css": "bunx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css",
-    "css:watch": "npx tailwindcss -i ./src/input.css -o ./web/public/tailwind.css --watch --poll",
+    "css:watch": "bun tailwindcss -i ./src/input.css -o ./web/public/tailwind.css --watch --poll",
     "dev": "bun run css && bun src/server.ts",
     "cdn": "bun src/validate_cdn.ts",
     "unzip": "bun src/unzip_cdn.ts",
     "debug": "bun run css && npm run css:watch & npm run debug:ts-only",
-    "debug:ts-only": "tsnd --inspect -- src/server.ts"
+    "debug:ts-only": "bun --inspect src/server.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.12",
     "@types/cli-progress": "^3.11.6",
     "@types/node": "^20.17.11",
     "@types/readline-sync": "^1.4.8",
     "@types/unzipper": "^0.10.10",
-    "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "@fastify/multipart": "^9.0.1",
     "@fastify/static": "^8.0.3",
-    "better-sqlite3": "^11.7.0",
     "cli-progress": "^3.12.0",
     "fastify": "^5.2.0",
     "msgpackr": "^1.11.2",
