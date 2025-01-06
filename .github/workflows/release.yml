@@ -67,7 +67,7 @@ jobs:
           echo "CDN_DIR=${CDN_DIR}" >> ${{ matrix.asset_name }}/env
           echo "LISTEN_HOST=${LISTEN_HOST}" >> ${{ matrix.asset_name }}/env
           echo "LISTEN_PORT=${LISTEN_PORT}" >> ${{ matrix.asset_name }}/env
-          mv ${{ matrix.asset_name }}/env ${{ matrix.asset_name }}/lenv
+          mv ${{ matrix.asset_name }}/env "${{ matrix.asset_name }}/\.env"
 
           # copy mitmproxy redirect script
           mkdir ${{ matrix.asset_name }}/scripts
@@ -92,7 +92,7 @@ jobs:
           fi
 
           cd ${{ matrix.asset_name }}
-          mv -v "mitmproxy" "..mitmproxy"
+          mv -v "mitmproxy" "\.mitmproxy"
 
       - name: ZIP release folder
         shell: bash
