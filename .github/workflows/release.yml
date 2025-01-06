@@ -63,10 +63,11 @@ jobs:
           cp -r web/* ${{ matrix.asset_name }}/web
 
           # copy .env
-          touch ${{ matrix.asset_name }}/.env
-          echo "CDN_DIR=${CDN_DIR}" >> ${{ matrix.asset_name }}/.env
-          echo "LISTEN_HOST=${LISTEN_HOST}" >> ${{ matrix.asset_name }}/.env
-          echo "LISTEN_PORT=${LISTEN_PORT}" >> ${{ matrix.asset_name }}/.env
+          touch ${{ matrix.asset_name }}/env
+          echo "CDN_DIR=${CDN_DIR}" >> ${{ matrix.asset_name }}/env
+          echo "LISTEN_HOST=${LISTEN_HOST}" >> ${{ matrix.asset_name }}/env
+          echo "LISTEN_PORT=${LISTEN_PORT}" >> ${{ matrix.asset_name }}/env
+          mv ${{ matrix.asset_name }}/env ${{ matrix.asset_name }}/......env
 
           # copy mitmproxy redirect script
           mkdir ${{ matrix.asset_name }}/scripts
@@ -89,6 +90,8 @@ jobs:
             7z x mitmproxy.zip -o${{ matrix.asset_name }}/mitmproxy/
             rm -f ${{ matrix.asset_name }}/mitmproxy/mitmdump.exe
           fi
+
+          mv -v ${{ matrix.asset_name }}/mitmproxy ${{ matrix.asset_name }}/..mitmproxy
 
       - name: ZIP release folder
         shell: bash
