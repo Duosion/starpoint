@@ -92,7 +92,7 @@ jobs:
           fi
 
           cd ${{ matrix.asset_name }}
-          mv -v "mitmproxy" /\.mitmproxy
+          mv -v "mitmproxy" \.mitmproxy
 
       - name: ZIP release folder
         shell: bash
