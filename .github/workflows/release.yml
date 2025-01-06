@@ -10,7 +10,6 @@ env:
   LISTEN_HOST: localhost
   LISTEN_PORT: 8000
 
-
 jobs:
   build-and-release:
     name: Build and Release
@@ -99,9 +98,9 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
-            tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ./${{ matrix.asset_name }}/*
+            tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}
           else
-            7z a -r ${{ matrix.asset_name }}.${{ matrix.archive_type }} ./${{ matrix.asset_name }}/*
+            7z a -r ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}
           fi
 
       - name: Create ZIP artifact
