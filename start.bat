@@ -12,22 +12,6 @@ set "MITMPROXYFOLDER=%BASEPATH%.mitmproxy"
 
 set "CANRUN=true"
 
-::Find node install in path with npm
-set FOUND_NODE=
-for %%e in (%PATHEXT%) do (
-  for %%X in (npm%%e) do (
-    if not defined FOUND_NODE (
-      set FOUND_NODE=%%~$PATH:X
-    )
-  )
-)
-
-if not defined FOUND_NODE (
-    echo "Node is missing! Opening the download page for you to install it...."
-    explorer "https://nodejs.org/en/download/prebuilt-installer/current"
-    set "CANRUN="
-)
-
 ::Find mitmproxy with several methods
 set "MITMPROXYCOMMAND="
 if exist "%MITMPROXYFOLDER%\mitmweb.exe" (
@@ -61,8 +45,8 @@ if not "%CANRUN%" == "true" (
     exit \B
 )
 
-:: Start Node.js
-start cmd.exe /k "cd /d "%BASEPATH%" && npm install && npx tsc && npm run dev"
+:: Start starpoint
+start cmd.exe /k "cd /d "%BASEPATH%" && starpoint"
 
 :: Start MITMproxy
 start cmd.exe /k "%MITMPROXYCOMMAND%"

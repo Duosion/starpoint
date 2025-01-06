@@ -1,9 +1,9 @@
 name: Build and Release
 
 on:
-  pull_request:
-    branches:
-      - "development"
+  push:
+    tags:
+      - "v*" # Trigger on version tags
 
 jobs:
   build-and-release:

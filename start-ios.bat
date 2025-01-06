@@ -10,8 +10,8 @@ set "MITMPROXYSCRIPTFOLDER=%BASEPATH%scripts"
 :: Set the path to the mitmproxy directory
 set "MITMPROXYFOLDER=%BASEPATH%.mitmproxy"
 
-:: Start the Node.js project
-start cmd.exe /k "cd /d "%BASEPATH%" && npm install && npx tsc && npm run dev"
+:: Start starpoint
+start cmd.exe /k "cd /d "%BASEPATH%" && starpoint"
 
 :: Check if mitmproxy is installed in the install directory
 if exist "%MITMPROXYFOLDER%\mitmproxy.exe" (
