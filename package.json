@@ -9,7 +9,7 @@
     "dev": "bun run css && bun src/server.ts",
     "cdn": "bun src/validate_cdn.ts",
     "unzip": "bun src/unzip_cdn.ts",
-    "debug": "bun run css && npm run css:watch & npm run debug:ts-only",
+    "debug": "bun run css && npm run css:watch & bun run debug:ts-only",
     "debug:ts-only": "bun --inspect src/server.ts"
   },
   "author": "",
