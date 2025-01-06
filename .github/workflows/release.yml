@@ -1,0 +1,101 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*" # Trigger on version tags
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_name: starpoint
+            asset_name: starpoint_linux_x86_64
+            archive_type: tar.gz
+            script_files: "./*.sh"
+            mitmproxy_url: "https://downloads.mitmproxy.org/11.0.2/mitmproxy-11.0.2-linux-x86_64.tar.gz"
+          - os: windows-latest
+            artifact_name: starpoint.exe
+            asset_name: starpoint_windows_x86_64
+            archive_type: zip
+            script_files: "./*.bat"
+            mitmproxy_url: "https://downloads.mitmproxy.org/11.0.2/mitmproxy-11.0.2-windows-x86_64.zip"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install Packages
+        shell: bash
+        run: bun install
+      
+      - name: Build
+        shell: bash
+        run: |
+          bun run css
+          bun build src/server.ts --compile --outfile ${{ matrix.artifact_name }}
+
+      - name: Create release folder
+        shell: bash
+        run: mkdir ${{ matrix.asset_name }}
+
+      - name: Copy binary to release folder
+        shell: bash
+        run: cp ${{ matrix.artifact_name }} ${{ matrix.asset_name }}/${{ matrix.artifact_name }}
+      
+      - name: Copy files to the release folder
+        shell: bash
+        run: |
+          # copy web folder
+          mkdir ${{ matrix.asset_name }}/web
+          cp -r web/* ${{ matrix.asset_name }}/web
+
+          # copy .env
+          cp ".env" ${{ matrix.asset_name }}/
+
+          # copy mitmproxy redirect script
+          mkdir ${{ matrix.asset_name }}/scripts
+          cp scripts/mitm-redirect-traffic.py ${{ matrix.asset_name }}/scripts/
+
+          # copy OS-specific scripts
+          cp ${{ matrix.script_files }} ${{ matrix.asset_name }}/
+
+      - name: Download and extract mitmproxy
+        shell: bash
+        run: |
+          mkdir -p ./${{ matrix.asset_name }}/mitmproxy
+
+          if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
+            curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.tar.gz"
+            tar -xzf mitmproxy.tar.gz -C ${{ matrix.asset_name }}/mitmproxy/
+            rm -f ${{ matrix.asset_name }}/mitmproxy/mitmdump
+          else
+            curl -L "${{ matrix.mitmproxy_url }}" -o "mitmproxy.zip"
+            7z x mitmproxy.zip -o${{ matrix.asset_name }}/mitmproxy/
+            rm -f ${{ matrix.asset_name }}/mitmproxy/mitmdump.exe
+          fi
+
+          cd ${{ matrix.asset_name }}
+          mv -v "mitmproxy" \.mitmproxy
+
+      - name: ZIP release folder
+        shell: bash
+        run: |
+          if [ "${{ matrix.archive_type }}" = "tar.gz" ]; then
+            tar czf ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}/
+          else
+            7z a -r ${{ matrix.asset_name }}.${{ matrix.archive_type }} ${{ matrix.asset_name }}/
+          fi
+
+      - name: Create ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.os }}
+          path: ${{ matrix.asset_name }}.${{ matrix.archive_type }}

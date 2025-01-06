@@ -136,7 +136,7 @@ fastify.register(indexWebApiPlugin, { prefix: "/api" })
 
 // web static
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", "web/public"),
+    root: path.join(process.cwd(), "/web/public"),
     prefix: "/public",
     decorateReply: false
 })
@@ -144,7 +144,7 @@ fastify.register(fastifyStatic, {
 // static CDN
 const cdnDir = process.env.CDN_DIR || ".cdn"
 fastify.register(fastifyStatic, {
-    root: path.isAbsolute(cdnDir) ? cdnDir : path.join(__dirname, "..", process.env.CDN_DIR || ".cdn"),
+    root: path.isAbsolute(cdnDir) ? cdnDir : path.join(process.cwd(), process.env.CDN_DIR || ".cdn"),
     prefix: "/patch/Live/2.0.0",
     decorateReply: false
 })

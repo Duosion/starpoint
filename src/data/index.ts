@@ -1,8 +1,8 @@
-import sqlite3, { Database as BetterSqlite3Database } from 'better-sqlite3';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import path from "path";
 import { updateBeforeInit as updateWdfpDataBefore, updateAfterInit as updateWdfpDataAfter} from "./updaters/wdfpData";
 import initWdfpData from "./initializers/wdfpData";
+import { Database as BetterSqlite3Database } from "bun:sqlite";
 
 const rootDir = process.cwd();
 const dataDir = path.join(rootDir,"/.database" )
@@ -67,11 +67,16 @@ export default function getDatabase(
     }
 
     // create new db
-    const db = new sqlite3(absoluteDatabasePath)
+    const db = new BetterSqlite3Database(absoluteDatabasePath)
 
     // set pragma
-    db.pragma('journal_mode = WAL')
-    db.pragma('foreign_keys = ON')
+    db.exec(
+        `
+        PRAGMA journal_mode=WAL;
+        PRAGMA synchronous=NORMAL;
+        PRAGMA foreign_keys=ON;
+        `
+    )
 
     // call init & update function
     const init = metadata.init

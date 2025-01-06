@@ -48,7 +48,7 @@ function getAccountSync(
     WHERE id = ?
     `).get(accountId) as RawAccount | undefined
 
-    if (raw === undefined) return null
+    if (raw === undefined || raw === null) return null
 
     return buildAccount(raw)
 }
@@ -66,9 +66,9 @@ export function getAccountFromIdpIdSync(
     SELECT id, app_id, first_login_time, idp_alias, idp_code, idp_id, reg_time, last_login_time, status
     FROM accounts
     WHERE idp_id = ?
-    `).get(idpId) as RawAccount | undefined
+    `).get(idpId) as RawAccount | undefined | null
 
-    if (raw === undefined) return null
+    if (raw === undefined || raw === null || raw === null) return null
 
     return buildAccount(raw)
 }
@@ -281,7 +281,7 @@ function getSessionSync(
     WHERE token = ?
     `).get(token) as RawSession | undefined
 
-    if (raw === undefined) return null
+    if (raw === undefined || raw === null) return null
 
     const session = buildSession(raw)
 
@@ -861,7 +861,7 @@ export function getPlayerCharacterSync(
     WHERE player_id = ? AND id = ?
     `).get(playerId, characterId) as RawPlayerCharacter
 
-    if (rawCharacter === undefined) return null
+    if (rawCharacter === undefined || rawCharacter === null) return null
 
     // get bond tokens
     const rawBondTokens = db.prepare(`
@@ -1485,7 +1485,7 @@ export function getPlayerItemSync(
     WHERE player_id = ? AND id = ?
     `).get(playerId, Number(itemId)) as RawPlayerItem | undefined
 
-    return rawItem === undefined ? null : rawItem.amount
+    return (rawItem === undefined || rawItem === null) ? null : rawItem.amount
 }
 
 /**
@@ -1659,7 +1659,7 @@ export function getPlayerEquipmentSync(
     WHERE player_id = ? AND id = ?
     `).get(playerId, Number(equipmentId)) as RawPlayerEquipment | undefined
 
-    return rawEquipment === undefined ? null : buildPlayerEquipment(rawEquipment)
+    return (rawEquipment === undefined || rawEquipment === null) ? null : buildPlayerEquipment(rawEquipment)
 }
 
 /**
@@ -1851,7 +1851,7 @@ export function getPlayerSingleQuestProgressSync(
     WHERE player_id = ? AND section = ? AND quest_id = ?
     `).get(playerId, Number(section), Number(questId)) as RawPlayerQuestProgress
 
-    if (rawProgress === undefined) return null;
+    if (rawProgress === undefined || rawProgress === null) return null;
 
     return buildPlayerQuestProgress(rawProgress)
 }
@@ -1996,7 +1996,7 @@ export function getPlayerGachaInfoSync(
     WHERE player_id = ? AND gacha_id = ?
     `).get(playerId, gachaId) as RawPlayerGachaInfo
 
-    return rawInfo === undefined ? null : buildPlayerGachaInfo(rawInfo)
+    return rawInfo === undefined || rawInfo === null ? null : buildPlayerGachaInfo(rawInfo)
 }
 
 /**
@@ -2113,7 +2113,7 @@ export function getPlayerGachaCampaignSync(
     WHERE player_id = ? AND gacha_id = ? AND campaign_id = ?
     `).get(playerId, gachaId, campaignId) as RawPlayerGachaCampaign | undefined
 
-    return raw === undefined ? null : buildPlayerGachaCampaign(raw)
+    return raw === undefined || raw === null ? null : buildPlayerGachaCampaign(raw)
 }
 
 /**
@@ -2462,7 +2462,7 @@ export function getPlayerBoxGachaSync(
     WHERE player_id = ? AND id = ? AND box_id = ?
     `).get(playerId, gachaId, boxId) as RawPlayerBoxGacha
 
-    if (rawBox === undefined) return null;
+    if (rawBox === undefined || rawBox === null) return null;
 
     return buildPlayerBoxGacha(rawBox)
 }
@@ -2861,7 +2861,7 @@ export function getPlayerRushEventSync(
     // get next endless round
     const nextEndlessBattleRound = getPlayerRushEventNextEndlessBattleRoundSync(playerId, eventId)
 
-    return rawData === undefined ? null : deserializeRushEvent(rawData, nextEndlessBattleRound)
+    return (rawData === undefined || rawData === null) ? null : deserializeRushEvent(rawData, nextEndlessBattleRound)
 }
 
 /**
@@ -3607,7 +3607,7 @@ export function getPlayerFromAccountIdSync(
     WHERE account_id = ?
     `).get(accountId) as { id: number } | undefined
 
-    if (response === undefined) return null
+    if (response === undefined || response === null) return null
 
     return getPlayerSync(response.id)
 }
@@ -3627,7 +3627,7 @@ export function getAccountFromPlayerIdSync(
     WHERE id = ?
     `).get(playerId) as { account_id: number } | undefined
 
-    return raw === undefined ? null : getAccountSync(raw.account_id)
+    return raw === undefined || raw === null ? null : getAccountSync(raw.account_id)
 }
 
 /**
@@ -3682,7 +3682,7 @@ export function getPlayerSync(
     WHERE id = ?    
     `).get(playerId) as RawPlayer | undefined
 
-    if (raw === undefined) return null
+    if (raw === undefined || raw === null) return null
 
     return buildPlayer(raw)
 }

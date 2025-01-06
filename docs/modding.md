@@ -19,4 +19,5 @@ The following is a guide for modding using Starpoint.
   - The only way to fully uninstall a mod at the moment is to fully clear the game's app data.
 
 ## Creating Mods
-- Coming Soon...
+- [WF Modding on Starpoint (and WF Datamining 101?)](https://rentry.co/starpointmodpls) guide
+  - Written by [Exa](https://github.com/blead).

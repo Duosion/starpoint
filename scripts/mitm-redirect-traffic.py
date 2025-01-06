@@ -44,6 +44,7 @@ def dns_request(flow: dns.DNSFlow):
             a_rec = dns.ResourceRecord.A(domain_redirect, API_DNS_REDIRECT_HOST, ttl=DNS_TTL)
             flow.response.answers.append(cname_rec)
             flow.response.answers.append(a_rec)
+            flow.response.response_code = 0
     #logging.info(f"[INFO] Answered with {flow.response.answers}")
 
 def request(flow: http.HTTPFlow):

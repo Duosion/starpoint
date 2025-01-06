@@ -96,7 +96,7 @@ function getCDNVersionString(
 
 // check whether short CDNs are available.
 const envCdnDir = process.env.CDN_DIR || ".cdn"
-const cdnDir = path.isAbsolute(envCdnDir) ? envCdnDir : path.join(__dirname, "..", "..", "..", envCdnDir)
+const cdnDir = path.isAbsolute(envCdnDir) ? envCdnDir : path.join(process.cwd(), envCdnDir)
 const enShortAvailable = existsSync(path.join(cdnDir, "en", "entities", "files"))
 const koShortAvailable = existsSync(path.join(cdnDir, "ko", "entities", "files"))
 const thShortAvailable = existsSync(path.join(cdnDir, "th", "entities", "files"))

@@ -4,12 +4,12 @@ import path from "path";
 import playerRoutePlugin from "./player"
 import { getServerDate } from "../../utils";
 
-export const staticPagesDir = "../../../web/pages"
+export const staticPagesDir = "/web/pages"
 
 const routes = async (fastify: FastifyInstance) => {
     fastify.get("/", async (_: FastifyRequest, reply: FastifyReply) => {
         const currentServerTime = getServerDate().toISOString().replace(/\.\d\d\dZ/, "")
-        let html = readFileSync(path.join(__dirname, staticPagesDir, "index.html")).toString("utf-8")
+        let html = readFileSync(path.join(process.cwd(), staticPagesDir, "index.html")).toString("utf-8")
 
         // replace values
         html = html.replace("{{currentServerTime}}", currentServerTime)

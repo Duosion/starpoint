@@ -21,13 +21,13 @@ const validCDNFolders: Record<string, boolean> = {
     "th": true
 }
 
-const tempDir = path.join(__dirname, "..", ".unzip-temp")
+const tempDir = path.join(process.cwd(), ".unzip-temp")
 if (!existsSync(tempDir)) {
     mkdirSync(tempDir)
 }
 
 const cdn_dir = process.env.CDN_DIR || ".cdn"
-const output_dir = path.isAbsolute(cdn_dir) ? cdn_dir : path.join(__dirname, "..", cdn_dir)
+const output_dir = path.isAbsolute(cdn_dir) ? cdn_dir : path.join(process.cwd(), cdn_dir)
 if (!existsSync(output_dir)) {
     throw new Error(`CDN does not exist at directory '${output_dir}'`)
 }
