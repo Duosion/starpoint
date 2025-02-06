@@ -116,16 +116,30 @@ interface AndroidAuthLoginDeviceBody extends AuthLoginDeviceBody {
 }
 
 const routes = async (fastify: FastifyInstance) => {
+    [
+        {
+            path: "/v3/log/writeSdkBasicLog",
+            rtn: { 'status': 200, 'desc': 'OK', 'content': {}, }
+        },
+        {
+            path: "/v3/log/writeRoundLog",
+            rtn: { 'status': 200, 'desc': 'OK', 'content': {}, }
+        },
+        {
+            path: "/v3/promotion/popup/getList",
+            rtn: { 'status': 200, 'desc': 'OK', 'content': {}, }
+        },
+    ].forEach(({ path, rtn }) => { fastify.post(path, (_, reply: FastifyReply) => { reply.status(200).send(rtn) }) })
 
     fastify.post("/v3/util/country/get", (_, reply: FastifyReply) => {
-        reply.status(200).send({ 
+        reply.status(200).send({
             "country": "en"
         })
     })
 
     fastify.post("/v4/device/accessToken/create", (_, reply: FastifyReply) => {
         //const body = request.body as CreateDeviceAccessTokenBody
-        
+
         reply.status(200).send({
             "accessToken": "fwPla7fQ8ty9+DZT/lD//uWZD4uD6C4lD6gGIIZTLKRTQ52/SLCRmk/370jcWGs+e+1iSoZtL7lj8ov9B0/jHmijH4nsHPQT6pchaQM1M9mtwYNQq0BWhVr9hF0jjCK/a5LIVd1kBac/Gemv29WKEDKSrUS9HxxUigoPRwtOy8m+oDj9FmDJZ+rzqWCc0QjES4Ky0fTpXZ7ESoguDzNmRtW3FYr+OFexw8wBPlwiC4w=",
             "expiryTime": new Date().getTime() + 4600000
@@ -162,20 +176,20 @@ const routes = async (fastify: FastifyInstance) => {
             "error": "Bad Request",
             "message": "Invalid zat provided."
         })
-        
+
         // get the Account assigned to the session
         const account = await updateAccount({
             id: session.accountId,
             lastLoginTime: new Date()
         })
-        .catch(err => {
-            console.log(err)
-            reply.status(500).send({
-                "error": "Internal Server Error",
-                "message": "No account assigned to session."
+            .catch(err => {
+                console.log(err)
+                reply.status(500).send({
+                    "error": "Internal Server Error",
+                    "message": "No account assigned to session."
+                })
+                return null
             })
-            return null
-        })
         if (!account) return
 
         // create new zat session
@@ -229,7 +243,7 @@ const routes = async (fastify: FastifyInstance) => {
      */
     fastify.post("/v3/agreement/getForLogin", (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as LoginAgreementBody
-        
+
         // We want to skip any policy screens, so we just send data to the client indicating prior completion.
         reply.status(200).send({
             "adAgreementStatus": "n",

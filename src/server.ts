@@ -31,6 +31,7 @@ import paymentApiPlugin from "./routes/api/payment"
 import newsApiPlugin from "./routes/api/news"
 import raidEventApiPlugin from "./routes/api/raidEvent"
 import rushEventApiPlugin from "./routes/api/rushEvent"
+import quest from "./routes/api/quest";
 // web routes
 import indexWebPlugin from "./routes/web"
 // web api routes
@@ -63,6 +64,21 @@ fastify.addHook('onSend', (_, reply, payload, done) => {
         done(null, payload)
     }
 
+})
+
+
+// error handling
+// not found
+fastify.setNotFoundHandler((request, reply) => {
+    console.log(`[404] ${request.method} ${request.url}\n  ${JSON.stringify(request.body)}`)
+    reply.status(404).send({ "error": "Not Found" })
+})
+
+// server error
+fastify.setErrorHandler((error, request, reply) => {
+    console.error(`[500] ${request.method} ${request.url}\n  ${JSON.stringify(request.body)}`)
+    console.error(error)
+    reply.status(500).send({ "error": "Internal Server Error" })
 })
 
 // content-type parsers
@@ -121,6 +137,7 @@ fastify.register(paymentApiPlugin, { prefix: `${apiPrefix}/payment` })
 fastify.register(newsApiPlugin, { prefix: `${apiPrefix}/news` })
 fastify.register(raidEventApiPlugin, { prefix: `${apiPrefix}/event/raid` })
 fastify.register(rushEventApiPlugin, { prefix: `${apiPrefix}/event/rush` })
+fastify.register(quest, { prefix: `${apiPrefix}/quest` })
 
 // openapi
 fastify.register(openapiPlugin, { prefix: "/openapi/service" })

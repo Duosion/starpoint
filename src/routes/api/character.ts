@@ -5,6 +5,7 @@ import { getAccountPlayers, getPlayerCharacterManaNodesSync, getPlayerCharacterS
 import { generateDataHeaders } from "../../utils";
 import { getCharacterDataSync, getCharacterManaNodeSync, getCharacterManaNodesSync } from "../../lib/assets";
 import { clientSerializeDate } from "../../data/utils";
+import { givePlayerCharacterSync } from "../../lib/character";
 
 interface OverLimitBody {
     viewer_id: number
@@ -89,7 +90,7 @@ const routes = async (fastify: FastifyInstance) => {
                 viewer_id: viewerId
             }),
             "data": {}
-        }) 
+        })
     })
 
     fastify.post("/receive_bond_token", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -175,12 +176,12 @@ const routes = async (fastify: FastifyInstance) => {
                 ],
                 "mail_arrived": false
             }
-        }) 
+        })
     })
 
     fastify.post("/open_mana_board", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as ReceiveBondTokenBody
-        
+
         const viewerId = body.viewer_id
         const characterId = body.character_id
         const manaBoardIndex = body.mana_board_index
@@ -256,7 +257,7 @@ const routes = async (fastify: FastifyInstance) => {
                 ],
                 "mail_arrived": false
             }
-        }) 
+        })
     })
 
     fastify.post("/learn_mana_node", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -315,7 +316,7 @@ const routes = async (fastify: FastifyInstance) => {
             unlockedManaNodesRecord[manaNodeId] = true
             indexUnlockedNodesCount += characterManaNodes[manaNodeId] === undefined ? 0 : 1
         }
-        
+
         for (const manaNodeId of toUnlockNodeIds) {
             if (unlockedManaNodesRecord[manaNodeId]) return reply.status(400).send({
                 "error": "Bad Request",
@@ -437,7 +438,7 @@ const routes = async (fastify: FastifyInstance) => {
                 },
                 "mail_arrived": false
             }
-        }) 
+        })
     })
 
     fastify.post("/over_limit", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -494,7 +495,7 @@ const routes = async (fastify: FastifyInstance) => {
 
         if (body.use_stack) {
             // stack uncapping
-            
+
             // ensure that the character has enough stack
             stack = stack - overLimitCount
             if (0 > stack) return reply.status(400).send({
@@ -514,8 +515,8 @@ const routes = async (fastify: FastifyInstance) => {
             // ensure that the item trying to be used is valid
             // 5* characters can only be uncapped by item 10003 (awaking_crystal_5)
             // 4* characters and below can only be uncapped by items 10002 (awaking_crystal_4) and 10001 (awaking_crystal_3)
-            if ( (characterRarity === 5 && itemId !== 10003) 
-                || ( 4 >= characterRarity && (itemId !== 10002 && itemId !== 10001)) 
+            if ((characterRarity === 5 && itemId !== 10003)
+                || (4 >= characterRarity && (itemId !== 10002 && itemId !== 10001))
             ) return reply.status(400).send({
                 "error": "Bad Request",
                 "message": "Attempted to use invalid item."
@@ -561,6 +562,46 @@ const routes = async (fastify: FastifyInstance) => {
                     }
                 ],
                 "item_list": item_list,
+                "mail_arrived": false
+            }
+        })
+    })
+
+    fastify.post("/add_character_from_town", async (request: FastifyRequest, reply: FastifyReply) => {
+        const { viewer_id: viewerId, character_id: characterId } = request.body as { viewer_id: number, character_id: number }
+
+        const viewerIdSession = await getSession(viewerId.toString())
+        if (!viewerIdSession) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Invalid viewer id."
+        })
+
+        // get player
+        const playerIds = await getAccountPlayers(viewerIdSession.accountId)
+        const playerId = playerIds[0]
+        if (isNaN(playerId)) return reply.status(500).send({
+            "error": "Internal Server Error",
+            "message": "No players bound to account."
+        })
+
+        const giveResult = givePlayerCharacterSync(playerId, characterId)
+        if (giveResult === null) return reply.status(400).send({
+            "error": "Bad Request",
+            "message": "Could not give player character."
+        })
+
+        reply.header("content-type", "application/x-msgpack")
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id: viewerId
+            }),
+            "data": {
+                "character_list": [
+                    giveResult?.character
+                ],
+                "item_list": giveResult.item !== undefined ? {
+                    [giveResult.item.id]: giveResult.item.count
+                } : [],
                 "mail_arrived": false
             }
         })

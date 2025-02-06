@@ -2,7 +2,7 @@ import { randomInt } from "crypto"
 import { FastifyRequest } from "fastify"
 
 // The server's current date.
-let serverTime: Date | null = null;
+let serverTime: Date | null = new Date("2024-06-02T12:00:00.000Z"); // EOS Date
 
 /**
  * Returns the current server time as a unix epoch.
