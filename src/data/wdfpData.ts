@@ -296,6 +296,26 @@ function getSessionSync(
 }
 
 /**
+ * Synchronously list active sessions.
+ * 
+ * @param exclude_expired Whether to exclude expired sessions or not.
+ * @returns A list of active sessions.
+ */
+export function listActiveSessionsSync(exclude_expired = true): Session[] {
+    const raw = db.prepare(`
+    SELECT token, account_id, expires, type
+    FROM sessions
+    `).all() as RawSession[]
+    let sessions = raw.map(raw => buildSession(raw))
+    if (exclude_expired) {
+        const now = new Date()
+        sessions = sessions.filter(session => session.expires > now)
+    }
+    return sessions
+}
+
+
+/**
  * Retrieves a session based on its token.
  * 
  * @param token The token of the session to retrieve.
@@ -2926,7 +2946,7 @@ export function getRushEventEndlessRankingListSync(
             rankNumber += 1;
         }
     }
-    
+
     return {
         pageMax: Math.ceil(totalCount / pageSize),
         list: mappedResults

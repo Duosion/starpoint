@@ -8,6 +8,7 @@ import { generateDataHeaders, getServerTime } from "../../utils";
 import { rushEventFolderMaxRounds } from "./rushEvent";
 import { RushEventBattleType, UserRushEventPlayedParty } from "../../data/types";
 import { getSerializedPlayerRushEventPlayedPartiesSync } from "../../lib/rush";
+import { givePlayerRankPoint } from "../../nya/player";
 
 interface StartBody {
     quest_id: number
@@ -147,8 +148,6 @@ const routes = async (fastify: FastifyInstance) => {
 
         // calculate player rewards
         const newExpPool = playerData.expPool + questData.poolExpReward
-        const beforeRankPoint = playerData.rankPoint
-        const newRankPoint = beforeRankPoint + questData.rankPointReward
         let newMana = playerData.freeMana + questData.manaReward + body.add_mana
 
         // calculate boost point
@@ -186,12 +185,15 @@ const routes = async (fastify: FastifyInstance) => {
             }
         }
 
+        const beforeRankPoint = playerData.rankPoint
+        const { rankPoint: newRankPoint, stamina: newStamina } = givePlayerRankPoint(playerData, questData.rankPointReward);
         // update player
         updatePlayerSync({
             id: playerId,
             freeMana: newMana,
             expPool: newExpPool,
             rankPoint: newRankPoint,
+            stamina: newStamina,
             boostPoint: newBoostPoint,
             bossBoostPoint: newBossBoostPoint
         })
@@ -263,7 +265,7 @@ const routes = async (fastify: FastifyInstance) => {
                             endlessBattleMaxRoundCharacterEvolutionImgLvls: evolutionImgLevels
                         })
                     }
-                    
+
                 } else if (rushEventBattleType === RushEventBattleType.FOLDER && (rushEventRound >= (rushEventFolderMaxRounds[rushEventFolderId] ?? 0))) {
                     // mark folder as complete since this is the final round
                     insertPlayerRushEventClearedFolderSync(playerId, rushEventId, rushEventFolderId)
@@ -326,7 +328,7 @@ const routes = async (fastify: FastifyInstance) => {
                     "exp_pooled_time": getServerTime(playerData.expPooledTime),
                     "free_vmoney": playerData.freeVmoney + (clearReward?.user_info.free_vmoney || 0) + (sPlusClearReward?.user_info.free_vmoney || 0) + scoreRewardsResult.user_info.free_vmoney,
                     "rank_point": newRankPoint,
-                    "stamina": playerData.stamina,
+                    "stamina": newStamina,
                     "stamina_heal_time": getServerTime(playerData.staminaHealTime),
                     "boost_point": newBoostPoint,
                     "boss_boost_point": newBossBoostPoint

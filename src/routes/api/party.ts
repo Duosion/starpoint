@@ -368,6 +368,18 @@ interface PublishBody {
 }
 
 const routes = async (fastify: FastifyInstance) => {
+    fastify.post("/check_word", async (request: FastifyRequest, reply: FastifyReply) => {
+        const { viewer_id } = request.body as { viewer_id: number, word: string }
+        // Why check word in the private server?????????
+        return reply.status(200).send({
+            "data_headers": generateDataHeaders({
+                viewer_id
+            }),
+            "data": {
+                "check_passed": true
+            }
+        })
+    })
     fastify.post("/publish", async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as PublishBody
 
@@ -447,7 +459,7 @@ const routes = async (fastify: FastifyInstance) => {
                 isOwned = playerOwnsCharacterSync(playerId, characterId as number)
                 characterOwnedMap[characterId as number] = isOwned
             }
-            
+
             return isOwned ? characterId : null
         }
 
@@ -457,7 +469,7 @@ const routes = async (fastify: FastifyInstance) => {
                 isOwned = playerOwnsEquipmentSync(playerId, equipmentId as number)
                 equipmentOwnedMap[equipmentId as number] = isOwned
             }
-            
+
             return isOwned ? equipmentId : null
         }
 

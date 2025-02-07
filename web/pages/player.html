@@ -48,7 +48,8 @@
             <h2 class="text-2xl text-on-surface-variant mt-2">"{{playerComment}}"</h2>
             <section
                 class="mt-5 flex flex-col items-center justify-center p-5 border border-outline-variant bg-surface-container rounded-3xl w-full gap-5">
-                <h3 class="text-xl text-on-background font-semibold mt-2">Download a copy of this player's save data in JSON
+                <h3 class="text-xl text-on-background font-semibold mt-2">Download a copy of this player's save data in
+                    JSON
                     format.</h3>
                 <a href="/api/player/save?id={{playerId}}"
                     class="text-base bg-primary text-on-primary h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-primary before:hover:opacity-[0.12] transition-opacity">
@@ -57,20 +58,65 @@
             </section>
             <form
                 class="mt-5 flex flex-col items-center justify-center p-5 border border-outline-variant bg-surface-container rounded-3xl w-full gap-5"
-                method="post" 
-                action="/api/player/save?id={{playerId}}"
-                enctype="multipart/form-data">
+                method="post" action="/api/player/save?id={{playerId}}" enctype="multipart/form-data">
                 <h3 class="text-xl text-on-background font-semibold mt-2">Upload new save data.</h3>
-                <input id="save-data" name="save-data" type="file" accept=".json,.txt" required/>
+                <input id="save-data" name="save-data" type="file" accept=".json,.txt" required />
                 {{uploadError}}
-                <button
-                    type="submit"
+                <button type="submit"
                     class="text-base bg-primary text-on-primary h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-primary before:hover:opacity-[0.12] transition-opacity">
                     Upload Save
+                </button>
+            </form>
+            <form
+                class="mt-5 flex flex-col items-center justify-center p-5 border border-outline-variant bg-surface-container rounded-3xl w-full gap-5"
+                method="get" action="/api/server/give">
+                <div class="flex flex-row items-center justify-center">
+                    <span>Give</h3>
+                        <input id="playerId" name="playerId" value="{{playerId}}" type="hidden" />
+                        <select class="my-select" id="type" name="type" required>
+                            <option value="chara">Character</option>
+                            <option value="item">Item</option>
+                            <option value="equip">Equipment</option>
+                        </select>
+                        <input class="my-input" id="typeId" name="typeId" type="number" required />
+                        <span>x</span>
+                        <input class="my-input" id="number" name="number" type="number" value="1" required />
+                </div>
+                <button type="submit"
+                    class="text-base bg-primary text-on-primary h-[40px] px-[24px] rounded-full flex items-center justify-center relative before:transition-opacity before:absolute before:w-full before:h-full before:left-0 before:top-0 before:rounded-full before:opacity-0 before:hover:bg-on-primary before:hover:opacity-[0.12] transition-opacity">
+                    Send Mail (in session)
                 </button>
             </form>
         </article>
     </div>
 </body>
+<style>
+    .my-select {
+        background-color: var(--md-sys-color-surface-container);
+        border: 1px solid #9CA3AF;
+        border-radius: 0.375rem;
+        padding: 0.25rem;
+        width: fit-content;
+    }
+
+    .my-input {
+        background-color: var(--md-sys-color-surface-container);
+        border: 1px solid #9CA3AF;
+        border-radius: 0.375rem;
+        padding: 0.25rem;
+        width: 5rem;
+    }
+
+    .my-input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0;
+        /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    .my-input[type=number] {
+        -moz-appearance: textfield; /* Firefox */
+    }
+</style>
 
 </html>
