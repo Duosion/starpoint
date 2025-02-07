@@ -2946,7 +2946,7 @@ export function getRushEventEndlessRankingListSync(
             rankNumber += 1;
         }
     }
-    
+
     return {
         pageMax: Math.ceil(totalCount / pageSize),
         list: mappedResults

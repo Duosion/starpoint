@@ -1,0 +1,1502 @@
+[
+    {
+        "rank": 1,
+        "stamina": 19,
+        "total_rp": 0,
+        "stamina_heal_time_decrease_rate": 0.0
+    },
+    {
+        "rank": 2,
+        "stamina": 20,
+        "total_rp": 10,
+        "stamina_heal_time_decrease_rate": 0.0
+    },
+    {
+        "rank": 3,
+        "stamina": 21,
+        "total_rp": 15,
+        "stamina_heal_time_decrease_rate": 0.0
+    },
+    {
+        "rank": 4,
+        "stamina": 22,
+        "total_rp": 26,
+        "stamina_heal_time_decrease_rate": 0.0
+    },
+    {
+        "rank": 5,
+        "stamina": 22,
+        "total_rp": 37,
+        "stamina_heal_time_decrease_rate": 0.01
+    },
+    {
+        "rank": 6,
+        "stamina": 23,
+        "total_rp": 52,
+        "stamina_heal_time_decrease_rate": 0.01
+    },
+    {
+        "rank": 7,
+        "stamina": 24,
+        "total_rp": 73,
+        "stamina_heal_time_decrease_rate": 0.01
+    },
+    {
+        "rank": 8,
+        "stamina": 25,
+        "total_rp": 95,
+        "stamina_heal_time_decrease_rate": 0.01
+    },
+    {
+        "rank": 9,
+        "stamina": 26,
+        "total_rp": 123,
+        "stamina_heal_time_decrease_rate": 0.01
+    },
+    {
+        "rank": 10,
+        "stamina": 26,
+        "total_rp": 162,
+        "stamina_heal_time_decrease_rate": 0.02
+    },
+    {
+        "rank": 11,
+        "stamina": 27,
+        "total_rp": 207,
+        "stamina_heal_time_decrease_rate": 0.02
+    },
+    {
+        "rank": 12,
+        "stamina": 28,
+        "total_rp": 268,
+        "stamina_heal_time_decrease_rate": 0.02
+    },
+    {
+        "rank": 13,
+        "stamina": 29,
+        "total_rp": 333,
+        "stamina_heal_time_decrease_rate": 0.02
+    },
+    {
+        "rank": 14,
+        "stamina": 30,
+        "total_rp": 403,
+        "stamina_heal_time_decrease_rate": 0.02
+    },
+    {
+        "rank": 15,
+        "stamina": 30,
+        "total_rp": 482,
+        "stamina_heal_time_decrease_rate": 0.03
+    },
+    {
+        "rank": 16,
+        "stamina": 32,
+        "total_rp": 575,
+        "stamina_heal_time_decrease_rate": 0.03
+    },
+    {
+        "rank": 17,
+        "stamina": 34,
+        "total_rp": 692,
+        "stamina_heal_time_decrease_rate": 0.03
+    },
+    {
+        "rank": 18,
+        "stamina": 36,
+        "total_rp": 819,
+        "stamina_heal_time_decrease_rate": 0.03
+    },
+    {
+        "rank": 19,
+        "stamina": 38,
+        "total_rp": 967,
+        "stamina_heal_time_decrease_rate": 0.03
+    },
+    {
+        "rank": 20,
+        "stamina": 38,
+        "total_rp": 1135,
+        "stamina_heal_time_decrease_rate": 0.04
+    },
+    {
+        "rank": 21,
+        "stamina": 40,
+        "total_rp": 1309,
+        "stamina_heal_time_decrease_rate": 0.04
+    },
+    {
+        "rank": 22,
+        "stamina": 42,
+        "total_rp": 1494,
+        "stamina_heal_time_decrease_rate": 0.04
+    },
+    {
+        "rank": 23,
+        "stamina": 44,
+        "total_rp": 1681,
+        "stamina_heal_time_decrease_rate": 0.04
+    },
+    {
+        "rank": 24,
+        "stamina": 46,
+        "total_rp": 1869,
+        "stamina_heal_time_decrease_rate": 0.04
+    },
+    {
+        "rank": 25,
+        "stamina": 46,
+        "total_rp": 2059,
+        "stamina_heal_time_decrease_rate": 0.05
+    },
+    {
+        "rank": 26,
+        "stamina": 48,
+        "total_rp": 2261,
+        "stamina_heal_time_decrease_rate": 0.05
+    },
+    {
+        "rank": 27,
+        "stamina": 50,
+        "total_rp": 2464,
+        "stamina_heal_time_decrease_rate": 0.05
+    },
+    {
+        "rank": 28,
+        "stamina": 52,
+        "total_rp": 2669,
+        "stamina_heal_time_decrease_rate": 0.05
+    },
+    {
+        "rank": 29,
+        "stamina": 54,
+        "total_rp": 2875,
+        "stamina_heal_time_decrease_rate": 0.05
+    },
+    {
+        "rank": 30,
+        "stamina": 54,
+        "total_rp": 3083,
+        "stamina_heal_time_decrease_rate": 0.06
+    },
+    {
+        "rank": 31,
+        "stamina": 56,
+        "total_rp": 3293,
+        "stamina_heal_time_decrease_rate": 0.06
+    },
+    {
+        "rank": 32,
+        "stamina": 58,
+        "total_rp": 3525,
+        "stamina_heal_time_decrease_rate": 0.06
+    },
+    {
+        "rank": 33,
+        "stamina": 60,
+        "total_rp": 3759,
+        "stamina_heal_time_decrease_rate": 0.06
+    },
+    {
+        "rank": 34,
+        "stamina": 62,
+        "total_rp": 3995,
+        "stamina_heal_time_decrease_rate": 0.06
+    },
+    {
+        "rank": 35,
+        "stamina": 62,
+        "total_rp": 4296,
+        "stamina_heal_time_decrease_rate": 0.07
+    },
+    {
+        "rank": 36,
+        "stamina": 64,
+        "total_rp": 4745,
+        "stamina_heal_time_decrease_rate": 0.07
+    },
+    {
+        "rank": 37,
+        "stamina": 66,
+        "total_rp": 5322,
+        "stamina_heal_time_decrease_rate": 0.07
+    },
+    {
+        "rank": 38,
+        "stamina": 68,
+        "total_rp": 6050,
+        "stamina_heal_time_decrease_rate": 0.07
+    },
+    {
+        "rank": 39,
+        "stamina": 68,
+        "total_rp": 6946,
+        "stamina_heal_time_decrease_rate": 0.08
+    },
+    {
+        "rank": 40,
+        "stamina": 70,
+        "total_rp": 8046,
+        "stamina_heal_time_decrease_rate": 0.1
+    },
+    {
+        "rank": 41,
+        "stamina": 70,
+        "total_rp": 9221,
+        "stamina_heal_time_decrease_rate": 0.1
+    },
+    {
+        "rank": 42,
+        "stamina": 70,
+        "total_rp": 10471,
+        "stamina_heal_time_decrease_rate": 0.1
+    },
+    {
+        "rank": 43,
+        "stamina": 70,
+        "total_rp": 11845,
+        "stamina_heal_time_decrease_rate": 0.1
+    },
+    {
+        "rank": 44,
+        "stamina": 70,
+        "total_rp": 13333,
+        "stamina_heal_time_decrease_rate": 0.1
+    },
+    {
+        "rank": 45,
+        "stamina": 71,
+        "total_rp": 15204,
+        "stamina_heal_time_decrease_rate": 0.11
+    },
+    {
+        "rank": 46,
+        "stamina": 71,
+        "total_rp": 17175,
+        "stamina_heal_time_decrease_rate": 0.11
+    },
+    {
+        "rank": 47,
+        "stamina": 71,
+        "total_rp": 19328,
+        "stamina_heal_time_decrease_rate": 0.11
+    },
+    {
+        "rank": 48,
+        "stamina": 71,
+        "total_rp": 21566,
+        "stamina_heal_time_decrease_rate": 0.11
+    },
+    {
+        "rank": 49,
+        "stamina": 71,
+        "total_rp": 23913,
+        "stamina_heal_time_decrease_rate": 0.11
+    },
+    {
+        "rank": 50,
+        "stamina": 72,
+        "total_rp": 26694,
+        "stamina_heal_time_decrease_rate": 0.12
+    },
+    {
+        "rank": 51,
+        "stamina": 72,
+        "total_rp": 29575,
+        "stamina_heal_time_decrease_rate": 0.12
+    },
+    {
+        "rank": 52,
+        "stamina": 72,
+        "total_rp": 32557,
+        "stamina_heal_time_decrease_rate": 0.12
+    },
+    {
+        "rank": 53,
+        "stamina": 72,
+        "total_rp": 35641,
+        "stamina_heal_time_decrease_rate": 0.12
+    },
+    {
+        "rank": 54,
+        "stamina": 72,
+        "total_rp": 38829,
+        "stamina_heal_time_decrease_rate": 0.12
+    },
+    {
+        "rank": 55,
+        "stamina": 73,
+        "total_rp": 42258,
+        "stamina_heal_time_decrease_rate": 0.13
+    },
+    {
+        "rank": 56,
+        "stamina": 73,
+        "total_rp": 45797,
+        "stamina_heal_time_decrease_rate": 0.13
+    },
+    {
+        "rank": 57,
+        "stamina": 73,
+        "total_rp": 49447,
+        "stamina_heal_time_decrease_rate": 0.13
+    },
+    {
+        "rank": 58,
+        "stamina": 73,
+        "total_rp": 53209,
+        "stamina_heal_time_decrease_rate": 0.13
+    },
+    {
+        "rank": 59,
+        "stamina": 73,
+        "total_rp": 57085,
+        "stamina_heal_time_decrease_rate": 0.13
+    },
+    {
+        "rank": 60,
+        "stamina": 74,
+        "total_rp": 61751,
+        "stamina_heal_time_decrease_rate": 0.14
+    },
+    {
+        "rank": 61,
+        "stamina": 74,
+        "total_rp": 66620,
+        "stamina_heal_time_decrease_rate": 0.14
+    },
+    {
+        "rank": 62,
+        "stamina": 74,
+        "total_rp": 71694,
+        "stamina_heal_time_decrease_rate": 0.14
+    },
+    {
+        "rank": 63,
+        "stamina": 74,
+        "total_rp": 76975,
+        "stamina_heal_time_decrease_rate": 0.14
+    },
+    {
+        "rank": 64,
+        "stamina": 74,
+        "total_rp": 82466,
+        "stamina_heal_time_decrease_rate": 0.14
+    },
+    {
+        "rank": 65,
+        "stamina": 75,
+        "total_rp": 88802,
+        "stamina_heal_time_decrease_rate": 0.15
+    },
+    {
+        "rank": 66,
+        "stamina": 75,
+        "total_rp": 95376,
+        "stamina_heal_time_decrease_rate": 0.15
+    },
+    {
+        "rank": 67,
+        "stamina": 75,
+        "total_rp": 102190,
+        "stamina_heal_time_decrease_rate": 0.15
+    },
+    {
+        "rank": 68,
+        "stamina": 75,
+        "total_rp": 109246,
+        "stamina_heal_time_decrease_rate": 0.15
+    },
+    {
+        "rank": 69,
+        "stamina": 75,
+        "total_rp": 116547,
+        "stamina_heal_time_decrease_rate": 0.15
+    },
+    {
+        "rank": 70,
+        "stamina": 76,
+        "total_rp": 125636,
+        "stamina_heal_time_decrease_rate": 0.16
+    },
+    {
+        "rank": 71,
+        "stamina": 76,
+        "total_rp": 134779,
+        "stamina_heal_time_decrease_rate": 0.16
+    },
+    {
+        "rank": 72,
+        "stamina": 76,
+        "total_rp": 143975,
+        "stamina_heal_time_decrease_rate": 0.16
+    },
+    {
+        "rank": 73,
+        "stamina": 76,
+        "total_rp": 153224,
+        "stamina_heal_time_decrease_rate": 0.16
+    },
+    {
+        "rank": 74,
+        "stamina": 76,
+        "total_rp": 162527,
+        "stamina_heal_time_decrease_rate": 0.16
+    },
+    {
+        "rank": 75,
+        "stamina": 77,
+        "total_rp": 173535,
+        "stamina_heal_time_decrease_rate": 0.17
+    },
+    {
+        "rank": 76,
+        "stamina": 77,
+        "total_rp": 184605,
+        "stamina_heal_time_decrease_rate": 0.17
+    },
+    {
+        "rank": 77,
+        "stamina": 77,
+        "total_rp": 195738,
+        "stamina_heal_time_decrease_rate": 0.17
+    },
+    {
+        "rank": 78,
+        "stamina": 77,
+        "total_rp": 206934,
+        "stamina_heal_time_decrease_rate": 0.17
+    },
+    {
+        "rank": 79,
+        "stamina": 77,
+        "total_rp": 218193,
+        "stamina_heal_time_decrease_rate": 0.17
+    },
+    {
+        "rank": 80,
+        "stamina": 78,
+        "total_rp": 232728,
+        "stamina_heal_time_decrease_rate": 0.18
+    },
+    {
+        "rank": 81,
+        "stamina": 78,
+        "total_rp": 247344,
+        "stamina_heal_time_decrease_rate": 0.18
+    },
+    {
+        "rank": 82,
+        "stamina": 78,
+        "total_rp": 262041,
+        "stamina_heal_time_decrease_rate": 0.18
+    },
+    {
+        "rank": 83,
+        "stamina": 78,
+        "total_rp": 276818,
+        "stamina_heal_time_decrease_rate": 0.18
+    },
+    {
+        "rank": 84,
+        "stamina": 78,
+        "total_rp": 291676,
+        "stamina_heal_time_decrease_rate": 0.18
+    },
+    {
+        "rank": 85,
+        "stamina": 79,
+        "total_rp": 310074,
+        "stamina_heal_time_decrease_rate": 0.19
+    },
+    {
+        "rank": 86,
+        "stamina": 79,
+        "total_rp": 328572,
+        "stamina_heal_time_decrease_rate": 0.19
+    },
+    {
+        "rank": 87,
+        "stamina": 79,
+        "total_rp": 347169,
+        "stamina_heal_time_decrease_rate": 0.19
+    },
+    {
+        "rank": 88,
+        "stamina": 79,
+        "total_rp": 365866,
+        "stamina_heal_time_decrease_rate": 0.19
+    },
+    {
+        "rank": 89,
+        "stamina": 79,
+        "total_rp": 384662,
+        "stamina_heal_time_decrease_rate": 0.19
+    },
+    {
+        "rank": 90,
+        "stamina": 80,
+        "total_rp": 406707,
+        "stamina_heal_time_decrease_rate": 0.2
+    },
+    {
+        "rank": 91,
+        "stamina": 80,
+        "total_rp": 429436,
+        "stamina_heal_time_decrease_rate": 0.2
+    },
+    {
+        "rank": 92,
+        "stamina": 80,
+        "total_rp": 452284,
+        "stamina_heal_time_decrease_rate": 0.2
+    },
+    {
+        "rank": 93,
+        "stamina": 80,
+        "total_rp": 475251,
+        "stamina_heal_time_decrease_rate": 0.2
+    },
+    {
+        "rank": 94,
+        "stamina": 80,
+        "total_rp": 498337,
+        "stamina_heal_time_decrease_rate": 0.2
+    },
+    {
+        "rank": 95,
+        "stamina": 81,
+        "total_rp": 524857,
+        "stamina_heal_time_decrease_rate": 0.21
+    },
+    {
+        "rank": 96,
+        "stamina": 81,
+        "total_rp": 551513,
+        "stamina_heal_time_decrease_rate": 0.21
+    },
+    {
+        "rank": 97,
+        "stamina": 81,
+        "total_rp": 578305,
+        "stamina_heal_time_decrease_rate": 0.21
+    },
+    {
+        "rank": 98,
+        "stamina": 81,
+        "total_rp": 605233,
+        "stamina_heal_time_decrease_rate": 0.21
+    },
+    {
+        "rank": 99,
+        "stamina": 81,
+        "total_rp": 632297,
+        "stamina_heal_time_decrease_rate": 0.21
+    },
+    {
+        "rank": 100,
+        "stamina": 82,
+        "total_rp": 666297,
+        "stamina_heal_time_decrease_rate": 0.22
+    },
+    {
+        "rank": 101,
+        "stamina": 90,
+        "total_rp": 708085,
+        "stamina_heal_time_decrease_rate": 0.3
+    },
+    {
+        "rank": 102,
+        "stamina": 90,
+        "total_rp": 750081,
+        "stamina_heal_time_decrease_rate": 0.3
+    },
+    {
+        "rank": 103,
+        "stamina": 90,
+        "total_rp": 792285,
+        "stamina_heal_time_decrease_rate": 0.3
+    },
+    {
+        "rank": 104,
+        "stamina": 90,
+        "total_rp": 834697,
+        "stamina_heal_time_decrease_rate": 0.3
+    },
+    {
+        "rank": 105,
+        "stamina": 92,
+        "total_rp": 877317,
+        "stamina_heal_time_decrease_rate": 0.32
+    },
+    {
+        "rank": 106,
+        "stamina": 92,
+        "total_rp": 926263,
+        "stamina_heal_time_decrease_rate": 0.32
+    },
+    {
+        "rank": 107,
+        "stamina": 92,
+        "total_rp": 975446,
+        "stamina_heal_time_decrease_rate": 0.32
+    },
+    {
+        "rank": 108,
+        "stamina": 92,
+        "total_rp": 1024867,
+        "stamina_heal_time_decrease_rate": 0.32
+    },
+    {
+        "rank": 109,
+        "stamina": 92,
+        "total_rp": 1074525,
+        "stamina_heal_time_decrease_rate": 0.32
+    },
+    {
+        "rank": 110,
+        "stamina": 94,
+        "total_rp": 1124421,
+        "stamina_heal_time_decrease_rate": 0.34
+    },
+    {
+        "rank": 111,
+        "stamina": 94,
+        "total_rp": 1184356,
+        "stamina_heal_time_decrease_rate": 0.34
+    },
+    {
+        "rank": 112,
+        "stamina": 94,
+        "total_rp": 1244575,
+        "stamina_heal_time_decrease_rate": 0.34
+    },
+    {
+        "rank": 113,
+        "stamina": 94,
+        "total_rp": 1305078,
+        "stamina_heal_time_decrease_rate": 0.34
+    },
+    {
+        "rank": 114,
+        "stamina": 94,
+        "total_rp": 1365865,
+        "stamina_heal_time_decrease_rate": 0.34
+    },
+    {
+        "rank": 115,
+        "stamina": 96,
+        "total_rp": 1426936,
+        "stamina_heal_time_decrease_rate": 0.36
+    },
+    {
+        "rank": 116,
+        "stamina": 96,
+        "total_rp": 1495883,
+        "stamina_heal_time_decrease_rate": 0.36
+    },
+    {
+        "rank": 117,
+        "stamina": 96,
+        "total_rp": 1565149,
+        "stamina_heal_time_decrease_rate": 0.36
+    },
+    {
+        "rank": 118,
+        "stamina": 96,
+        "total_rp": 1634735,
+        "stamina_heal_time_decrease_rate": 0.36
+    },
+    {
+        "rank": 119,
+        "stamina": 96,
+        "total_rp": 1704640,
+        "stamina_heal_time_decrease_rate": 0.36
+    },
+    {
+        "rank": 120,
+        "stamina": 98,
+        "total_rp": 1774864,
+        "stamina_heal_time_decrease_rate": 0.38
+    },
+    {
+        "rank": 121,
+        "stamina": 98,
+        "total_rp": 1853595,
+        "stamina_heal_time_decrease_rate": 0.38
+    },
+    {
+        "rank": 122,
+        "stamina": 98,
+        "total_rp": 1932683,
+        "stamina_heal_time_decrease_rate": 0.38
+    },
+    {
+        "rank": 123,
+        "stamina": 98,
+        "total_rp": 2012127,
+        "stamina_heal_time_decrease_rate": 0.38
+    },
+    {
+        "rank": 124,
+        "stamina": 98,
+        "total_rp": 2091927,
+        "stamina_heal_time_decrease_rate": 0.38
+    },
+    {
+        "rank": 125,
+        "stamina": 100,
+        "total_rp": 2172083,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 126,
+        "stamina": 100,
+        "total_rp": 2261545,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 127,
+        "stamina": 100,
+        "total_rp": 2351403,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 128,
+        "stamina": 100,
+        "total_rp": 2441657,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 129,
+        "stamina": 100,
+        "total_rp": 2532307,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 130,
+        "stamina": 101,
+        "total_rp": 2623353,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 131,
+        "stamina": 101,
+        "total_rp": 2714794,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 132,
+        "stamina": 101,
+        "total_rp": 2806631,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 133,
+        "stamina": 101,
+        "total_rp": 2898864,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 134,
+        "stamina": 101,
+        "total_rp": 2991493,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 135,
+        "stamina": 102,
+        "total_rp": 3084518,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 136,
+        "stamina": 102,
+        "total_rp": 3177939,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 137,
+        "stamina": 102,
+        "total_rp": 3271755,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 138,
+        "stamina": 102,
+        "total_rp": 3365967,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 139,
+        "stamina": 102,
+        "total_rp": 3460575,
+        "stamina_heal_time_decrease_rate": 0.4
+    },
+    {
+        "rank": 140,
+        "stamina": 103,
+        "total_rp": 3562887,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 141,
+        "stamina": 103,
+        "total_rp": 3665625,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 142,
+        "stamina": 103,
+        "total_rp": 3768790,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 143,
+        "stamina": 103,
+        "total_rp": 3872381,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 144,
+        "stamina": 103,
+        "total_rp": 3976398,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 145,
+        "stamina": 104,
+        "total_rp": 4080842,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 146,
+        "stamina": 104,
+        "total_rp": 4185712,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 147,
+        "stamina": 104,
+        "total_rp": 4291008,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 148,
+        "stamina": 104,
+        "total_rp": 4396730,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 149,
+        "stamina": 104,
+        "total_rp": 4502879,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 150,
+        "stamina": 105,
+        "total_rp": 4609454,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 151,
+        "stamina": 105,
+        "total_rp": 4716455,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 152,
+        "stamina": 105,
+        "total_rp": 4823883,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 153,
+        "stamina": 105,
+        "total_rp": 4931737,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 154,
+        "stamina": 105,
+        "total_rp": 5040017,
+        "stamina_heal_time_decrease_rate": 0.41
+    },
+    {
+        "rank": 155,
+        "stamina": 106,
+        "total_rp": 5148724,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 156,
+        "stamina": 106,
+        "total_rp": 5257857,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 157,
+        "stamina": 106,
+        "total_rp": 5367416,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 158,
+        "stamina": 106,
+        "total_rp": 5477401,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 159,
+        "stamina": 106,
+        "total_rp": 5587813,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 160,
+        "stamina": 107,
+        "total_rp": 5698651,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 161,
+        "stamina": 107,
+        "total_rp": 5809915,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 162,
+        "stamina": 107,
+        "total_rp": 5921606,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 163,
+        "stamina": 107,
+        "total_rp": 6033723,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 164,
+        "stamina": 107,
+        "total_rp": 6146266,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 165,
+        "stamina": 108,
+        "total_rp": 6259236,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 166,
+        "stamina": 108,
+        "total_rp": 6372632,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 167,
+        "stamina": 108,
+        "total_rp": 6486454,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 168,
+        "stamina": 108,
+        "total_rp": 6600702,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 169,
+        "stamina": 108,
+        "total_rp": 6715377,
+        "stamina_heal_time_decrease_rate": 0.42
+    },
+    {
+        "rank": 170,
+        "stamina": 109,
+        "total_rp": 6830478,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 171,
+        "stamina": 109,
+        "total_rp": 6946005,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 172,
+        "stamina": 109,
+        "total_rp": 7061959,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 173,
+        "stamina": 109,
+        "total_rp": 7178339,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 174,
+        "stamina": 109,
+        "total_rp": 7295145,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 175,
+        "stamina": 110,
+        "total_rp": 7412378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 176,
+        "stamina": 110,
+        "total_rp": 7532378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 177,
+        "stamina": 110,
+        "total_rp": 7652378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 178,
+        "stamina": 110,
+        "total_rp": 7772378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 179,
+        "stamina": 110,
+        "total_rp": 7892378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 180,
+        "stamina": 111,
+        "total_rp": 8012378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 181,
+        "stamina": 111,
+        "total_rp": 8132378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 182,
+        "stamina": 111,
+        "total_rp": 8252378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 183,
+        "stamina": 111,
+        "total_rp": 8372378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 184,
+        "stamina": 111,
+        "total_rp": 8492378,
+        "stamina_heal_time_decrease_rate": 0.43
+    },
+    {
+        "rank": 185,
+        "stamina": 112,
+        "total_rp": 8612378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 186,
+        "stamina": 112,
+        "total_rp": 8732378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 187,
+        "stamina": 112,
+        "total_rp": 8852378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 188,
+        "stamina": 112,
+        "total_rp": 8972378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 189,
+        "stamina": 112,
+        "total_rp": 9092378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 190,
+        "stamina": 113,
+        "total_rp": 9212378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 191,
+        "stamina": 113,
+        "total_rp": 9332378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 192,
+        "stamina": 113,
+        "total_rp": 9452378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 193,
+        "stamina": 113,
+        "total_rp": 9572378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 194,
+        "stamina": 113,
+        "total_rp": 9692378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 195,
+        "stamina": 114,
+        "total_rp": 9812378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 196,
+        "stamina": 114,
+        "total_rp": 9932378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 197,
+        "stamina": 114,
+        "total_rp": 10052378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 198,
+        "stamina": 114,
+        "total_rp": 10172378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 199,
+        "stamina": 114,
+        "total_rp": 10292378,
+        "stamina_heal_time_decrease_rate": 0.44
+    },
+    {
+        "rank": 200,
+        "stamina": 115,
+        "total_rp": 10412378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 201,
+        "stamina": 115,
+        "total_rp": 10532378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 202,
+        "stamina": 115,
+        "total_rp": 10652378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 203,
+        "stamina": 115,
+        "total_rp": 10772378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 204,
+        "stamina": 115,
+        "total_rp": 10892378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 205,
+        "stamina": 116,
+        "total_rp": 11012378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 206,
+        "stamina": 116,
+        "total_rp": 11132378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 207,
+        "stamina": 116,
+        "total_rp": 11252378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 208,
+        "stamina": 116,
+        "total_rp": 11372378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 209,
+        "stamina": 116,
+        "total_rp": 11492378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 210,
+        "stamina": 117,
+        "total_rp": 11612378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 211,
+        "stamina": 117,
+        "total_rp": 11732378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 212,
+        "stamina": 117,
+        "total_rp": 11852378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 213,
+        "stamina": 117,
+        "total_rp": 11972378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 214,
+        "stamina": 117,
+        "total_rp": 12092378,
+        "stamina_heal_time_decrease_rate": 0.45
+    },
+    {
+        "rank": 215,
+        "stamina": 118,
+        "total_rp": 12212378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 216,
+        "stamina": 118,
+        "total_rp": 12332378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 217,
+        "stamina": 118,
+        "total_rp": 12452378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 218,
+        "stamina": 118,
+        "total_rp": 12572378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 219,
+        "stamina": 118,
+        "total_rp": 12692378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 220,
+        "stamina": 119,
+        "total_rp": 12812378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 221,
+        "stamina": 119,
+        "total_rp": 12932378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 222,
+        "stamina": 119,
+        "total_rp": 13052378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 223,
+        "stamina": 119,
+        "total_rp": 13172378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 224,
+        "stamina": 119,
+        "total_rp": 13292378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 225,
+        "stamina": 120,
+        "total_rp": 13412378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 226,
+        "stamina": 120,
+        "total_rp": 13532378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 227,
+        "stamina": 120,
+        "total_rp": 13652378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 228,
+        "stamina": 120,
+        "total_rp": 13772378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 229,
+        "stamina": 120,
+        "total_rp": 13892378,
+        "stamina_heal_time_decrease_rate": 0.46
+    },
+    {
+        "rank": 230,
+        "stamina": 121,
+        "total_rp": 14012378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 231,
+        "stamina": 121,
+        "total_rp": 14132378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 232,
+        "stamina": 121,
+        "total_rp": 14252378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 233,
+        "stamina": 121,
+        "total_rp": 14372378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 234,
+        "stamina": 121,
+        "total_rp": 14492378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 235,
+        "stamina": 122,
+        "total_rp": 14612378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 236,
+        "stamina": 122,
+        "total_rp": 14732378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 237,
+        "stamina": 122,
+        "total_rp": 14852378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 238,
+        "stamina": 122,
+        "total_rp": 14972378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 239,
+        "stamina": 122,
+        "total_rp": 15092378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 240,
+        "stamina": 123,
+        "total_rp": 15212378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 241,
+        "stamina": 123,
+        "total_rp": 15332378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 242,
+        "stamina": 123,
+        "total_rp": 15452378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 243,
+        "stamina": 123,
+        "total_rp": 15572378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 244,
+        "stamina": 123,
+        "total_rp": 15692378,
+        "stamina_heal_time_decrease_rate": 0.47
+    },
+    {
+        "rank": 245,
+        "stamina": 124,
+        "total_rp": 15812378,
+        "stamina_heal_time_decrease_rate": 0.48
+    },
+    {
+        "rank": 246,
+        "stamina": 124,
+        "total_rp": 15932378,
+        "stamina_heal_time_decrease_rate": 0.48
+    },
+    {
+        "rank": 247,
+        "stamina": 124,
+        "total_rp": 16052378,
+        "stamina_heal_time_decrease_rate": 0.48
+    },
+    {
+        "rank": 248,
+        "stamina": 124,
+        "total_rp": 16172378,
+        "stamina_heal_time_decrease_rate": 0.48
+    },
+    {
+        "rank": 249,
+        "stamina": 124,
+        "total_rp": 16292378,
+        "stamina_heal_time_decrease_rate": 0.48
+    },
+    {
+        "rank": 250,
+        "stamina": 125,
+        "total_rp": 16412378,
+        "stamina_heal_time_decrease_rate": 0.48
+    }
+]
